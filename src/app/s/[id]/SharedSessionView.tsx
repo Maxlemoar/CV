@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { ContentBlockData } from "@/lib/types";
 import ContentBlock from "@/components/ContentBlock";
 
@@ -37,12 +38,12 @@ export default function SharedSessionView({ blocks }: Props) {
       </div>
 
       <div className="mt-12 text-center">
-        <a
+        <Link
           href="/"
           className="inline-block rounded-xl bg-accent px-6 py-3 text-sm font-medium text-white shadow-neu-sm transition-colors hover:bg-accent-hover"
         >
           Start your own conversation with Max →
-        </a>
+        </Link>
       </div>
     </>
   );

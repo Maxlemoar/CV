@@ -13,7 +13,14 @@ const SECTION_LABELS: Record<string, string> = {
 
 export default function PrintCV() {
   const nodes = getPrintNodes();
-  let currentSection = "";
+
+  // Compute section headers outside of JSX to avoid mutating a variable during render
+  const nodesWithHeaders = nodes.map((node, i) => {
+    const section = node.printSection ?? "personal";
+    const prevSection = i > 0 ? (nodes[i - 1].printSection ?? "personal") : "";
+    const showHeader = section !== prevSection;
+    return { node, section, showHeader };
+  });
 
   return (
     <div className="hidden print:block">
@@ -22,19 +29,14 @@ export default function PrintCV() {
         <p className="text-sm text-gray-600">Product Manager · Ex-Founder · Psychologist</p>
         <p className="text-sm text-gray-600">m.marowsky@googlemail.com · Cologne, Germany</p>
       </div>
-      {nodes.map((node) => {
-        const section = node.printSection ?? "personal";
-        const showHeader = section !== currentSection;
-        currentSection = section;
-        return (
-          <div key={node.id}>
-            {showHeader && (
-              <h2 className="mb-2 mt-6 text-lg font-bold">{SECTION_LABELS[section] ?? section}</h2>
-            )}
-            <p className="mb-3 text-sm leading-relaxed">{node.content}</p>
-          </div>
-        );
-      })}
+      {nodesWithHeaders.map(({ node, section, showHeader }) => (
+        <div key={node.id}>
+          {showHeader && (
+            <h2 className="mb-2 mt-6 text-lg font-bold">{SECTION_LABELS[section] ?? section}</h2>
+          )}
+          <p className="mb-3 text-sm leading-relaxed">{node.content}</p>
+        </div>
+      ))}
     </div>
   );
 }
