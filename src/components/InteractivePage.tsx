@@ -10,6 +10,7 @@ import Publications from "./Publications";
 import Skills from "./Skills";
 import Personal from "./Personal";
 import Contact from "./Contact";
+import MetaReflection from "./MetaReflection";
 import ChatWidget from "./ChatWidget";
 
 const SECTION_COMPONENTS: Record<string, React.ComponentType> = {
@@ -34,6 +35,7 @@ export default function InteractivePage() {
           if (!Component) return null;
           return <Component key={sectionId} />;
         })}
+        <MetaReflection />
         <Contact />
       </div>
       <ChatWidget />
