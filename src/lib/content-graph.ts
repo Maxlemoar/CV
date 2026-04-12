@@ -131,24 +131,6 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "product-magic",
     content:
       "Students didn\u2019t just \u201clearn to code.\u201d They founded a virtual startup, made business decisions, and solved real programming challenges to grow it. We started with Google Blockly for visual programming, then progressed to real code. Completion rates were far above traditional e-learning \u2014 because intrinsic motivation beats curriculum every time.",
-    quiz: {
-      question: "Why did we start with visual programming instead of real code?",
-      options: [
-        {
-          label: "It\u2019s more fun to look at",
-          explanation: "The visual appeal helps, but the real reason is deeper \u2014 it\u2019s about cognitive load.",
-        },
-        {
-          label: "It removes syntax errors so learners focus on logic",
-          correct: true,
-          explanation: "Exactly. Visual blocks eliminate the frustration of misplaced semicolons, letting beginners focus on what matters: understanding programming concepts like sequences, loops, and conditions.",
-        },
-        {
-          label: "Kids can\u2019t type fast enough",
-          explanation: "Typing speed isn\u2019t the bottleneck \u2014 conceptual understanding is. Visual programming addresses the real barrier.",
-        },
-      ],
-    },
     hooks: [
       { label: "We published research on why this works", targetId: "research" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
@@ -200,24 +182,6 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "ai-in-education",
     content:
       "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: an AI assessor that evaluates teaching materials across 12 criteria. I wrote the prompt myself, iterated it through 10 versions with Claude, and validated it with human reviewers. Version 10 achieves 89% agreement. The framework was co-developed with Prof. John Hattie.",
-    quiz: {
-      question: "The framework identified 7 quality dimensions, but 2 were excluded from scoring. Why?",
-      options: [
-        {
-          label: "Teachers didn\u2019t think they were important",
-          explanation: "Teachers valued them \u2014 the issue was statistical, not perceptual.",
-        },
-        {
-          label: "All materials scored similarly on them",
-          correct: true,
-          explanation: "Exactly. \u201cCollaboration\u201d and \u201cTeacher Growth\u201d showed too little variance across materials. When a dimension can\u2019t differentiate, it can\u2019t help rank quality. Good psychometrics means dropping what doesn\u2019t discriminate.",
-        },
-        {
-          label: "The AI couldn\u2019t assess them",
-          explanation: "The AI could score them fine \u2014 the scores just didn\u2019t vary enough to be useful.",
-        },
-      ],
-    },
     hooks: [
       { label: "Who is John Hattie?", targetId: "research" },
       { label: "What this taught me about AI products", targetId: "future-of-work" },

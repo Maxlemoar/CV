@@ -20,11 +20,6 @@ const principles = [
       "Your journey was unique. Someone else clicking different hooks would have a completely different experience.",
   },
   {
-    name: "Formative Assessment",
-    description:
-      "Quizzes weren\u2019t tests \u2014 they were invitations to think deeper about what you just learned.",
-  },
-  {
     name: "Conversational AI",
     description:
       "The chatbot let you ask anything, anytime \u2014 meeting you where you are, not where I planned for you to be.",
@@ -58,7 +53,7 @@ export default function MetaReflection() {
           <p className="text-ink-light leading-relaxed mb-6">
             This website used{" "}
             <span className="font-medium text-ink">
-              5 principles of AI-native learning design
+              4 principles of AI-native learning design
             </span>{" "}
             to tell my story. Here&apos;s what you just experienced:
           </p>
