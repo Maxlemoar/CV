@@ -1,8 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import type { ContentNode as ContentNodeType, Hook } from "@/lib/content-graph";
 import HookButton from "./HookButton";
 import Quiz from "./Quiz";
@@ -15,23 +13,9 @@ interface ContentNodeProps {
   isNew: boolean;
 }
 
-export default function ContentNode({ node, visibleHooks, visitedNodes, onHookClick, isNew }: ContentNodeProps) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (isNew && ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [isNew]);
-
+export default function ContentNode({ node, visibleHooks, visitedNodes, onHookClick }: ContentNodeProps) {
   return (
-    <motion.div
-      ref={ref}
-      initial={isNew ? { opacity: 0, y: 30 } : false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="mb-6 rounded-2xl bg-paper-dark p-6 shadow-neu sm:p-8"
-    >
+    <div className="rounded-2xl bg-paper-dark p-6 shadow-neu sm:p-8">
       {node.image && (
         <div className="relative mb-4 h-48 w-full overflow-hidden rounded-xl">
           <Image
@@ -64,6 +48,6 @@ export default function ContentNode({ node, visibleHooks, visitedNodes, onHookCl
           ))}
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }
