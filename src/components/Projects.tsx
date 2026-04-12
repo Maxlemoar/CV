@@ -1,5 +1,6 @@
 import SectionCard from "./SectionCard";
 import ProjectCard from "./ProjectCard";
+import Quiz from "./Quiz";
 
 export default function Projects() {
   return (
@@ -33,6 +34,15 @@ export default function Projects() {
           status="Acquired by eduki"
         />
       </div>
+      <Quiz
+        question="pearprogramming taught coding through a game. What did students build in the game?"
+        options={[
+          { label: "A social media app", explanation: "Not quite — the game had a business/entrepreneurship angle." },
+          { label: "A robot", explanation: "Creative guess, but the game focused on business skills alongside coding." },
+          { label: "Their own virtual startup", correct: true, explanation: "Exactly! Students founded a virtual startup, made business decisions, and took on programming assignments to grow their company — combining entrepreneurship with learning to code." },
+          { label: "A website", explanation: "The game was more ambitious — students ran a whole virtual business." },
+        ]}
+      />
     </SectionCard>
   );
 }

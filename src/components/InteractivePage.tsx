@@ -10,6 +10,7 @@ import Publications from "./Publications";
 import Skills from "./Skills";
 import Personal from "./Personal";
 import Contact from "./Contact";
+import ChatWidget from "./ChatWidget";
 
 const SECTION_COMPONENTS: Record<string, React.ComponentType> = {
   about: About,
@@ -35,6 +36,7 @@ export default function InteractivePage() {
         })}
         <Contact />
       </div>
+      <ChatWidget />
     </main>
   );
 }

@@ -1,5 +1,6 @@
 import SectionCard from "./SectionCard";
 import TimelineItem from "./TimelineItem";
+import Quiz from "./Quiz";
 
 export default function Experience() {
   return (
@@ -15,6 +16,15 @@ export default function Experience() {
             "Built AI assessor (Gemini Flash) evaluating 12 criteria across 5 quality dimensions",
             "Personally iterated the prompt (v10) using Claude — 89% agreement with human reviewers",
             "Shipped label on product pages, search results (with filter), and dedicated landing page",
+          ]}
+        />
+        <Quiz
+          question="The AI assessor evaluates materials across 7 quality dimensions — but 2 had to be excluded from the final scoring. Why?"
+          options={[
+            { label: "They were too subjective for AI to assess", explanation: "Not quite — the AI could assess them, but the scores didn't differentiate well between materials." },
+            { label: "Too little statistical variance and too few high scores", correct: true, explanation: "Correct! Factor analysis showed that 'Collaboration' and 'Teacher Growth' had too little variance across materials and rarely scored high, making them unreliable differentiators in the quality score." },
+            { label: "Teachers didn't consider them important", explanation: "Actually, teachers valued these dimensions — the issue was statistical, not about perceived importance." },
+            { label: "The AI model couldn't understand them", explanation: "The AI could evaluate them — the problem was that the scores were too uniform across materials to be useful for ranking." },
           ]}
         />
         <TimelineItem
