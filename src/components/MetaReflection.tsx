@@ -1,29 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import SectionCard from "./SectionCard";
+import { motion } from "framer-motion";
 
 const principles = [
   {
     name: "Learner Agency",
-    description: "You chose what to explore first — the experience adapted to your curiosity, not the other way around.",
-  },
-  {
-    name: "Adaptive Content",
-    description: "The page reorganized itself based on your selection, surfacing the most relevant information first.",
+    description:
+      "You chose every path. No one told you what to read next \u2014 your curiosity drove the experience.",
   },
   {
     name: "Progressive Disclosure",
-    description: "Information unfolded at your pace — you decided when to go deeper, rather than being overwhelmed upfront.",
+    description:
+      "This page started almost empty. Everything you see, you actively uncovered. Nothing was dumped on you.",
+  },
+  {
+    name: "Adaptive Content",
+    description:
+      "Your journey was unique. Someone else clicking different hooks would have a completely different experience.",
   },
   {
     name: "Formative Assessment",
-    description: "Interactive quizzes helped you engage actively with the content, not just passively read it.",
+    description:
+      "Quizzes weren\u2019t tests \u2014 they were invitations to think deeper about what you just learned.",
   },
   {
     name: "Conversational AI",
-    description: "You could ask anything, anytime — a Claude-powered conversation that meets you where you are.",
+    description:
+      "The chatbot let you ask anything, anytime \u2014 meeting you where you are, not where I planned for you to be.",
   },
 ];
 
@@ -31,9 +35,10 @@ export default function MetaReflection() {
   const [revealed, setRevealed] = useState(false);
 
   return (
-    <SectionCard id="reflection" title="One More Thing" className="no-print">
+    <div className="no-print mb-6 rounded-2xl bg-paper-dark p-6 shadow-neu sm:p-8">
+      <h2 className="mb-4 font-serif text-2xl text-ink">One More Thing</h2>
       {!revealed ? (
-        <div className="text-center">
+        <div className="text-center py-4">
           <p className="text-ink-light leading-relaxed">
             You&apos;ve just experienced something. Want to know what it was?
           </p>
@@ -51,8 +56,11 @@ export default function MetaReflection() {
           transition={{ duration: 0.6 }}
         >
           <p className="text-ink-light leading-relaxed mb-6">
-            This website used <span className="font-medium text-ink">5 principles of AI-native learning design</span> to
-            tell my story. Here&apos;s what you just experienced:
+            This website used{" "}
+            <span className="font-medium text-ink">
+              5 principles of AI-native learning design
+            </span>{" "}
+            to tell my story. Here&apos;s what you just experienced:
           </p>
           <div className="space-y-4">
             {principles.map((p, i) => (
@@ -83,6 +91,6 @@ export default function MetaReflection() {
           </motion.p>
         </motion.div>
       )}
-    </SectionCard>
+    </div>
   );
 }

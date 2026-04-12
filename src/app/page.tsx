@@ -1,33 +1,13 @@
-"use client";
-
-import { Suspense } from "react";
-import CuriosityProvider, { useCuriosity } from "@/components/CuriosityProvider";
-import CuriosityScreen from "@/components/CuriosityScreen";
-import InteractivePage from "@/components/InteractivePage";
-import Nav from "@/components/Nav";
-import { type CuriosityMode } from "@/lib/curiosity-config";
-
-function PageContent() {
-  const { mode, setMode } = useCuriosity();
-
-  if (!mode) {
-    return <CuriosityScreen onSelect={setMode} />;
-  }
-
-  return (
-    <>
-      <Nav />
-      <InteractivePage />
-    </>
-  );
-}
+import Hero from "@/components/Hero";
+import ExplorationView from "@/components/ExplorationView";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function Home() {
   return (
-    <Suspense>
-      <CuriosityProvider>
-        <PageContent />
-      </CuriosityProvider>
-    </Suspense>
+    <main className="relative z-10 mx-auto max-w-3xl px-6 pb-24">
+      <Hero />
+      <ExplorationView />
+      <ChatWidget />
+    </main>
   );
 }
