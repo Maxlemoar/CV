@@ -95,7 +95,7 @@ export default function ExplorationView() {
 
   // Add meta + contact hooks when enough explored
   const extraHooks: Hook[] = [];
-  if (visitedNodes.size >= 8 && currentNodeId !== "__meta__" && currentNodeId !== "__contact__") {
+  if (visitedNodes.size >= 6 && currentNodeId !== "__meta__" && currentNodeId !== "__contact__") {
     extraHooks.push({ label: "What did I just experience?", targetId: "__meta__" });
   }
   if (history.length > 0 && currentNodeId !== "__contact__") {

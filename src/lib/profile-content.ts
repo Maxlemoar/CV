@@ -4,8 +4,9 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - **Born**: August 2, 1991, Remscheid, Germany
 - **Email**: m.marowsky@googlemail.com
 - **LinkedIn**: https://www.linkedin.com/in/maximilian-marowsky-416bb3164/
-- **Location**: Germany (willing to relocate to San Francisco)
-- **Family**: Daughter Frieda (born August 2025)
+- **Age**: 34
+- **Location**: Cologne (Köln), Germany (willing to relocate to San Francisco)
+- **Living situation**: With wife, daughter Frieda (born August 2025), and two roommates
 - **Languages**: German (native), English (C1), Italian (B1)
 
 ## Education
@@ -105,4 +106,5 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - Learning is highly individual — every student has unique interests, inclinations, and weaknesses
 - These must be identified and specifically challenged and supported
 - Fact-oriented learning is not a future model
-- In a world where all information is available within seconds and omniscient LLMs are emerging, we must dare to question our paradigms in education and learning`;
+- In a world where all information is available within seconds and omniscient LLMs are emerging, we must dare to question our paradigms in education and learning
+`;

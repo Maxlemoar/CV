@@ -17,8 +17,10 @@ export default function Hero() {
         Maximilian Marowsky
       </h1>
       <p className="mt-3 text-lg text-ink-light">
-        Psychologist turned Product Manager,{" "}
-        <span className="text-accent">building the future of learning with AI.</span>
+        Psychologist. Product Manager. EdTech Founder.
+      </p>
+      <p className="mt-1 text-sm text-ink-light/70">
+        Pick something that interests you.
       </p>
     </section>
   );
