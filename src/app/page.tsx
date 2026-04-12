@@ -1,31 +1,33 @@
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Experience from "@/components/Experience";
-import Projects from "@/components/Projects";
-import Philosophy from "@/components/Philosophy";
-import Publications from "@/components/Publications";
-import Skills from "@/components/Skills";
-import Personal from "@/components/Personal";
-import Contact from "@/components/Contact";
+"use client";
 
-export default function Home() {
+import { Suspense } from "react";
+import CuriosityProvider, { useCuriosity } from "@/components/CuriosityProvider";
+import CuriosityScreen from "@/components/CuriosityScreen";
+import InteractivePage from "@/components/InteractivePage";
+import Nav from "@/components/Nav";
+import { type CuriosityMode } from "@/lib/curiosity-config";
+
+function PageContent() {
+  const { mode, setMode } = useCuriosity();
+
+  if (!mode) {
+    return <CuriosityScreen onSelect={setMode} />;
+  }
+
   return (
     <>
       <Nav />
-      <main className="relative z-10 min-h-screen">
-        <Hero />
-        <div className="mx-auto max-w-3xl px-6 pb-20">
-          <About />
-          <Experience />
-          <Projects />
-          <Philosophy />
-          <Publications />
-          <Skills />
-          <Personal />
-          <Contact />
-        </div>
-      </main>
+      <InteractivePage />
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense>
+      <CuriosityProvider>
+        <PageContent />
+      </CuriosityProvider>
+    </Suspense>
   );
 }

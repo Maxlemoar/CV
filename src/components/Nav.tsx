@@ -1,20 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useCuriosity } from "./CuriosityProvider";
 
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#philosophy", label: "Philosophy" },
-  { href: "#publications", label: "Publications" },
-  { href: "#skills", label: "Skills" },
-  { href: "#personal", label: "Beyond Work" },
-  { href: "#contact", label: "Contact" },
-];
+const LINK_DATA: Record<string, string> = {
+  about: "About",
+  experience: "Experience",
+  projects: "Projects",
+  philosophy: "Philosophy",
+  publications: "Publications",
+  skills: "Skills",
+  personal: "Beyond Work",
+  contact: "Contact",
+};
 
 export default function Nav() {
   const [active, setActive] = useState("");
+  const { order } = useCuriosity();
+
+  const links = [...order, "contact"].map((id) => ({
+    href: `#${id}`,
+    label: LINK_DATA[id] ?? id,
+  }));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,7 +40,7 @@ export default function Nav() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [order]);
 
   return (
     <nav className="no-print sticky top-0 z-50 overflow-x-auto border-b border-paper-dark bg-paper/90 backdrop-blur-sm">
