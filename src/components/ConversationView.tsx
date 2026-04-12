@@ -7,6 +7,7 @@ import ContentBlock from "./ContentBlock";
 import SkeletonBlock from "./SkeletonBlock";
 import InputBar from "./InputBar";
 import ShareButton from "./ShareButton";
+import PrintCV from "./PrintCV";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -98,6 +99,7 @@ export default function ConversationView() {
       {hasStarted && (
         <InputBar onSubmit={submitQuestion} disabled={isLoading} />
       )}
+      <PrintCV />
     </>
   );
 }
