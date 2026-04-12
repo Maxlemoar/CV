@@ -5,7 +5,7 @@ export default function Hero() {
     <section className="mx-auto max-w-3xl px-6 pb-8 pt-20 text-center">
       <div className="mx-auto mb-6 h-36 w-36 overflow-hidden rounded-full shadow-neu">
         <Image
-          src="/with coffe.jpeg"
+          src="/photo-coffee.jpg"
           alt="Maximilian Marowsky"
           width={144}
           height={144}

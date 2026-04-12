@@ -8,7 +8,7 @@ export default function Personal() {
         <div className="rounded-xl bg-paper shadow-neu-sm overflow-hidden">
           <div className="relative h-48 w-full">
             <Image
-              src="/with-frieda.jpeg"
+              src="/photo-frieda.jpg"
               alt="Max with daughter Frieda"
               fill
               className="object-cover"
@@ -25,7 +25,7 @@ export default function Personal() {
         <div className="rounded-xl bg-paper shadow-neu-sm overflow-hidden">
           <div className="relative h-48 w-full">
             <Image
-              src="/with road bike.jpeg"
+              src="/photo-cycling.jpg"
               alt="Max with his road bike"
               fill
               className="object-cover"
@@ -42,7 +42,7 @@ export default function Personal() {
         <div className="rounded-xl bg-paper shadow-neu-sm overflow-hidden">
           <div className="relative h-48 w-full">
             <Image
-              src="/with wife at wedding.jpeg"
+              src="/photo-wedding.jpg"
               alt="Max and Anna at their wedding"
               fill
               className="object-cover object-top"
