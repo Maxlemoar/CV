@@ -18,7 +18,7 @@ export default function Experience() {
           ]}
         />
         <TimelineItem
-          period="2023 – 2025"
+          period="2025 – present"
           title="Product Manager — Commerce"
           org="eduki"
           description="Owned product page, cart, checkout, and favorites — core commerce surfaces of the marketplace."
@@ -28,7 +28,7 @@ export default function Experience() {
           ]}
         />
         <TimelineItem
-          period="2022 – 2023"
+          period="2022 – 2025"
           title="Product Manager — eduki Interactive"
           org="eduki (formerly pearprogramming)"
           description="Led integration of the acquired pearprogramming app into the eduki marketplace. Ran as an intrapreneurship team searching for product-market fit."
@@ -59,6 +59,12 @@ export default function Experience() {
           title="Research Assistant"
           org="Deutsches Kinderschmerzzentrum, Datteln"
           description="Research, test diagnostics, data entry and analysis alongside studies."
+        />
+        <TimelineItem
+          period="2013 – 2016"
+          title="B.Sc. Psychology"
+          org="Universität Witten/Herdecke"
+          description="Grade: 1.7. Previously started Cognitive Science at Universität Osnabrück (2012–2013)."
         />
       </div>
     </SectionCard>

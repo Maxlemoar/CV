@@ -5,6 +5,14 @@ export default function Personal() {
     <SectionCard id="personal" title="Beyond Work">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="rounded-xl bg-paper p-5 shadow-neu-sm">
+          <p className="mb-1 text-lg">&#128118;</p>
+          <h3 className="font-serif text-base text-ink">Dad</h3>
+          <p className="mt-1 text-sm text-ink-light">
+            Proud father of Frieda, born August 2025. The best reason to build
+            a better future for education.
+          </p>
+        </div>
+        <div className="rounded-xl bg-paper p-5 shadow-neu-sm">
           <p className="mb-1 text-lg">&#9749;</p>
           <h3 className="font-serif text-base text-ink">Specialty Coffee</h3>
           <p className="mt-1 text-sm text-ink-light">

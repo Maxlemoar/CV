@@ -5,6 +5,7 @@
 - **Email**: m.marowsky@googlemail.com
 - **LinkedIn**: https://www.linkedin.com/in/maximilian-marowsky-416bb3164/
 - **Location**: Germany (willing to relocate to San Francisco)
+- **Family**: Daughter Frieda (born August 2025)
 - **Languages**: German (native), English (C1), Italian (B1)
 
 ## Education
@@ -37,11 +38,11 @@
 - Factor analysis identified 7 underlying factors for high-quality teaching material, 5 practically applicable
 - Personally wrote and iterated the assessment prompt using Claude, validated continuously with human feedback
 
-#### Product Spaces: Product Page, Cart, Checkout, Favorites
+#### 2025–present: Product Spaces: Product Page, Cart, Checkout, Favorites
 - Ran extensive discoveries
 - Optimized product spaces through incremental improvements, frequently as A/B tests
 
-#### eduki Interactive (2022–)
+#### 2022–2025: eduki Interactive
 - Responsible for integrating the acquired pearprogramming app into the eduki marketplace
 - Led a team of 2 backend, 2 frontend, 1 QA, 1 UX/UI designer as Product Manager
 - Tasked with finding product-market fit as an intrapreneurship initiative within eduki
