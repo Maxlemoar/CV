@@ -6,6 +6,7 @@ import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
 import SkeletonBlock from "./SkeletonBlock";
 import InputBar from "./InputBar";
+import ShareButton from "./ShareButton";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -70,6 +71,18 @@ export default function ConversationView() {
 
       {hasStarted && (
         <div className="space-y-6 pb-24 pt-8">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 overflow-hidden rounded-full shadow-neu-sm">
+                <img src="/photo-coffee.jpg" alt="Max Marowsky" className="h-full w-full object-cover" />
+              </div>
+              <div>
+                <div className="font-serif text-sm font-semibold text-ink">Max Marowsky</div>
+                <div className="text-xs text-ink-light">Product Manager · Ex-Founder · Psychologist</div>
+              </div>
+            </div>
+            <ShareButton blocks={blocks} />
+          </div>
           {blocks.map((block) => (
             <ContentBlock
               key={block.id}
