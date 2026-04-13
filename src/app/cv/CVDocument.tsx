@@ -17,14 +17,14 @@ const experience = [
     subroles: [
       {
         title: "AI Quality Assessment",
-        period: "Q1 2026",
+        period: "Jan 2026 – Apr 2026",
         bullets: [
           "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki's collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.",
         ],
       },
       {
         title: "Marketplace",
-        period: "Apr 2025 – Present",
+        period: "Apr 2025 – Dec 2025",
         bullets: [
           "Took ownership of a new product area (Product Page, Cart, Checkout, Favorites) with a new team. Running discoveries and leading data-driven optimizations through A/B testing.",
         ],
@@ -33,8 +33,7 @@ const experience = [
         title: "eduki Interactive (Intrapreneurship)",
         period: "Oct 2022 – Apr 2025",
         bullets: [
-          "Led an autonomous intrapreneurship team. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
-          "Managed a cross-functional team. Transitioned from startup founder to Productmanager, navigating the shift from full ownership to operating within a larger organization.",
+          "Led an autonomous cross-functional team. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace. Transitioned from startup founder to product manager, navigating the shift from full ownership to operating within a larger organization.",
         ],
       },
     ],
@@ -55,9 +54,8 @@ const experience = [
     description:
       "I co-founded pearprogramming. A startup based in Osnabrück that developed a game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
-      "Wore every hat: CEO, Product Owner, Scrum Master, UX/UI Designer, Researcher, and grant writer. Built and led a team of ~10.",
+      "CEO, Product Owner, Scrum Master, UX/UI Designer, Researcher, and grant writer. Built and led a team of ~10.",
       "Received EXIST Gründerstipendium (federal startup grant). Won the delina 2020 (Germany's largest e-learning award). Participated in MindCET, an Israeli EdTech startup incubator.",
-      "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
     ],
     subroles: [],
   },
@@ -173,16 +171,14 @@ export default function CVDocument() {
         <Section title="Summary">
           <p className="leading-relaxed text-ink">
             Psychologist turned EdTech founder turned Product Manager with 8+
-            years of experience building learning products from zero to one. I
-            co-founded pearprogramming, a game-based coding education startup
-            (acquired by eduki), and now lead AI-powered quality initiatives at
-            Germany&apos;s largest teaching materials marketplace. I combine deep
-            learning science expertise — rooted in my psychology background and
-            collaboration with researchers like Prof. John Hattie — with daily
-            hands-on AI fluency (Claude, prompt engineering, Claude Code). I
-            believe education should build agency, not dependency, and I&apos;m
-            driven to create AI-native learning experiences that adapt to every
-            individual learner.
+            years of experience building learning products. I co-founded
+            pearprogramming, a game-based learning startup that was acquired by
+            eduki, where I now build AI-powered systems that make educational
+            quality visible and measurable. My background in learning science
+            shapes how I think about product and building with Claude every day
+            shapes how I ship. I believe learning works when it meets people
+            where they are — not with standardized content, but with
+            experiences that adapt to who they are and what they need.
           </p>
         </Section>
 
