@@ -265,51 +265,40 @@ export const CONTENT_GRAPH: ContentGraph = {
   "personal": {
     id: "personal",
     content:
-      "I\u2019m a 34-year-old new dad, specialty coffee nerd, road cyclist, and ambitious home cook. I live in Cologne with my wife Anna and our daughter Frieda. I once dreamed of becoming a chef. Now I dream of opening a cafe someday \u2014 and building things that help the next generation learn better.",
+      "I\u2019m a 34-year-old new dad living in Cologne with my wife Anna (M.Sc. Neuroscience \u2014 we co-authored a book chapter together) and our daughter Frieda, born August 2025. Becoming a father changed how I think about education \u2014 it\u2019s not abstract anymore. I want her to stay curious. Outside of work: specialty coffee nerd (former barista, pour-over obsessive), recently discovered road cyclist, and ambitious home cook who once dreamed of opening a cafe.",
     image: { src: "/photo-frieda.jpg", alt: "Max with daughter Frieda" },
-    hooks: [
-      { label: "My family", targetId: "family" },
-      { label: "Coffee", targetId: "coffee" },
-      { label: "Cycling", targetId: "cycling" },
-    ],
-    printSection: "personal",
-    printOrder: 1,
-  },
-
-  "family": {
-    id: "family",
-    content:
-      "Frieda was born in August 2025. Becoming a father changed how I think about education \u2014 it\u2019s not abstract anymore. What kind of learning do I want for her? Not memorization. Not standardized tests. I want her to stay curious. That\u2019s personal now.",
-    image: { src: "/photo-wedding.jpg", alt: "Max and Anna at their wedding" },
     hooks: [
       { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
     ],
     printSection: "personal",
-    printOrder: 2,
-  },
-
-  "coffee": {
-    id: "coffee",
-    content:
-      "Pour-over, hand-brewed, single origin. I was a barista once. I love geeking out about extraction ratios and water temperature. Filter coffee is my love language.",
-    hooks: [
-      { label: "Cycling", targetId: "cycling" },
-    ],
-    printSection: "personal",
-    printOrder: 3,
-  },
-
-  "cycling": {
-    id: "cycling",
-    content:
-      "I recently discovered road cycling and fell in love. Long rides clear my head. I\u2019m outdoors as much as I can be \u2014 hiking, cycling, just moving.",
-    image: { src: "/photo-cycling.jpg", alt: "Max with his road bike" },
-    hooks: [],
-    printSection: "personal",
-    printOrder: 4,
+    printOrder: 1,
   },
 };
+
+// Helper: convert a ContentNode to a ContentBlockData for the conversation UI
+import type { ContentBlockData } from "@/lib/types";
+
+export function nodeToBlock(node: ContentNode, visitedNodes: Set<string>): ContentBlockData {
+  const visibleHooks = node.hooks.filter((h) => {
+    if (h.requiredVisited && !h.requiredVisited.every((id) => visitedNodes.has(id))) return false;
+    if (h.minVisited && visitedNodes.size < h.minVisited) return false;
+    return true;
+  });
+
+  return {
+    id: node.id,
+    questionTitle: node.id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+    text: node.content,
+    richType: node.image ? "photo" : null,
+    richData: node.image ? { src: node.image.src, alt: node.image.alt } : null,
+    hooks: visibleHooks.map((h) => ({
+      label: h.label,
+      question: h.label,
+      targetId: h.targetId,
+    })),
+  };
+}
 
 // Helper: get all nodes sorted for print
 export function getPrintNodes(): ContentNode[] {

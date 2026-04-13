@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import type { ContentBlockData, AIResponse } from "@/lib/types";
+import { CONTENT_GRAPH, nodeToBlock } from "@/lib/content-graph";
 import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
 import SkeletonBlock from "./SkeletonBlock";
@@ -12,6 +13,7 @@ import PrintCV from "./PrintCV";
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [visitedNodes, setVisitedNodes] = useState<Set<string>>(new Set());
   const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
   const blockCounter = useRef(0);
@@ -24,7 +26,26 @@ export default function ConversationView() {
     }
   }, [blocks.length, isLoading]);
 
-  const submitQuestion = useCallback(async (question: string) => {
+  const addNodeBlock = useCallback((nodeId: string) => {
+    const node = CONTENT_GRAPH[nodeId];
+    if (!node) return;
+
+    setVisitedNodes((prev) => {
+      const next = new Set(prev);
+      next.add(nodeId);
+      return next;
+    });
+
+    const block = nodeToBlock(node, visitedNodes);
+    setBlocks((prev) => [...prev, block]);
+    setMessages((prev) => [
+      ...prev,
+      { role: "user" as const, content: block.questionTitle },
+      { role: "assistant" as const, content: block.text },
+    ]);
+  }, [visitedNodes]);
+
+  const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
     setIsLoading(true);
 
@@ -46,7 +67,7 @@ export default function ConversationView() {
       blockCounter.current += 1;
 
       const newBlock: ContentBlockData = {
-        id: `block-${blockCounter.current}`,
+        id: `ai-${blockCounter.current}`,
         questionTitle: data.questionTitle,
         text: data.text,
         richType: data.richType,
@@ -66,9 +87,17 @@ export default function ConversationView() {
     }
   }, [isLoading, messages]);
 
+  const handleHookClick = useCallback((value: string, isNodeId: boolean) => {
+    if (isNodeId) {
+      addNodeBlock(value);
+    } else {
+      submitFreeQuestion(value);
+    }
+  }, [addNodeBlock, submitFreeQuestion]);
+
   return (
     <>
-      <Opening visible={!hasStarted} onSubmit={submitQuestion} />
+      <Opening visible={!hasStarted} onHookClick={addNodeBlock} />
 
       {hasStarted && (
         <div className="space-y-6 pb-24 pt-8">
@@ -88,7 +117,7 @@ export default function ConversationView() {
             <ContentBlock
               key={block.id}
               block={block}
-              onHookClick={submitQuestion}
+              onHookClick={handleHookClick}
             />
           ))}
           {isLoading && <SkeletonBlock />}
@@ -97,7 +126,7 @@ export default function ConversationView() {
       )}
 
       {hasStarted && (
-        <InputBar onSubmit={submitQuestion} disabled={isLoading} />
+        <InputBar onSubmit={(q) => submitFreeQuestion(q)} disabled={isLoading} />
       )}
       <PrintCV />
     </>

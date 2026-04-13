@@ -38,6 +38,7 @@ export type RichData = StatItem[] | TimelineItem[] | ProjectData | TagsData | Ci
 export interface HookSuggestion {
   label: string;
   question: string;
+  targetId?: string;
 }
 
 export interface AIResponse {

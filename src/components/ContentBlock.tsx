@@ -6,7 +6,7 @@ import RichElement from "./RichElements";
 
 interface ContentBlockProps {
   block: ContentBlockData;
-  onHookClick: (question: string) => void;
+  onHookClick: (targetIdOrQuestion: string, isNodeId: boolean) => void;
   isReadOnly?: boolean;
 }
 
@@ -28,7 +28,7 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false }:
       {!isReadOnly && block.hooks.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-2">
           {block.hooks.map((hook) => (
-            <HookChip key={hook.label} hook={hook} onClick={() => onHookClick(hook.question)} />
+            <HookChip key={hook.label} hook={hook} onClick={() => onHookClick(hook.targetId ?? hook.question, !!hook.targetId)} />
           ))}
         </div>
       )}

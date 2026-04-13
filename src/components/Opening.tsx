@@ -4,18 +4,18 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const STARTER_HOOKS = [
-  { label: "Why Anthropic?", question: "Why do you want to work at Anthropic?" },
-  { label: "What I've built", question: "What have you built in your career?" },
-  { label: "How I think about education", question: "How do you think about education and learning?" },
-  { label: "Who are you, really?", question: "Who are you as a person, beyond work?" },
+  { label: "Why Anthropic?", targetId: "why-anthropic" },
+  { label: "What I've built", targetId: "startup-story" },
+  { label: "How I think about education", targetId: "school-gets-wrong" },
+  { label: "Who are you, really?", targetId: "personal" },
 ];
 
 interface OpeningProps {
-  onSubmit: (question: string) => void;
+  onHookClick: (targetId: string) => void;
   visible: boolean;
 }
 
-export default function Opening({ onSubmit, visible }: OpeningProps) {
+export default function Opening({ onHookClick, visible }: OpeningProps) {
   if (!visible) return null;
 
   return (
@@ -50,7 +50,7 @@ export default function Opening({ onSubmit, visible }: OpeningProps) {
             key={hook.label}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => onSubmit(hook.question)}
+            onClick={() => onHookClick(hook.targetId)}
             className="rounded-xl border border-accent/20 bg-paper px-4 py-2 text-sm text-accent shadow-neu-sm transition-shadow hover:shadow-neu"
           >
             {hook.label}
