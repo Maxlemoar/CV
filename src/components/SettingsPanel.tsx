@@ -115,6 +115,33 @@ export default function SettingsPanel() {
                 ))}
               </div>
             </div>
+
+            {/* Gamification */}
+            <div className="mt-4 pt-4 border-t border-[var(--color-paper-dark,#E5DDD3)]">
+              <div className="mb-1.5 text-xs text-ink-light">Gamification</div>
+              <div className="flex gap-1.5">
+                <button
+                  onClick={() => updatePreference("gamified", true)}
+                  className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
+                    preferences.gamified
+                      ? "bg-accent text-white"
+                      : "bg-paper text-ink-light hover:text-ink"
+                  }`}
+                >
+                  On
+                </button>
+                <button
+                  onClick={() => updatePreference("gamified", false)}
+                  className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
+                    !preferences.gamified
+                      ? "bg-accent text-white"
+                      : "bg-paper text-ink-light hover:text-ink"
+                  }`}
+                >
+                  Off
+                </button>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -19,6 +19,10 @@ export interface ContentNode {
   hooks: Hook[];
   printSection?: "about" | "experience" | "education" | "projects" | "philosophy" | "publications" | "skills" | "personal";
   printOrder?: number;
+  gem?: {
+    requiredNodes?: string[];
+    minVisited?: number;
+  };
 }
 
 export type ContentGraph = Record<string, ContentNode>;
@@ -313,9 +317,56 @@ export const CONTENT_GRAPH: ContentGraph = {
     printSection: "personal",
     printOrder: 1,
   },
+
+  // ── HIDDEN GEMS (gamification-only) ────────────────────────
+
+  "gem-convergence": {
+    id: "gem-convergence",
+    content:
+      "You found a hidden thread. Psychology taught me that learning is deeply personal — it depends on autonomy, competence, and connection. AI gives us the first real tool to honor that at scale. Not by replacing teachers, but by building systems that adapt to each learner the way a great tutor does: noticing what you don't understand yet, adjusting the challenge, and knowing when to step back. That's what I'd want to build at Anthropic Education Labs — products where the AI makes the learner more capable, not more dependent. Everything in my career has been building toward this convergence.",
+    contentCompact:
+      "Psychology taught me learning is personal — autonomy, competence, connection. AI is the first tool to honor that at scale. Not replacing teachers, but adapting like a great tutor: noticing gaps, adjusting challenge, knowing when to step back. That's what I'd build at Anthropic Education Labs.",
+    hooks: [
+      { label: "What I'd want to build at Anthropic", targetId: "what-id-build" },
+      { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
+    ],
+    gem: {
+      requiredNodes: ["psychology-of-learning", "ai-in-education", "building-with-claude"],
+    },
+  },
+
+  "gem-lab-to-product": {
+    id: "gem-lab-to-product",
+    content:
+      "You connected the dots between my research and my product work. Here's the link: when I studied what makes teaching materials effective with Prof. Hattie, we used structured rubrics, inter-rater reliability, and iterative validation — the same methodology I use in product discovery. My PM approach isn't just 'hypothesis-driven' as a buzzword. I literally run my product work like a research study: define the construct, operationalize it, test with real users, measure agreement, iterate. The AI assessor I built at eduki is the purest example — 10 prompt versions, each evaluated against human reviewers, until we hit 89% agreement. That's not engineering. That's applied research methodology in production.",
+    contentCompact:
+      "The link between research and product: I run PM like a research study — define constructs, operationalize, test, measure agreement, iterate. The AI assessor is the purest example: 10 prompt versions evaluated against human reviewers until 89% agreement. Applied research methodology in production.",
+    hooks: [
+      { label: "The AI assessor I built", targetId: "ai-in-education" },
+      { label: "My product management approach", targetId: "pm-approach" },
+    ],
+    gem: {
+      requiredNodes: ["startup-story", "founder-lessons", "research"],
+    },
+  },
+
+  "gem-full-picture": {
+    id: "gem-full-picture",
+    content:
+      "You've seen almost everything. Here's what ties it all together: I'm a psychologist who founded an EdTech startup, sold it, and spent the last four years building products at the intersection of education, AI, and quality. I've published research with one of the world's most cited education researchers. I build working apps with Claude Code every evening — not because I have to, but because I can't stop. I'm a new father who thinks about what his daughter should learn. And I believe the next generation of AI learning products needs someone who has lived in all of these worlds — research, product, education, and AI — not just visited them. That's what I bring to Anthropic Education Labs.",
+    contentCompact:
+      "Psychologist, founder, PM at the intersection of education, AI, and quality. Published with one of the world's most cited education researchers. Building with Claude Code daily. New father thinking about what his daughter should learn. Lived in research, product, education, and AI — not just visited them.",
+    hooks: [
+      { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
+      { label: "What I'd want to build there", targetId: "what-id-build" },
+    ],
+    gem: {
+      minVisited: 15,
+    },
+  },
 };
 
-import type { ContentBlockData, ContentFocus } from "@/lib/types";
+import type { ContentBlockData, ContentFocus, AchievementDefinition } from "@/lib/types";
 
 export const FOCUS_STARTER_HOOKS: Record<ContentFocus, Hook[]> = {
   "product-builder": [
@@ -344,9 +395,61 @@ export const FOCUS_STARTER_HOOKS: Record<ContentFocus, Hook[]> = {
   ],
 };
 
+export const ACHIEVEMENT_DEFINITIONS: AchievementDefinition[] = [
+  {
+    id: "founder",
+    emoji: "🚀",
+    name: "Founder",
+    description: "Alle Startup-Themen entdeckt",
+    requiredNodes: ["startup-story", "product-magic", "after-acquisition", "founder-lessons"],
+  },
+  {
+    id: "learning-scientist",
+    emoji: "🔬",
+    name: "Learning Scientist",
+    description: "Alle Education-Themen entdeckt",
+    requiredNodes: ["school-gets-wrong", "what-schools-should-teach", "psychology-of-learning", "anthropic-education-vision"],
+  },
+  {
+    id: "ai-native",
+    emoji: "🤖",
+    name: "AI Native",
+    description: "Alle AI-Themen entdeckt",
+    requiredNodes: ["building-with-claude", "ai-in-education", "side-projects"],
+  },
+  {
+    id: "deep-diver",
+    emoji: "💬",
+    name: "Deep Diver",
+    description: "5+ eigene Fragen gestellt",
+    minFreeQuestions: 5,
+  },
+  {
+    id: "explorer",
+    emoji: "🗺️",
+    name: "Explorer",
+    description: "Über die Hälfte entdeckt",
+    minVisited: 10,
+  },
+  {
+    id: "completionist",
+    emoji: "🏆",
+    name: "Completionist",
+    description: "Alles entdeckt",
+  },
+];
+
+export function getNodeCounts() {
+  const allNodes = Object.values(CONTENT_GRAPH);
+  const regularNodes = allNodes.filter((n) => !n.gem);
+  const gemNodes = allNodes.filter((n) => n.gem);
+  return { total: allNodes.length, regular: regularNodes.length, gems: gemNodes.length };
+}
+
 // Helper: convert a ContentNode to a ContentBlockData for the conversation UI
 export function nodeToBlock(node: ContentNode, visitedNodes: Set<string>, depth: "overview" | "deep-dive" = "deep-dive"): ContentBlockData {
   const visibleHooks = node.hooks.filter((h) => {
+    if (visitedNodes.has(h.targetId)) return false;
     if (h.requiredVisited && !h.requiredVisited.every((id) => visitedNodes.has(id))) return false;
     if (h.minVisited && visitedNodes.size < h.minVisited) return false;
     return true;

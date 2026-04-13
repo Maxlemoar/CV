@@ -8,56 +8,59 @@ import { useCallback } from "react";
 
 const experience = [
   {
-    role: "Product Manager — AI Quality Assessment",
+    role: "Product Manager",
     company: "eduki",
-    location: "Berlin, Germany",
-    period: "Q1 2026",
-    description: "",
-    bullets: [
-      "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki's collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.",
-    ],
-  },
-  {
-    role: "Product Manager — Marketplace",
-    company: "eduki",
-    location: "Berlin, Germany",
-    period: "Apr 2025 – Present",
-    description: "",
-    bullets: [
-      "Own Product Spaces: Product Page, Cart, Checkout, Favorites — driving discovery and conversion through A/B-tested incremental improvements.",
-    ],
-  },
-  {
-    role: "Product Manager — eduki Interactive",
-    company: "eduki",
-    location: "Berlin, Germany",
-    period: "Oct 2022 – Apr 2025",
+    period: "Oct 2022 – Present",
     description:
-      "Led eduki Interactive, an autonomous intrapreneurship team within eduki. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
-    bullets: [
-      "Managed a cross-functional team. Transitioned from startup founder to Productmanager, navigating the shift from full ownership to operating within a larger organization.",
+      "Largest marketplace for teaching materials in Germany (~150 employees, Berlin).",
+    bullets: [],
+    subroles: [
+      {
+        title: "AI Quality",
+        period: "Q1 2026",
+        bullets: [
+          'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
+          "Rebuilt the AI Assessor end-to-end: iterated through prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement to 89%.",
+          'Launched the "Best of eduki" quality label with a structured A/B test. Managed tiered stakeholder rollout across top authors, general community, and publishers.',
+        ],
+      },
+      {
+        title: "Marketplace",
+        period: "Apr 2025 – Present",
+        bullets: [
+          "Own Product Spaces: Product Page, Cart, Checkout, Favorites — driving discovery and conversion through A/B-tested incremental improvements.",
+        ],
+      },
+      {
+        title: "eduki Interactive (Intrapreneurship)",
+        period: "Oct 2022 – Apr 2025",
+        bullets: [
+          "Led an autonomous intrapreneurship team. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
+          "Managed a cross-functional team of 6 (2 BE, 2 FE, QA, UX). Transitioned from startup founder to intrapreneur — navigating the shift from full ownership to operating within a larger organization.",
+        ],
+      },
     ],
   },
   {
     role: "Startup Exit — Acquisition by eduki",
-    company: "",
-    location: "",
+    company: "pearprogramming GmbH → eduki",
     period: "Oct 2022",
     description:
-      "pearprogramming and its product PearUp were acquired by eduki, the largest marketplace for teaching materials in Germany (~150 employees). Product and team were integrated into the marketplace.",
+      "pearprogramming and its product PearUp were acquired by eduki, the largest marketplace for teaching materials in Germany (~150 employees). Product and team integrated into the marketplace.",
     bullets: [],
+    subroles: [],
   },
   {
     role: "Co-Founder & CEO",
-    company: "",
-    location: "",
+    company: "pearprogramming GmbH",
     period: "2018 – 2022",
     description:
-      "I co-founded pearprogramming. A startup based in Osnabrück that developed a game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
+      "Founded in Osnabrück. Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
     ],
+    subroles: [],
   },
 ];
 
@@ -198,13 +201,15 @@ export default function CVDocument() {
                       </span>
                     )}
                   </h3>
-                  <span className="shrink-0 text-sm text-ink-light font-serif">
+                  <span className="shrink-0 text-sm font-semibold text-ink font-serif whitespace-nowrap">
                     {exp.period}
                   </span>
                 </div>
-                <p className="mt-0.5 text-sm text-ink-light">
-                  {[exp.location, exp.description].filter(Boolean).join(" · ")}
-                </p>
+                {exp.description && (
+                  <p className="mt-0.5 text-sm text-ink-light">
+                    {exp.description}
+                  </p>
+                )}
                 {exp.bullets.length > 0 && (
                   <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-ink">
                     {exp.bullets.map((b, i) => (
@@ -213,6 +218,27 @@ export default function CVDocument() {
                       </li>
                     ))}
                   </ul>
+                )}
+                {exp.subroles.length > 0 && (
+                  <div className="mt-3 space-y-4 border-l-2 border-paper-dark pl-4 print:border-gray-200">
+                    {exp.subroles.map((sub) => (
+                      <div key={sub.title}>
+                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+                          <h4 className="text-sm font-semibold text-ink">{sub.title}</h4>
+                          <span className="shrink-0 text-xs font-semibold text-ink font-serif whitespace-nowrap">
+                            {sub.period}
+                          </span>
+                        </div>
+                        <ul className="mt-1.5 space-y-1.5 text-sm leading-relaxed text-ink">
+                          {sub.bullets.map((b, i) => (
+                            <li key={i} className="pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-ink-light">
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             ))}

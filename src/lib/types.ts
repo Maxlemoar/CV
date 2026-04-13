@@ -72,4 +72,15 @@ export interface UserPreferences {
   visualStyle: VisualStyle;
   infoDepth: InfoDepth;
   contentFocus: ContentFocus;
+  gamified: boolean;
+}
+
+export interface AchievementDefinition {
+  id: string;
+  emoji: string;
+  name: string;
+  description: string;
+  requiredNodes?: string[];
+  minVisited?: number;
+  minFreeQuestions?: number;
 }
