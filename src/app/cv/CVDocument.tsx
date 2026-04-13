@@ -97,19 +97,19 @@ const sideProjects = [
 const skillGroups = [
   {
     label: "Product",
-    skills: ["Discovery", "User Research", "A/B Testing", "Prioritization", "Stakeholder Alignment", "Metrics Definition", "Rapid Shipping"],
+    skills: ["Discovery", "A/B Testing", "Generalist", "Rapid Shipping"],
   },
   {
     label: "AI / LLM",
-    skills: ["Claude (daily driver)", "Claude Code", "Prompt Engineering", "LLM-as-Infrastructure", "AI Prototyping"],
+    skills: ["Claude", "Claude Code", "Prompt Engineering", "AI-powered Product Systems"],
   },
   {
     label: "Education",
-    skills: ["Learning Science", "Instructional Design", "Game-Based Learning", "Curriculum Design", "Adaptive Learning"],
+    skills: ["Learning Science", "Game-Based Learning", "Quality Frameworks"],
   },
   {
     label: "Research",
-    skills: ["Quantitative Methods", "Study Design", "Data Analysis", "Research Publication"],
+    skills: ["Quantitative Methods", "Data Analysis", "Academic Publishing"],
   },
   {
     label: "Languages",
