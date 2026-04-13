@@ -63,3 +63,13 @@ export interface SessionData {
   blocks: ContentBlockData[];
   createdAt: string;
 }
+
+export type VisualStyle = "focused" | "colorful";
+export type InfoDepth = "overview" | "deep-dive";
+export type ContentFocus = "product-builder" | "learning-scientist" | "ai-vision" | "max-personal";
+
+export interface UserPreferences {
+  visualStyle: VisualStyle;
+  infoDepth: InfoDepth;
+  contentFocus: ContentFocus;
+}
