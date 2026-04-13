@@ -17,7 +17,7 @@ export default function CVPage() {
           href="/"
           className="text-sm text-ink-light hover:text-accent transition-colors"
         >
-          &larr; Back to Portfolio
+          &larr; Back
         </Link>
       </nav>
 

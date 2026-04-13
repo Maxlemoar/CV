@@ -56,7 +56,7 @@ const experience = [
       "I co-founded pearprogramming. A startup based in Osnabrück that developed a game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "CEO, Product Owner, Scrum Master, UX/UI Designer, Researcher, and grant writer. Built and led a team of ~10.",
-      "Received EXIST Gründerstipendium (federal startup grant). Won the delina 2020 (Germany's largest e-learning award). Participated in MindCET, an Israeli EdTech startup incubator.",
+      "Received EXIST (federal startup grant). Won the delina 2020 (Germany's largest e-learning award). Participated in MindCET, an Israeli EdTech startup incubator.",
     ],
     subroles: [],
   },
