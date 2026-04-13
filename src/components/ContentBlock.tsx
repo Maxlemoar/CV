@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import type { ContentBlockData, HookSuggestion } from "@/lib/types";
 import RichElement from "./RichElements";
 import { CONTENT_GRAPH } from "@/lib/content-graph";
@@ -13,15 +14,18 @@ interface ContentBlockProps {
 }
 
 export default function ContentBlock({ block, onHookClick, isReadOnly = false, unlockedGems }: ContentBlockProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
   const isGemBlock = block.id.startsWith("gem-");
   const gemNode = isGemBlock ? CONTENT_GRAPH[block.id] : null;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className={`rounded-2xl p-6 shadow-md sm:p-8 ${
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      className={`rounded-2xl p-6 shadow-md sm:p-8 transition-shadow hover:shadow-lg hover:-translate-y-0.5 ${
         isGemBlock ? "bg-amber-50/50 border border-amber-200/30" : "bg-white"
       }`}
     >
@@ -36,7 +40,15 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
         <RichElement richType={block.richType} richData={block.richData} />
       )}
       {!isReadOnly && block.hooks.length > 0 && (
-        <div className="mt-5 flex flex-wrap gap-2">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } },
+          }}
+          className="mt-5 flex flex-wrap gap-2"
+        >
           {block.hooks.map((hook) => (
             <HookChip
               key={hook.label}
@@ -45,7 +57,7 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
               isGem={!!unlockedGems?.has(hook.targetId ?? "")}
             />
           ))}
-        </div>
+        </motion.div>
       )}
     </motion.div>
   );
@@ -54,6 +66,11 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
 function HookChip({ hook, onClick, isGem = false }: { hook: HookSuggestion; onClick: () => void; isGem?: boolean }) {
   return (
     <motion.button
+      variants={{
+        hidden: { opacity: 0, y: 8 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
       onClick={onClick}

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import type { RichType, RichData, StatItem, TimelineItem, ProjectData, TagsData, CitationData, PhotoData } from "@/lib/types";
 
 interface RichElementProps {
@@ -29,14 +30,30 @@ export default function RichElement({ richType, richData }: RichElementProps) {
 
 function Stats({ items }: { items: StatItem[] }) {
   return (
-    <div className="mt-4 flex gap-3">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.08 } },
+      }}
+      className="mt-4 flex gap-3"
+    >
       {items.map((item) => (
-        <div key={item.label} className="flex-1 rounded-xl bg-paper p-3 text-center">
+        <motion.div
+          key={item.label}
+          variants={{
+            hidden: { opacity: 0, y: 8 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          className="flex-1 rounded-xl bg-paper p-3 text-center"
+        >
           <div className="text-lg font-bold text-accent">{item.value}</div>
           <div className="text-xs text-ink-light">{item.label}</div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 
@@ -72,13 +89,29 @@ function Project({ data }: { data: ProjectData }) {
 
 function Tags({ data }: { data: TagsData }) {
   return (
-    <div className="mt-4 flex flex-wrap gap-2">
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.04 } },
+      }}
+      className="mt-4 flex flex-wrap gap-2"
+    >
       {data.tags.map((tag) => (
-        <span key={tag} className="rounded-lg bg-paper px-3 py-1 text-xs text-ink-light">
+        <motion.span
+          key={tag}
+          variants={{
+            hidden: { opacity: 0, scale: 0.9 },
+            visible: { opacity: 1, scale: 1 },
+          }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          className="rounded-lg bg-paper px-3 py-1 text-xs text-ink-light"
+        >
           {tag}
-        </span>
+        </motion.span>
       ))}
-    </div>
+    </motion.div>
   );
 }
 
