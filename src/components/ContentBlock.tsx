@@ -1,23 +1,26 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import type { ContentBlockData, HookSuggestion } from "@/lib/types";
 import RichElement from "./RichElements";
 import { CONTENT_GRAPH } from "@/lib/content-graph";
+import BehindTheScience from "./rabbit-holes/BehindTheScience";
 
 interface ContentBlockProps {
   block: ContentBlockData;
   onHookClick: (targetIdOrQuestion: string, isNodeId: boolean) => void;
   isReadOnly?: boolean;
   unlockedGems?: Set<string>;
+  sciencePrinciple?: string; // key from LEARNING_PRINCIPLES
 }
 
-export default function ContentBlock({ block, onHookClick, isReadOnly = false, unlockedGems }: ContentBlockProps) {
+export default function ContentBlock({ block, onHookClick, isReadOnly = false, unlockedGems, sciencePrinciple }: ContentBlockProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const isGemBlock = block.id.startsWith("gem-");
   const gemNode = isGemBlock ? CONTENT_GRAPH[block.id] : null;
+  const [scienceOpen, setScienceOpen] = useState(false);
 
   return (
     <motion.div
@@ -25,7 +28,7 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className={`rounded-2xl p-6 shadow-md sm:p-8 transition-shadow hover:shadow-lg hover:-translate-y-0.5 ${
+      className={`relative rounded-2xl p-6 shadow-md sm:p-8 transition-shadow hover:shadow-lg hover:-translate-y-0.5 ${
         isGemBlock ? "bg-amber-50/50 border border-amber-200/30" : "bg-white"
       }`}
     >
@@ -58,6 +61,22 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
             />
           ))}
         </motion.div>
+      )}
+      {sciencePrinciple && (
+        <>
+          <button
+            onClick={() => setScienceOpen(!scienceOpen)}
+            className="absolute bottom-2 right-2 opacity-[0.15] hover:opacity-60 transition-opacity text-xs"
+            title="?"
+          >
+            🔬
+          </button>
+          <BehindTheScience
+            isOpen={scienceOpen}
+            onClose={() => setScienceOpen(false)}
+            principleKey={sciencePrinciple}
+          />
+        </>
       )}
     </motion.div>
   );
