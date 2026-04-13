@@ -21,7 +21,12 @@ Anthropic Hiring Team (recruiters, hiring managers, engineers). The site must de
 - **Typography**: Serif headlines, sans-serif body
 - **Interactions**: Pressed states (inset shadows), soft hover animations
 
-## Sections (in order)
+## Routes
+- **`/`** — Interactive conversation-style portfolio (main page)
+- **`/cv`** — Classic CV / resume page (single-document layout, printable, PDF-exportable)
+- **`/s/[id]`** — Shared conversation sessions
+
+## Sections — Main Page (in order)
 1. **Hero** — Name, tagline, photo
 2. **About** — Personal pitch: Psychology + Education + AI
 3. **Experience Timeline** — pearprogramming → eduki, visual timeline
@@ -31,13 +36,17 @@ Anthropic Hiring Team (recruiters, hiring managers, engineers). The site must de
 7. **Skills & Tools** — Claude, PM skills, research, etc.
 8. **Contact** — Email, LinkedIn, PDF export button
 
+## CV Page (`/cv`)
+Classic resume layout tailored to the Anthropic Senior PM Education Labs role. Content is hardcoded in `src/app/cv/CVDocument.tsx` (not from content-graph). Sections: Header, Summary, Experience, Education, Publications, Side Projects, Skills, Languages. Design: single white document card on paper background, print-optimized.
+
 ## Key Features
 - PDF export functionality
 - Responsive, mobile-first
 - English language throughout
 
-## Content Source
-All personal information is maintained in `PROFILE.md` — use this as the single source of truth for content.
+## Content Sources
+- **`PROFILE.md`** — Single source of truth for all personal information and content
+- **`JOB_DESCRIPTION.md`** — Target role details (Senior PM, Education Labs at Anthropic). All content decisions should be aligned with the requirements and preferred qualifications described here.
 
 ## Design Principles
 - Content first — the design serves the story, not the other way around

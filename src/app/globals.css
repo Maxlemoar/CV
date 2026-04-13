@@ -73,4 +73,11 @@ body::before {
     background: white;
     font-size: 11pt;
   }
+
+  /* CV document print optimization */
+  .cv-document {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }

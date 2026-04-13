@@ -29,15 +29,16 @@
 **eduki**: Largest marketplace for teaching materials in Germany (~150 employees, scale-up). Similar to TeachersPayTeachers.
 
 #### Q1 2026: "Make Quality Visible" Project Lead
-- Goal: Make pedagogical quality of teaching materials visible on the eduki platform
+- Goal: Make pedagogical quality of 800k+ teaching materials visible on the eduki platform to drive quality-based purchasing decisions
+- Problem: Buyers couldn't assess pedagogical quality before purchase; high-quality materials weren't rewarded, authors had no incentive to improve
 - Built the "Best of eduki" label — a quality signal shown on product pages, search results (with filter), and a dedicated landing page
 - Materials with a Quality Score >= 8.83/10 receive the label (currently DACH region only)
-- Built an AI Assessor (Gemini 3 Flash) that evaluates materials across 12 criteria in 5 quality dimensions (Goals & Structure, Differentiation, Content Engagement, Context & Culture, Time Efficiency)
-- Prompt (v10) achieves 89% agreement with human reviewers
-- Two dimensions (Collaboration, Teacher Growth) excluded from scoring due to low statistical variance
-- Framework co-developed with Prof. John Hattie, validated through a study with 2,000+ teachers
-- Factor analysis identified 7 underlying factors for high-quality teaching material, 5 practically applicable
-- Personally wrote and iterated the assessment prompt using Claude, validated continuously with human feedback
+- **Quality Framework**: eduki collaborated with Prof. John Hattie; framework validated through a study with 2,000+ teachers. Originally 7 dimensions with 18 criteria; factor analysis identified 5 practically applicable dimensions (Goals & Structure, Differentiation, Content Engagement, Context & Culture, Time Efficiency). Two dimensions (Collaboration, Teacher Growth) excluded based on Max's statistical analysis showing low variance
+- **Scoring Model**: Max designed the scoring model — 12 active criteria on 3-point scale, dimension averages summed to 0–10 total score. Threshold (8.83) validated through manual comparison of 30 test materials
+- **AI Assessor**: Rebuilt end-to-end after inheriting an underperforming system. Iterated through 6 prompt versions (v5–v10), raising human-AI agreement from 79.7% to 88.9%. Migrated from Gemini 2.5 Flash to Gemini 3 Flash. Empirically optimized model parameters (temperature, topP, thinking level). Designed anti-manipulation safeguards (prompt injection, embedded ratings, authority claims). Prompt includes assessment rules, precondition system, detailed rubric, and few-shot examples
+- **Stakeholder Management**: Managed tiered author communication — Top authors (Dragons) informed first with PDF criteria + Zoom sessions; general community received two-phase rollout (context email → detailed criteria); publishers received separate communication respecting their own quality standards
+- **A/B Test**: Designed and launched experiment via Statsig (quality_label), running ~2 weeks in DACH. Primary KPIs: Conversion Rate, Revenue (GMV), AOV, Scroll Depth
+- **Team coordination**: Worked with Fiona (quality framework, manual validation), engineering team (Victor, Hennadii for frontend, Bohdan for batch processing, Dmytro for A/B setup), and data team (Federico, Khrystyna for tracking)
 
 #### 2025–present: Product Spaces: Product Page, Cart, Checkout, Favorites
 - Ran extensive discoveries
@@ -72,8 +73,9 @@
 - Co-authored with Anna Fehrenbach (M.Sc. Neuroscience) and two others
 - https://link.springer.com/book/10.1007/978-3-030-75142-5
 
-### Studies with Prof. John Hattie
-- Two published studies related to the quality framework for teaching materials
+### eduki x Prof. John Hattie Collaboration
+- eduki conducted two studies with Prof. John Hattie on quality frameworks for teaching materials
+- Max leveraged these research findings to build the data-driven quality system on the platform
 
 ## Side Projects (built with Claude Code)
 - **Learning app for paramedic trainees** (Rettungssanitäter) — currently in test environment
