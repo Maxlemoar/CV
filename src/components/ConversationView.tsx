@@ -16,6 +16,7 @@ import SettingsPanel from "./SettingsPanel";
 import { useGamification } from "@/hooks/useGamification";
 import ProgressRing from "./gamification/ProgressRing";
 import AchievementToast from "./gamification/AchievementToast";
+import JourneyWrapUp from "./JourneyWrapUp";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -25,8 +26,16 @@ export default function ConversationView() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const blockCounter = useRef(0);
   const [freeQuestionCount, setFreeQuestionCount] = useState(0);
+  const [isWrappedUp, setIsWrappedUp] = useState(false);
+  const [wrapUpNarrative, setWrapUpNarrative] = useState<string | null>(null);
+  const [isWrapUpLoading, setIsWrapUpLoading] = useState(false);
 
-  const { preferences, setPreferences, isOnboarded } = usePreferences();
+  const { preferences, setPreferences, resetPreferences, isOnboarded } = usePreferences();
+
+  function isDeadEnd(block: ContentBlockData): boolean {
+    if (block.hooks.length === 0) return true;
+    return block.hooks.every((h) => h.targetId && visitedNodes.has(h.targetId));
+  }
 
   const hasStarted = blocks.length > 0 || isLoading;
 
@@ -71,6 +80,21 @@ export default function ConversationView() {
       return [...prev.slice(0, -1), updatedLast];
     });
   }, [gamification.unlockedGems, preferences?.gamified, visitedNodes]);
+
+  // Inject wrap-up hook when last block is a dead end
+  useEffect(() => {
+    if (isWrappedUp || blocks.length === 0) return;
+
+    const lastBlock = blocks[blocks.length - 1];
+    if (!isDeadEnd(lastBlock)) return;
+    if (lastBlock.hooks.some((h) => h.question === "__wrapup__")) return;
+
+    setBlocks((prev) => {
+      const last = prev[prev.length - 1];
+      const wrapUpHook = { label: "See what you've discovered →", question: "__wrapup__", targetId: undefined };
+      return [...prev.slice(0, -1), { ...last, hooks: [...last.hooks, wrapUpHook] }];
+    });
+  }, [blocks, visitedNodes, isWrappedUp]);
 
   const addNodeBlock = useCallback((nodeId: string) => {
     const node = CONTENT_GRAPH[nodeId];
@@ -136,13 +160,57 @@ export default function ConversationView() {
     }
   }, [isLoading, messages, preferences]);
 
+  const triggerWrapUp = useCallback(async () => {
+    if (isWrapUpLoading || isWrappedUp) return;
+    setIsWrappedUp(true);
+    setIsWrapUpLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages,
+          preferences: preferences ?? undefined,
+          wrapUp: true,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to get wrap-up");
+
+      const data = await res.json();
+      setWrapUpNarrative(data.text);
+    } catch (err) {
+      console.error("Wrap-up error:", err);
+      setWrapUpNarrative("You explored several facets of Max's background. Thank you for your curiosity.");
+    } finally {
+      setIsWrapUpLoading(false);
+    }
+  }, [isWrapUpLoading, isWrappedUp, messages, preferences]);
+
+  function handleNewJourney() {
+    setBlocks([]);
+    setVisitedNodes(new Set());
+    setMessages([]);
+    setFreeQuestionCount(0);
+    setIsWrappedUp(false);
+    setWrapUpNarrative(null);
+    setIsWrapUpLoading(false);
+    blockCounter.current = 0;
+    resetPreferences();
+  }
+
   const handleHookClick = useCallback((value: string, isNodeId: boolean) => {
+    if (value === "__wrapup__") {
+      triggerWrapUp();
+      return;
+    }
     if (isNodeId) {
       addNodeBlock(value);
     } else {
       submitFreeQuestion(value);
     }
-  }, [addNodeBlock, submitFreeQuestion]);
+  }, [addNodeBlock, submitFreeQuestion, triggerWrapUp]);
 
   function handleOnboardingComplete(prefs: UserPreferences) {
     setPreferences(prefs);
@@ -177,7 +245,17 @@ export default function ConversationView() {
                 <div className="text-xs text-ink-light">Product Manager · Ex-Founder · Psychologist</div>
               </div>
             </div>
-            <ShareButton blocks={blocks} />
+            <div className="flex items-center gap-3">
+              {blocks.length >= 3 && !isWrappedUp && !isLoading && (
+                <button
+                  onClick={triggerWrapUp}
+                  className="text-xs text-ink-light/60 transition-colors hover:text-accent"
+                >
+                  Wrap up
+                </button>
+              )}
+              <ShareButton blocks={blocks} />
+            </div>
           </div>
           {blocks.map((block, i) => (
             <ContentBlock
@@ -189,11 +267,23 @@ export default function ConversationView() {
             />
           ))}
           {isLoading && <SkeletonBlock />}
+          {isWrappedUp && (
+            <JourneyWrapUp
+              narrative={wrapUpNarrative}
+              isLoading={isWrapUpLoading}
+              gamified={preferences?.gamified ?? false}
+              unlockedAchievements={gamification.unlockedAchievements}
+              unlockedGems={gamification.unlockedGems}
+              discoveredCount={gamification.discoveredCount}
+              totalNodes={gamification.totalNodes}
+              onNewJourney={handleNewJourney}
+            />
+          )}
           <div ref={bottomRef} />
         </div>
       )}
 
-      {hasStarted && (
+      {hasStarted && !isWrappedUp && (
         <InputBar onSubmit={(q) => submitFreeQuestion(q)} disabled={isLoading} />
       )}
       <SettingsPanel />
