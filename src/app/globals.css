@@ -69,34 +69,177 @@ body::before {
 
 /* ── Theme: Colorful (Neo-Brutalist) ────────────────────── */
 [data-theme="colorful"] {
-  --color-paper: #FFF5E1;
-  --color-paper-dark: #FFE8C2;
-  --color-ink: #222222;
-  --color-ink-light: #555555;
-  --color-accent: #FF6B35;
-  --color-accent-hover: #E55A2B;
-  --shadow-neu: 4px 4px 0 #222;
-  --shadow-neu-sm: 3px 3px 0 #222;
-  --shadow-neu-inset: inset 2px 2px 0 rgba(0,0,0,0.1);
+  --color-paper: #FFFBE6;
+  --color-paper-dark: #FFD6E0;
+  --color-ink: #1a1a1a;
+  --color-ink-light: #444444;
+  --color-accent: #FF3366;
+  --color-accent-hover: #E6004C;
+  --shadow-neu: 6px 6px 0 #1a1a1a;
+  --shadow-neu-sm: 4px 4px 0 #1a1a1a;
+  --shadow-neu-inset: inset 3px 3px 0 rgba(0,0,0,0.15);
   --font-serif: system-ui, sans-serif;
   --font-sans: system-ui, sans-serif;
 }
 
 [data-theme="colorful"] body {
   font-family: system-ui, sans-serif;
+  font-weight: 500;
 }
 
 [data-theme="colorful"] body::before {
   display: none;
 }
 
-/* Brutalist card overrides */
+/* Brutalist structural overrides */
 [data-theme="colorful"] .rounded-2xl {
-  border: 2.5px solid #222;
+  border: 3px solid #1a1a1a;
+  border-radius: 12px;
+  background: #fff;
 }
 
 [data-theme="colorful"] .rounded-xl {
-  border: 2px solid #222;
+  border: 2.5px solid #1a1a1a;
+}
+
+[data-theme="colorful"] .rounded-full {
+  border: 3px solid #1a1a1a;
+}
+
+/* Brutalist buttons — chunky and bold */
+[data-theme="colorful"] button.rounded-xl {
+  border: 2.5px solid #1a1a1a;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+[data-theme="colorful"] button.rounded-xl:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #1a1a1a;
+}
+
+[data-theme="colorful"] button.rounded-xl:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0 #1a1a1a;
+}
+
+/* Headline treatment */
+[data-theme="colorful"] h1 {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* Input gets bold border */
+[data-theme="colorful"] input {
+  border: 2.5px solid #1a1a1a;
+  font-weight: 500;
+}
+
+/* Colorful stat blocks via nth-child rotation */
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center {
+  border: 2.5px solid #1a1a1a;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+1) {
+  background: #FF3366;
+  color: white;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+1) .text-accent {
+  color: white;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+1) .text-ink-light {
+  color: rgba(255,255,255,0.85);
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+2) {
+  background: #00D4AA;
+  color: #1a1a1a;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+2) .text-accent {
+  color: #1a1a1a;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+3) {
+  background: #FFD600;
+  color: #1a1a1a;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+3) .text-accent {
+  color: #1a1a1a;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+4) {
+  background: #7B61FF;
+  color: white;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+4) .text-accent {
+  color: white;
+}
+
+[data-theme="colorful"] .bg-paper.rounded-xl.text-center:nth-child(4n+4) .text-ink-light {
+  color: rgba(255,255,255,0.85);
+}
+
+/* Tags get colorful backgrounds */
+[data-theme="colorful"] .rounded-lg.bg-paper {
+  border: 2px solid #1a1a1a;
+  font-weight: 600;
+}
+
+[data-theme="colorful"] .rounded-lg.bg-paper:nth-child(5n+1) {
+  background: #FFD600;
+}
+
+[data-theme="colorful"] .rounded-lg.bg-paper:nth-child(5n+2) {
+  background: #FF3366;
+  color: white;
+}
+
+[data-theme="colorful"] .rounded-lg.bg-paper:nth-child(5n+3) {
+  background: #00D4AA;
+}
+
+[data-theme="colorful"] .rounded-lg.bg-paper:nth-child(5n+4) {
+  background: #7B61FF;
+  color: white;
+}
+
+[data-theme="colorful"] .rounded-lg.bg-paper:nth-child(5n+5) {
+  background: #FF6B35;
+  color: white;
+}
+
+/* Timeline dots are bigger and colorful */
+[data-theme="colorful"] .h-2\.5.w-2\.5.rounded-full.bg-accent {
+  width: 14px;
+  height: 14px;
+  border: 2.5px solid #1a1a1a;
+  background: #FFD600;
+}
+
+/* Timeline connector thicker */
+[data-theme="colorful"] .w-0\.5.bg-paper-dark {
+  width: 3px;
+  background: #1a1a1a;
+}
+
+/* Settings panel gets personality */
+[data-theme="colorful"] .fixed.z-30.w-64 {
+  border: 3px solid #1a1a1a;
+}
+
+/* Submit button chunky */
+[data-theme="colorful"] button[type="submit"] {
+  border: 2.5px solid #1a1a1a;
+  font-weight: 900;
+  font-size: 1.1rem;
 }
 
 /* Smooth theme transitions */
