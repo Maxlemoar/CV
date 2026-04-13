@@ -14,7 +14,7 @@ interface ChatMessage {
   text: string;
 }
 
-type OnboardingStep = "visual-style" | "info-depth" | "content-focus" | "done";
+type OnboardingStep = "visual-style" | "info-depth" | "content-focus" | "gamification" | "done";
 
 const STEP_CONFIG = {
   "visual-style": {
@@ -40,9 +40,16 @@ const STEP_CONFIG = {
       { label: "Max as a person", value: "max-personal" as ContentFocus, description: "Motivation, values, personality" },
     ],
   },
+  "gamification": {
+    question: "Möchtest du deine Erfahrung gamifizieren?",
+    options: [
+      { label: "Ja, zeig mir meinen Fortschritt", value: "yes", description: "Entdeckungs-Tracking, Meilensteine & versteckte Inhalte" },
+      { label: "Nein danke", value: "no", description: "Klassisches Erlebnis ohne Gamification" },
+    ],
+  },
 };
 
-const STEPS: OnboardingStep[] = ["visual-style", "info-depth", "content-focus"];
+const STEPS: OnboardingStep[] = ["visual-style", "info-depth", "content-focus", "gamification"];
 
 export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatProps) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -64,8 +71,12 @@ export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatPro
 
     setMessages((prev) => [...prev, { type: "user", text: label }]);
 
-    const key = step === "visual-style" ? "visualStyle" : step === "info-depth" ? "infoDepth" : "contentFocus";
-    const newSelections = { ...selections, [key]: value };
+    const key = step === "visual-style" ? "visualStyle"
+      : step === "info-depth" ? "infoDepth"
+      : step === "gamification" ? "gamified"
+      : "contentFocus";
+    const resolvedValue = step === "gamification" ? value === "yes" : value;
+    const newSelections = { ...selections, [key]: resolvedValue };
     setSelections(newSelections);
 
     setTimeout(() => {

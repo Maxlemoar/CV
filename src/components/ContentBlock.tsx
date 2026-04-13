@@ -8,9 +8,10 @@ interface ContentBlockProps {
   block: ContentBlockData;
   onHookClick: (targetIdOrQuestion: string, isNodeId: boolean) => void;
   isReadOnly?: boolean;
+  unlockedGems?: Set<string>;
 }
 
-export default function ContentBlock({ block, onHookClick, isReadOnly = false }: ContentBlockProps) {
+export default function ContentBlock({ block, onHookClick, isReadOnly = false, unlockedGems }: ContentBlockProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -28,7 +29,12 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false }:
       {!isReadOnly && block.hooks.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-2">
           {block.hooks.map((hook) => (
-            <HookChip key={hook.label} hook={hook} onClick={() => onHookClick(hook.targetId ?? hook.question, !!hook.targetId)} />
+            <HookChip
+              key={hook.label}
+              hook={hook}
+              onClick={() => onHookClick(hook.targetId ?? hook.question, !!hook.targetId)}
+              isGem={!!unlockedGems?.has(hook.targetId ?? "")}
+            />
           ))}
         </div>
       )}
@@ -36,13 +42,17 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false }:
   );
 }
 
-function HookChip({ hook, onClick }: { hook: HookSuggestion; onClick: () => void }) {
+function HookChip({ hook, onClick, isGem = false }: { hook: HookSuggestion; onClick: () => void; isGem?: boolean }) {
   return (
     <motion.button
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
       onClick={onClick}
-      className="rounded-xl border border-accent/20 bg-paper px-4 py-2 text-sm text-accent transition-shadow hover:shadow-neu-sm"
+      className={`rounded-xl border px-4 py-2 text-sm transition-shadow hover:shadow-neu-sm ${
+        isGem
+          ? "border-amber-400/40 bg-amber-50 text-amber-700 font-medium"
+          : "border-accent/20 bg-paper text-accent"
+      }`}
     >
       {hook.label} →
     </motion.button>
