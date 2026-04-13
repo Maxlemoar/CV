@@ -173,8 +173,25 @@ export default function CVDocument() {
       const canvas = await html2canvas(el, {
         scale: 2,
         useCORS: true,
-        logging: true,
+        logging: false,
         backgroundColor: "#ffffff",
+        onclone: (_doc, clonedEl) => {
+          // Tailwind v4 uses lab()/oklch() colors that html2canvas can't parse.
+          // Convert all color properties to rgb via getComputedStyle.
+          const colorProps = ["color", "background-color", "border-color", "border-left-color", "border-right-color", "border-top-color", "border-bottom-color"];
+          const allEls = [clonedEl, ...Array.from(clonedEl.querySelectorAll("*"))] as HTMLElement[];
+          const origEl = [el, ...Array.from(el.querySelectorAll("*"))] as HTMLElement[];
+
+          allEls.forEach((node, i) => {
+            const computed = window.getComputedStyle(origEl[i]);
+            for (const prop of colorProps) {
+              const val = computed.getPropertyValue(prop);
+              if (val && val !== "transparent" && val !== "rgba(0, 0, 0, 0)") {
+                node.style.setProperty(prop, val);
+              }
+            }
+          });
+        },
       });
 
       const pdf = new jsPDF({
