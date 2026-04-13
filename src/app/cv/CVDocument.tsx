@@ -8,33 +8,37 @@ import { useCallback } from "react";
 
 const experience = [
   {
-    role: "Product Manager — AI Quality",
+    role: "Product Manager",
     company: "eduki",
-    period: "Q1 2026",
-    description: "",
-    bullets: [
-      'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
-      "Rebuilt the AI Assessor end-to-end: iterated through prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement to 89%.",
-      'Launched the "Best of eduki" quality label with a structured A/B test. Managed tiered stakeholder rollout across top authors, general community, and publishers.',
-    ],
-  },
-  {
-    role: "Product Manager — Marketplace",
-    company: "eduki",
-    period: "Apr 2025 – Present",
-    description: "",
-    bullets: [
-      "Own Product Spaces: Product Page, Cart, Checkout, Favorites — driving discovery and conversion through A/B-tested incremental improvements.",
-    ],
-  },
-  {
-    role: "Product Manager — eduki Interactive",
-    company: "eduki",
-    period: "Oct 2022 – Apr 2025",
+    period: "Oct 2022 – Present",
     description:
-      "Led an autonomous intrapreneurship team within eduki (Berlin). Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
-    bullets: [
-      "Managed a cross-functional team of 6 (2 BE, 2 FE, QA, UX). Transitioned from startup founder to intrapreneur — navigating the shift from full ownership to operating within a larger organization.",
+      "Largest marketplace for teaching materials in Germany (~150 employees, Berlin).",
+    bullets: [],
+    subroles: [
+      {
+        title: "AI Quality",
+        period: "Q1 2026",
+        bullets: [
+          'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
+          "Rebuilt the AI Assessor end-to-end: iterated through prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement to 89%.",
+          'Launched the "Best of eduki" quality label with a structured A/B test. Managed tiered stakeholder rollout across top authors, general community, and publishers.',
+        ],
+      },
+      {
+        title: "Marketplace",
+        period: "Apr 2025 – Present",
+        bullets: [
+          "Own Product Spaces: Product Page, Cart, Checkout, Favorites — driving discovery and conversion through A/B-tested incremental improvements.",
+        ],
+      },
+      {
+        title: "eduki Interactive (Intrapreneurship)",
+        period: "Oct 2022 – Apr 2025",
+        bullets: [
+          "Led an autonomous intrapreneurship team. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
+          "Managed a cross-functional team of 6 (2 BE, 2 FE, QA, UX). Transitioned from startup founder to intrapreneur — navigating the shift from full ownership to operating within a larger organization.",
+        ],
+      },
     ],
   },
   {
@@ -44,6 +48,7 @@ const experience = [
     description:
       "pearprogramming and its product PearUp were acquired by eduki, the largest marketplace for teaching materials in Germany (~150 employees). Product and team integrated into the marketplace.",
     bullets: [],
+    subroles: [],
   },
   {
     role: "Co-Founder & CEO",
@@ -55,6 +60,7 @@ const experience = [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
     ],
+    subroles: [],
   },
 ];
 
@@ -210,6 +216,27 @@ export default function CVDocument() {
                       </li>
                     ))}
                   </ul>
+                )}
+                {exp.subroles.length > 0 && (
+                  <div className="mt-3 space-y-4 border-l-2 border-paper-dark pl-4 print:border-gray-200">
+                    {exp.subroles.map((sub) => (
+                      <div key={sub.title}>
+                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+                          <h4 className="text-sm font-semibold text-ink">{sub.title}</h4>
+                          <span className="shrink-0 text-xs font-semibold text-ink font-serif whitespace-nowrap">
+                            {sub.period}
+                          </span>
+                        </div>
+                        <ul className="mt-1.5 space-y-1.5 text-sm leading-relaxed text-ink">
+                          {sub.bullets.map((b, i) => (
+                            <li key={i} className="pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-ink-light">
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             ))}

@@ -29,7 +29,7 @@ export default function Opening({ onHookClick, visible }: OpeningProps) {
       {/* Hero banner — chalkboard wide shot */}
       <div className="mx-auto mb-6 max-w-md overflow-hidden rounded-2xl shadow-neu">
         <Image
-          src="/Max_tafel.png"
+          src="/Max_tafel.jpg"
           alt="Max Marowsky vor einer Tafel mit <Max> in Kreide"
           width={600}
           height={400}
