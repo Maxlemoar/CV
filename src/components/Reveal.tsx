@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import type { ExperimentProfile } from "@/lib/experiment-types";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
+import Comparison from "./rabbit-holes/Comparison";
 
 interface RevealProps {
   profile: ExperimentProfile;
@@ -65,6 +66,7 @@ const DIMENSION_TITLES: Record<string, string> = {
 
 export default function Reveal({ profile, visitedNodes, onShare, onNewJourney }: RevealProps) {
   const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
+  const [showComparison, setShowComparison] = useState(false);
   const progressValues: Record<string, number> = {
     persuasion: 0.75,
     learning: 0.85,
@@ -80,6 +82,9 @@ export default function Reveal({ profile, visitedNodes, onShare, onNewJourney }:
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
+      {showComparison && (
+        <Comparison profile={profile} onClose={() => setShowComparison(false)} />
+      )}
       {/* Header */}
       <motion.div
         className="text-center mb-10"
@@ -87,9 +92,12 @@ export default function Reveal({ profile, visitedNodes, onShare, onNewJourney }:
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <p className="text-xs tracking-[3px] text-neutral-400 mb-3 uppercase">
+        <button
+          onClick={() => setShowComparison(true)}
+          className="text-xs tracking-[3px] text-neutral-400 mb-3 uppercase hover:text-orange-500 transition-colors cursor-pointer"
+        >
           Experiment #{profile.experimentNumber} — Result
-        </p>
+        </button>
         <h2 className="font-serif text-2xl md:text-3xl text-neutral-900 dark:text-neutral-100">
           Thank you. Here&apos;s what I learned about you.
         </h2>
