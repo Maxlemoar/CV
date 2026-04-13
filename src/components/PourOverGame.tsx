@@ -7,9 +7,9 @@ interface PourOverGameProps {
   onClose: () => void;
 }
 
-const MAX_RECIPE = { grind: 2, temp: 92, time: 210 };
+const MAX_RECIPE = { grind: 4, temp: 94, time: 180 };
 
-function calculateRating(grind: number, temp: number, timeSeconds: number): { stars: number; comment: string } {
+function calculateRating(grind: number, temp: number, timeSeconds: number): { stars: number; comment: string; flavor: string } {
   const grindDist = Math.abs(grind - MAX_RECIPE.grind);
   const tempDist = Math.abs(temp - MAX_RECIPE.temp);
   const timeDist = Math.abs(timeSeconds - MAX_RECIPE.time);
@@ -20,11 +20,36 @@ function calculateRating(grind: number, temp: number, timeSeconds: number): { st
 
   const total = grindScore + tempScore + timeScore; // 0-6
 
-  if (total >= 6) return { stars: 5, comment: "That's my exact recipe. You'd survive a shift." };
-  if (total >= 4) return { stars: 4, comment: "Close — I'd drink this. Almost barista-level." };
-  if (total >= 3) return { stars: 3, comment: "Drinkable. But Max would tweak the grind." };
-  if (total >= 1) return { stars: 2, comment: "Brave choice. Max politely pours it out." };
-  return { stars: 1, comment: "This is a war crime. Max is calling the coffee police." };
+  // Flavor profile based on actual brew parameters
+  const isOverExtracted = grind <= 2 && timeSeconds >= 240;
+  const isUnderExtracted = grind >= 5 && timeSeconds <= 150;
+  const isBright = grind >= 3 && timeSeconds <= 210;
+  const isBalanced = grind === 3 && tempDist <= 2 && timeDist <= 30;
+
+  let flavor: string;
+  if (isOverExtracted) {
+    flavor = "Bitter, ashy, hollow. Over-extracted — the grounds gave up everything, including the bad stuff.";
+  } else if (isUnderExtracted) {
+    flavor = "Sour, watery, thin. Under-extracted — the water rushed through before any sweetness could develop.";
+  } else if (total >= 6) {
+    flavor = "Bright citrus acidity, clean body, stone fruit sweetness. A light roast lover's dream.";
+  } else if (total >= 4 && isBright) {
+    flavor = "Lively acidity with some floral notes. A touch unbalanced, but interesting.";
+  } else if (isBalanced) {
+    flavor = "Smooth, balanced, crowd-pleasing. Nice — but Max prefers more edge.";
+  } else if (total >= 3) {
+    flavor = "Decent body, muted acidity. Drinkable but forgettable.";
+  } else if (grind <= 2) {
+    flavor = "Heavy, muddy, over-extracted. Like chewing on coffee grounds.";
+  } else {
+    flavor = "Confused cup. Can't tell if it's tea or coffee. Something went wrong.";
+  }
+
+  if (total >= 6) return { stars: 5, comment: "Bright and fruity — that's exactly how I like it. You know your coffee.", flavor };
+  if (total >= 4) return { stars: 4, comment: "Close — I'd drink this. Almost barista-level.", flavor };
+  if (total >= 3) return { stars: 3, comment: "Drinkable. But Max would tweak the grind.", flavor };
+  if (total >= 1) return { stars: 2, comment: "Brave choice. Max politely pours it out.", flavor };
+  return { stars: 1, comment: "This is a war crime. Max is calling the coffee police.", flavor };
 }
 
 const GRIND_LABELS = ["", "Fine", "Medium-Fine", "Medium", "Medium-Coarse", "Coarse"];
@@ -39,7 +64,7 @@ export default function PourOverGame({ onClose }: PourOverGameProps) {
   const [grind, setGrind] = useState(3);
   const [temp, setTemp] = useState(90);
   const [time, setTime] = useState(180);
-  const [result, setResult] = useState<{ stars: number; comment: string } | null>(null);
+  const [result, setResult] = useState<{ stars: number; comment: string; flavor: string } | null>(null);
 
   function handleBrew() {
     setResult(calculateRating(grind, temp, time));
@@ -138,6 +163,7 @@ export default function PourOverGame({ onClose }: PourOverGameProps) {
             <span className="text-yellow-400/30">{"☆".repeat(5 - result.stars)}</span>
           </div>
           <p className="mt-2 text-sm italic text-ink">{result.comment}</p>
+          <p className="mt-3 text-xs leading-relaxed text-ink-light">{result.flavor}</p>
         </motion.div>
       )}
 
