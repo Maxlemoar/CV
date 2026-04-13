@@ -13,6 +13,7 @@ export interface Hook {
 export interface ContentNode {
   id: string;
   content: string;
+  contentCompact: string;
   image?: { src: string; alt: string };
   quiz?: QuizData;
   hooks: Hook[];
@@ -36,6 +37,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "school-gets-wrong",
     content:
       "Schools still optimize for recall. Can you remember this date, this formula, this definition? But when every answer is a search away, that\u2019s not the scarce skill anymore. What\u2019s hard is knowing which question to ask, whether the answer is any good, and what to do next.",
+    contentCompact:
+      "Schools optimize for recall, but when every answer is searchable, that\u2019s not the scarce skill. What matters: knowing which question to ask, evaluating answers, and deciding what to do next.",
     hooks: [
       { label: "So what should schools teach instead?", targetId: "what-schools-should-teach" },
       { label: "I built a product based on this belief", targetId: "startup-story" },
@@ -49,6 +52,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "startup-story",
     content:
       "I co-founded pearprogramming \u2014 a game where students learn to code by running a virtual startup. We won a federal grant, grew to 10 people, and in 2022 eduki acquired us. I was 28 when we started. It was the hardest and best thing I\u2019ve done.",
+    contentCompact:
+      "Co-founded pearprogramming \u2014 a game teaching coding through running a virtual startup. Won a federal grant, grew to 10 people, acquired by eduki in 2022. Started at 28. Hardest and best thing I\u2019ve done.",
     hooks: [
       { label: "What made the product special?", targetId: "product-magic" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
@@ -62,6 +67,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "why-anthropic",
     content:
       "I\u2019ve been using Claude since September 2024. First casually, then daily, then obsessively \u2014 building my own apps with Claude Code every evening after work. I listened to podcasts with the Head of Claude Code and the design team and thought: that\u2019s how I want to work. When the Education Labs PM role hit my Greenhouse alert on a Saturday morning, I had to read it twice. It felt like a job description written for me. I do my best work with maximum autonomy and interest-driven exploration \u2014 and I believe the next AI systems need to be taught ethics, like a young Roman emperor taught philosophy by his tutors.",
+    contentCompact:
+      "Daily Claude user since September 2024. Building apps with Claude Code every evening. When the Education Labs PM role appeared, it felt written for me: maximum autonomy, interest-driven exploration, and the belief that AI systems need ethical foundations.",
     hooks: [
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
       { label: "My experience with AI in education", targetId: "ai-in-education" },
@@ -75,6 +82,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "building-with-claude",
     content:
       "I use Claude Code every day. Not to avoid understanding what\u2019s being built \u2014 but because the bottleneck for me was never the idea, it was implementation speed. Now I can go from hypothesis to working prototype in a day. I\u2019m currently building three learning apps this way.",
+    contentCompact:
+      "Using Claude Code daily \u2014 not to skip understanding, but because the bottleneck was never the idea, it was implementation speed. Hypothesis to working prototype in a day. Currently building three learning apps.",
     image: { src: "/photo-coffee.jpg", alt: "Max working at a cafe" },
     hooks: [
       { label: "What apps are you building?", targetId: "side-projects" },
@@ -91,6 +100,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "what-schools-should-teach",
     content:
       "Agency. The confidence to say \u201cI don\u2019t know this yet, but I know how to figure it out.\u201d Not AI literacy as a buzzword \u2014 but the real skill: being able to direct a tool, evaluate what it gives you, and adapt when things change. That\u2019s what I\u2019d want my daughter to learn.",
+    contentCompact:
+      "Agency. The confidence to say \u2018I don\u2019t know this yet, but I can figure it out.\u2019 Not AI literacy as buzzword \u2014 the real skill: directing a tool, evaluating its output, adapting when things change.",
     hooks: [
       { label: "How this connects to Anthropic\u2019s mission", targetId: "anthropic-education-vision" },
       { label: "I studied the science behind this", targetId: "psychology-of-learning" },
@@ -104,6 +115,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "anthropic-education-vision",
     content:
       "The interesting question isn\u2019t \u201chow do we put AI in classrooms.\u201d It\u2019s \u201chow do we use AI to make learners more independent, not more dependent.\u201d A good AI tutor doesn\u2019t hand you the answer \u2014 it helps you realize what you don\u2019t understand yet. That\u2019s a hard product problem, and it\u2019s the one I want to work on.",
+    contentCompact:
+      "The real question isn\u2019t \u2018how to put AI in classrooms\u2019 but \u2018how to use AI to make learners more independent.\u2019 A good AI tutor helps you realize what you don\u2019t understand. That\u2019s the product problem I want to solve.",
     hooks: [
       { label: "This is exactly what I\u2019ve been working toward", targetId: "my-fit" },
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
@@ -116,6 +129,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "my-fit",
     content:
       "Psychology taught me how people learn. Founding a startup taught me how to ship. Game-based learning taught me that the medium shapes the message. And building with AI every day taught me what\u2019s actually possible right now \u2014 not in theory, but in production. I built an AI assessor that reaches 89% agreement with human reviewers. I\u2019ve published research on what makes teaching materials effective. I\u2019m not a PM who read about education \u2014 I\u2019ve been in it for years.",
+    contentCompact:
+      "Psychology taught me how people learn. Founding taught me how to ship. Game-based learning taught me medium shapes message. Building with AI daily showed me what\u2019s possible in production. Published researcher, built an AI assessor hitting 89% human agreement.",
     hooks: [
       { label: "The research I published", targetId: "research" },
       { label: "The AI assessor I built", targetId: "ai-in-education" },
@@ -131,6 +146,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "product-magic",
     content:
       "Students didn\u2019t just \u201clearn to code.\u201d They founded a virtual startup, made business decisions, and solved real programming challenges to grow it. We started with Google Blockly for visual programming, then progressed to text-based languages. Completion rates were far above typical e-learning \u2014 turns out intrinsic motivation matters more than curriculum design.",
+    contentCompact:
+      "Students founded a virtual startup, made business decisions, solved real programming challenges. Started with Google Blockly, progressed to text-based languages. Completion rates far above typical e-learning \u2014 intrinsic motivation beats curriculum design.",
     hooks: [
       { label: "We published research on why this works", targetId: "research" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
@@ -143,6 +160,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "after-acquisition",
     content:
       "eduki \u2014 Germany\u2019s largest marketplace for teaching materials, ~150 people \u2014 acquired us in 2022. I led the product integration with a team of seven. Then I spent three years finding product-market fit as an intrapreneur, before moving to own the core commerce experience: product page, cart, checkout.",
+    contentCompact:
+      "eduki \u2014 Germany\u2019s largest teaching materials marketplace, ~150 people \u2014 acquired us in 2022. Led product integration with a team of seven. Spent three years finding product-market fit as intrapreneur, then owned core commerce: product page, cart, checkout.",
     hooks: [
       { label: "How I used AI to improve quality", targetId: "ai-in-education" },
       { label: "What founding taught me", targetId: "founder-lessons" },
@@ -156,6 +175,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "founder-lessons",
     content:
       "Three things I took from founding: your first idea is almost always wrong, so learn to kill it early. Hiring is harder than building the product. And speed matters more than perfection \u2014 especially when you\u2019re ten people with a federal grant and no revenue yet.",
+    contentCompact:
+      "Three founding lessons: your first idea is almost always wrong, so kill it early. Hiring is harder than building the product. Speed matters more than perfection \u2014 especially with ten people, a federal grant, and no revenue.",
     hooks: [
       { label: "My product management approach", targetId: "pm-approach" },
       { label: "Who I am outside of work", targetId: "personal" },
@@ -168,6 +189,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "pm-approach",
     content:
       "I\u2019m hypothesis-driven. I don\u2019t ask \u201cwhat should we build?\u201d but \u201cwhat do we believe, and how do we test it?\u201d Deep discoveries before building. A/B tests to validate. And the discipline to kill ideas that don\u2019t work \u2014 including my own.",
+    contentCompact:
+      "Hypothesis-driven. Not \u2018what should we build?\u2019 but \u2018what do we believe, and how do we test it?\u2019 Deep discovery before building. A/B tests to validate. Discipline to kill ideas that don\u2019t work \u2014 including my own.",
     hooks: [
       { label: "A recent example", targetId: "ai-in-education" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -182,6 +205,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "ai-in-education",
     content:
       "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: an AI assessor that evaluates teaching materials across 12 criteria in 5 quality dimensions. The production model runs on Gemini Flash \u2014 I developed and iterated the assessment prompt through 10 versions, using Claude to test and refine. Version 10 achieves 89% agreement with human reviewers. The quality framework was co-developed with Prof. John Hattie.",
+    contentCompact:
+      "Led \u2018Make Quality Visible\u2019 at eduki Q1 2026: AI assessor evaluating teaching materials across 12 criteria in 5 dimensions. Developed assessment prompt through 10 versions using Claude. Version 10: 89% agreement with human reviewers. Framework co-developed with Prof. John Hattie.",
     hooks: [
       { label: "Who is John Hattie?", targetId: "research" },
       { label: "What this taught me about AI products", targetId: "future-of-work" },
@@ -197,6 +222,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "side-projects",
     content:
       "A spaced-repetition app for paramedic trainees. A vocabulary trainer. A German language app for refugees. All built with Claude Code, all in weeks instead of months. I keep coming back to the same problem: how do you help people learn something that matters to them?",
+    contentCompact:
+      "Spaced-repetition app for paramedic trainees. Vocabulary trainer. German language app for refugees. All built with Claude Code, weeks instead of months. Same recurring problem: helping people learn what matters to them.",
     hooks: [
       { label: "What this taught me about AI-native building", targetId: "future-of-work" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -210,6 +237,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "future-of-work",
     content:
       "Building with AI changed how I think about product management. When implementation is no longer the bottleneck, what\u2019s left is taste, judgment, and knowing what\u2019s worth building. That shift is already happening \u2014 and PMs who don\u2019t experience it firsthand will struggle to lead teams through it.",
+    contentCompact:
+      "When implementation is no longer the bottleneck, what\u2019s left is taste, judgment, and knowing what\u2019s worth building. PMs who don\u2019t experience AI-native building firsthand will struggle to lead teams through the shift.",
     hooks: [
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
       { label: "My product management approach", targetId: "pm-approach" },
@@ -224,6 +253,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "what-id-build",
     content:
       "I\u2019d want to build learning experiences where AI helps the learner, not replaces the teacher. Systems that figure out what you don\u2019t understand yet \u2014 not just what you got wrong. The measure of success isn\u2019t engagement time. It\u2019s: did this person become more capable and more curious?",
+    contentCompact:
+      "Learning experiences where AI helps the learner, not replaces the teacher. Systems that identify what you don\u2019t understand \u2014 not just what you got wrong. Success metric: did this person become more capable and more curious?",
     hooks: [
       { label: "The science behind this", targetId: "psychology-of-learning" },
       { label: "Why Anthropic is the right place for this", targetId: "why-anthropic" },
@@ -237,6 +268,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "psychology-of-learning",
     content:
       "My M.Sc. thesis studied motivation in computer science education. The finding that stuck with me: learners need to feel autonomous, competent, and connected (Self-Determination Theory). Every product I\u2019ve built since tries to hit all three.",
+    contentCompact:
+      "M.Sc. thesis on motivation in CS education. Key finding: learners need autonomy, competence, and connection (Self-Determination Theory). Every product I\u2019ve built since tries to hit all three.",
     hooks: [
       { label: "The research I published", targetId: "research" },
       { label: "How I applied this at pearprogramming", targetId: "product-magic" },
@@ -251,6 +284,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "research",
     content:
       "I co-authored a Springer book chapter on game-based learning with my wife Anna (M.Sc. Neuroscience). I worked with Prof. John Hattie \u2014 whose \u201cVisible Learning\u201d is the largest meta-analysis in education \u2014 on two published studies validating a quality framework for teaching materials with 2,000+ teachers.",
+    contentCompact:
+      "Co-authored Springer book chapter on game-based learning with wife Anna (M.Sc. Neuroscience, co-author). Worked with Prof. John Hattie on two published studies validating a quality framework for teaching materials with 2,000+ teachers.",
     hooks: [
       { label: "How this became a real product", targetId: "ai-in-education" },
       { label: "What I believe about the future of learning", targetId: "what-id-build" },
@@ -266,6 +301,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     id: "personal",
     content:
       "I\u2019m a 34-year-old new dad living in Cologne with my wife Anna (M.Sc. Neuroscience \u2014 we co-authored a book chapter together) and our daughter Frieda, born August 2025. Becoming a father changed how I think about education \u2014 it\u2019s not abstract anymore. I want her to stay curious. Outside of work: specialty coffee nerd (former barista, pour-over obsessive), recently discovered road cyclist, and ambitious home cook who once dreamed of opening a cafe.",
+    contentCompact:
+      "34-year-old new dad in Cologne. Wife Anna (M.Sc. Neuroscience, co-author). Daughter Frieda, born August 2025. Fatherhood made education personal \u2014 I want her to stay curious. Specialty coffee nerd, road cyclist, ambitious home cook.",
     image: { src: "/photo-frieda.jpg", alt: "Max with daughter Frieda" },
     hooks: [
       { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
@@ -276,20 +313,49 @@ export const CONTENT_GRAPH: ContentGraph = {
   },
 };
 
-// Helper: convert a ContentNode to a ContentBlockData for the conversation UI
-import type { ContentBlockData } from "@/lib/types";
+import type { ContentBlockData, ContentFocus } from "@/lib/types";
 
-export function nodeToBlock(node: ContentNode, visitedNodes: Set<string>): ContentBlockData {
+export const FOCUS_STARTER_HOOKS: Record<ContentFocus, Hook[]> = {
+  "product-builder": [
+    { label: "The startup I built and sold", targetId: "startup-story" },
+    { label: "My product management approach", targetId: "pm-approach" },
+    { label: "What founding taught me", targetId: "founder-lessons" },
+    { label: "What I'd want to build at Anthropic", targetId: "what-id-build" },
+  ],
+  "learning-scientist": [
+    { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
+    { label: "The psychology of learning", targetId: "psychology-of-learning" },
+    { label: "Research I've published", targetId: "research" },
+    { label: "What schools should teach instead", targetId: "what-schools-should-teach" },
+  ],
+  "ai-vision": [
+    { label: "What I'm building with Claude right now", targetId: "building-with-claude" },
+    { label: "My side projects", targetId: "side-projects" },
+    { label: "How I used AI to assess teaching quality", targetId: "ai-in-education" },
+    { label: "My vision for AI in education", targetId: "anthropic-education-vision" },
+  ],
+  "max-personal": [
+    { label: "Who I am outside of work", targetId: "personal" },
+    { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
+    { label: "How becoming a father changed my perspective", targetId: "what-id-build" },
+    { label: "The science of what motivates me", targetId: "psychology-of-learning" },
+  ],
+};
+
+// Helper: convert a ContentNode to a ContentBlockData for the conversation UI
+export function nodeToBlock(node: ContentNode, visitedNodes: Set<string>, depth: "overview" | "deep-dive" = "deep-dive"): ContentBlockData {
   const visibleHooks = node.hooks.filter((h) => {
     if (h.requiredVisited && !h.requiredVisited.every((id) => visitedNodes.has(id))) return false;
     if (h.minVisited && visitedNodes.size < h.minVisited) return false;
     return true;
   });
 
+  const text = depth === "overview" ? node.contentCompact : node.content;
+
   return {
     id: node.id,
     questionTitle: node.id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-    text: node.content,
+    text,
     richType: node.image ? "photo" : null,
     richData: node.image ? { src: node.image.src, alt: node.image.alt } : null,
     hooks: visibleHooks.map((h) => ({
