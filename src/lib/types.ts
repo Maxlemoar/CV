@@ -65,24 +65,8 @@ export interface SessionData {
 }
 
 export type VisualStyle = "default" | "focused" | "colorful";
-export type InfoDepth = "overview" | "deep-dive";
-export type ContentFocus = "product-builder" | "learning-scientist" | "ai-vision" | "max-personal";
 
 export interface UserPreferences {
   visualStyle: VisualStyle;
   darkMode: boolean;
-  infoDepth: InfoDepth;
-  contentFocus: ContentFocus;
-  gamified: boolean;
-}
-
-export interface AchievementDefinition {
-  id: string;
-  emoji: string;
-  name: string;
-  description: string;
-  requiredNodes?: string[];
-  minVisited?: number;
-  minFreeQuestions?: number;
-  requiredEasterEgg?: string;
 }
