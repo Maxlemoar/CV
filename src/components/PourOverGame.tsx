@@ -134,7 +134,8 @@ export default function PourOverGame({ onClose }: PourOverGameProps) {
           className="mt-6 rounded-xl border border-[var(--color-paper-dark,#E5DDD3)] bg-paper p-4 text-center"
         >
           <div className="text-2xl" aria-label={`${result.stars} out of 5 stars`}>
-            {"★".repeat(result.stars)}{"☆".repeat(5 - result.stars)}
+            <span className="text-yellow-400">{"★".repeat(result.stars)}</span>
+            <span className="text-yellow-400/30">{"☆".repeat(5 - result.stars)}</span>
           </div>
           <p className="mt-2 text-sm italic text-ink">{result.comment}</p>
         </motion.div>
