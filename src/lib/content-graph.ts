@@ -23,6 +23,8 @@ export interface ContentNode {
     requiredNodes?: string[];
     minVisited?: number;
   };
+  gemIntro?: string;
+  gemTitle?: string;
 }
 
 export type ContentGraph = Record<string, ContentNode>;
@@ -333,6 +335,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     gem: {
       requiredNodes: ["psychology-of-learning", "ai-in-education", "building-with-claude"],
     },
+    gemTitle: "The Convergence",
+    gemIntro: "You connected the dots...",
   },
 
   "gem-lab-to-product": {
@@ -348,6 +352,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     gem: {
       requiredNodes: ["startup-story", "founder-lessons", "research"],
     },
+    gemTitle: "From Lab to Product",
+    gemIntro: "You linked research to product...",
   },
 
   "gem-full-picture": {
@@ -363,6 +369,8 @@ export const CONTENT_GRAPH: ContentGraph = {
     gem: {
       minVisited: 15,
     },
+    gemTitle: "The Full Picture",
+    gemIntro: "You've seen the full picture...",
   },
 };
 
@@ -437,6 +445,13 @@ export const ACHIEVEMENT_DEFINITIONS: AchievementDefinition[] = [
     name: "Completionist",
     description: "Everything discovered",
   },
+  {
+    id: "coffee-hunter",
+    emoji: "☕",
+    name: "Coffee Hunter",
+    description: "Found Max's secret café",
+    requiredEasterEgg: "coffee",
+  },
 ];
 
 export function getNodeCounts() {
@@ -444,6 +459,40 @@ export function getNodeCounts() {
   const regularNodes = allNodes.filter((n) => !n.gem);
   const gemNodes = allNodes.filter((n) => n.gem);
   return { total: allNodes.length, regular: regularNodes.length, gems: gemNodes.length };
+}
+
+export const NODE_CLUSTERS: Record<string, { emoji: string; name: string }> = {
+  "startup-story": { emoji: "🚀", name: "Founder" },
+  "product-magic": { emoji: "🚀", name: "Founder" },
+  "after-acquisition": { emoji: "🚀", name: "Founder" },
+  "founder-lessons": { emoji: "🚀", name: "Founder" },
+  "pm-approach": { emoji: "📋", name: "Product" },
+  "my-fit": { emoji: "📋", name: "Product" },
+  "school-gets-wrong": { emoji: "🎓", name: "Education" },
+  "what-schools-should-teach": { emoji: "🎓", name: "Education" },
+  "anthropic-education-vision": { emoji: "🎓", name: "Education" },
+  "psychology-of-learning": { emoji: "🧠", name: "Psychology" },
+  "building-with-claude": { emoji: "🤖", name: "AI" },
+  "ai-in-education": { emoji: "🤖", name: "AI" },
+  "side-projects": { emoji: "🤖", name: "AI" },
+  "future-of-work": { emoji: "🤖", name: "AI" },
+  "research": { emoji: "🔬", name: "Research" },
+  "what-id-build": { emoji: "💡", name: "Vision" },
+  "why-anthropic": { emoji: "💡", name: "Vision" },
+  "personal": { emoji: "👤", name: "Personal" },
+  "gem-convergence": { emoji: "💎", name: "The Convergence" },
+  "gem-lab-to-product": { emoji: "💎", name: "From Lab to Product" },
+  "gem-full-picture": { emoji: "💎", name: "The Full Picture" },
+};
+
+export const COFFEE_KEYWORDS = [
+  "coffee", "café", "cafe", "barista", "pour over", "pour-over",
+  "pourover", "espresso", "latte", "cappuccino", "brew",
+];
+
+export function matchesCoffeeKeyword(text: string): boolean {
+  const lower = text.toLowerCase();
+  return COFFEE_KEYWORDS.some((kw) => lower.includes(kw));
 }
 
 // Helper: convert a ContentNode to a ContentBlockData for the conversation UI

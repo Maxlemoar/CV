@@ -84,4 +84,5 @@ export interface AchievementDefinition {
   requiredNodes?: string[];
   minVisited?: number;
   minFreeQuestions?: number;
+  requiredEasterEgg?: string;
 }
