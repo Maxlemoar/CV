@@ -242,6 +242,82 @@ body::before {
   font-size: 1.1rem;
 }
 
+/* ── Dark Mode ─────────────────────────────────────────── */
+[data-dark] {
+  --color-paper: #1C1917;
+  --color-paper-dark: #292524;
+  --color-ink: #E7E5E4;
+  --color-ink-light: #A8A29E;
+  --color-accent: #F59E0B;
+  --color-accent-hover: #D97706;
+  --shadow-neu: 6px 6px 12px rgba(0,0,0,0.3), -6px -6px 12px rgba(255,255,255,0.03);
+  --shadow-neu-inset: inset 4px 4px 8px rgba(0,0,0,0.3), inset -4px -4px 8px rgba(255,255,255,0.03);
+  --shadow-neu-sm: 3px 3px 6px rgba(0,0,0,0.25), -3px -3px 6px rgba(255,255,255,0.02);
+}
+
+[data-dark] body::before {
+  opacity: 0.02;
+}
+
+[data-dark] .bg-white {
+  background-color: var(--color-paper-dark);
+}
+
+[data-dark] .bg-paper {
+  background-color: var(--color-paper);
+}
+
+/* Dark + Focused */
+[data-dark][data-theme="focused"] {
+  --color-paper: #1A1814;
+  --color-paper-dark: #262420;
+  --color-ink: #D6D3CD;
+  --color-ink-light: #8C857A;
+  --color-accent: #A08B6D;
+  --color-accent-hover: #7A6B52;
+  --shadow-neu: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-neu-sm: 0 1px 1px rgba(0,0,0,0.15);
+  --shadow-neu-inset: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Dark + Colorful */
+[data-dark][data-theme="colorful"] {
+  --color-paper: #1A1A2E;
+  --color-paper-dark: #16213E;
+  --color-ink: #E0E0E0;
+  --color-ink-light: #9A9A9A;
+  --color-accent: #FF3366;
+  --color-accent-hover: #E6004C;
+  --shadow-neu: 6px 6px 0 rgba(255,255,255,0.15);
+  --shadow-neu-sm: 4px 4px 0 rgba(255,255,255,0.15);
+  --shadow-neu-inset: inset 3px 3px 0 rgba(255,255,255,0.05);
+}
+
+[data-dark][data-theme="colorful"] .rounded-2xl {
+  border-color: rgba(255,255,255,0.2);
+  background: var(--color-paper-dark);
+}
+
+[data-dark][data-theme="colorful"] .rounded-xl {
+  border-color: rgba(255,255,255,0.2);
+}
+
+[data-dark][data-theme="colorful"] .rounded-full {
+  border-color: rgba(255,255,255,0.2);
+}
+
+[data-dark][data-theme="colorful"] button.rounded-xl {
+  border-color: rgba(255,255,255,0.2);
+}
+
+[data-dark][data-theme="colorful"] button.rounded-xl:hover {
+  box-shadow: 6px 6px 0 rgba(255,255,255,0.15);
+}
+
+[data-dark][data-theme="colorful"] input {
+  border-color: rgba(255,255,255,0.2);
+}
+
 /* Smooth theme transitions */
 body,
 body::before {

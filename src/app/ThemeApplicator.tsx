@@ -13,7 +13,13 @@ export default function ThemeApplicator({ children }: { children: React.ReactNod
     } else {
       html.removeAttribute("data-theme");
     }
-  }, [preferences?.visualStyle]);
+
+    if (preferences?.darkMode) {
+      html.setAttribute("data-dark", "");
+    } else {
+      html.removeAttribute("data-dark");
+    }
+  }, [preferences?.visualStyle, preferences?.darkMode]);
 
   return <>{children}</>;
 }

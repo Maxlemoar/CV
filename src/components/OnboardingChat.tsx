@@ -14,7 +14,7 @@ interface ChatMessage {
   text: string;
 }
 
-type OnboardingStep = "visual-style" | "info-depth" | "content-focus" | "gamification" | "done";
+type OnboardingStep = "visual-style" | "dark-mode" | "info-depth" | "content-focus" | "gamification" | "done";
 
 const STEP_CONFIG = {
   "visual-style": {
@@ -22,6 +22,13 @@ const STEP_CONFIG = {
     options: [
       { label: "Focused & clean", value: "focused" as VisualStyle, description: "Minimal, paper-like, typography-driven" },
       { label: "Bold & colorful", value: "colorful" as VisualStyle, description: "Expressive, energetic, neo-brutalist" },
+    ],
+  },
+  "dark-mode": {
+    question: "Light or darkness?",
+    options: [
+      { label: "Light", value: "light", description: "Warm paper tones, easy on the eyes" },
+      { label: "Darkness", value: "dark", description: "Dark background, softer glow" },
     ],
   },
   "info-depth": {
@@ -49,7 +56,7 @@ const STEP_CONFIG = {
   },
 };
 
-const STEPS: OnboardingStep[] = ["visual-style", "info-depth", "content-focus", "gamification"];
+const STEPS: OnboardingStep[] = ["visual-style", "dark-mode", "info-depth", "content-focus", "gamification"];
 
 export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatProps) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -71,10 +78,13 @@ export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatPro
     setMessages((prev) => [...prev, { type: "user", text: label }]);
 
     const key = step === "visual-style" ? "visualStyle"
+      : step === "dark-mode" ? "darkMode"
       : step === "info-depth" ? "infoDepth"
       : step === "gamification" ? "gamified"
       : "contentFocus";
-    const resolvedValue = step === "gamification" ? value === "yes" : value;
+    const resolvedValue = step === "gamification" ? value === "yes"
+      : step === "dark-mode" ? value === "dark"
+      : value;
     const newSelections = { ...selections, [key]: resolvedValue };
     setSelections(newSelections);
 

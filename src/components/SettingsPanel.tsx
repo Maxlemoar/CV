@@ -76,6 +76,33 @@ export default function SettingsPanel() {
               </div>
             </div>
 
+            {/* Dark Mode */}
+            <div className="mb-4">
+              <div className="mb-1.5 text-xs text-ink-light">Mode</div>
+              <div className="flex gap-1.5">
+                <button
+                  onClick={() => updatePreference("darkMode", false)}
+                  className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
+                    !preferences.darkMode
+                      ? "bg-accent text-white"
+                      : "bg-paper text-ink-light hover:text-ink"
+                  }`}
+                >
+                  Light
+                </button>
+                <button
+                  onClick={() => updatePreference("darkMode", true)}
+                  className={`flex-1 rounded-lg px-3 py-1.5 text-xs transition-colors ${
+                    preferences.darkMode
+                      ? "bg-accent text-white"
+                      : "bg-paper text-ink-light hover:text-ink"
+                  }`}
+                >
+                  Dark
+                </button>
+              </div>
+            </div>
+
             {/* Info Depth */}
             <div className="mb-4">
               <div className="mb-1.5 text-xs text-ink-light">Depth</div>

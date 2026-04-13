@@ -222,6 +222,7 @@ export default function ConversationView() {
   function handleSkip() {
     setPreferences({
       visualStyle: "focused",
+      darkMode: false,
       infoDepth: "deep-dive",
       contentFocus: "product-builder",
       gamified: false,

@@ -70,6 +70,7 @@ export type ContentFocus = "product-builder" | "learning-scientist" | "ai-vision
 
 export interface UserPreferences {
   visualStyle: VisualStyle;
+  darkMode: boolean;
   infoDepth: InfoDepth;
   contentFocus: ContentFocus;
   gamified: boolean;
