@@ -502,3 +502,91 @@ body::before {
   cursor: default;
 }
 
+/* ── Gradient Border Sweep ────────────────────────────── */
+@keyframes border-sweep {
+  to { --border-angle: 360deg; }
+}
+
+.input-border-sweep {
+  position: relative;
+}
+
+.input-border-sweep::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 15px;
+  background: conic-gradient(from var(--border-angle), transparent 60%, var(--color-accent) 100%);
+  animation: border-sweep 2s linear infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.input-border-sweep.active::before {
+  opacity: 1;
+}
+
+/* ── View Transitions ─────────────────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: fade-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0.6; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* ── Typing Indicator ─────────────────────────────────── */
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+.typing-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+/* ── Reduced Motion ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .input-border-sweep::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .typing-dot {
+    animation: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.01s;
+  }
+
+  [data-theme="colorful"] body::before {
+    animation: none;
+  }
+}
