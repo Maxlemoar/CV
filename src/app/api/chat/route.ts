@@ -91,20 +91,40 @@ function sanitizeMessages(
   return cleaned;
 }
 
-const VALID_DEPTHS = new Set(["overview", "deep-dive"]);
-const VALID_FOCUSES = new Set(["product-builder", "learning-scientist", "ai-vision", "max-personal"]);
+type ExperimentProfile = {
+  experimentNumber: number;
+  persuasion: "results" | "process" | "character";
+  learning: "exploratory" | "structured" | "social";
+  education: "practice" | "individualization" | "inspiration";
+  motivation: "mastery" | "purpose" | "relatedness";
+  sharing: "surprise" | "utility" | "emotion";
+};
 
-function buildPreferencesPrompt(prefs: { visualStyle?: string; infoDepth?: string; contentFocus?: string }): string {
-  const depth = VALID_DEPTHS.has(prefs.infoDepth ?? "") ? prefs.infoDepth : "deep-dive";
-  const focus = VALID_FOCUSES.has(prefs.contentFocus ?? "") ? prefs.contentFocus : null;
+const PERSUASION_GUIDANCE: Record<ExperimentProfile["persuasion"], string> = {
+  results: "emphasize numbers, impact, outcomes",
+  process: "emphasize thinking, frameworks, decision-making",
+  character: "emphasize stories, personality, human side",
+};
 
-  if (!depth && !focus) return "";
+const LEARNING_GUIDANCE: Record<ExperimentProfile["learning"], string> = {
+  exploratory: "encourage exploration, offer more paths",
+  structured: "be organized and sequential",
+  social: "be conversational and dialogue-driven",
+};
 
-  return `\n\n## Recruiter Preferences
-- Information depth: ${depth}
-  ${depth === "overview" ? "- Keep responses concise (~2-3 sentences). Lead with the key fact. Skip narrative buildup." : "- Current behavior. Tell the story, provide context, make it personal."}
-- Content focus: ${focus ?? "none"}
-  - Prioritize this angle when answering free-form questions. Weave in relevant examples from this domain. But don't ignore other dimensions if the user asks about them directly.`;
+const MOTIVATION_GUIDANCE: Record<ExperimentProfile["motivation"], string> = {
+  mastery: "emphasize technical depth and craft",
+  purpose: "emphasize mission and impact",
+  relatedness: "emphasize teamwork and collaboration",
+};
+
+function buildProfilePrompt(profile: ExperimentProfile): string {
+  return `\n\nVISITOR PROFILE (personalize your responses subtly):
+- Persuasion mode: ${profile.persuasion} — ${PERSUASION_GUIDANCE[profile.persuasion]}
+- Learning style: ${profile.learning} — ${LEARNING_GUIDANCE[profile.learning]}
+- Motivation: ${profile.motivation} — ${MOTIVATION_GUIDANCE[profile.motivation]}
+
+IMPORTANT: Never mention that you are personalizing. The adaptation should feel natural.`;
 }
 
 const WRAPUP_PROMPT = `
@@ -146,9 +166,9 @@ export async function POST(req: Request) {
     return Response.json({ error: "Invalid messages." }, { status: 400 });
   }
 
-  const prefs = (body as { preferences?: { visualStyle?: string; infoDepth?: string; contentFocus?: string } })?.preferences;
+  const profile = (body as { profile?: ExperimentProfile })?.profile ?? null;
   const wrapUp = (body as { wrapUp?: boolean })?.wrapUp === true;
-  const systemPrompt = SYSTEM_PROMPT + (prefs ? buildPreferencesPrompt(prefs) : "") + (wrapUp ? WRAPUP_PROMPT : "");
+  const systemPrompt = SYSTEM_PROMPT + (profile ? buildProfilePrompt(profile) : "") + (wrapUp ? WRAPUP_PROMPT : "");
 
   const result = await generateText({
     model: "anthropic/claude-sonnet-4.5",
