@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 
 /* ------------------------------------------------------------------ */
@@ -124,6 +124,34 @@ const skillGroups = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Scroll-reveal hook                                                 */
+/* ------------------------------------------------------------------ */
+
+function useRevealOnScroll() {
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("cv-visible");
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return ref;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
@@ -133,39 +161,39 @@ export default function CVDocument() {
   }, []);
 
   return (
-    <article className="cv-document mx-auto max-w-[800px] rounded-2xl bg-white shadow-neu print:shadow-none print:rounded-none">
-      <div className="px-8 py-10 sm:px-12 sm:py-14 print:px-0 print:py-0">
+    <article className="cv-document mx-auto max-w-[860px] rounded-2xl bg-white shadow-neu print:shadow-none print:rounded-none">
+      <div className="px-8 py-8 sm:px-10 sm:py-10 print:px-0 print:py-0">
         {/* ---- Header ---- */}
-        <header className="mb-8 border-b border-paper-dark pb-8 print:border-gray-300">
+        <header className="mb-6 pb-6 border-b border-paper-dark print:border-gray-300">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full shadow-neu print:shadow-none">
+              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full shadow-neu-sm print:shadow-none">
                 <Image
                   src="/Max_tafel_klein.jpg"
                   alt="Maximilian Marowsky"
-                  width={64}
-                  height={64}
+                  width={56}
+                  height={56}
                   className="h-full w-full object-cover"
                 />
               </div>
               <div>
-                <h1 className="font-serif text-3xl font-bold text-ink sm:text-4xl">
+                <h1 className="font-serif text-2xl font-bold text-ink sm:text-3xl">
                   Maximilian Marowsky
                 </h1>
-                <p className="mt-1 text-lg text-ink-light">
+                <p className="mt-0.5 text-[13px] text-ink-light tracking-wide">
                   Product Manager &middot; Founder &middot; EdTech
                 </p>
               </div>
             </div>
             <button
               onClick={handlePrint}
-              className="no-print self-start rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-accent-hover"
+              className="no-print self-start rounded-lg bg-accent px-4 py-2 text-[13px] font-medium text-white transition-colors hover:bg-accent-hover"
             >
               Export PDF
             </button>
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-light">
+          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-ink-light">
             <span>m.marowsky@gmail.com</span>
             <a
               href="https://www.linkedin.com/in/maximilian-marowsky-416bb3164/"
@@ -179,167 +207,199 @@ export default function CVDocument() {
           </div>
         </header>
 
-        {/* ---- Summary ---- */}
-        <Section title="Summary">
-          <p className="leading-relaxed text-ink">
-            Psychologist turned EdTech founder turned Product Manager with 8+
-            years of experience building learning products. I co-founded
-            pearprogramming, a game-based learning startup that was acquired by
-            eduki, where I now build AI-powered systems that make educational
-            quality visible and measurable. My background in science shapes
-            how I think about learning and working with Claude how I
-            think about product. I believe that people learn best with
-            experiences that adapt to who they are and what they need.
-          </p>
-        </Section>
+        {/* ---- Two-column layout ---- */}
+        <div className="flex flex-col md:flex-row md:gap-8 print:flex-row print:gap-8">
+          {/* ---- Main column (left, ~68%) ---- */}
+          <div className="md:w-[68%] print:w-[68%]">
+            {/* ---- Summary ---- */}
+            <Section title="Summary">
+              <p className="text-[13px] leading-relaxed text-ink">
+                Psychologist turned EdTech founder turned Product Manager with 8+
+                years of experience building learning products. I co-founded
+                pearprogramming, a game-based learning startup that was acquired by
+                eduki, where I now build AI-powered systems that make educational
+                quality visible and measurable. My background in science shapes
+                how I think about learning and working with Claude how I
+                think about product. I believe that people learn best with
+                experiences that adapt to who they are and what they need.
+              </p>
+            </Section>
 
-        {/* ---- Experience ---- */}
-        <Section title="Experience">
-          <div className="space-y-7">
-            {experience.map((exp) => (
-              <div key={exp.role + exp.period}>
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
-                  <h3 className="font-semibold text-ink">
-                    {exp.role}
-                    {exp.company && (
-                      <span className="font-normal text-ink-light">
-                        {" "}— {exp.company}
-                      </span>
-                    )}
-                  </h3>
-                  <span className="shrink-0 text-sm font-semibold text-ink font-serif whitespace-nowrap">
-                    {exp.period}
-                  </span>
-                </div>
-                {exp.description && (
-                  <p className="mt-0.5 text-sm text-ink-light">
-                    {exp.description}
-                  </p>
-                )}
-                {exp.bullets.length > 0 && (
-                  <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-ink">
-                    {exp.bullets.map((b, i) => (
-                      <li key={i} className="pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-ink-light">
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {exp.subroles.length > 0 && (
-                  <div className="mt-3 space-y-4 border-l-2 border-paper-dark pl-4 print:border-gray-200">
-                    {exp.subroles.map((sub) => (
-                      <div key={sub.title}>
-                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
-                          <h4 className="text-sm font-semibold text-ink">{sub.title}</h4>
-                          <span className="shrink-0 text-xs font-semibold text-ink font-serif whitespace-nowrap">
-                            {sub.period}
+            {/* ---- Experience ---- */}
+            <Section title="Experience">
+              <div className="space-y-5">
+                {experience.map((exp) => (
+                  <div
+                    key={exp.role + exp.period}
+                    className="group rounded-lg px-3 py-2 -mx-3 transition-colors hover:bg-paper/60 print:hover:bg-transparent print:px-0 print:mx-0"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+                      <h3 className="text-[13px] font-semibold text-ink">
+                        {exp.role}
+                        {exp.company && (
+                          <span className="font-normal text-ink-light">
+                            {" "}— {exp.company}
                           </span>
-                        </div>
-                        <ul className="mt-1.5 space-y-1.5 text-sm leading-relaxed text-ink">
-                          {sub.bullets.map((b, i) => (
-                            <li key={i} className="pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-ink-light">
-                              {b}
-                            </li>
-                          ))}
-                        </ul>
+                        )}
+                      </h3>
+                      <span className="shrink-0 text-[12px] font-semibold text-accent font-serif whitespace-nowrap">
+                        {exp.period}
+                      </span>
+                    </div>
+                    {exp.description && (
+                      <p className="mt-0.5 text-[12px] text-ink-light leading-snug">
+                        {exp.description}
+                      </p>
+                    )}
+                    {exp.bullets.length > 0 && (
+                      <ul className="mt-1.5 space-y-1 text-[12px] leading-relaxed text-ink">
+                        {exp.bullets.map((b, i) => (
+                          <li key={i} className="pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-accent before:font-bold">
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {exp.subroles.length > 0 && (
+                      <div className="mt-2 space-y-3 border-l-2 border-accent/20 pl-3 print:border-gray-200">
+                        {exp.subroles.map((sub) => (
+                          <div key={sub.title}>
+                            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+                              <h4 className="text-[12px] font-semibold text-ink">{sub.title}</h4>
+                              <span className="shrink-0 text-[11px] font-medium text-accent/80 font-serif whitespace-nowrap">
+                                {sub.period}
+                              </span>
+                            </div>
+                            <ul className="mt-1 space-y-1 text-[12px] leading-relaxed text-ink">
+                              {sub.bullets.map((b, i) => (
+                                <li key={i} className="pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-accent before:font-bold">
+                                  {b}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    )}
                   </div>
-                )}
+                ))}
               </div>
-            ))}
-          </div>
-        </Section>
+            </Section>
 
-        {/* ---- Education ---- */}
-        <Section title="Education">
-          <div className="space-y-3">
-            {education.map((edu) => (
-              <div key={edu.degree}>
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
-                  <h3 className="font-semibold text-ink">{edu.degree}</h3>
-                  <span className="shrink-0 text-sm text-ink-light font-serif">
-                    {edu.period}
-                  </span>
-                </div>
-                <p className="text-sm text-ink-light">{edu.school}</p>
-                <p className="mt-0.5 text-sm text-ink">{edu.detail}</p>
+            {/* ---- Education ---- */}
+            <Section title="Education">
+              <div className="space-y-2.5">
+                {education.map((edu) => (
+                  <div key={edu.degree}>
+                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+                      <h3 className="text-[13px] font-semibold text-ink">{edu.degree}</h3>
+                      <span className="shrink-0 text-[11px] font-medium text-accent/80 font-serif">
+                        {edu.period}
+                      </span>
+                    </div>
+                    <p className="text-[12px] text-ink-light">{edu.school}</p>
+                    <p className="mt-0.5 text-[12px] text-ink">{edu.detail}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </Section>
+            </Section>
 
-        {/* ---- Research ---- */}
-        <Section title="Research">
-          <div className="space-y-3">
-            {research.map((pub) => (
-              <div key={pub.title}>
-                <h3 className="font-semibold text-ink text-sm">
-                  {"url" in pub && pub.url ? (
-                    <a href={pub.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors underline decoration-ink-light/30">
-                      {pub.title}
-                    </a>
-                  ) : pub.title}
-                </h3>
-                <p className="text-sm text-ink-light">{pub.venue}</p>
-                <p className="mt-0.5 text-sm text-ink">{pub.note}</p>
+            {/* ---- Research ---- */}
+            <Section title="Research">
+              <div className="space-y-2.5">
+                {research.map((pub) => (
+                  <div key={pub.title}>
+                    <h3 className="text-[12px] font-semibold text-ink">
+                      {"url" in pub && pub.url ? (
+                        <a href={pub.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors underline decoration-accent/30 underline-offset-2">
+                          {pub.title}
+                        </a>
+                      ) : pub.title}
+                    </h3>
+                    <p className="text-[11px] text-ink-light">{pub.venue}</p>
+                    <p className="mt-0.5 text-[12px] text-ink">{pub.note}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </Section>
           </div>
-        </Section>
 
-        {/* ---- Side Projects ---- */}
-        <Section title="Side Projects">
-          <p className="mb-2 text-sm text-ink-light">
-            Built with Claude Code:
-          </p>
-          <ul className="space-y-1 text-sm text-ink">
-            {sideProjects.map((p) => (
-              <li key={p} className="pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-ink-light">
-                {p}
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        {/* ---- Skills ---- */}
-        <Section title="Skills">
-          <div className="space-y-3">
-            {skillGroups.map((group) => (
-              <div key={group.label}>
-                <span className="text-xs font-semibold uppercase tracking-wide text-ink-light">
-                  {group.label}
-                </span>
-                <div className="mt-1 flex flex-wrap gap-1.5">
-                  {group.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-md bg-paper px-2.5 py-0.5 text-sm text-ink print:border print:border-gray-300 print:bg-white"
-                    >
-                      {skill}
+          {/* ---- Sidebar (right, ~32%) ---- */}
+          <aside className="md:w-[32%] print:w-[32%] mt-6 md:mt-0 print:mt-0 md:border-l md:border-paper-dark md:pl-8 print:border-l print:border-gray-200 print:pl-8">
+            {/* ---- Skills ---- */}
+            <Section title="Skills">
+              <div className="space-y-3">
+                {skillGroups.map((group) => (
+                  <div key={group.label}>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-accent">
+                      {group.label}
                     </span>
-                  ))}
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {group.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="rounded bg-paper px-2 py-0.5 text-[11px] text-ink print:border print:border-gray-200 print:bg-white"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Section>
+
+            {/* ---- Side Projects ---- */}
+            <Section title="Side Projects">
+              <p className="mb-1.5 text-[11px] text-ink-light">
+                Built with Claude Code:
+              </p>
+              <ul className="space-y-1 text-[11px] text-ink">
+                {sideProjects.map((p) => (
+                  <li key={p} className="pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-accent before:font-bold">
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </Section>
+
+            {/* ---- Languages ---- */}
+            <Section title="Languages">
+              <div className="space-y-1 text-[12px]">
+                <div className="flex justify-between">
+                  <span className="text-ink">German</span>
+                  <span className="text-ink-light">native</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-ink">English</span>
+                  <span className="text-ink-light">C1</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-ink">Italian</span>
+                  <span className="text-ink-light">B1</span>
                 </div>
               </div>
-            ))}
-          </div>
-        </Section>
+            </Section>
 
-        {/* ---- Languages ---- */}
-        <Section title="Languages">
-          <p className="text-sm text-ink">
-            German <span className="text-ink-light">(native)</span> &middot;
-            English <span className="text-ink-light">(C1)</span> &middot;
-            Italian <span className="text-ink-light">(B1)</span>
-          </p>
-        </Section>
+            {/* ---- Portfolio link ---- */}
+            <Section title="Portfolio">
+              <a
+                href="/"
+                className="inline-flex items-center gap-1.5 text-[12px] text-accent hover:text-accent-hover transition-colors font-medium"
+              >
+                maxmarowsky.com
+                <span className="text-[10px]">↗</span>
+              </a>
+            </Section>
+          </aside>
+        </div>
       </div>
     </article>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Section wrapper                                                    */
+/*  Section wrapper with scroll-reveal                                 */
 /* ------------------------------------------------------------------ */
 
 function Section({
@@ -349,9 +409,14 @@ function Section({
   title: string;
   children: React.ReactNode;
 }) {
+  const ref = useRevealOnScroll();
+
   return (
-    <section className="mb-7 print:mb-5">
-      <h2 className="mb-3 font-serif text-lg font-bold text-ink border-b border-paper-dark pb-1 print:border-gray-300">
+    <section
+      ref={ref}
+      className="cv-reveal mb-5 print:mb-4 print:opacity-100 print:translate-y-0"
+    >
+      <h2 className="mb-2 text-[13px] font-bold text-accent uppercase tracking-wider border-b border-paper-dark pb-1 print:border-gray-300 print:text-ink">
         {title}
       </h2>
       {children}

@@ -367,6 +367,23 @@ body::before {
     padding: 0 !important;
     margin: 0 !important;
   }
+
+  .cv-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── CV scroll-reveal animation ───────────────────────── */
+.cv-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.cv-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes shimmer {
