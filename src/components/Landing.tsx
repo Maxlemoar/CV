@@ -30,7 +30,7 @@ export default function Landing({ onStartJourney }: LandingProps) {
         Max Marowsky
       </h1>
       <p className="mt-2 text-ink-light">
-        Product Manager · Ex-Founder · Psychologist
+        Product Manager · Founder · EdTech
       </p>
       <p className="mt-6 text-lg text-ink">
         Get to know me. Just ask.
