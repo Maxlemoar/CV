@@ -64,6 +64,17 @@ export interface SessionData {
   createdAt: string;
 }
 
+export interface AchievementDefinition {
+  id: string;
+  emoji: string;
+  name: string;
+  description: string;
+  requiredNodes?: string[];
+  minVisited?: number;
+  minFreeQuestions?: number;
+  requiredEasterEgg?: string;
+}
+
 export type VisualStyle = "default" | "focused" | "colorful";
 
 export interface UserPreferences {

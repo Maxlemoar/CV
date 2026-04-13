@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { CONTENT_GRAPH, ACHIEVEMENT_DEFINITIONS, getNodeCounts } from "@/lib/content-graph";
+import { CONTENT_GRAPH, getNodeCounts } from "@/lib/content-graph";
+import { ACHIEVEMENT_DEFINITIONS } from "@/lib/achievement-definitions";
 import type { AchievementDefinition } from "@/lib/types";
 
 export interface GamificationState {

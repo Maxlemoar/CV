@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import type { AchievementDefinition } from "@/lib/types";
-import { ACHIEVEMENT_DEFINITIONS, NODE_CLUSTERS } from "@/lib/content-graph";
+import { NODE_CLUSTERS } from "@/lib/content-graph";
+import { ACHIEVEMENT_DEFINITIONS } from "@/lib/achievement-definitions";
 import type { ContentBlockData } from "@/lib/types";
 
 interface JourneyWrapUpProps {
