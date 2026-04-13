@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import type { ContentBlockData, SessionData } from "@/lib/types";
+import type { ExperimentProfile } from "@/lib/experiment-types";
 
 function getClient() {
   const url = process.env.SUPABASE_URL;
@@ -8,27 +8,44 @@ function getClient() {
   return createClient(url, key);
 }
 
-export async function saveSession(id: string, blocks: ContentBlockData[]): Promise<void> {
+export async function saveSession(
+  id: string,
+  experimentNumber: number,
+  profile: ExperimentProfile,
+  visitedNodes: string[]
+): Promise<void> {
   const client = getClient();
   const { error } = await client.from("sessions").insert({
     id,
-    blocks: JSON.stringify(blocks),
+    experiment_number: experimentNumber,
+    profile: JSON.stringify(profile),
+    visited_nodes: JSON.stringify(visitedNodes),
     created_at: new Date().toISOString(),
   });
   if (error) throw error;
 }
 
-export async function loadSession(id: string): Promise<SessionData | null> {
+export async function loadSession(id: string): Promise<{
+  id: string;
+  experimentNumber: number;
+  profile: ExperimentProfile;
+  visitedNodes: string[];
+  createdAt: string;
+} | null> {
   const client = getClient();
   const { data, error } = await client
     .from("sessions")
-    .select("id, blocks, created_at")
+    .select("id, experiment_number, profile, visited_nodes, created_at")
     .eq("id", id)
     .single();
+
   if (error || !data) return null;
+
   return {
     id: data.id,
-    blocks: typeof data.blocks === "string" ? JSON.parse(data.blocks) : data.blocks,
+    experimentNumber: data.experiment_number,
+    profile: typeof data.profile === "string" ? JSON.parse(data.profile) : data.profile,
+    visitedNodes: typeof data.visited_nodes === "string" ? JSON.parse(data.visited_nodes) : data.visited_nodes,
     createdAt: data.created_at,
   };
 }
