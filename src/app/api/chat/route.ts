@@ -91,6 +91,16 @@ function sanitizeMessages(
   return cleaned;
 }
 
+function buildPreferencesPrompt(prefs: { visualStyle?: string; infoDepth?: string; contentFocus?: string }): string {
+  if (!prefs.infoDepth && !prefs.contentFocus) return "";
+
+  return `\n\n## Recruiter Preferences
+- Information depth: ${prefs.infoDepth ?? "deep-dive"}
+  ${prefs.infoDepth === "overview" ? "- Keep responses concise (~2-3 sentences). Lead with the key fact. Skip narrative buildup." : "- Current behavior. Tell the story, provide context, make it personal."}
+- Content focus: ${prefs.contentFocus ?? "none"}
+  - Prioritize this angle when answering free-form questions. Weave in relevant examples from this domain. But don't ignore other dimensions if the user asks about them directly.`;
+}
+
 export async function POST(req: Request) {
   // Rate limiting
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
@@ -114,10 +124,13 @@ export async function POST(req: Request) {
     return Response.json({ error: "Invalid messages." }, { status: 400 });
   }
 
+  const prefs = (body as { preferences?: { visualStyle?: string; infoDepth?: string; contentFocus?: string } })?.preferences;
+  const systemPrompt = SYSTEM_PROMPT + (prefs ? buildPreferencesPrompt(prefs) : "");
+
   const result = await generateText({
     model: "anthropic/claude-sonnet-4.5",
     output: Output.object({ schema: responseSchema }),
-    system: SYSTEM_PROMPT,
+    system: systemPrompt,
     messages,
   });
 
