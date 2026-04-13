@@ -13,7 +13,7 @@ const responseSchema = z.object({
   hooks: z.array(z.object({
     label: z.string().describe("Short button label, 3-6 words"),
     question: z.string().describe("The full question this hook represents"),
-  })).min(2).max(3).describe("Follow-up suggestions for the visitor"),
+  })).min(0).max(3).describe("Follow-up suggestions for the visitor. Empty array for wrap-up summaries."),
 });
 
 const SYSTEM_PROMPT = `You are the intelligence behind Max Marowsky's portfolio website. A visitor is getting to know Max by asking questions. You answer based on Max's profile below.
@@ -107,6 +107,22 @@ function buildPreferencesPrompt(prefs: { visualStyle?: string; infoDepth?: strin
   - Prioritize this angle when answering free-form questions. Weave in relevant examples from this domain. But don't ignore other dimensions if the user asks about them directly.`;
 }
 
+const WRAPUP_PROMPT = `
+
+## SPECIAL MODE: Journey Summary
+
+The visitor has finished exploring. Instead of answering a question, generate a personalized 2-3 sentence summary of what they discovered about Max during this conversation.
+
+RULES FOR THE SUMMARY:
+- Focus on the specific facets they explored — don't be generic
+- Reference the actual topics they engaged with
+- Write as if you're telling them what they now know about Max that they didn't before
+- Do NOT use phrases like "Thank you for visiting" or "I hope you enjoyed"
+- Be specific and insightful
+- The questionTitle should be "What you've learned about Max"
+- Do NOT include hooks — return an empty hooks array
+- Do NOT include rich elements — return null for richType and richData`;
+
 export async function POST(req: Request) {
   // Rate limiting
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
@@ -131,7 +147,8 @@ export async function POST(req: Request) {
   }
 
   const prefs = (body as { preferences?: { visualStyle?: string; infoDepth?: string; contentFocus?: string } })?.preferences;
-  const systemPrompt = SYSTEM_PROMPT + (prefs ? buildPreferencesPrompt(prefs) : "");
+  const wrapUp = (body as { wrapUp?: boolean })?.wrapUp === true;
+  const systemPrompt = SYSTEM_PROMPT + (prefs ? buildPreferencesPrompt(prefs) : "") + (wrapUp ? WRAPUP_PROMPT : "");
 
   const result = await generateText({
     model: "anthropic/claude-sonnet-4.5",
