@@ -2,22 +2,22 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import type { ContentBlockData, AIResponse } from "@/lib/types";
-import type { UserPreferences } from "@/lib/types";
-import { CONTENT_GRAPH, nodeToBlock } from "@/lib/content-graph";
-import { usePreferences } from "@/lib/preferences";
+import { CONTENT_GRAPH, nodeToBlock, ROOT_HOOKS } from "@/lib/content-graph";
+import { useExperiment } from "@/lib/experiment-context";
+import { useSettings } from "@/lib/preferences";
+import { EDUCATION_STARTER_HOOKS } from "@/lib/experiment-starter-hooks";
+import type { FrameResponse } from "@/lib/experiment-types";
 import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
 import SkeletonBlock from "./SkeletonBlock";
 import InputBar from "./InputBar";
 import ShareButton from "./ShareButton";
 import PrintCV from "./PrintCV";
-import OnboardingChat from "./OnboardingChat";
 import Landing from "./Landing";
+import Interview from "./Interview";
+import AnalyseBar from "./AnalyseBar";
+import Reveal from "./Reveal";
 import SettingsPanel from "./SettingsPanel";
-import { useGamification } from "@/hooks/useGamification";
-import ProgressRing from "./gamification/ProgressRing";
-import AchievementToast from "./gamification/AchievementToast";
-import JourneyWrapUp from "./JourneyWrapUp";
 import PourOverGame from "./PourOverGame";
 import { matchesCoffeeKeyword } from "@/lib/content-graph";
 
@@ -29,29 +29,24 @@ export default function ConversationView() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const blockCounter = useRef(0);
   const [freeQuestionCount, setFreeQuestionCount] = useState(0);
-  const [isWrappedUp, setIsWrappedUp] = useState(false);
-  const [wrapUpNarrative, setWrapUpNarrative] = useState<string | null>(null);
-  const [isWrapUpLoading, setIsWrapUpLoading] = useState(false);
-  const [showOnboarding, setShowOnboarding] = useState(false);
   const [visitOrder, setVisitOrder] = useState<string[]>([]);
-  const [foundCoffeeEasterEgg, setFoundCoffeeEasterEgg] = useState(false);
+
+  // Experiment flow state
+  const [showInterview, setShowInterview] = useState(false);
+  const [showReveal, setShowReveal] = useState(false);
+  const [revealDismissed, setRevealDismissed] = useState(false);
+  const experimentNumberRef = useRef<number | null>(null);
+  const REVEAL_THRESHOLD = 8;
+
+  // Coffee easter egg (kept for fun)
   const [coffeeGameActive, setCoffeeGameActive] = useState(false);
 
-  const { preferences, setPreferences, resetPreferences, isOnboarded } = usePreferences();
-
-  function isDeadEnd(block: ContentBlockData): boolean {
-    if (block.hooks.length === 0) return true;
-    return block.hooks.every((h) => h.targetId && visitedNodes.has(h.targetId));
-  }
+  const { profile, setProfile, isInterviewed, resetExperiment } = useExperiment();
+  const { settings } = useSettings();
 
   const hasStarted = blocks.length > 0 || isLoading;
 
-  const gamification = useGamification(
-    visitedNodes,
-    freeQuestionCount,
-    preferences?.gamified ?? false,
-    foundCoffeeEasterEgg,
-  );
+  const starterHooks = profile ? EDUCATION_STARTER_HOOKS[profile.education] : ROOT_HOOKS;
 
   useEffect(() => {
     if (bottomRef.current) {
@@ -59,52 +54,7 @@ export default function ConversationView() {
     }
   }, [blocks.length, isLoading]);
 
-  // Inject gem hooks into the last block when a gem unlocks
-  useEffect(() => {
-    if (!preferences?.gamified || gamification.unlockedGems.size === 0) return;
-
-    setBlocks((prev) => {
-      if (prev.length === 0) return prev;
-      const lastBlock = prev[prev.length - 1];
-
-      const gemHooks: Array<{ label: string; question: string; targetId: string }> = [];
-      for (const gemId of gamification.unlockedGems) {
-        if (visitedNodes.has(gemId)) continue;
-        if (lastBlock.hooks.some((h) => h.targetId === gemId)) continue;
-
-        const gemNode = CONTENT_GRAPH[gemId];
-        if (!gemNode) continue;
-
-        const gemLabel = gemId === "gem-convergence" ? "The Convergence"
-          : gemId === "gem-lab-to-product" ? "From Lab to Product"
-          : "The Full Picture";
-
-        gemHooks.push({ label: gemLabel, question: gemLabel, targetId: gemId });
-      }
-
-      if (gemHooks.length === 0) return prev;
-
-      const updatedLast = { ...lastBlock, hooks: [...lastBlock.hooks, ...gemHooks] };
-      return [...prev.slice(0, -1), updatedLast];
-    });
-  }, [gamification.unlockedGems, preferences?.gamified, visitedNodes]);
-
-  // Inject wrap-up hook when last block is a dead end
-  useEffect(() => {
-    if (isWrappedUp || blocks.length === 0) return;
-
-    const lastBlock = blocks[blocks.length - 1];
-    if (!isDeadEnd(lastBlock)) return;
-    if (lastBlock.hooks.some((h) => h.question === "__wrapup__")) return;
-
-    setBlocks((prev) => {
-      const last = prev[prev.length - 1];
-      const wrapUpHook = { label: "See what you've discovered →", question: "__wrapup__", targetId: undefined };
-      return [...prev.slice(0, -1), { ...last, hooks: [...last.hooks, wrapUpHook] }];
-    });
-  }, [blocks, visitedNodes, isWrappedUp]);
-
-  const addNodeBlock = useCallback((nodeId: string) => {
+  const addNodeBlock = useCallback(async (nodeId: string) => {
     const node = CONTENT_GRAPH[nodeId];
     if (!node) return;
 
@@ -113,22 +63,59 @@ export default function ConversationView() {
     setVisitedNodes(updatedVisited);
     setVisitOrder((prev) => prev.includes(nodeId) ? prev : [...prev, nodeId]);
 
-    const depth = preferences?.infoDepth ?? "deep-dive";
+    const depth = profile?.learning === "structured" ? "overview" : "deep-dive";
+
+    // Fetch framing from API if profile exists
+    let framing: FrameResponse | null = null;
+    if (profile) {
+      try {
+        const res = await fetch("/api/frame", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "frame",
+            nodeId,
+            profile,
+            visitedNodes: Array.from(updatedVisited),
+            previousNodeId: blocks.length > 0 ? blocks[blocks.length - 1].id : undefined,
+          }),
+        });
+        if (res.ok) framing = await res.json();
+      } catch {
+        // Continue without framing
+      }
+    }
+
     const block = nodeToBlock(node, updatedVisited, depth);
+
+    // Prepend framing text
+    if (framing?.transition && blocks.length > 0) {
+      block.text = framing.transition + " " + block.text;
+    }
+    if (framing?.introduction) {
+      block.text = framing.introduction + "\n\n" + block.text;
+    }
+    // Override hook labels if framing provides them
+    if (framing?.hookLabels) {
+      block.hooks = block.hooks.map((h) => ({
+        ...h,
+        label: (h.targetId && framing!.hookLabels![h.targetId]) || h.label,
+      }));
+    }
+
     setBlocks((prev) => [...prev, block]);
     setMessages((prev) => [
       ...prev,
       { role: "user" as const, content: block.questionTitle },
       { role: "assistant" as const, content: block.text },
     ]);
-  }, [visitedNodes, preferences]);
+  }, [visitedNodes, profile, blocks]);
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
 
     // Coffee Easter Egg
     if (matchesCoffeeKeyword(question)) {
-      setFoundCoffeeEasterEgg(true);
       setCoffeeGameActive(true);
       blockCounter.current += 1;
       const coffeeBlock: ContentBlockData = {
@@ -157,7 +144,7 @@ export default function ConversationView() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: updatedMessages,
-          preferences: preferences ?? undefined,
+          profile,
         }),
       });
 
@@ -185,89 +172,86 @@ export default function ConversationView() {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, messages, preferences]);
+  }, [isLoading, messages, profile]);
 
-  const triggerWrapUp = useCallback(async () => {
-    if (isWrapUpLoading || isWrappedUp) return;
-    setIsWrappedUp(true);
-    setIsWrapUpLoading(true);
-
+  const handleShare = async () => {
+    if (!profile) return;
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages,
-          preferences: preferences ?? undefined,
-          wrapUp: true,
+          experimentNumber: profile.experimentNumber,
+          profile,
+          visitedNodes: Array.from(visitedNodes),
         }),
       });
-
-      if (!res.ok) throw new Error("Failed to get wrap-up");
-
-      const data = await res.json();
-      setWrapUpNarrative(data.text);
-    } catch (err) {
-      console.error("Wrap-up error:", err);
-      setWrapUpNarrative("You explored several facets of Max's background. Thank you for your curiosity.");
-    } finally {
-      setIsWrapUpLoading(false);
+      const { id } = await res.json();
+      const url = `${window.location.origin}/s/${id}`;
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // Handle error silently
     }
-  }, [isWrapUpLoading, isWrappedUp, messages, preferences]);
+  };
 
   function handleNewJourney() {
+    resetExperiment();
     setBlocks([]);
     setVisitedNodes(new Set());
     setMessages([]);
     setFreeQuestionCount(0);
-    setIsWrappedUp(false);
-    setWrapUpNarrative(null);
-    setIsWrapUpLoading(false);
     blockCounter.current = 0;
-    setShowOnboarding(false);
     setVisitOrder([]);
-    setFoundCoffeeEasterEgg(false);
     setCoffeeGameActive(false);
-    resetPreferences();
+    setShowReveal(false);
+    setRevealDismissed(false);
+    setShowInterview(false);
+    experimentNumberRef.current = null;
   }
 
   const handleHookClick = useCallback((value: string, isNodeId: boolean) => {
-    if (value === "__wrapup__") {
-      triggerWrapUp();
-      return;
-    }
     if (isNodeId) {
       addNodeBlock(value);
     } else {
       submitFreeQuestion(value);
     }
-  }, [addNodeBlock, submitFreeQuestion, triggerWrapUp]);
+  }, [addNodeBlock, submitFreeQuestion]);
 
-  function handleOnboardingComplete(prefs: UserPreferences) {
-    setPreferences(prefs);
+  // Landing -> Interview -> Main conversation flow
+  if (!isInterviewed && !showInterview) {
+    return <Landing onStartJourney={(num: number) => {
+      experimentNumberRef.current = num;
+      setShowInterview(true);
+    }} />;
   }
 
-  function handleSkip() {
-    setPreferences({
-      visualStyle: "default",
-      darkMode: false,
-      infoDepth: "deep-dive",
-      contentFocus: "product-builder",
-      gamified: false,
-    });
+  if (!isInterviewed && showInterview) {
+    return (
+      <Interview
+        experimentNumber={experimentNumberRef.current!}
+        onComplete={(p) => {
+          setProfile(p);
+          setShowInterview(false);
+        }}
+      />
+    );
   }
 
-  if (!isOnboarded && !showOnboarding) {
-    return <Landing onStartJourney={() => setShowOnboarding(true)} />;
-  }
-
-  if (!isOnboarded && showOnboarding) {
-    return <OnboardingChat onComplete={handleOnboardingComplete} onSkip={handleSkip} />;
+  // Reveal screen
+  if (showReveal && profile) {
+    return (
+      <Reveal
+        profile={profile}
+        visitedNodes={Array.from(visitedNodes)}
+        onShare={handleShare}
+        onNewJourney={handleNewJourney}
+      />
+    );
   }
 
   return (
     <>
-      <Opening visible={!hasStarted} onHookClick={addNodeBlock} />
+      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} />
 
       {hasStarted && (
         <div className="space-y-6 pb-24 pt-8">
@@ -282,14 +266,6 @@ export default function ConversationView() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              {blocks.length >= 3 && !isWrappedUp && !isLoading && (
-                <button
-                  onClick={triggerWrapUp}
-                  className="text-xs text-ink-light/60 transition-colors hover:text-accent"
-                >
-                  Wrap up
-                </button>
-              )}
               <ShareButton blocks={blocks} />
             </div>
           </div>
@@ -308,47 +284,27 @@ export default function ConversationView() {
                 block={block}
                 onHookClick={handleHookClick}
                 isReadOnly={i < blocks.length - 1}
-                unlockedGems={preferences?.gamified ? gamification.unlockedGems : undefined}
               />
             )
           ))}
           {isLoading && <SkeletonBlock />}
-          {isWrappedUp && (
-            <JourneyWrapUp
-              narrative={wrapUpNarrative}
-              isLoading={isWrapUpLoading}
-              gamified={preferences?.gamified ?? false}
-              unlockedAchievements={gamification.unlockedAchievements}
-              unlockedGems={gamification.unlockedGems}
-              discoveredCount={gamification.discoveredCount}
-              totalNodes={gamification.totalNodes}
-              onNewJourney={handleNewJourney}
-              visitOrder={visitOrder}
-              foundCoffeeEasterEgg={foundCoffeeEasterEgg}
-              blocks={blocks}
-            />
-          )}
           <div ref={bottomRef} />
         </div>
       )}
 
-      {hasStarted && !isWrappedUp && (
+      {hasStarted && !isLoading && (
         <InputBar onSubmit={(q) => submitFreeQuestion(q)} disabled={isLoading} />
       )}
+
+      <AnalyseBar
+        visitedCount={visitedNodes.size}
+        threshold={REVEAL_THRESHOLD}
+        onRevealClick={() => setShowReveal(true)}
+        revealDismissed={revealDismissed}
+      />
+
       <SettingsPanel />
       <PrintCV />
-      {preferences?.gamified && (
-        <>
-          <ProgressRing
-            discovered={gamification.discoveredCount}
-            total={gamification.totalNodes}
-          />
-          <AchievementToast
-            achievement={gamification.currentToast}
-            onDismiss={gamification.dismissToast}
-          />
-        </>
-      )}
     </>
   );
 }
