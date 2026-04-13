@@ -164,6 +164,11 @@ export default function PourOverGame({ onClose }: PourOverGameProps) {
           </div>
           <p className="mt-2 text-sm italic text-ink">{result.comment}</p>
           <p className="mt-3 text-xs leading-relaxed text-ink-light">{result.flavor}</p>
+          {result.stars === 5 && (
+            <div className="mt-4 overflow-hidden rounded-lg">
+              <img src="/photo-coffee.jpg" alt="Max at his favorite café" className="w-full object-cover" />
+            </div>
+          )}
         </motion.div>
       )}
 
