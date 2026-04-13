@@ -17,6 +17,7 @@ export function useGamification(
   visitedNodes: Set<string>,
   freeQuestionCount: number,
   gamified: boolean,
+  foundCoffeeEasterEgg: boolean,
 ): GamificationState {
   const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set());
   const [unlockedGems, setUnlockedGems] = useState<Set<string>>(new Set());
@@ -73,6 +74,10 @@ export function useGamification(
         earned = freeQuestionCount >= achievement.minFreeQuestions;
       }
 
+      if (earned && achievement.requiredEasterEgg) {
+        earned = achievement.requiredEasterEgg === "coffee" && foundCoffeeEasterEgg;
+      }
+
       // Completionist: all nodes visited
       if (earned && achievement.id === "completionist") {
         earned = visitedNodes.size >= total;
@@ -91,7 +96,7 @@ export function useGamification(
       });
       setToastQueue((prev) => [...prev, ...newAchievements]);
     }
-  }, [visitedNodes, freeQuestionCount, gamified, unlockedAchievements, total]);
+  }, [visitedNodes, freeQuestionCount, gamified, foundCoffeeEasterEgg, unlockedAchievements, total]);
 
   // Check gem unlocks
   useEffect(() => {
@@ -120,16 +125,6 @@ export function useGamification(
           next.add(gemNode.id);
           return next;
         });
-
-        const gemToast: AchievementDefinition = {
-          id: gemNode.id,
-          emoji: "💎",
-          name: gemNode.id === "gem-convergence" ? "The Convergence" :
-                gemNode.id === "gem-lab-to-product" ? "From Lab to Product" :
-                "The Full Picture",
-          description: "Hidden content unlocked",
-        };
-        setToastQueue((prev) => [...prev, gemToast]);
       }
     }
   }, [visitedNodes, gamified, unlockedGems]);
