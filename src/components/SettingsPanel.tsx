@@ -5,8 +5,8 @@ import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import { usePreferences } from "@/lib/preferences";
 import type { VisualStyle, InfoDepth, ContentFocus } from "@/lib/types";
 
-const VISUAL_OPTIONS: { value: VisualStyle; label: string }[] = [
-  { value: "focused", label: "Focused" },
+const VISUAL_OPTIONS: { value: VisualStyle | "default"; label: string }[] = [
+  { value: "default", label: "Notebook" },
   { value: "colorful", label: "Colorful" },
 ];
 
@@ -22,14 +22,14 @@ const FOCUS_OPTIONS: { value: ContentFocus; label: string }[] = [
   { value: "max-personal", label: "Max as a person" },
 ];
 
-function ThemePreview({ theme }: { theme: "focused" | "colorful" }) {
-  if (theme === "focused") {
+function ThemePreview({ theme }: { theme: "default" | "colorful" }) {
+  if (theme === "default") {
     return (
-      <div className="h-8 w-12 overflow-hidden rounded border border-[rgba(0,0,0,0.1)]" style={{ background: "#F7F3EE" }}>
+      <div className="h-8 w-12 overflow-hidden rounded border border-[rgba(0,0,0,0.1)]" style={{ background: "#FAF6F1" }}>
         <div style={{ padding: "3px 4px" }}>
-          <div style={{ height: 2, width: "80%", background: "#2C2416", borderRadius: 1, marginBottom: 2 }} />
-          <div style={{ height: 1.5, width: "60%", background: "#A89F91", borderRadius: 1, marginBottom: 2 }} />
-          <div style={{ height: 1.5, width: "70%", background: "#A89F91", borderRadius: 1 }} />
+          <div style={{ height: 2, width: "80%", background: "#2C2C2C", borderRadius: 1, marginBottom: 2 }} />
+          <div style={{ height: 1.5, width: "60%", background: "#6B6B6B", borderRadius: 1, marginBottom: 2 }} />
+          <div style={{ height: 1.5, width: "70%", background: "#6B6B6B", borderRadius: 1 }} />
         </div>
       </div>
     );
@@ -129,20 +129,25 @@ export default function SettingsPanel() {
                 <div className="mb-5">
                   <div className="mb-2 text-xs text-ink-light">Style</div>
                   <div className="flex gap-2">
-                    {VISUAL_OPTIONS.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => updatePreference("visualStyle", opt.value)}
-                        className={`flex flex-1 items-center gap-2.5 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                          preferences.visualStyle === opt.value
-                            ? "bg-accent text-white"
-                            : "bg-paper text-ink-light hover:text-ink"
-                        }`}
-                      >
-                        {preferences.visualStyle !== opt.value && <ThemePreview theme={opt.value} />}
-                        {opt.label}
-                      </button>
-                    ))}
+                    {VISUAL_OPTIONS.map((opt) => {
+                      const isActive = opt.value === "default"
+                        ? preferences.visualStyle === "default" || preferences.visualStyle === "focused"
+                        : preferences.visualStyle === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => updatePreference("visualStyle", opt.value as VisualStyle)}
+                          className={`flex flex-1 items-center gap-2.5 rounded-xl px-3 py-2.5 text-xs font-medium transition-all ${
+                            isActive
+                              ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm"
+                              : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
+                          }`}
+                        >
+                          {!isActive && <ThemePreview theme={opt.value as "default" | "colorful"} />}
+                          {opt.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -153,7 +158,7 @@ export default function SettingsPanel() {
                     <button
                       onClick={() => updatePreference("darkMode", false)}
                       className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        !preferences.darkMode ? "bg-accent text-white" : "bg-paper text-ink-light hover:text-ink"
+                        !preferences.darkMode ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
                       }`}
                     >
                       Light
@@ -161,7 +166,7 @@ export default function SettingsPanel() {
                     <button
                       onClick={() => updatePreference("darkMode", true)}
                       className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        preferences.darkMode ? "bg-accent text-white" : "bg-paper text-ink-light hover:text-ink"
+                        preferences.darkMode ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
                       }`}
                     >
                       Dark
@@ -216,7 +221,7 @@ export default function SettingsPanel() {
                     <button
                       onClick={() => updatePreference("gamified", true)}
                       className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        preferences.gamified ? "bg-accent text-white" : "bg-paper text-ink-light hover:text-ink"
+                        preferences.gamified ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
                       }`}
                     >
                       On
@@ -224,7 +229,7 @@ export default function SettingsPanel() {
                     <button
                       onClick={() => updatePreference("gamified", false)}
                       className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        !preferences.gamified ? "bg-accent text-white" : "bg-paper text-ink-light hover:text-ink"
+                        !preferences.gamified ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
                       }`}
                     >
                       Off

@@ -11,7 +11,7 @@ export default function ThemeApplicator({ children }: { children: React.ReactNod
     const html = document.documentElement;
 
     function applyTheme() {
-      if (preferences?.visualStyle) {
+      if (preferences?.visualStyle && preferences.visualStyle !== "default") {
         html.setAttribute("data-theme", preferences.visualStyle);
       } else {
         html.removeAttribute("data-theme");

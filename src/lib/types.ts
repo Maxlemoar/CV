@@ -64,7 +64,7 @@ export interface SessionData {
   createdAt: string;
 }
 
-export type VisualStyle = "focused" | "colorful";
+export type VisualStyle = "default" | "focused" | "colorful";
 export type InfoDepth = "overview" | "deep-dive";
 export type ContentFocus = "product-builder" | "learning-scientist" | "ai-vision" | "max-personal";
 

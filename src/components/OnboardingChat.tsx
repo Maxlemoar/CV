@@ -16,14 +16,14 @@ interface ChatMessage {
 
 type OnboardingStep = "visual-style" | "dark-mode" | "info-depth" | "content-focus" | "gamification" | "done";
 
-function StylePreview({ type }: { type: "focused" | "colorful" }) {
-  if (type === "focused") {
+function StylePreview({ type }: { type: "default" | "colorful" }) {
+  if (type === "default") {
     return (
-      <div className="mt-2 w-full overflow-hidden rounded-lg" style={{ height: 48, background: "#F7F3EE", border: "1px solid #E8E0D4" }}>
+      <div className="mt-2 w-full overflow-hidden rounded-lg" style={{ height: 48, background: "#FAF6F1", border: "1px solid #E5DDD3" }}>
         <div style={{ padding: "8px 12px" }}>
-          <div style={{ height: 3, width: "60%", background: "#2C2416", borderRadius: 2, marginBottom: 4 }} />
-          <div style={{ height: 2, width: "80%", background: "#A89F91", borderRadius: 1, marginBottom: 3 }} />
-          <div style={{ height: 2, width: "65%", background: "#A89F91", borderRadius: 1 }} />
+          <div style={{ height: 3, width: "60%", background: "#2C2C2C", borderRadius: 2, marginBottom: 4 }} />
+          <div style={{ height: 2, width: "80%", background: "#6B6B6B", borderRadius: 1, marginBottom: 3 }} />
+          <div style={{ height: 2, width: "65%", background: "#6B6B6B", borderRadius: 1 }} />
         </div>
       </div>
     );
@@ -55,7 +55,7 @@ const STEP_CONFIG = {
   "visual-style": {
     question: "Before we start — how do you prefer to take in information?",
     options: [
-      { label: "Focused & clean", value: "focused" as VisualStyle, description: "Minimal, paper-like, typography-driven", preview: "focused" as const },
+      { label: "Clean & warm", value: "default", description: "Warm paper tones, editorial typography", preview: "default" as const },
       { label: "Bold & colorful", value: "colorful" as VisualStyle, description: "Expressive, energetic, neo-brutalist", preview: "colorful" as const },
     ],
   },
@@ -219,7 +219,7 @@ export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatPro
                 >
                   <span className="font-semibold text-accent">{opt.label}</span>
                   <span className="ml-1.5 text-ink-light">— {opt.description}</span>
-                  {"preview" in opt && (opt as { preview?: "focused" | "colorful" }).preview && <StylePreview type={(opt as { preview: "focused" | "colorful" }).preview} />}
+                  {"preview" in opt && (opt as { preview?: "default" | "colorful" }).preview && <StylePreview type={(opt as { preview: "default" | "colorful" }).preview} />}
                 </motion.button>
               ))}
             </motion.div>
