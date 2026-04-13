@@ -1,7 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -150,12 +152,70 @@ function useStaggerReveal() {
 /* ------------------------------------------------------------------ */
 
 export default function CVDocument() {
-  const handlePrint = useCallback(() => {
-    window.print();
-  }, []);
+  const [exporting, setExporting] = useState(false);
+  const cvRef = useRef<HTMLElement>(null);
+
+  const handleExport = useCallback(async () => {
+    const el = cvRef.current;
+    if (!el || exporting) return;
+
+    setExporting(true);
+    try {
+      // Temporarily make all reveal sections visible
+      el.querySelectorAll(".ed-reveal").forEach((s) => {
+        s.classList.add("ed-visible");
+      });
+      // Hide no-print elements
+      const noPrintEls = el.querySelectorAll(".no-print");
+      noPrintEls.forEach((e) => (e as HTMLElement).style.display = "none");
+
+      const canvas = await html2canvas(el, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff",
+        width: el.scrollWidth,
+        height: el.scrollHeight,
+      });
+
+      // Restore no-print elements
+      noPrintEls.forEach((e) => (e as HTMLElement).style.display = "");
+
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+
+      const pageWidth = 210;
+      const pageHeight = 297;
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      if (imgHeight <= pageHeight) {
+        // Fits on one page
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, imgWidth, imgHeight);
+      } else {
+        // Multi-page
+        let position = 0;
+        let remaining = imgHeight;
+
+        while (remaining > 0) {
+          if (position > 0) pdf.addPage();
+          pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, -position, imgWidth, imgHeight);
+          position += pageHeight;
+          remaining -= pageHeight;
+        }
+      }
+
+      pdf.save("Maximilian_Marowsky_CV.pdf");
+    } finally {
+      setExporting(false);
+    }
+  }, [exporting]);
 
   return (
-    <article className="ed-cv mx-auto max-w-[900px] px-6 py-12 sm:py-16 print:max-w-none print:px-0 print:py-0">
+    <article ref={cvRef} className="ed-cv mx-auto max-w-[900px] px-6 py-12 sm:py-16 print:max-w-none print:px-0 print:py-0">
       {/* ---- Header ---- */}
       <header className="mb-16 print:mb-8">
         <div className="flex items-start justify-between">
@@ -179,10 +239,11 @@ export default function CVDocument() {
             </div>
           </div>
           <button
-            onClick={handlePrint}
-            className="no-print mt-2 ed-sans text-[12px] text-neutral-400 hover:text-neutral-900 transition-colors border border-neutral-200 rounded px-3 py-1.5 hover:border-neutral-400"
+            onClick={handleExport}
+            disabled={exporting}
+            className="no-print mt-2 ed-sans text-[12px] text-neutral-400 hover:text-neutral-900 transition-colors border border-neutral-200 rounded px-3 py-1.5 hover:border-neutral-400 disabled:opacity-50"
           >
-            Export PDF
+            {exporting ? "Exporting\u2026" : "Export PDF"}
           </button>
         </div>
 
