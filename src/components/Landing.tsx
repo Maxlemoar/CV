@@ -32,23 +32,20 @@ export default function Landing({ onStartJourney }: LandingProps) {
       <p className="mt-2 text-ink-light">
         Product Manager · Founder · EdTech
       </p>
-      <p className="mt-6 text-lg text-ink">
-        Get to know me. Just ask.
-      </p>
-      <div className="mx-auto mt-8 flex max-w-sm flex-col items-center gap-3 sm:flex-row sm:justify-center">
+      <div className="mx-auto mt-8 flex max-w-sm flex-col gap-3 sm:flex-row sm:justify-center">
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={onStartJourney}
-          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white shadow-neu-sm transition-shadow hover:shadow-neu sm:w-auto"
+          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white shadow-neu-sm transition-shadow hover:shadow-neu sm:flex-1"
         >
-          Let&apos;s go
+          Get to know me
         </motion.button>
-        <Link href="/cv">
+        <Link href="/cv" className="w-full sm:flex-1">
           <motion.span
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-block w-full rounded-xl border border-accent/30 bg-paper px-6 py-3 text-base font-semibold text-accent shadow-neu-sm transition-shadow hover:shadow-neu sm:w-auto"
+            className="inline-block w-full rounded-xl border border-accent/30 bg-paper px-6 py-3 text-center text-base font-semibold text-accent shadow-neu-sm transition-shadow hover:shadow-neu"
           >
             View Resume
           </motion.span>
