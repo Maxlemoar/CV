@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { PreferencesProvider } from "@/lib/preferences";
 import ThemeApplicator from "./ThemeApplicator";
+import {
+  instrumentSerif,
+  literata,
+  jetbrainsMono,
+  satoshi,
+  clashDisplay,
+} from "@/lib/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +22,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${satoshi.variable} ${literata.variable} ${clashDisplay.variable} ${jetbrainsMono.variable}`}
+    >
       <body className="antialiased">
         <PreferencesProvider>
           <ThemeApplicator>
