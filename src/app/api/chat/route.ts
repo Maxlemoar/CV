@@ -91,13 +91,19 @@ function sanitizeMessages(
   return cleaned;
 }
 
+const VALID_DEPTHS = new Set(["overview", "deep-dive"]);
+const VALID_FOCUSES = new Set(["product-builder", "learning-scientist", "ai-vision", "max-personal"]);
+
 function buildPreferencesPrompt(prefs: { visualStyle?: string; infoDepth?: string; contentFocus?: string }): string {
-  if (!prefs.infoDepth && !prefs.contentFocus) return "";
+  const depth = VALID_DEPTHS.has(prefs.infoDepth ?? "") ? prefs.infoDepth : "deep-dive";
+  const focus = VALID_FOCUSES.has(prefs.contentFocus ?? "") ? prefs.contentFocus : null;
+
+  if (!depth && !focus) return "";
 
   return `\n\n## Recruiter Preferences
-- Information depth: ${prefs.infoDepth ?? "deep-dive"}
-  ${prefs.infoDepth === "overview" ? "- Keep responses concise (~2-3 sentences). Lead with the key fact. Skip narrative buildup." : "- Current behavior. Tell the story, provide context, make it personal."}
-- Content focus: ${prefs.contentFocus ?? "none"}
+- Information depth: ${depth}
+  ${depth === "overview" ? "- Keep responses concise (~2-3 sentences). Lead with the key fact. Skip narrative buildup." : "- Current behavior. Tell the story, provide context, make it personal."}
+- Content focus: ${focus ?? "none"}
   - Prioritize this angle when answering free-form questions. Weave in relevant examples from this domain. But don't ignore other dimensions if the user asks about them directly.`;
 }
 

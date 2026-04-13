@@ -36,21 +36,19 @@ export default function ConversationView() {
     const node = CONTENT_GRAPH[nodeId];
     if (!node) return;
 
-    setVisitedNodes((prev) => {
-      const next = new Set(prev);
-      next.add(nodeId);
-      return next;
-    });
+    const updatedVisited = new Set(visitedNodes);
+    updatedVisited.add(nodeId);
+    setVisitedNodes(updatedVisited);
 
     const depth = preferences?.infoDepth ?? "deep-dive";
-    const block = nodeToBlock(node, visitedNodes, depth);
+    const block = nodeToBlock(node, updatedVisited, depth);
     setBlocks((prev) => [...prev, block]);
     setMessages((prev) => [
       ...prev,
       { role: "user" as const, content: block.questionTitle },
       { role: "assistant" as const, content: block.text },
     ]);
-  }, [visitedNodes]);
+  }, [visitedNodes, preferences]);
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
@@ -95,7 +93,7 @@ export default function ConversationView() {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, messages]);
+  }, [isLoading, messages, preferences]);
 
   const handleHookClick = useCallback((value: string, isNodeId: boolean) => {
     if (isNodeId) {
