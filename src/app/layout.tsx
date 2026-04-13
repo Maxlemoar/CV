@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { PreferencesProvider } from "@/lib/preferences";
+import ThemeApplicator from "./ThemeApplicator";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <PreferencesProvider>
+          <ThemeApplicator>
+            {children}
+          </ThemeApplicator>
+        </PreferencesProvider>
+      </body>
     </html>
   );
 }
