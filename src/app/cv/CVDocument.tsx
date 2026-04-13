@@ -26,7 +26,7 @@ const experience = [
         title: "Marketplace",
         period: "Apr 2025 – Present",
         bullets: [
-          "Own Product Spaces: Product Page, Cart, Checkout, Favorites — driving discovery and conversion through A/B-tested incremental improvements.",
+          "Took ownership of a new product area (Product Page, Cart, Checkout, Favorites) with a new team. Running discoveries and leading data-driven optimizations through A/B testing.",
         ],
       },
       {
@@ -40,7 +40,7 @@ const experience = [
     ],
   },
   {
-    role: "Startup Exit — Acquisition by eduki",
+    role: "Startup Exit",
     company: "",
     period: "Oct 2022",
     description:
@@ -50,12 +50,13 @@ const experience = [
   },
   {
     role: "Co-Founder & CEO",
-    company: "",
+    company: "pearprogramming",
     period: "2018 – 2022",
     description:
       "I co-founded pearprogramming. A startup based in Osnabrück that developed a game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
-      "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
+      "Wore every hat: CEO, Product Owner, Scrum Master, UX/UI Designer, Researcher, and grant writer. Built and led a team of ~10.",
+      "Received EXIST Gründerstipendium (federal startup grant). Won the delina 2020 (Germany's largest e-learning award). Participated in MindCET, an Israeli EdTech startup incubator.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
     ],
     subroles: [],
