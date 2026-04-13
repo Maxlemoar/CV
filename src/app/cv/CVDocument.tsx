@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { toPng } from "html-to-image";
+import { toJpeg } from "html-to-image";
 import { jsPDF } from "jspdf";
 
 /* ------------------------------------------------------------------ */
@@ -160,6 +160,11 @@ export default function CVDocument() {
 
     setExporting(true);
 
+    // Save original styles to restore later
+    const origMaxWidth = el.style.maxWidth;
+    const origWidth = el.style.width;
+    const origPadding = el.style.padding;
+
     // Hide no-print elements
     const noPrintEls = Array.from(el.querySelectorAll(".no-print"));
     noPrintEls.forEach((e) => (e as HTMLElement).style.display = "none");
@@ -169,12 +174,21 @@ export default function CVDocument() {
       s.classList.add("ed-visible");
     });
 
+    // Constrain to A4 proportions: 210mm at 96dpi ≈ 794px, minus some margin
+    el.style.maxWidth = "760px";
+    el.style.width = "760px";
+    el.style.padding = "32px";
+
+    // Let browser reflow
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
     try {
-      // html-to-image uses SVG foreignObject — the browser renders natively,
-      // so lab()/oklch() colors from Tailwind v4 work without conversion.
-      const dataUrl = await toPng(el, {
+      const dataUrl = await toJpeg(el, {
+        quality: 0.92,
         pixelRatio: 2,
         backgroundColor: "#ffffff",
+        width: el.scrollWidth,
+        height: el.scrollHeight,
       });
 
       // Load image to get dimensions
@@ -197,14 +211,14 @@ export default function CVDocument() {
       const imgHeight = (img.height * imgWidth) / img.width;
 
       if (imgHeight <= pageHeight) {
-        pdf.addImage(dataUrl, "PNG", 0, 0, imgWidth, imgHeight);
+        pdf.addImage(dataUrl, "JPEG", 0, 0, imgWidth, imgHeight);
       } else {
         let position = 0;
         let remaining = imgHeight;
 
         while (remaining > 0) {
           if (position > 0) pdf.addPage();
-          pdf.addImage(dataUrl, "PNG", 0, -position, imgWidth, imgHeight);
+          pdf.addImage(dataUrl, "JPEG", 0, -position, imgWidth, imgHeight);
           position += pageHeight;
           remaining -= pageHeight;
         }
@@ -216,7 +230,10 @@ export default function CVDocument() {
       console.error("PDF export failed:", msg, err);
       alert(`PDF export failed: ${msg}`);
     } finally {
-      // Always restore no-print elements
+      // Restore everything
+      el.style.maxWidth = origMaxWidth;
+      el.style.width = origWidth;
+      el.style.padding = origPadding;
       noPrintEls.forEach((e) => (e as HTMLElement).style.display = "");
       setExporting(false);
     }
