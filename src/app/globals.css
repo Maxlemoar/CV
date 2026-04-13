@@ -406,13 +406,13 @@ body::before {
 /* Asymmetric margin grid — dates in left margin, content right */
 .ed-grid-row {
   display: grid;
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: 130px 1fr;
   gap: 0 24px;
   align-items: baseline;
 }
 
 .ed-grid-margin {
-  text-align: right;
+  text-align: left;
   padding-top: 2px;
 }
 

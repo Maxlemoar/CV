@@ -206,7 +206,7 @@ export default function CVDocument() {
 
       {/* ---- Summary ---- */}
       <EdSection title="Summary" delay={0}>
-        <p className="ed-sans text-[16px] leading-[1.7] text-neutral-700 max-w-[620px]">
+        <p className="ed-sans text-[16px] leading-[1.7] text-neutral-700">
           Psychologist turned EdTech founder turned Product Manager. I
           built a game-based learning app from scratch, grew it to
           acquisition, and now design AI-powered systems at eduki that
