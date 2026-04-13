@@ -16,7 +16,7 @@ const experience = [
       "Largest marketplace for teaching materials in Germany (~150 employees).",
     bullets: [
       'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
-      "Rebuilt the AI Assessor end-to-end: iterated through 6 prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement from 80% to 89%.",
+      "Rebuilt the AI Assessor end-to-end: iterated through prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement to 89%.",
       'Launched the "Best of eduki" quality label with a structured A/B test. Managed tiered stakeholder rollout across top authors, general community, and publishers.',
     ],
   },
@@ -44,14 +44,14 @@ const experience = [
   {
     role: "Co-Founder & CEO",
     company: "pearprogramming GmbH",
-    location: "Witten, Germany",
+    location: "Osnabrück, Germany",
     period: "2018 – 2022 (acquired by eduki)",
     description:
       "Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
-      "Successfully acquired by eduki in 2022.",
+      "Acquired by eduki in 2022 — product and team integrated into the marketplace, leading to Max's role as intrapreneurship PM for eduki Interactive.",
     ],
   },
   {
@@ -76,7 +76,13 @@ const education = [
     degree: "B.Sc. Psychology",
     school: "Universität Witten/Herdecke",
     period: "2013 – 2016",
-    detail: "Grade: 1.7. Prior: 1 semester Cognitive Science at Universität Osnabrück.",
+    detail: "Grade: 1.7.",
+  },
+  {
+    degree: "Cognitive Science (1 semester)",
+    school: "Universität Osnabrück",
+    period: "2012 – 2013",
+    detail: "Transferred to Psychology at Witten/Herdecke.",
   },
 ];
 
@@ -85,11 +91,6 @@ const publications = [
     title: "The Teacher-Centered Perspective on Digital Game-Based Learning",
     venue: 'In: "Game-based Learning Across the Disciplines" (Springer, 2021)',
     note: "Co-authored book chapter on how teachers can integrate game-based learning effectively.",
-  },
-  {
-    title: "Quality Framework for Teaching Materials",
-    venue: "eduki x Prof. John Hattie collaboration",
-    note: "Two published studies on quality dimensions of teaching materials, validated with 2,000+ teachers.",
   },
 ];
 
@@ -102,19 +103,19 @@ const sideProjects = [
 const skillGroups = [
   {
     label: "Product",
-    skills: ["Discovery", "A/B Testing", "Roadmapping", "Prioritization", "Stakeholder Communication", "0→1"],
+    skills: ["Discovery", "User Research", "A/B Testing", "Prioritization", "Stakeholder Communication", "Wearing Multiple Hats", "Rapid Shipping"],
   },
   {
     label: "AI / LLM",
-    skills: ["Claude (daily user)", "Claude Code", "Prompt Engineering", "AI Assessment Systems", "Gemini"],
+    skills: ["Claude (daily user)", "Claude Code", "Prompt Engineering", "LLM-as-Infrastructure", "Rapid Prototyping"],
   },
   {
-    label: "Learning Science",
-    skills: ["Instructional Design", "Game-Based Learning", "Curriculum Design", "Hattie Framework"],
+    label: "Education",
+    skills: ["Instructional Design", "Game-Based Learning", "Curriculum Design", "Evidence-Based Learning"],
   },
   {
     label: "Research",
-    skills: ["Quantitative Methods", "Factor Analysis", "Study Design", "Academic Publishing"],
+    skills: ["Quantitative Methods", "Study Design", "Data Analysis", "Research Publication"],
   },
 ];
 
@@ -138,7 +139,7 @@ export default function CVDocument() {
                 Maximilian Marowsky
               </h1>
               <p className="mt-1 text-lg text-ink-light">
-                Product Manager &middot; EdTech &middot; AI-Native Learning
+                Product Manager &middot; Founder &middot; EdTech
               </p>
             </div>
             <button
@@ -160,14 +161,13 @@ export default function CVDocument() {
               LinkedIn
             </a>
             <span>Cologne, Germany</span>
-            <span className="italic">Willing to relocate to San Francisco</span>
           </div>
         </header>
 
         {/* ---- Summary ---- */}
         <Section title="Summary">
           <p className="leading-relaxed text-ink">
-            Psychologist turned EdTech founder turned Product Manager with 5+
+            Psychologist turned EdTech founder turned Product Manager with 8+
             years of experience building learning products from zero to one. I
             co-founded pearprogramming, a game-based coding education startup
             (acquired by eduki), and now lead AI-powered quality initiatives at
