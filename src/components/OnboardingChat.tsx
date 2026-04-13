@@ -54,7 +54,6 @@ const STEPS: OnboardingStep[] = ["visual-style", "info-depth", "content-focus", 
 export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { type: "bot", text: "Hi! I'm here to help you get to know Max. Let me tailor this experience to you." },
     { type: "bot", text: STEP_CONFIG["visual-style"].question },
   ]);
   const [selections, setSelections] = useState<Partial<UserPreferences>>({});
@@ -141,9 +140,9 @@ export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatPro
               <button
                 key={opt.value}
                 onClick={() => handleSelect(opt.value, opt.label)}
-                className="rounded-xl border border-accent/20 bg-paper px-4 py-2.5 text-left text-sm transition-shadow hover:shadow-neu-sm"
+                className="rounded-xl border border-accent/40 bg-paper px-4 py-2.5 text-left text-sm shadow-neu-sm transition-all hover:border-accent hover:shadow-neu active:shadow-neu-inset"
               >
-                <span className="font-medium text-accent">{opt.label}</span>
+                <span className="font-semibold text-accent">{opt.label}</span>
                 <span className="ml-1.5 text-ink-light">— {opt.description}</span>
               </button>
             ))}
