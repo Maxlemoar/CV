@@ -10,10 +10,9 @@ const experience = [
   {
     role: "Product Manager — AI Quality",
     company: "eduki",
-    location: "Cologne, Germany",
+    location: "Berlin, Germany",
     period: "Q1 2026",
-    description:
-      "Largest marketplace for teaching materials in Germany (~150 employees).",
+    description: "",
     bullets: [
       'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
       "Rebuilt the AI Assessor end-to-end: iterated through prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement to 89%.",
@@ -23,7 +22,7 @@ const experience = [
   {
     role: "Product Manager — Marketplace",
     company: "eduki",
-    location: "Cologne, Germany",
+    location: "Berlin, Germany",
     period: "Apr 2025 – Present",
     description: "",
     bullets: [
@@ -33,7 +32,7 @@ const experience = [
   {
     role: "Product Manager — eduki Interactive",
     company: "eduki",
-    location: "Cologne, Germany",
+    location: "Berlin, Germany",
     period: "Oct 2022 – Apr 2025",
     description:
       "Led eduki Interactive, an autonomous intrapreneurship team within eduki. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
@@ -42,16 +41,24 @@ const experience = [
     ],
   },
   {
+    role: "Startup Exit — Acquisition by eduki",
+    company: "pearprogramming GmbH → eduki",
+    location: "",
+    period: "Oct 2022",
+    description:
+      "pearprogramming and its product PearUp were acquired by eduki, the largest marketplace for teaching materials in Germany (~150 employees). Product and team were integrated into the marketplace.",
+    bullets: [],
+  },
+  {
     role: "Co-Founder & CEO",
     company: "pearprogramming GmbH",
     location: "Osnabrück, Germany",
-    period: "2018 – 2022 (acquired by eduki)",
+    period: "2018 – 2022",
     description:
       "Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
-      "Acquired by eduki in 2022 — product and team integrated into the marketplace, leading to Max's role as intrapreneurship PM for eduki Interactive.",
     ],
   },
   {
@@ -79,7 +86,7 @@ const education = [
     detail: "Grade: 1.7.",
   },
   {
-    degree: "Cognitive Science (1 semester)",
+    degree: "Cognitive Science",
     school: "Universität Osnabrück",
     period: "2012 – 2013",
     detail: "Transferred to Psychology at Witten/Herdecke.",
@@ -98,6 +105,7 @@ const sideProjects = [
   "Learning app for paramedic trainees — adaptive quiz system",
   "Vocabulary learning app — spaced repetition with contextual sentences",
   "Inclusion app for refugees learning German — multilingual onboarding",
+  "And many more",
 ];
 
 const skillGroups = [
@@ -198,7 +206,7 @@ export default function CVDocument() {
                   </span>
                 </div>
                 <p className="mt-0.5 text-sm text-ink-light">
-                  {exp.location} &middot; {exp.description}
+                  {[exp.location, exp.description].filter(Boolean).join(" · ")}
                 </p>
                 {exp.bullets.length > 0 && (
                   <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-ink">
@@ -248,7 +256,7 @@ export default function CVDocument() {
         {/* ---- Side Projects ---- */}
         <Section title="Side Projects">
           <p className="mb-2 text-sm text-ink-light">
-            Built with Claude Code — demonstrating AI prototyping fluency:
+            Built with Claude Code:
           </p>
           <ul className="space-y-1 text-sm text-ink">
             {sideProjects.map((p) => (
