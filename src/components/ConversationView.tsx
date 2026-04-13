@@ -58,9 +58,9 @@ export default function ConversationView() {
         const gemNode = CONTENT_GRAPH[gemId];
         if (!gemNode) continue;
 
-        const gemLabel = gemId === "gem-convergence" ? "💎 Die Konvergenz entdecken"
-          : gemId === "gem-lab-to-product" ? "💎 Vom Labor ins Produkt"
-          : "💎 Das ganze Bild";
+        const gemLabel = gemId === "gem-convergence" ? "💎 Discover the Convergence"
+          : gemId === "gem-lab-to-product" ? "💎 From Lab to Product"
+          : "💎 The Full Picture";
 
         gemHooks.push({ label: gemLabel, question: gemLabel, targetId: gemId });
       }

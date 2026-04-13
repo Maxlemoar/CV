@@ -42,7 +42,8 @@ Classic resume layout tailored to the Anthropic Senior PM Education Labs role. C
 ## Key Features
 - PDF export functionality
 - Responsive, mobile-first
-- English language throughout
+- English language throughout — all UI text, content, and labels must be in English
+- Optional gamification (progress ring, achievement toasts, hidden gem nodes) — opt-in via onboarding
 
 ## Content Sources
 - **`PROFILE.md`** — Single source of truth for all personal information and content

@@ -46,7 +46,7 @@ export default function ProgressRing({ discovered, total }: ProgressRingProps) {
             </span>
           </div>
         </div>
-        <span className="mt-1 text-[10px] text-ink-light">Themen entdeckt</span>
+        <span className="mt-1 text-[10px] text-ink-light">topics discovered</span>
       </div>
 
       {/* Mobile version */}
@@ -71,7 +71,7 @@ export default function ProgressRing({ discovered, total }: ProgressRingProps) {
             <span className="text-xs font-semibold text-ink">{discovered}</span>
           </div>
         </div>
-        <span className="mt-0.5 text-[9px] text-ink-light">von {total}</span>
+        <span className="mt-0.5 text-[9px] text-ink-light">of {total}</span>
       </div>
     </div>
   );

@@ -124,10 +124,10 @@ export function useGamification(
         const gemToast: AchievementDefinition = {
           id: gemNode.id,
           emoji: "💎",
-          name: gemNode.id === "gem-convergence" ? "Die Konvergenz" :
-                gemNode.id === "gem-lab-to-product" ? "Vom Labor ins Produkt" :
-                "Das ganze Bild",
-          description: "Versteckter Inhalt freigeschaltet",
+          name: gemNode.id === "gem-convergence" ? "The Convergence" :
+                gemNode.id === "gem-lab-to-product" ? "From Lab to Product" :
+                "The Full Picture",
+          description: "Hidden content unlocked",
         };
         setToastQueue((prev) => [...prev, gemToast]);
       }

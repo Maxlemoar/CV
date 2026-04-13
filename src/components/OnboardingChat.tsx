@@ -41,10 +41,10 @@ const STEP_CONFIG = {
     ],
   },
   "gamification": {
-    question: "Möchtest du deine Erfahrung gamifizieren?",
+    question: "Would you like to gamify your experience?",
     options: [
-      { label: "Ja, zeig mir meinen Fortschritt", value: "yes", description: "Entdeckungs-Tracking, Meilensteine & versteckte Inhalte" },
-      { label: "Nein danke", value: "no", description: "Klassisches Erlebnis ohne Gamification" },
+      { label: "Yes, track my progress", value: "yes", description: "Discovery tracking, milestones & hidden content" },
+      { label: "No thanks", value: "no", description: "Classic experience without gamification" },
     ],
   },
 };
