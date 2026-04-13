@@ -10,7 +10,6 @@ const experience = [
   {
     role: "Product Manager — AI Quality",
     company: "eduki",
-    location: "Berlin, Germany",
     period: "Q1 2026",
     description: "",
     bullets: [
@@ -22,7 +21,6 @@ const experience = [
   {
     role: "Product Manager — Marketplace",
     company: "eduki",
-    location: "Berlin, Germany",
     period: "Apr 2025 – Present",
     description: "",
     bullets: [
@@ -32,10 +30,9 @@ const experience = [
   {
     role: "Product Manager — eduki Interactive",
     company: "eduki",
-    location: "Berlin, Germany",
     period: "Oct 2022 – Apr 2025",
     description:
-      "Led eduki Interactive, an autonomous intrapreneurship team within eduki. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
+      "Led an autonomous intrapreneurship team within eduki (Berlin). Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
     bullets: [
       "Managed a cross-functional team of 6 (2 BE, 2 FE, QA, UX). Transitioned from startup founder to intrapreneur — navigating the shift from full ownership to operating within a larger organization.",
     ],
@@ -43,19 +40,17 @@ const experience = [
   {
     role: "Startup Exit — Acquisition by eduki",
     company: "pearprogramming GmbH → eduki",
-    location: "",
     period: "Oct 2022",
     description:
-      "pearprogramming and its product PearUp were acquired by eduki, the largest marketplace for teaching materials in Germany (~150 employees). Product and team were integrated into the marketplace.",
+      "pearprogramming and its product PearUp were acquired by eduki, the largest marketplace for teaching materials in Germany (~150 employees). Product and team integrated into the marketplace.",
     bullets: [],
   },
   {
     role: "Co-Founder & CEO",
     company: "pearprogramming GmbH",
-    location: "Osnabrück, Germany",
     period: "2018 – 2022",
     description:
-      "Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
+      "Founded in Osnabrück. Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
@@ -198,13 +193,15 @@ export default function CVDocument() {
                       — {exp.company}
                     </span>
                   </h3>
-                  <span className="shrink-0 text-sm text-ink-light font-serif">
+                  <span className="shrink-0 text-sm font-semibold text-ink font-serif whitespace-nowrap">
                     {exp.period}
                   </span>
                 </div>
-                <p className="mt-0.5 text-sm text-ink-light">
-                  {[exp.location, exp.description].filter(Boolean).join(" · ")}
-                </p>
+                {exp.description && (
+                  <p className="mt-0.5 text-sm text-ink-light">
+                    {exp.description}
+                  </p>
+                )}
                 {exp.bullets.length > 0 && (
                   <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-ink">
                     {exp.bullets.map((b, i) => (
