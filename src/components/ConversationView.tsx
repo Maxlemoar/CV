@@ -18,6 +18,8 @@ import { useGamification } from "@/hooks/useGamification";
 import ProgressRing from "./gamification/ProgressRing";
 import AchievementToast from "./gamification/AchievementToast";
 import JourneyWrapUp from "./JourneyWrapUp";
+import PourOverGame from "./PourOverGame";
+import { matchesCoffeeKeyword } from "@/lib/content-graph";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -31,6 +33,9 @@ export default function ConversationView() {
   const [wrapUpNarrative, setWrapUpNarrative] = useState<string | null>(null);
   const [isWrapUpLoading, setIsWrapUpLoading] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [visitOrder, setVisitOrder] = useState<string[]>([]);
+  const [foundCoffeeEasterEgg, setFoundCoffeeEasterEgg] = useState(false);
+  const [coffeeGameActive, setCoffeeGameActive] = useState(false);
 
   const { preferences, setPreferences, resetPreferences, isOnboarded } = usePreferences();
 
@@ -45,6 +50,7 @@ export default function ConversationView() {
     visitedNodes,
     freeQuestionCount,
     preferences?.gamified ?? false,
+    foundCoffeeEasterEgg,
   );
 
   useEffect(() => {
@@ -69,9 +75,9 @@ export default function ConversationView() {
         const gemNode = CONTENT_GRAPH[gemId];
         if (!gemNode) continue;
 
-        const gemLabel = gemId === "gem-convergence" ? "💎 Discover the Convergence"
-          : gemId === "gem-lab-to-product" ? "💎 From Lab to Product"
-          : "💎 The Full Picture";
+        const gemLabel = gemId === "gem-convergence" ? "The Convergence"
+          : gemId === "gem-lab-to-product" ? "From Lab to Product"
+          : "The Full Picture";
 
         gemHooks.push({ label: gemLabel, question: gemLabel, targetId: gemId });
       }
@@ -105,6 +111,7 @@ export default function ConversationView() {
     const updatedVisited = new Set(visitedNodes);
     updatedVisited.add(nodeId);
     setVisitedNodes(updatedVisited);
+    setVisitOrder((prev) => prev.includes(nodeId) ? prev : [...prev, nodeId]);
 
     const depth = preferences?.infoDepth ?? "deep-dive";
     const block = nodeToBlock(node, updatedVisited, depth);
@@ -118,6 +125,24 @@ export default function ConversationView() {
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
+
+    // Coffee Easter Egg
+    if (matchesCoffeeKeyword(question)) {
+      setFoundCoffeeEasterEgg(true);
+      setCoffeeGameActive(true);
+      blockCounter.current += 1;
+      const coffeeBlock: ContentBlockData = {
+        id: `coffee-${blockCounter.current}`,
+        questionTitle: "Max's Pour-Over Lab",
+        text: "",
+        richType: null,
+        richData: null,
+        hooks: [],
+      };
+      setBlocks((prev) => [...prev, coffeeBlock]);
+      return;
+    }
+
     setIsLoading(true);
     setFreeQuestionCount((prev) => prev + 1);
 
@@ -200,6 +225,9 @@ export default function ConversationView() {
     setIsWrapUpLoading(false);
     blockCounter.current = 0;
     setShowOnboarding(false);
+    setVisitOrder([]);
+    setFoundCoffeeEasterEgg(false);
+    setCoffeeGameActive(false);
     resetPreferences();
   }
 
@@ -266,13 +294,20 @@ export default function ConversationView() {
             </div>
           </div>
           {blocks.map((block, i) => (
-            <ContentBlock
-              key={block.id}
-              block={block}
-              onHookClick={handleHookClick}
-              isReadOnly={i < blocks.length - 1}
-              unlockedGems={preferences?.gamified ? gamification.unlockedGems : undefined}
-            />
+            block.id.startsWith("coffee-") ? (
+              <PourOverGame
+                key={block.id}
+                onClose={() => setCoffeeGameActive(false)}
+              />
+            ) : (
+              <ContentBlock
+                key={block.id}
+                block={block}
+                onHookClick={handleHookClick}
+                isReadOnly={i < blocks.length - 1}
+                unlockedGems={preferences?.gamified ? gamification.unlockedGems : undefined}
+              />
+            )
           ))}
           {isLoading && <SkeletonBlock />}
           {isWrappedUp && (
@@ -285,6 +320,9 @@ export default function ConversationView() {
               discoveredCount={gamification.discoveredCount}
               totalNodes={gamification.totalNodes}
               onNewJourney={handleNewJourney}
+              visitOrder={visitOrder}
+              foundCoffeeEasterEgg={foundCoffeeEasterEgg}
+              blocks={blocks}
             />
           )}
           <div ref={bottomRef} />
