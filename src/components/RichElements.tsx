@@ -118,7 +118,7 @@ function Tags({ data }: { data: TagsData }) {
 function Citation({ data }: { data: CitationData }) {
   return (
     <div className="mt-4 rounded-xl border border-paper-dark bg-paper p-4">
-      <div className="font-serif text-sm font-semibold text-ink">{data.title}</div>
+      <div className="font-heading text-sm font-semibold text-ink">{data.title}</div>
       <div className="mt-1 text-xs text-ink-light">{data.authors} · {data.publication} · {data.year}</div>
       {data.url && (
         <a href={data.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs text-accent hover:underline">
