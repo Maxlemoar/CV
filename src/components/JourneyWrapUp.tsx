@@ -172,7 +172,7 @@ export default function JourneyWrapUp({
 
       {/* CTAs */}
       <div className="mt-6 border-t border-[var(--color-paper-dark,#E5DDD3)] pt-6">
-        <div className="mb-4 font-serif text-lg font-semibold text-ink">
+        <div className="mb-4 font-heading text-lg font-semibold text-ink">
           Curious?
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">

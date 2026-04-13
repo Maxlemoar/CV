@@ -277,7 +277,7 @@ export default function ConversationView() {
                 <img src="/photo-coffee.jpg" alt="Max Marowsky" className="h-full w-full object-cover" />
               </div>
               <div>
-                <div className="font-serif text-sm font-semibold text-ink">Max Marowsky</div>
+                <div className="font-heading text-sm font-semibold text-ink">Max Marowsky</div>
                 <div className="text-xs text-ink-light">Product Manager · Founder · EdTech</div>
               </div>
             </div>

@@ -22,7 +22,7 @@ export default function SharedSessionView({ blocks }: Props) {
             className="h-full w-full object-cover"
           />
         </div>
-        <h1 className="font-serif text-2xl font-bold text-ink">Max Marowsky</h1>
+        <h1 className="font-heading text-2xl font-bold text-ink">Max Marowsky</h1>
         <p className="mt-1 text-sm text-ink-light">Discovered by a visitor</p>
       </section>
 
