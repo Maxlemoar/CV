@@ -89,6 +89,7 @@ const research = [
     title: "The Teacher-Centered Perspective on Digital Game-Based Learning",
     venue: 'In: "Game-based Learning Across the Disciplines" (Springer, 2021)',
     note: "Co-authored book chapter on how teachers can integrate game-based learning effectively.",
+    url: "https://link.springer.com/chapter/10.1007/978-3-030-75142-5_15",
   },
   {
     title: "Research Assistant — Deutsches Kinderschmerzzentrum",
@@ -241,7 +242,13 @@ export default function CVDocument() {
           <div className="space-y-3">
             {research.map((pub) => (
               <div key={pub.title}>
-                <h3 className="font-semibold text-ink text-sm">{pub.title}</h3>
+                <h3 className="font-semibold text-ink text-sm">
+                  {"url" in pub && pub.url ? (
+                    <a href={pub.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors underline decoration-ink-light/30">
+                      {pub.title}
+                    </a>
+                  ) : pub.title}
+                </h3>
                 <p className="text-sm text-ink-light">{pub.venue}</p>
                 <p className="mt-0.5 text-sm text-ink">{pub.note}</p>
               </div>
