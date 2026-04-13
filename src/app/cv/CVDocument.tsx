@@ -55,7 +55,7 @@ const experience = [
     description:
       "I co-founded pearprogramming. A startup based in Osnabrück that developed a game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
-      "CEO, Product Owner, Scrum Master, UX/UI Designer, Researcher, and grant writer. Built and led a team of ~10.",
+      "My roles: CEO, Product Owner, Scrum Master, UX/UI Designer, Researcher, and grant writer. Leading a team of up to 15 people.",
       "Received EXIST (federal startup grant). Won the delina 2020 (Germany's largest e-learning award). Participated in MindCET, an Israeli EdTech startup incubator.",
     ],
     subroles: [],
@@ -186,10 +186,9 @@ export default function CVDocument() {
             years of experience building learning products. I co-founded
             pearprogramming, a game-based learning startup that was acquired by
             eduki, where I now build AI-powered systems that make educational
-            quality visible and measurable. My background in learning science
-            shapes how I think about product and building with Claude every day
-            shapes how I ship. I believe learning works when it meets people
-            where they are — not with standardized content, but with
+            quality visible and measurable. My background in science shapes
+            how I think about learning and working with Claude how I
+            think about product. I believe that people learn best with
             experiences that adapt to who they are and what they need.
           </p>
         </Section>
