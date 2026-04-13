@@ -20,6 +20,8 @@ import Reveal from "./Reveal";
 import SettingsPanel from "./SettingsPanel";
 import PourOverGame from "./PourOverGame";
 import { matchesCoffeeKeyword } from "@/lib/content-graph";
+import { useKonamiCode } from "@/hooks/useKonamiCode";
+import ArchitectView from "./rabbit-holes/ArchitectView";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -41,6 +43,10 @@ export default function ConversationView() {
   // Coffee easter egg (kept for fun)
   const [coffeeGameActive, setCoffeeGameActive] = useState(false);
 
+  // Architect View (Konami code easter egg)
+  const konamiActivated = useKonamiCode();
+  const [showArchitect, setShowArchitect] = useState(false);
+
   const { profile, setProfile, isInterviewed, resetExperiment } = useExperiment();
   const { settings } = useSettings();
 
@@ -53,6 +59,19 @@ export default function ConversationView() {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [blocks.length, isLoading]);
+
+  useEffect(() => {
+    if (konamiActivated) setShowArchitect(true);
+  }, [konamiActivated]);
+
+  useEffect(() => {
+    if (!showArchitect) return;
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowArchitect(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [showArchitect]);
 
   const addNodeBlock = useCallback(async (nodeId: string) => {
     const node = CONTENT_GRAPH[nodeId];
@@ -251,6 +270,12 @@ export default function ConversationView() {
 
   return (
     <>
+      {showArchitect && (
+        <ArchitectView
+          visitedNodes={visitedNodes}
+          onClose={() => setShowArchitect(false)}
+        />
+      )}
       <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} />
 
       {hasStarted && (
