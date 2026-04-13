@@ -35,7 +35,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "school-gets-wrong": {
     id: "school-gets-wrong",
     content:
-      "Schools optimize for the wrong metric. They test whether you can recall facts \u2014 but in a world with Claude, facts are free. What\u2019s scarce is the ability to ask the right question, evaluate an answer critically, and know what to do with it.",
+      "Schools still optimize for recall. Can you remember this date, this formula, this definition? But when every answer is a search away, that\u2019s not the scarce skill anymore. What\u2019s hard is knowing which question to ask, whether the answer is any good, and what to do next.",
     hooks: [
       { label: "So what should schools teach instead?", targetId: "what-schools-should-teach" },
       { label: "I built a product based on this belief", targetId: "startup-story" },
@@ -61,7 +61,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "why-anthropic": {
     id: "why-anthropic",
     content:
-      "I want to work at the company that takes AI ethics seriously \u2014 not as marketing, but as a constraint on revenue. Turning down military contracts when the money is right there? That\u2019s integrity. And the culture of autonomy, where people build prototypes because they\u2019re curious? That\u2019s how I work best.",
+      "I\u2019ve been using Claude since September 2024. First casually, then daily, then obsessively \u2014 building my own apps with Claude Code every evening after work. I listened to podcasts with the Head of Claude Code and the design team and thought: that\u2019s how I want to work. When the Education Labs PM role hit my Greenhouse alert on a Saturday morning, I had to read it twice. It felt like a job description written for me. I do my best work with maximum autonomy and interest-driven exploration \u2014 and I believe the next AI systems need to be taught ethics, like a young Roman emperor taught philosophy by his tutors.",
     hooks: [
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
       { label: "My experience with AI in education", targetId: "ai-in-education" },
@@ -74,7 +74,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "building-with-claude": {
     id: "building-with-claude",
     content:
-      "I use Claude Code every day to build full applications. I don\u2019t write code \u2014 I describe what I want, test the result, and iterate. Right now I\u2019m building three learning apps. The best way to understand AI is to ship with it.",
+      "I use Claude Code every day. Not to avoid understanding what\u2019s being built \u2014 but because the bottleneck for me was never the idea, it was implementation speed. Now I can go from hypothesis to working prototype in a day. I\u2019m currently building three learning apps this way.",
     image: { src: "/photo-coffee.jpg", alt: "Max working at a cafe" },
     hooks: [
       { label: "What apps are you building?", targetId: "side-projects" },
@@ -90,7 +90,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "what-schools-should-teach": {
     id: "what-schools-should-teach",
     content:
-      "Agency. The confidence to say \u201cI don\u2019t know this yet, but I know how to figure it out.\u201d Anthropic calls it AI fluency \u2014 not just knowing AI exists, but being able to direct it, evaluate it, and adapt as it evolves. That\u2019s the skill of the century.",
+      "Agency. The confidence to say \u201cI don\u2019t know this yet, but I know how to figure it out.\u201d Not AI literacy as a buzzword \u2014 but the real skill: being able to direct a tool, evaluate what it gives you, and adapt when things change. That\u2019s what I\u2019d want my daughter to learn.",
     hooks: [
       { label: "How this connects to Anthropic\u2019s mission", targetId: "anthropic-education-vision" },
       { label: "I studied the science behind this", targetId: "psychology-of-learning" },
@@ -103,7 +103,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "anthropic-education-vision": {
     id: "anthropic-education-vision",
     content:
-      "Anthropic\u2019s Education Labs isn\u2019t building another EdTech tool. It\u2019s studying how AI transforms human capability \u2014 part research lab, part product studio. Claude\u2019s Learning Mode is Socratic on purpose: it refuses to hand over answers. The outcome metric isn\u2019t engagement. It\u2019s whether learners become more independent.",
+      "The interesting question isn\u2019t \u201chow do we put AI in classrooms.\u201d It\u2019s \u201chow do we use AI to make learners more independent, not more dependent.\u201d A good AI tutor doesn\u2019t hand you the answer \u2014 it helps you realize what you don\u2019t understand yet. That\u2019s a hard product problem, and it\u2019s the one I want to work on.",
     hooks: [
       { label: "This is exactly what I\u2019ve been working toward", targetId: "my-fit" },
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
@@ -115,7 +115,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "my-fit": {
     id: "my-fit",
     content:
-      "Psychology taught me how people learn. Founding a startup taught me how to ship. Game-based learning taught me that the medium IS the message. And building with Claude taught me what AI-native actually means. I\u2019m not a PM who read about education \u2014 I\u2019ve published research, built products, and iterated prompts until 89% of AI assessments matched human judgment.",
+      "Psychology taught me how people learn. Founding a startup taught me how to ship. Game-based learning taught me that the medium shapes the message. And building with AI every day taught me what\u2019s actually possible right now \u2014 not in theory, but in production. I built an AI assessor that reaches 89% agreement with human reviewers. I\u2019ve published research on what makes teaching materials effective. I\u2019m not a PM who read about education \u2014 I\u2019ve been in it for years.",
     hooks: [
       { label: "The research I published", targetId: "research" },
       { label: "The AI assessor I built", targetId: "ai-in-education" },
@@ -130,7 +130,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "product-magic": {
     id: "product-magic",
     content:
-      "Students didn\u2019t just \u201clearn to code.\u201d They founded a virtual startup, made business decisions, and solved real programming challenges to grow it. We started with Google Blockly for visual programming, then progressed to real code. Completion rates were far above traditional e-learning \u2014 because intrinsic motivation beats curriculum every time.",
+      "Students didn\u2019t just \u201clearn to code.\u201d They founded a virtual startup, made business decisions, and solved real programming challenges to grow it. We started with Google Blockly for visual programming, then progressed to text-based languages. Completion rates were far above typical e-learning \u2014 turns out intrinsic motivation matters more than curriculum design.",
     hooks: [
       { label: "We published research on why this works", targetId: "research" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
@@ -155,7 +155,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "founder-lessons": {
     id: "founder-lessons",
     content:
-      "Three things founding taught me: speed beats perfection, your first idea is almost certainly wrong, and hiring is harder than product. I learned to love iteration and to let go of ego. Building something from zero \u2014 and then letting someone else buy it \u2014 teaches you what really matters.",
+      "Three things I took from founding: your first idea is almost always wrong, so learn to kill it early. Hiring is harder than building the product. And speed matters more than perfection \u2014 especially when you\u2019re ten people with a federal grant and no revenue yet.",
     hooks: [
       { label: "My product management approach", targetId: "pm-approach" },
       { label: "Who I am outside of work", targetId: "personal" },
@@ -181,7 +181,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "ai-in-education": {
     id: "ai-in-education",
     content:
-      "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: an AI assessor that evaluates teaching materials across 12 criteria. I wrote the prompt myself, iterated it through 10 versions with Claude, and validated it with human reviewers. Version 10 achieves 89% agreement. The framework was co-developed with Prof. John Hattie.",
+      "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: an AI assessor that evaluates teaching materials across 12 criteria in 5 quality dimensions. The production model runs on Gemini Flash \u2014 I developed and iterated the assessment prompt through 10 versions, using Claude to test and refine. Version 10 achieves 89% agreement with human reviewers. The quality framework was co-developed with Prof. John Hattie.",
     hooks: [
       { label: "Who is John Hattie?", targetId: "research" },
       { label: "What this taught me about AI products", targetId: "future-of-work" },
@@ -196,7 +196,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "side-projects": {
     id: "side-projects",
     content:
-      "A learning app for paramedic trainees with spaced repetition. A German language app for refugees with audio-first interactions for low-literacy users. A vocabulary app I built in days, not months. All built with Claude Code. All in education. I can\u2019t stop building things that help people learn.",
+      "A spaced-repetition app for paramedic trainees. A vocabulary trainer. A German language app for refugees. All built with Claude Code, all in weeks instead of months. I keep coming back to the same problem: how do you help people learn something that matters to them?",
     hooks: [
       { label: "What this taught me about AI-native building", targetId: "future-of-work" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -209,7 +209,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "future-of-work": {
     id: "future-of-work",
     content:
-      "Building with Claude changed my understanding of product management. The bottleneck isn\u2019t implementation anymore \u2014 it\u2019s taste, judgment, and knowing what\u2019s worth building. PMs who can\u2019t prototype with AI will be like PMs who can\u2019t read a spreadsheet.",
+      "Building with AI changed how I think about product management. When implementation is no longer the bottleneck, what\u2019s left is taste, judgment, and knowing what\u2019s worth building. That shift is already happening \u2014 and PMs who don\u2019t experience it firsthand will struggle to lead teams through it.",
     hooks: [
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
       { label: "My product management approach", targetId: "pm-approach" },
@@ -223,7 +223,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "what-id-build": {
     id: "what-id-build",
     content:
-      "I\u2019d want to build learning experiences where AI doesn\u2019t replace the teacher but amplifies the learner. Systems that identify what you don\u2019t understand yet \u2014 not just what you got wrong. Products where the measure of success is: did this person become more capable and more curious?",
+      "I\u2019d want to build learning experiences where AI helps the learner, not replaces the teacher. Systems that figure out what you don\u2019t understand yet \u2014 not just what you got wrong. The measure of success isn\u2019t engagement time. It\u2019s: did this person become more capable and more curious?",
     hooks: [
       { label: "The science behind this", targetId: "psychology-of-learning" },
       { label: "Why Anthropic is the right place for this", targetId: "why-anthropic" },
@@ -279,7 +279,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "family": {
     id: "family",
     content:
-      "Frieda was born in August 2025. Becoming a father changed how I think about education. It\u2019s not abstract anymore \u2014 what kind of learning do I want for her? Not memorization. Not standardized tests. I want her to stay curious.",
+      "Frieda was born in August 2025. Becoming a father changed how I think about education \u2014 it\u2019s not abstract anymore. What kind of learning do I want for her? Not memorization. Not standardized tests. I want her to stay curious. That\u2019s personal now.",
     image: { src: "/photo-wedding.jpg", alt: "Max and Anna at their wedding" },
     hooks: [
       { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
