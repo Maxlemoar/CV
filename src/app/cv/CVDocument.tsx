@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 import { jsPDF } from "jspdf";
 
 /* ------------------------------------------------------------------ */
@@ -170,28 +170,19 @@ export default function CVDocument() {
     });
 
     try {
-      const canvas = await html2canvas(el, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
+      // html-to-image uses SVG foreignObject — the browser renders natively,
+      // so lab()/oklch() colors from Tailwind v4 work without conversion.
+      const dataUrl = await toPng(el, {
+        pixelRatio: 2,
         backgroundColor: "#ffffff",
-        onclone: (_doc, clonedEl) => {
-          // Tailwind v4 uses lab()/oklch() colors that html2canvas can't parse.
-          // Convert all color properties to rgb via getComputedStyle.
-          const colorProps = ["color", "background-color", "border-color", "border-left-color", "border-right-color", "border-top-color", "border-bottom-color"];
-          const allEls = [clonedEl, ...Array.from(clonedEl.querySelectorAll("*"))] as HTMLElement[];
-          const origEl = [el, ...Array.from(el.querySelectorAll("*"))] as HTMLElement[];
+      });
 
-          allEls.forEach((node, i) => {
-            const computed = window.getComputedStyle(origEl[i]);
-            for (const prop of colorProps) {
-              const val = computed.getPropertyValue(prop);
-              if (val && val !== "transparent" && val !== "rgba(0, 0, 0, 0)") {
-                node.style.setProperty(prop, val);
-              }
-            }
-          });
-        },
+      // Load image to get dimensions
+      const img = new window.Image();
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = reject;
+        img.src = dataUrl;
       });
 
       const pdf = new jsPDF({
@@ -203,17 +194,17 @@ export default function CVDocument() {
       const pageWidth = 210;
       const pageHeight = 297;
       const imgWidth = pageWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgHeight = (img.height * imgWidth) / img.width;
 
       if (imgHeight <= pageHeight) {
-        pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, imgWidth, imgHeight);
+        pdf.addImage(dataUrl, "PNG", 0, 0, imgWidth, imgHeight);
       } else {
         let position = 0;
         let remaining = imgHeight;
 
         while (remaining > 0) {
           if (position > 0) pdf.addPage();
-          pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, -position, imgWidth, imgHeight);
+          pdf.addImage(dataUrl, "PNG", 0, -position, imgWidth, imgHeight);
           position += pageHeight;
           remaining -= pageHeight;
         }
