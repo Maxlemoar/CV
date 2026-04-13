@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import Link from "next/link";
 import CVDocument from "./CVDocument";
 
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-editorial-serif",
   display: "swap",
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
 export default function CVPage() {
   return (
     <main
-      className={`${instrumentSerif.variable} ${inter.variable} relative z-10 min-h-screen bg-white`}
+      className={`${fraunces.variable} ${inter.variable} relative z-10 min-h-screen bg-white`}
     >
       {/* Top navigation — hidden in print */}
       <nav className="no-print mx-auto max-w-[900px] px-6 pt-6">

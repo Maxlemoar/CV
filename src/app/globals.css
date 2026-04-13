@@ -397,7 +397,6 @@ body::before {
 .ed-serif {
   font-family: var(--font-editorial-serif), Georgia, "Times New Roman", serif;
   font-weight: 400;
-  font-style: italic;
 }
 
 .ed-sans {
@@ -452,10 +451,6 @@ body::before {
     padding: 0 !important;
     margin: 0 !important;
     font-size: 10pt;
-  }
-
-  .ed-serif {
-    font-style: normal;
   }
 
   .ed-reveal {
