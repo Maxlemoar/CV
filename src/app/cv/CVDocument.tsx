@@ -8,15 +8,13 @@ import { useCallback } from "react";
 
 const experience = [
   {
-    role: "Product Manager — AI Quality",
+    role: "Product Manager — AI Quality Assessment",
     company: "eduki",
     location: "Berlin, Germany",
     period: "Q1 2026",
     description: "",
     bullets: [
-      'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
-      "Rebuilt the AI Assessor end-to-end: iterated through prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement to 89%.",
-      'Launched the "Best of eduki" quality label with a structured A/B test. Managed tiered stakeholder rollout across top authors, general community, and publishers.',
+      "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki's collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.",
     ],
   },
   {
@@ -37,12 +35,12 @@ const experience = [
     description:
       "Led eduki Interactive, an autonomous intrapreneurship team within eduki. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
     bullets: [
-      "Managed a cross-functional team of 6 (2 BE, 2 FE, QA, UX). Transitioned from startup founder to intrapreneur — navigating the shift from full ownership to operating within a larger organization.",
+      "Managed a cross-functional team. Transitioned from startup founder to Productmanager, navigating the shift from full ownership to operating within a larger organization.",
     ],
   },
   {
     role: "Startup Exit — Acquisition by eduki",
-    company: "pearprogramming GmbH → eduki",
+    company: "",
     location: "",
     period: "Oct 2022",
     description:
@@ -51,11 +49,11 @@ const experience = [
   },
   {
     role: "Co-Founder & CEO",
-    company: "pearprogramming GmbH",
-    location: "Osnabrück, Germany",
+    company: "",
+    location: "",
     period: "2018 – 2022",
     description:
-      "Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
+      "I co-founded pearprogramming. A startup based in Osnabrück that developed a game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
@@ -193,10 +191,12 @@ export default function CVDocument() {
               <div key={exp.company + exp.period}>
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
                   <h3 className="font-semibold text-ink">
-                    {exp.role}{" "}
-                    <span className="font-normal text-ink-light">
-                      — {exp.company}
-                    </span>
+                    {exp.role}
+                    {exp.company && (
+                      <span className="font-normal text-ink-light">
+                        {" "}— {exp.company}
+                      </span>
+                    )}
                   </h3>
                   <span className="shrink-0 text-sm text-ink-light font-serif">
                     {exp.period}
