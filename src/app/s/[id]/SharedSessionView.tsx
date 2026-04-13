@@ -13,7 +13,7 @@ export default function SharedSessionView({ blocks }: Props) {
   return (
     <>
       <section className="mb-8 text-center">
-        <div className="mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full shadow-neu-sm">
+        <div className="mx-auto mb-4 h-20 w-20 overflow-hidden rounded-full shadow-sm">
           <Image
             src="/photo-coffee.jpg"
             alt="Max Marowsky"
@@ -40,7 +40,7 @@ export default function SharedSessionView({ blocks }: Props) {
       <div className="mt-12 text-center">
         <Link
           href="/"
-          className="inline-block rounded-xl bg-accent px-6 py-3 text-sm font-medium text-white shadow-neu-sm transition-colors hover:bg-accent-hover"
+          className="inline-block rounded-xl bg-accent px-6 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-accent-hover"
         >
           Start your own conversation with Max →
         </Link>

@@ -24,7 +24,7 @@ export default function ProgressRing({ discovered, total }: ProgressRingProps) {
     <div className="no-print fixed z-20 bottom-32 right-4 sm:bottom-auto sm:top-4 sm:right-4">
       {/* Desktop version */}
       <div className="hidden sm:flex flex-col items-center">
-        <div className="relative h-[72px] w-[72px] rounded-full bg-white shadow-neu-sm">
+        <div className="relative h-[72px] w-[72px] rounded-full bg-white shadow-sm">
           <svg width="72" height="72" viewBox="0 0 72 72" className="rotate-[-90deg]">
             <circle
               cx="36" cy="36" r={desktopRadius}
@@ -51,7 +51,7 @@ export default function ProgressRing({ discovered, total }: ProgressRingProps) {
 
       {/* Mobile version */}
       <div className="flex sm:hidden flex-col items-center">
-        <div className="relative h-12 w-12 rounded-full bg-white shadow-neu-sm">
+        <div className="relative h-12 w-12 rounded-full bg-white shadow-sm">
           <svg width="48" height="48" viewBox="0 0 48 48" className="rotate-[-90deg]">
             <circle
               cx="24" cy="24" r={mobileRadius}

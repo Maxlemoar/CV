@@ -127,7 +127,7 @@ export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatPro
                 <div
                   className={`inline-block rounded-2xl px-4 py-3 text-sm ${
                     msg.type === "bot"
-                      ? "bg-white text-ink shadow-neu-sm"
+                      ? "bg-white text-ink shadow-sm"
                       : "bg-accent text-white"
                   }`}
                 >
@@ -150,7 +150,7 @@ export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatPro
               <button
                 key={opt.value}
                 onClick={() => handleSelect(opt.value, opt.label)}
-                className="rounded-xl border border-accent/40 bg-paper px-4 py-2.5 text-left text-sm shadow-neu-sm transition-all hover:border-accent hover:shadow-neu active:shadow-neu-inset"
+                className="rounded-xl border border-accent/40 bg-paper px-4 py-2.5 text-left text-sm shadow-sm transition-all hover:border-accent hover:shadow-md active:shadow-inset"
               >
                 <span className="font-semibold text-accent">{opt.label}</span>
                 <span className="ml-1.5 text-ink-light">— {opt.description}</span>

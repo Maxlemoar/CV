@@ -273,7 +273,7 @@ export default function ConversationView() {
         <div className="space-y-6 pb-24 pt-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 overflow-hidden rounded-full shadow-neu-sm">
+              <div className="h-10 w-10 overflow-hidden rounded-full shadow-sm">
                 <img src="/photo-coffee.jpg" alt="Max Marowsky" className="h-full w-full object-cover" />
               </div>
               <div>

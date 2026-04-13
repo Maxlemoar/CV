@@ -27,7 +27,7 @@ export default function Opening({ onHookClick, visible }: OpeningProps) {
       className="pb-8 pt-20 text-center"
     >
       {/* Hero banner — chalkboard wide shot */}
-      <div className="mx-auto mb-6 max-w-md overflow-hidden rounded-2xl shadow-neu">
+      <div className="mx-auto mb-6 max-w-md overflow-hidden rounded-2xl shadow-md">
         <Image
           src="/Max_tafel.jpg"
           alt="Max Marowsky vor einer Tafel mit <Max> in Kreide"
@@ -53,7 +53,7 @@ export default function Opening({ onHookClick, visible }: OpeningProps) {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => onHookClick(hook.targetId)}
-            className="rounded-xl border border-accent/20 bg-paper px-4 py-2 text-sm text-accent shadow-neu-sm transition-shadow hover:shadow-neu"
+            className="rounded-xl border border-accent/20 bg-paper px-4 py-2 text-sm text-accent shadow-sm transition-shadow hover:shadow-md"
           >
             {hook.label}
           </motion.button>

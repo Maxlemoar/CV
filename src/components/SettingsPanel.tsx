@@ -33,7 +33,7 @@ export default function SettingsPanel() {
       {/* Floating trigger button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="no-print fixed bottom-20 right-4 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink-light shadow-neu-sm transition-shadow hover:shadow-neu"
+        className="no-print fixed bottom-20 right-4 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink-light shadow-sm transition-shadow hover:shadow-md"
         aria-label="Personalization settings"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -50,7 +50,7 @@ export default function SettingsPanel() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.2 }}
-            className="no-print fixed bottom-32 right-4 z-30 w-64 rounded-2xl bg-white p-5 shadow-neu"
+            className="no-print fixed bottom-32 right-4 z-30 w-64 rounded-2xl bg-white p-5 shadow-md"
           >
             <div className="mb-4 text-xs font-medium uppercase tracking-wide text-ink-light">
               Personalization

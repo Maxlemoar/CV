@@ -24,7 +24,7 @@ export default function AchievementToast({ achievement, onDismiss }: Achievement
         >
           <button
             onClick={onDismiss}
-            className="flex max-w-[360px] items-center gap-3 rounded-2xl border border-[var(--color-paper-dark,#E5DDD3)] bg-white px-5 py-3 shadow-neu cursor-pointer hover:shadow-neu-sm transition-shadow"
+            className="flex max-w-[360px] items-center gap-3 rounded-2xl border border-[var(--color-paper-dark,#E5DDD3)] bg-white px-5 py-3 shadow-md cursor-pointer hover:shadow-sm transition-shadow"
           >
             <span className="text-2xl" role="img" aria-label={achievement.name}>
               {achievement.emoji}

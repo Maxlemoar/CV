@@ -16,7 +16,7 @@ export default function Landing({ onStartJourney }: LandingProps) {
       transition={{ duration: 0.4 }}
       className="pb-8 pt-20 text-center"
     >
-      <div className="mx-auto mb-6 max-w-md overflow-hidden rounded-2xl shadow-neu">
+      <div className="mx-auto mb-6 max-w-md overflow-hidden rounded-2xl shadow-md">
         <Image
           src="/Max_tafel.jpg"
           alt="Max Marowsky in front of a chalkboard with <Max> in chalk"
@@ -37,7 +37,7 @@ export default function Landing({ onStartJourney }: LandingProps) {
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
           onClick={onStartJourney}
-          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white shadow-neu-sm transition-shadow hover:shadow-neu sm:flex-1"
+          className="w-full rounded-xl bg-accent px-6 py-3 text-base font-semibold text-white shadow-sm transition-shadow hover:shadow-md sm:flex-1"
         >
           Get to know me
         </motion.button>
@@ -45,7 +45,7 @@ export default function Landing({ onStartJourney }: LandingProps) {
           <motion.span
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-block w-full rounded-xl border border-accent/30 bg-paper px-6 py-3 text-center text-base font-semibold text-accent shadow-neu-sm transition-shadow hover:shadow-neu"
+            className="inline-block w-full rounded-xl border border-accent/30 bg-paper px-6 py-3 text-center text-base font-semibold text-accent shadow-sm transition-shadow hover:shadow-md"
           >
             View Resume
           </motion.span>

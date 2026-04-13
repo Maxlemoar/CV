@@ -75,7 +75,7 @@ export default function PourOverGame({ onClose }: PourOverGameProps) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="rounded-2xl bg-white p-6 shadow-neu sm:p-8"
+      className="rounded-2xl bg-white p-6 shadow-md sm:p-8"
     >
       <div className="mb-1 text-xs font-medium uppercase tracking-wide text-ink-light">
         Max's Pour-Over Lab
@@ -176,7 +176,7 @@ export default function PourOverGame({ onClose }: PourOverGameProps) {
       {result && (
         <button
           onClick={onClose}
-          className="mt-4 w-full rounded-xl border border-accent/20 bg-paper px-5 py-3 text-sm font-medium text-accent transition-shadow hover:shadow-neu-sm"
+          className="mt-4 w-full rounded-xl border border-accent/20 bg-paper px-5 py-3 text-sm font-medium text-accent transition-shadow hover:shadow-sm"
         >
           Back to the conversation →
         </button>

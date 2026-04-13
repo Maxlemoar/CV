@@ -86,7 +86,7 @@ export default function JourneyWrapUp({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="no-print rounded-2xl bg-white p-6 shadow-neu sm:p-8"
+      className="no-print rounded-2xl bg-white p-6 shadow-md sm:p-8"
     >
       {/* Headline */}
       <div className="mb-2 text-xs font-medium uppercase tracking-wide text-ink-light">
@@ -111,7 +111,7 @@ export default function JourneyWrapUp({
             {earnedAchievements.map((a) => (
               <span
                 key={a.id}
-                className="inline-flex items-center gap-1 rounded-lg bg-white px-2.5 py-1 text-xs font-medium text-ink shadow-neu-sm"
+                className="inline-flex items-center gap-1 rounded-lg bg-white px-2.5 py-1 text-xs font-medium text-ink shadow-sm"
               >
                 <span role="img" aria-label={a.name}>{a.emoji}</span>
                 {a.name}
@@ -120,7 +120,7 @@ export default function JourneyWrapUp({
             {earnedGems.map((g) => (
               <span
                 key={g.id}
-                className="inline-flex items-center gap-1 rounded-lg bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 shadow-neu-sm"
+                className="inline-flex items-center gap-1 rounded-lg bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700 shadow-sm"
               >
                 <span role="img" aria-label={g.name}>{g.emoji}</span>
                 {g.name}
@@ -163,7 +163,7 @@ export default function JourneyWrapUp({
           <button
             onClick={handleShare}
             disabled={shareStatus === "saving"}
-            className="mt-3 w-full rounded-lg border border-accent/20 bg-white px-3 py-2 text-xs font-medium text-accent transition-shadow hover:shadow-neu-sm disabled:opacity-50"
+            className="mt-3 w-full rounded-lg border border-accent/20 bg-white px-3 py-2 text-xs font-medium text-accent transition-shadow hover:shadow-sm disabled:opacity-50"
           >
             {shareStatus === "copied" ? "Link copied!" : shareStatus === "saving" ? "Saving..." : "Share your discovery path"}
           </button>
@@ -184,7 +184,7 @@ export default function JourneyWrapUp({
           </a>
           <button
             onClick={onNewJourney}
-            className="flex-1 rounded-xl border border-accent/20 bg-paper px-5 py-3 text-center text-sm font-medium text-accent transition-shadow hover:shadow-neu-sm"
+            className="flex-1 rounded-xl border border-accent/20 bg-paper px-5 py-3 text-center text-sm font-medium text-accent transition-shadow hover:shadow-sm"
           >
             Start a new journey
           </button>
