@@ -111,6 +111,10 @@ const skillGroups = [
     label: "Research",
     skills: ["Quantitative Methods", "Study Design", "Data Analysis", "Research Publication"],
   },
+  {
+    label: "Languages",
+    skills: ["German (native)", "English (C1)", "Italian (B1)"],
+  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -352,43 +356,21 @@ export default function CVDocument() {
 
       {/* ---- Skills & Languages (side by side) ---- */}
       <EdSection title="Skills" delay={5}>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-8 print:grid-cols-[1fr_200px]">
-          <div className="space-y-4">
-            {skillGroups.map((group) => (
-              <div key={group.label}>
-                <span className="ed-sans text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-400">
-                  {group.label}
-                </span>
-                <div className="mt-1.5 flex flex-wrap gap-x-1 gap-y-0.5">
-                  {group.skills.map((skill, i) => (
-                    <span key={skill} className="ed-sans text-[13px] text-neutral-700">
-                      {skill}{i < group.skills.length - 1 && <span className="text-neutral-300 mx-1">/</span>}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div>
-            <span className="ed-sans text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-400">
-              Languages
-            </span>
-            <div className="mt-2 space-y-1.5 ed-sans text-[13px]">
-              <div className="flex justify-between">
-                <span className="text-neutral-700">German</span>
-                <span className="text-neutral-400">native</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-neutral-700">English</span>
-                <span className="text-neutral-400">C1</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-neutral-700">Italian</span>
-                <span className="text-neutral-400">B1</span>
+        <div className="space-y-4">
+          {skillGroups.map((group) => (
+            <div key={group.label}>
+              <span className="ed-sans text-[11px] font-medium uppercase tracking-[0.08em] text-neutral-400">
+                {group.label}
+              </span>
+              <div className="mt-1.5 flex flex-wrap gap-x-1 gap-y-0.5">
+                {group.skills.map((skill, i) => (
+                  <span key={skill} className="ed-sans text-[13px] text-neutral-700">
+                    {skill}{i < group.skills.length - 1 && <span className="text-neutral-300 mx-1">/</span>}
+                  </span>
+                ))}
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </EdSection>
     </article>
