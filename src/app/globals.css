@@ -8,12 +8,13 @@
   --color-accent: #D97706;
   --color-accent-hover: #B45309;
 
-  --font-serif: Georgia, Cambria, "Times New Roman", serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-heading: var(--font-instrument-serif), Georgia, serif;
+  --font-body: var(--font-satoshi), system-ui, sans-serif;
 
-  --shadow-neu: 6px 6px 12px rgba(0,0,0,0.08), -6px -6px 12px rgba(255,255,255,0.9);
-  --shadow-neu-inset: inset 4px 4px 8px rgba(0,0,0,0.06), inset -4px -4px 8px rgba(255,255,255,0.7);
-  --shadow-neu-sm: 3px 3px 6px rgba(0,0,0,0.06), -3px -3px 6px rgba(255,255,255,0.8);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.06);
 }
 
 html {
@@ -23,7 +24,15 @@ html {
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
 }
 
 /* Paper texture overlay */
@@ -45,15 +54,16 @@ body::before {
   --color-ink-light: #A89F91;
   --color-accent: #5C4F3D;
   --color-accent-hover: #3D3529;
-  --shadow-neu: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-neu-sm: 0 1px 1px rgba(0,0,0,0.03);
-  --shadow-neu-inset: inset 0 1px 2px rgba(0,0,0,0.04);
-  --font-serif: Georgia, "Times New Roman", serif;
-  --font-sans: Georgia, "Times New Roman", serif;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-inset: inset 0 1px 2px rgba(0,0,0,0.04);
+  --font-heading: var(--font-literata), Georgia, serif;
+  --font-body: var(--font-literata), Georgia, serif;
 }
 
 [data-theme="focused"] body {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-body);
 }
 
 [data-theme="focused"] body::before {
@@ -75,15 +85,16 @@ body::before {
   --color-ink-light: #444444;
   --color-accent: #FF3366;
   --color-accent-hover: #E6004C;
-  --shadow-neu: 6px 6px 0 #1a1a1a;
-  --shadow-neu-sm: 4px 4px 0 #1a1a1a;
-  --shadow-neu-inset: inset 3px 3px 0 rgba(0,0,0,0.15);
-  --font-serif: system-ui, sans-serif;
-  --font-sans: system-ui, sans-serif;
+  --shadow-sm: 4px 4px 0 #1a1a1a;
+  --shadow-md: 6px 6px 0 #1a1a1a;
+  --shadow-lg: 8px 8px 0 #1a1a1a;
+  --shadow-inset: inset 3px 3px 0 rgba(0,0,0,0.15);
+  --font-heading: var(--font-clash-display), system-ui, sans-serif;
+  --font-body: var(--font-jetbrains-mono), monospace;
 }
 
 [data-theme="colorful"] body {
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
 }
 
