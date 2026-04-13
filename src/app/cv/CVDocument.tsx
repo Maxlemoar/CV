@@ -160,26 +160,23 @@ export default function CVDocument() {
     if (!el || exporting) return;
 
     setExporting(true);
-    try {
-      // Temporarily make all reveal sections visible
-      el.querySelectorAll(".ed-reveal").forEach((s) => {
-        s.classList.add("ed-visible");
-      });
-      // Hide no-print elements
-      const noPrintEls = el.querySelectorAll(".no-print");
-      noPrintEls.forEach((e) => (e as HTMLElement).style.display = "none");
 
+    // Hide no-print elements
+    const noPrintEls = Array.from(el.querySelectorAll(".no-print"));
+    noPrintEls.forEach((e) => (e as HTMLElement).style.display = "none");
+
+    // Make all reveal sections visible
+    el.querySelectorAll(".ed-reveal").forEach((s) => {
+      s.classList.add("ed-visible");
+    });
+
+    try {
       const canvas = await html2canvas(el, {
         scale: 2,
         useCORS: true,
-        logging: false,
+        logging: true,
         backgroundColor: "#ffffff",
-        width: el.scrollWidth,
-        height: el.scrollHeight,
       });
-
-      // Restore no-print elements
-      noPrintEls.forEach((e) => (e as HTMLElement).style.display = "");
 
       const pdf = new jsPDF({
         orientation: "portrait",
@@ -193,10 +190,8 @@ export default function CVDocument() {
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       if (imgHeight <= pageHeight) {
-        // Fits on one page
         pdf.addImage(canvas.toDataURL("image/jpeg", 0.95), "JPEG", 0, 0, imgWidth, imgHeight);
       } else {
-        // Multi-page
         let position = 0;
         let remaining = imgHeight;
 
@@ -209,7 +204,12 @@ export default function CVDocument() {
       }
 
       pdf.save("Maximilian_Marowsky_CV.pdf");
+    } catch (err) {
+      console.error("PDF export failed:", err);
+      alert("PDF export failed. Please try again.");
     } finally {
+      // Always restore no-print elements
+      noPrintEls.forEach((e) => (e as HTMLElement).style.display = "");
       setExporting(false);
     }
   }, [exporting]);
