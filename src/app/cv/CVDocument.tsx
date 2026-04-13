@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 
@@ -205,8 +204,9 @@ export default function CVDocument() {
 
       pdf.save("Maximilian_Marowsky_CV.pdf");
     } catch (err) {
-      console.error("PDF export failed:", err);
-      alert("PDF export failed. Please try again.");
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("PDF export failed:", msg, err);
+      alert(`PDF export failed: ${msg}`);
     } finally {
       // Always restore no-print elements
       noPrintEls.forEach((e) => (e as HTMLElement).style.display = "");
@@ -221,7 +221,8 @@ export default function CVDocument() {
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-5">
             <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-full grayscale print:grayscale-0">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/Max_tafel_klein.jpg"
                 alt="Maximilian Marowsky"
                 width={72}
