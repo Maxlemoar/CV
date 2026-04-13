@@ -16,12 +16,10 @@ const experience = [
     bullets: [],
     subroles: [
       {
-        title: "AI Quality",
+        title: "AI Quality Assessment",
         period: "Q1 2026",
         bullets: [
-          'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
-          "Rebuilt the AI Assessor end-to-end: iterated through prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement to 89%.",
-          'Launched the "Best of eduki" quality label with a structured A/B test. Managed tiered stakeholder rollout across top authors, general community, and publishers.',
+          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki's collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.",
         ],
       },
       {
@@ -36,14 +34,14 @@ const experience = [
         period: "Oct 2022 – Apr 2025",
         bullets: [
           "Led an autonomous intrapreneurship team. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
-          "Managed a cross-functional team of 6 (2 BE, 2 FE, QA, UX). Transitioned from startup founder to intrapreneur — navigating the shift from full ownership to operating within a larger organization.",
+          "Managed a cross-functional team. Transitioned from startup founder to Productmanager, navigating the shift from full ownership to operating within a larger organization.",
         ],
       },
     ],
   },
   {
     role: "Startup Exit — Acquisition by eduki",
-    company: "pearprogramming GmbH → eduki",
+    company: "",
     period: "Oct 2022",
     description:
       "pearprogramming and its product PearUp were acquired by eduki, the largest marketplace for teaching materials in Germany (~150 employees). Product and team integrated into the marketplace.",
@@ -52,10 +50,10 @@ const experience = [
   },
   {
     role: "Co-Founder & CEO",
-    company: "pearprogramming GmbH",
+    company: "",
     period: "2018 – 2022",
     description:
-      "Founded in Osnabrück. Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
+      "I co-founded pearprogramming. A startup based in Osnabrück that developed a game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
@@ -191,7 +189,7 @@ export default function CVDocument() {
         <Section title="Experience">
           <div className="space-y-7">
             {experience.map((exp) => (
-              <div key={exp.company + exp.period}>
+              <div key={exp.role + exp.period}>
                 <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
                   <h3 className="font-semibold text-ink">
                     {exp.role}
