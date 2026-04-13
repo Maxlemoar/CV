@@ -211,15 +211,14 @@ export default function CVDocument() {
       {/* ---- Summary ---- */}
       <EdSection title="Summary" delay={0}>
         <p className="ed-sans text-[16px] leading-[1.7] text-neutral-700">
-          Psychologist turned EdTech founder turned Product Manager. I
-          built a game-based learning app from scratch, grew it to
-          acquisition, and now design AI-powered systems at eduki that
-          make educational quality measurable at scale. My psychology
-          background shapes how I think about learning; building with
-          Claude every day shapes how I think about product. I care
-          about learning experiences that give people real agency — not
-          just content delivery, but tools that adapt to who learners
-          are and where they&apos;re headed.
+          I co-founded a startup that built a game-based learning app
+          from scratch, grew it to acquisition, and now design
+          AI-powered systems at eduki that make educational quality
+          measurable at scale. My psychology background shapes how I
+          think about learning; building with Claude every day shapes
+          how I think about product. I care about learning experiences
+          that give people real agency and adapt to who learners are
+          and where they&apos;re headed.
         </p>
       </EdSection>
 
