@@ -449,6 +449,7 @@ export function getNodeCounts() {
 // Helper: convert a ContentNode to a ContentBlockData for the conversation UI
 export function nodeToBlock(node: ContentNode, visitedNodes: Set<string>, depth: "overview" | "deep-dive" = "deep-dive"): ContentBlockData {
   const visibleHooks = node.hooks.filter((h) => {
+    if (visitedNodes.has(h.targetId)) return false;
     if (h.requiredVisited && !h.requiredVisited.every((id) => visitedNodes.has(id))) return false;
     if (h.minVisited && visitedNodes.size < h.minVisited) return false;
     return true;
