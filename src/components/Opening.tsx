@@ -26,13 +26,14 @@ export default function Opening({ onHookClick, visible }: OpeningProps) {
       transition={{ duration: 0.4 }}
       className="pb-8 pt-20 text-center"
     >
-      <div className="mx-auto mb-6 h-36 w-36 overflow-hidden rounded-full shadow-neu">
+      {/* Hero banner — chalkboard wide shot */}
+      <div className="mx-auto mb-6 max-w-md overflow-hidden rounded-2xl shadow-neu">
         <Image
-          src="/photo-coffee.jpg"
-          alt="Max Marowsky"
-          width={144}
-          height={144}
-          className="h-full w-full object-cover"
+          src="/Max_tafel.png"
+          alt="Max Marowsky vor einer Tafel mit <Max> in Kreide"
+          width={600}
+          height={400}
+          className="h-auto w-full object-cover"
           priority
         />
       </div>

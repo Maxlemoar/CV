@@ -84,7 +84,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       "I use Claude Code every day. Not to avoid understanding what\u2019s being built \u2014 but because the bottleneck for me was never the idea, it was implementation speed. Now I can go from hypothesis to working prototype in a day. I\u2019m currently building three learning apps this way.",
     contentCompact:
       "Using Claude Code daily \u2014 not to skip understanding, but because the bottleneck was never the idea, it was implementation speed. Hypothesis to working prototype in a day. Currently building three learning apps.",
-    image: { src: "/photo-coffee.jpg", alt: "Max working at a cafe" },
+    image: { src: "/photo-coffee.jpg", alt: "Max working at a café" },
     hooks: [
       { label: "What apps are you building?", targetId: "side-projects" },
       { label: "How I used AI at my day job", targetId: "ai-in-education" },
@@ -177,6 +177,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       "Three things I took from founding: your first idea is almost always wrong, so learn to kill it early. Hiring is harder than building the product. And speed matters more than perfection \u2014 especially when you\u2019re ten people with a federal grant and no revenue yet.",
     contentCompact:
       "Three founding lessons: your first idea is almost always wrong, so kill it early. Hiring is harder than building the product. Speed matters more than perfection \u2014 especially with ten people, a federal grant, and no revenue.",
+    image: { src: "/photo-cycling.jpg", alt: "Max with his road bike" },
     hooks: [
       { label: "My product management approach", targetId: "pm-approach" },
       { label: "Who I am outside of work", targetId: "personal" },
@@ -286,6 +287,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       "I co-authored a Springer book chapter on game-based learning with my wife Anna (M.Sc. Neuroscience). I worked with Prof. John Hattie \u2014 whose \u201cVisible Learning\u201d is the largest meta-analysis in education \u2014 on two published studies validating a quality framework for teaching materials with 2,000+ teachers.",
     contentCompact:
       "Co-authored Springer book chapter on game-based learning with wife Anna (M.Sc. Neuroscience, co-author). Worked with Prof. John Hattie on two published studies validating a quality framework for teaching materials with 2,000+ teachers.",
+    image: { src: "/photo-wedding.jpg", alt: "Max and Anna" },
     hooks: [
       { label: "How this became a real product", targetId: "ai-in-education" },
       { label: "What I believe about the future of learning", targetId: "what-id-build" },

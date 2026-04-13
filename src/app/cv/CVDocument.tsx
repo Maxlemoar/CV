@@ -61,15 +61,6 @@ const experience = [
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
     ],
   },
-  {
-    role: "Research Assistant",
-    company: "Deutsches Kinderschmerzzentrum",
-    location: "Datteln, Germany",
-    period: "Oct 2015 – Dec 2017",
-    description:
-      "Research, test diagnostics, and quantitative data analysis in a pediatric pain research center.",
-    bullets: [],
-  },
 ];
 
 const education = [
@@ -93,11 +84,16 @@ const education = [
   },
 ];
 
-const publications = [
+const research = [
   {
     title: "The Teacher-Centered Perspective on Digital Game-Based Learning",
     venue: 'In: "Game-based Learning Across the Disciplines" (Springer, 2021)',
     note: "Co-authored book chapter on how teachers can integrate game-based learning effectively.",
+  },
+  {
+    title: "Research Assistant — Deutsches Kinderschmerzzentrum",
+    venue: "Datteln, Germany · Oct 2015 – Dec 2017",
+    note: "Research, test diagnostics, and quantitative data analysis in a pediatric pain research center.",
   },
 ];
 
@@ -240,10 +236,10 @@ export default function CVDocument() {
           </div>
         </Section>
 
-        {/* ---- Publications ---- */}
-        <Section title="Publications">
+        {/* ---- Research ---- */}
+        <Section title="Research">
           <div className="space-y-3">
-            {publications.map((pub) => (
+            {research.map((pub) => (
               <div key={pub.title}>
                 <h3 className="font-semibold text-ink text-sm">{pub.title}</h3>
                 <p className="text-sm text-ink-light">{pub.venue}</p>

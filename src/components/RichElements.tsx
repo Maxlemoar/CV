@@ -98,8 +98,14 @@ function Citation({ data }: { data: CitationData }) {
 
 function Photo({ data }: { data: PhotoData }) {
   return (
-    <div className="relative mt-4 h-48 w-full overflow-hidden rounded-xl">
-      <Image src={data.src} alt={data.alt} fill className="object-cover" />
+    <div className="mt-4 overflow-hidden rounded-xl">
+      <Image
+        src={data.src}
+        alt={data.alt}
+        width={400}
+        height={500}
+        className="h-auto max-h-[28rem] w-full object-contain"
+      />
     </div>
   );
 }
