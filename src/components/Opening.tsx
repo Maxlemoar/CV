@@ -2,13 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-
-const STARTER_HOOKS = [
-  { label: "Why Anthropic?", targetId: "why-anthropic" },
-  { label: "What I've built", targetId: "startup-story" },
-  { label: "How I think about education", targetId: "school-gets-wrong" },
-  { label: "Who are you, really?", targetId: "personal" },
-];
+import { usePreferences } from "@/lib/preferences";
+import { FOCUS_STARTER_HOOKS, ROOT_HOOKS } from "@/lib/content-graph";
 
 interface OpeningProps {
   onHookClick: (targetId: string) => void;
@@ -16,7 +11,13 @@ interface OpeningProps {
 }
 
 export default function Opening({ onHookClick, visible }: OpeningProps) {
+  const { preferences } = usePreferences();
+
   if (!visible) return null;
+
+  const hooks = preferences?.contentFocus
+    ? FOCUS_STARTER_HOOKS[preferences.contentFocus]
+    : ROOT_HOOKS;
 
   return (
     <motion.section
@@ -45,7 +46,7 @@ export default function Opening({ onHookClick, visible }: OpeningProps) {
         Get to know me. Just ask.
       </p>
       <div className="mx-auto mt-6 flex max-w-md flex-wrap justify-center gap-2">
-        {STARTER_HOOKS.map((hook) => (
+        {hooks.map((hook) => (
           <motion.button
             key={hook.label}
             whileHover={{ scale: 1.03 }}

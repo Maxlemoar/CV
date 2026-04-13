@@ -2,13 +2,17 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import type { ContentBlockData, AIResponse } from "@/lib/types";
+import type { UserPreferences } from "@/lib/types";
 import { CONTENT_GRAPH, nodeToBlock } from "@/lib/content-graph";
+import { usePreferences } from "@/lib/preferences";
 import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
 import SkeletonBlock from "./SkeletonBlock";
 import InputBar from "./InputBar";
 import ShareButton from "./ShareButton";
 import PrintCV from "./PrintCV";
+import OnboardingChat from "./OnboardingChat";
+import SettingsPanel from "./SettingsPanel";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -17,6 +21,8 @@ export default function ConversationView() {
   const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
   const blockCounter = useRef(0);
+
+  const { preferences, setPreferences, isOnboarded } = usePreferences();
 
   const hasStarted = blocks.length > 0 || isLoading;
 
@@ -36,7 +42,8 @@ export default function ConversationView() {
       return next;
     });
 
-    const block = nodeToBlock(node, visitedNodes);
+    const depth = preferences?.infoDepth ?? "deep-dive";
+    const block = nodeToBlock(node, visitedNodes, depth);
     setBlocks((prev) => [...prev, block]);
     setMessages((prev) => [
       ...prev,
@@ -58,7 +65,10 @@ export default function ConversationView() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: updatedMessages }),
+        body: JSON.stringify({
+          messages: updatedMessages,
+          preferences: preferences ?? undefined,
+        }),
       });
 
       if (!res.ok) throw new Error("Failed to get response");
@@ -95,6 +105,22 @@ export default function ConversationView() {
     }
   }, [addNodeBlock, submitFreeQuestion]);
 
+  function handleOnboardingComplete(prefs: UserPreferences) {
+    setPreferences(prefs);
+  }
+
+  function handleSkip() {
+    setPreferences({
+      visualStyle: "focused",
+      infoDepth: "deep-dive",
+      contentFocus: "product-builder",
+    });
+  }
+
+  if (!isOnboarded) {
+    return <OnboardingChat onComplete={handleOnboardingComplete} onSkip={handleSkip} />;
+  }
+
   return (
     <>
       <Opening visible={!hasStarted} onHookClick={addNodeBlock} />
@@ -129,6 +155,7 @@ export default function ConversationView() {
       {hasStarted && (
         <InputBar onSubmit={(q) => submitFreeQuestion(q)} disabled={isLoading} />
       )}
+      <SettingsPanel />
       <PrintCV />
     </>
   );
