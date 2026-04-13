@@ -297,7 +297,10 @@ export default function ConversationView() {
             block.id.startsWith("coffee-") ? (
               <PourOverGame
                 key={block.id}
-                onClose={() => setCoffeeGameActive(false)}
+                onClose={() => {
+                  setCoffeeGameActive(false);
+                  setBlocks((prev) => prev.filter((b) => !b.id.startsWith("coffee-")));
+                }}
               />
             ) : (
               <ContentBlock
