@@ -30,7 +30,7 @@ export default function ArchitectView({ visitedNodes, onClose }: ArchitectViewPr
       <div className="p-6 max-w-5xl mx-auto">
         <div className="mb-12">
           <h2 className="font-mono text-lg text-green-300 mb-4">
-            // Content Graph &mdash; {nodes.length} nodes, {nodes.reduce((a, n) => a + n.hooks.length, 0)} edges
+            {`// Content Graph — `}{nodes.length} nodes, {nodes.reduce((a, n) => a + n.hooks.length, 0)} edges
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {nodes.map((node) => (
@@ -51,25 +51,25 @@ export default function ArchitectView({ visitedNodes, onClose }: ArchitectViewPr
         </div>
 
         <div className="mb-12">
-          <h2 className="font-mono text-lg text-green-300 mb-4">// Architecture Decisions</h2>
+          <h2 className="font-mono text-lg text-green-300 mb-4">{"// Architecture Decisions"}</h2>
           <div className="space-y-4 font-mono text-sm text-green-400/80 leading-relaxed">
             <div>
-              <p className="text-green-300">/* Why a content graph instead of a CMS? */</p>
+              <p className="text-green-300">{"/* Why a content graph instead of a CMS? */"}</p>
               <p>The graph structure allows non-linear exploration &mdash; every visitor creates their own path. A CMS would impose a linear narrative. The graph IS the product philosophy: learner agency over prescribed curricula.</p>
             </div>
             <div>
-              <p className="text-green-300">/* Why hybrid personalization? */</p>
+              <p className="text-green-300">{"/* Why hybrid personalization? */"}</p>
               <p>Static content for reliability, AI framing for adaptivity. The core facts never hallucinate. The wrapping adapts. Same pattern you&apos;d use at scale &mdash; source of truth + adaptive layer.</p>
             </div>
             <div>
-              <p className="text-green-300">/* Why the interview instead of tracking? */</p>
+              <p className="text-green-300">{"/* Why the interview instead of tracking? */"}</p>
               <p>Explicit consent + genuine interaction &gt; surveillance. The visitor knows they&apos;re being asked. They just don&apos;t know why &mdash; yet. That&apos;s the ethical version of personalization.</p>
             </div>
           </div>
         </div>
 
         <div>
-          <h2 className="font-mono text-lg text-green-300 mb-4">// Stack</h2>
+          <h2 className="font-mono text-lg text-green-300 mb-4">{"// Stack"}</h2>
           <pre className="text-green-400/60 text-xs">
 {`Next.js 14 (App Router) · TypeScript · Tailwind CSS
 Anthropic Claude (AI framing + free-form chat)
