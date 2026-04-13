@@ -113,11 +113,12 @@ export default function ConversationView() {
             </div>
             <ShareButton blocks={blocks} />
           </div>
-          {blocks.map((block) => (
+          {blocks.map((block, i) => (
             <ContentBlock
               key={block.id}
               block={block}
               onHookClick={handleHookClick}
+              isReadOnly={i < blocks.length - 1}
             />
           ))}
           {isLoading && <SkeletonBlock />}
