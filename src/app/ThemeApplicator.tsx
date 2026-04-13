@@ -1,23 +1,23 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePreferences } from "@/lib/preferences";
+import { useSettings } from "@/lib/preferences";
 
 export default function ThemeApplicator({ children }: { children: React.ReactNode }) {
-  const { preferences } = usePreferences();
+  const { settings } = useSettings();
   const isFirstRender = useRef(true);
 
   useEffect(() => {
     const html = document.documentElement;
 
     function applyTheme() {
-      if (preferences?.visualStyle && preferences.visualStyle !== "default") {
-        html.setAttribute("data-theme", preferences.visualStyle);
+      if (settings.visualStyle && settings.visualStyle !== "focused") {
+        html.setAttribute("data-theme", settings.visualStyle);
       } else {
         html.removeAttribute("data-theme");
       }
 
-      if (preferences?.darkMode) {
+      if (settings.darkMode) {
         html.setAttribute("data-dark", "");
       } else {
         html.removeAttribute("data-dark");
@@ -35,7 +35,7 @@ export default function ThemeApplicator({ children }: { children: React.ReactNod
     } else {
       applyTheme();
     }
-  }, [preferences?.visualStyle, preferences?.darkMode]);
+  }, [settings.visualStyle, settings.darkMode]);
 
   return <>{children}</>;
 }

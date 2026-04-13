@@ -24,7 +24,7 @@ const requestSchema = z.object({
 const responseSchema = z.object({
   introduction: z.string(),
   transition: z.string().optional(),
-  hookLabels: z.record(z.string()).optional(),
+  hookLabels: z.record(z.string(), z.string()).optional(),
   learningMechanic: z
     .object({
       type: z.enum(["testing-effect", "spaced-retrieval"]),

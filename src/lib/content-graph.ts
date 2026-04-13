@@ -394,34 +394,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   },
 };
 
-import type { ContentBlockData, ContentFocus } from "@/lib/types";
-
-export const FOCUS_STARTER_HOOKS: Record<ContentFocus, Hook[]> = {
-  "product-builder": [
-    { label: "The startup I built and sold", targetId: "startup-story" },
-    { label: "My product management approach", targetId: "pm-approach" },
-    { label: "What founding taught me", targetId: "founder-lessons" },
-    { label: "What I'd want to build at Anthropic", targetId: "what-id-build" },
-  ],
-  "learning-scientist": [
-    { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
-    { label: "The psychology of learning", targetId: "psychology-of-learning" },
-    { label: "Research I've published", targetId: "research" },
-    { label: "What schools should teach instead", targetId: "what-schools-should-teach" },
-  ],
-  "ai-vision": [
-    { label: "What I'm building with Claude right now", targetId: "building-with-claude" },
-    { label: "My side projects", targetId: "side-projects" },
-    { label: "How I used AI to assess teaching quality", targetId: "ai-in-education" },
-    { label: "My vision for AI in education", targetId: "anthropic-education-vision" },
-  ],
-  "max-personal": [
-    { label: "Who I am outside of work", targetId: "personal" },
-    { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
-    { label: "How becoming a father changed my perspective", targetId: "what-id-build" },
-    { label: "The science of what motivates me", targetId: "psychology-of-learning" },
-  ],
-};
+import type { ContentBlockData } from "@/lib/types";
 
 export function getNodeCounts() {
   const allNodes = Object.values(CONTENT_GRAPH);
