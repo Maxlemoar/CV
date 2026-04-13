@@ -12,6 +12,7 @@ import InputBar from "./InputBar";
 import ShareButton from "./ShareButton";
 import PrintCV from "./PrintCV";
 import OnboardingChat from "./OnboardingChat";
+import Landing from "./Landing";
 import SettingsPanel from "./SettingsPanel";
 import { useGamification } from "@/hooks/useGamification";
 import ProgressRing from "./gamification/ProgressRing";
@@ -29,6 +30,7 @@ export default function ConversationView() {
   const [isWrappedUp, setIsWrappedUp] = useState(false);
   const [wrapUpNarrative, setWrapUpNarrative] = useState<string | null>(null);
   const [isWrapUpLoading, setIsWrapUpLoading] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const { preferences, setPreferences, resetPreferences, isOnboarded } = usePreferences();
 
@@ -197,6 +199,7 @@ export default function ConversationView() {
     setWrapUpNarrative(null);
     setIsWrapUpLoading(false);
     blockCounter.current = 0;
+    setShowOnboarding(false);
     resetPreferences();
   }
 
@@ -225,7 +228,11 @@ export default function ConversationView() {
     });
   }
 
-  if (!isOnboarded) {
+  if (!isOnboarded && !showOnboarding) {
+    return <Landing onStartJourney={() => setShowOnboarding(true)} />;
+  }
+
+  if (!isOnboarded && showOnboarding) {
     return <OnboardingChat onComplete={handleOnboardingComplete} onSkip={handleSkip} />;
   }
 

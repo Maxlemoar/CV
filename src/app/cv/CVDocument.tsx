@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import Image from "next/image";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -137,13 +138,24 @@ export default function CVDocument() {
         {/* ---- Header ---- */}
         <header className="mb-8 border-b border-paper-dark pb-8 print:border-gray-300">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-            <div>
-              <h1 className="font-serif text-3xl font-bold text-ink sm:text-4xl">
-                Maximilian Marowsky
-              </h1>
-              <p className="mt-1 text-lg text-ink-light">
-                Product Manager &middot; Founder &middot; EdTech
-              </p>
+            <div className="flex items-center gap-4">
+              <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full shadow-neu print:shadow-none">
+                <Image
+                  src="/Max_tafel_klein.jpg"
+                  alt="Maximilian Marowsky"
+                  width={64}
+                  height={64}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <h1 className="font-serif text-3xl font-bold text-ink sm:text-4xl">
+                  Maximilian Marowsky
+                </h1>
+                <p className="mt-1 text-lg text-ink-light">
+                  Product Manager &middot; Founder &middot; EdTech
+                </p>
+              </div>
             </div>
             <button
               onClick={handlePrint}
@@ -154,7 +166,7 @@ export default function CVDocument() {
           </div>
 
           <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-ink-light">
-            <span>m.marowsky@googlemail.com</span>
+            <span>m.marowsky@gmail.com</span>
             <a
               href="https://www.linkedin.com/in/maximilian-marowsky-416bb3164/"
               target="_blank"
