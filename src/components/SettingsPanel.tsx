@@ -2,28 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
-import { usePreferences } from "@/lib/preferences";
-import type { VisualStyle, InfoDepth, ContentFocus } from "@/lib/types";
+import { useSettings } from "@/lib/preferences";
+import type { VisualStyle } from "@/lib/types";
 
-const VISUAL_OPTIONS: { value: VisualStyle | "default"; label: string }[] = [
-  { value: "default", label: "Notebook" },
+const VISUAL_OPTIONS: { value: VisualStyle; label: string }[] = [
+  { value: "focused", label: "Notebook" },
   { value: "colorful", label: "Colorful" },
 ];
 
-const DEPTH_OPTIONS: { value: InfoDepth; label: string }[] = [
-  { value: "overview", label: "Overview" },
-  { value: "deep-dive", label: "Deep Dive" },
-];
-
-const FOCUS_OPTIONS: { value: ContentFocus; label: string }[] = [
-  { value: "product-builder", label: "Product Builder" },
-  { value: "learning-scientist", label: "Learning Scientist" },
-  { value: "ai-vision", label: "AI & Vision" },
-  { value: "max-personal", label: "Max as a person" },
-];
-
-function ThemePreview({ theme }: { theme: "default" | "colorful" }) {
-  if (theme === "default") {
+function ThemePreview({ theme }: { theme: VisualStyle }) {
+  if (theme === "focused") {
     return (
       <div className="h-8 w-12 overflow-hidden rounded border border-[rgba(0,0,0,0.1)]" style={{ background: "#FAF6F1" }}>
         <div style={{ padding: "3px 4px" }}>
@@ -49,7 +37,7 @@ function ThemePreview({ theme }: { theme: "default" | "colorful" }) {
 
 export default function SettingsPanel() {
   const [isOpen, setIsOpen] = useState(false);
-  const { preferences, updatePreference, isOnboarded } = usePreferences();
+  const { settings, updateSetting } = useSettings();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -59,8 +47,6 @@ export default function SettingsPanel() {
     document.addEventListener("keydown", handleEsc);
     return () => document.removeEventListener("keydown", handleEsc);
   }, [isOpen]);
-
-  if (!isOnboarded || !preferences) return null;
 
   function handleDragEnd(_: unknown, info: PanInfo) {
     if (info.offset.y > 100) setIsOpen(false);
@@ -130,20 +116,18 @@ export default function SettingsPanel() {
                   <div className="mb-2 text-xs text-ink-light">Style</div>
                   <div className="flex gap-2">
                     {VISUAL_OPTIONS.map((opt) => {
-                      const isActive = opt.value === "default"
-                        ? preferences.visualStyle === "default" || preferences.visualStyle === "focused"
-                        : preferences.visualStyle === opt.value;
+                      const isActive = settings.visualStyle === opt.value;
                       return (
                         <button
                           key={opt.value}
-                          onClick={() => updatePreference("visualStyle", opt.value as VisualStyle)}
+                          onClick={() => updateSetting("visualStyle", opt.value)}
                           className={`flex flex-1 items-center gap-2.5 rounded-xl px-3 py-2.5 text-xs font-medium transition-all ${
                             isActive
                               ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm"
                               : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
                           }`}
                         >
-                          {!isActive && <ThemePreview theme={opt.value as "default" | "colorful"} />}
+                          {!isActive && <ThemePreview theme={opt.value} />}
                           {opt.label}
                         </button>
                       );
@@ -156,83 +140,20 @@ export default function SettingsPanel() {
                   <div className="mb-2 text-xs text-ink-light">Mode</div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => updatePreference("darkMode", false)}
+                      onClick={() => updateSetting("darkMode", false)}
                       className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        !preferences.darkMode ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
+                        !settings.darkMode ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
                       }`}
                     >
                       Light
                     </button>
                     <button
-                      onClick={() => updatePreference("darkMode", true)}
+                      onClick={() => updateSetting("darkMode", true)}
                       className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        preferences.darkMode ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
+                        settings.darkMode ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
                       }`}
                     >
                       Dark
-                    </button>
-                  </div>
-                </div>
-
-                {/* Depth */}
-                <div className="mb-5">
-                  <div className="mb-2 text-xs text-ink-light">Depth</div>
-                  <div className="flex gap-2">
-                    {DEPTH_OPTIONS.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => updatePreference("infoDepth", opt.value)}
-                        className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                          preferences.infoDepth === opt.value
-                            ? "bg-accent text-white"
-                            : "bg-paper text-ink-light hover:text-ink"
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Focus */}
-                <div className="mb-5">
-                  <div className="mb-2 text-xs text-ink-light">Focus</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {FOCUS_OPTIONS.map((opt) => (
-                      <button
-                        key={opt.value}
-                        onClick={() => updatePreference("contentFocus", opt.value)}
-                        className={`rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                          preferences.contentFocus === opt.value
-                            ? "bg-accent text-white"
-                            : "bg-paper text-ink-light hover:text-ink"
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Gamification */}
-                <div className="border-t border-paper-dark pt-5">
-                  <div className="mb-2 text-xs text-ink-light">Gamification</div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => updatePreference("gamified", true)}
-                      className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        preferences.gamified ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
-                      }`}
-                    >
-                      On
-                    </button>
-                    <button
-                      onClick={() => updatePreference("gamified", false)}
-                      className={`flex-1 rounded-xl px-3 py-2.5 text-xs transition-colors ${
-                        !preferences.gamified ? "bg-accent text-white ring-2 ring-accent/30 ring-offset-1 shadow-sm font-medium" : "bg-paper text-ink-light hover:text-ink hover:bg-paper-dark/30"
-                      }`}
-                    >
-                      Off
                     </button>
                   </div>
                 </div>
