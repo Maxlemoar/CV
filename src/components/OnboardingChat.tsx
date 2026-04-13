@@ -155,7 +155,7 @@ export default function OnboardingChat({ onComplete, onSkip }: OnboardingChatPro
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
             onClick={onSkip}
-            className="mt-6 block text-xs text-ink-light/50 hover:text-ink-light"
+            className="mt-6 block text-xs text-ink hover:text-accent"
           >
             Skip personalization →
           </motion.button>
