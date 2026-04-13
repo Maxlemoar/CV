@@ -8,18 +8,37 @@ import { useCallback } from "react";
 
 const experience = [
   {
-    role: "Product Manager",
+    role: "Product Manager — AI Quality",
     company: "eduki",
     location: "Cologne, Germany",
-    period: "Oct 2022 – Present",
+    period: "Q1 2026",
     description:
-      "Largest marketplace for teaching materials in Germany (~150 employees). Comparable to TeachersPayTeachers.",
+      "Largest marketplace for teaching materials in Germany (~150 employees).",
     bullets: [
-      'Led "Make Quality Visible" (Q1 2026) — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie (validated with 2,000+ teachers across 7 quality dimensions) into a data-driven scoring model, combining learning science insights with e-commerce best practices.',
-      "Rebuilt the AI Assessor end-to-end: iterated through 6 prompt versions (v5–v10), empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement from 80% to 89%. Defined the scoring model (12 criteria, 5 active dimensions), set the quality threshold through manual validation, and ran statistical analysis to exclude low-variance dimensions.",
-      'Launched the "Best of eduki" quality label (product pages, search filter, landing page) with a structured A/B test. Managed multi-stakeholder rollout: tiered author communication strategy for top authors, general community, and publishers.',
+      'Led "Make Quality Visible" — designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Translated research from eduki\'s collaboration with Prof. John Hattie into a data-driven scoring model combining learning science with e-commerce best practices.',
+      "Rebuilt the AI Assessor end-to-end: iterated through 6 prompt versions, empirically tuned model parameters, and designed anti-manipulation safeguards. Raised human-AI agreement from 80% to 89%.",
+      'Launched the "Best of eduki" quality label with a structured A/B test. Managed tiered stakeholder rollout across top authors, general community, and publishers.',
+    ],
+  },
+  {
+    role: "Product Manager — Marketplace",
+    company: "eduki",
+    location: "Cologne, Germany",
+    period: "Apr 2025 – Present",
+    description: "",
+    bullets: [
       "Own Product Spaces: Product Page, Cart, Checkout, Favorites — driving discovery and conversion through A/B-tested incremental improvements.",
-      "Led eduki Interactive (2022–2025): integrated the acquired pearprogramming app into the marketplace as an intrapreneurship initiative, managing a cross-functional team of 6.",
+    ],
+  },
+  {
+    role: "Product Manager — eduki Interactive",
+    company: "eduki",
+    location: "Cologne, Germany",
+    period: "Oct 2022 – Apr 2025",
+    description:
+      "Led eduki Interactive, an autonomous intrapreneurship team within eduki. Responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the marketplace.",
+    bullets: [
+      "Managed a cross-functional team of 6 (2 BE, 2 FE, QA, UX). Transitioned from startup founder to intrapreneur — navigating the shift from full ownership to operating within a larger organization.",
     ],
   },
   {
@@ -28,11 +47,10 @@ const experience = [
     location: "Witten, Germany",
     period: "2018 – 2022 (acquired by eduki)",
     description:
-      "Game-based learning app teaching programming to students through an entrepreneurship narrative.",
+      "Game-based learning app (PearUp) teaching programming to students through an entrepreneurship narrative.",
     bullets: [
       "Co-founded with university peers; received EXIST Gründerstipendium (federal startup grant). Built and led a team of ~10.",
       "Designed the learning experience: students founded a virtual startup, made business decisions, and progressed from visual programming (Google Blockly) to text-based languages.",
-      "Focus on deep understanding of programming concepts — algorithms, sequences, abstraction — not just syntax.",
       "Successfully acquired by eduki in 2022.",
     ],
   },
@@ -42,7 +60,7 @@ const experience = [
     location: "Datteln, Germany",
     period: "Oct 2015 – Dec 2017",
     description:
-      "Research, test diagnostics, data collection, and quantitative analysis in a pediatric pain research center.",
+      "Research, test diagnostics, and quantitative data analysis in a pediatric pain research center.",
     bullets: [],
   },
 ];

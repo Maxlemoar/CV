@@ -44,22 +44,24 @@
 - Ran extensive discoveries
 - Optimized product spaces through incremental improvements, frequently as A/B tests
 
-#### 2022–2025: eduki Interactive
-- Responsible for integrating the acquired pearprogramming app into the eduki marketplace
+#### Oct 2022 – Apr 2025: eduki Interactive (Intrapreneurship Team)
+- Led eduki Interactive — an autonomous intrapreneurship team within eduki
+- From founder to intrapreneur: responsible for integrating, growing, and evolving PearUp (the product built at pearprogramming) within the eduki marketplace
 - Led a team of 2 backend, 2 frontend, 1 QA, 1 UX/UI designer as Product Manager
-- Tasked with finding product-market fit as an intrapreneurship initiative within eduki
+- PearUp was renamed to eduki Interactive within the marketplace
+- Tasked with finding product-market fit within the larger eduki organization
 
 ### Co-Founder & CEO — pearprogramming GmbH (~2018–2022, acquired by eduki)
 - Co-founded with university friends
 - EXIST Gründerstipendium recipient (federal startup grant, started January 2020)
 - GmbH officially founded April 2020
 - Team: ~10 people (fluctuating with student workers and interns)
-- **Product**: Game-based learning app teaching programming to students
+- **Company**: pearprogramming GmbH (named after "pair programming" methodology)
+- **Product**: PearUp — game-based learning app teaching programming to students
   - Students founded a virtual startup, made business decisions, and took on programming assignments
   - Combined entrepreneurship game-based narrative with learning to code
   - Started with Google Blockly (visual programming) to teach concepts, progressed to text-based languages
   - Focus on understanding programming concepts (algorithms, sequences, etc.)
-- Named after "pair programming" methodology
 - **Acquired by eduki in 2022**
 
 ### Research Assistant — Deutsches Kinderschmerzzentrum, Datteln (Oct 2015 – End 2017)
