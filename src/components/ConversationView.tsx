@@ -13,6 +13,9 @@ import ShareButton from "./ShareButton";
 import PrintCV from "./PrintCV";
 import OnboardingChat from "./OnboardingChat";
 import SettingsPanel from "./SettingsPanel";
+import { useGamification } from "@/hooks/useGamification";
+import ProgressRing from "./gamification/ProgressRing";
+import AchievementToast from "./gamification/AchievementToast";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -21,16 +24,53 @@ export default function ConversationView() {
   const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
   const blockCounter = useRef(0);
+  const [freeQuestionCount, setFreeQuestionCount] = useState(0);
 
   const { preferences, setPreferences, isOnboarded } = usePreferences();
 
   const hasStarted = blocks.length > 0 || isLoading;
+
+  const gamification = useGamification(
+    visitedNodes,
+    freeQuestionCount,
+    preferences?.gamified ?? false,
+  );
 
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [blocks.length, isLoading]);
+
+  // Inject gem hooks into the last block when a gem unlocks
+  useEffect(() => {
+    if (!preferences?.gamified || gamification.unlockedGems.size === 0) return;
+
+    setBlocks((prev) => {
+      if (prev.length === 0) return prev;
+      const lastBlock = prev[prev.length - 1];
+
+      const gemHooks: Array<{ label: string; question: string; targetId: string }> = [];
+      for (const gemId of gamification.unlockedGems) {
+        if (visitedNodes.has(gemId)) continue;
+        if (lastBlock.hooks.some((h) => h.targetId === gemId)) continue;
+
+        const gemNode = CONTENT_GRAPH[gemId];
+        if (!gemNode) continue;
+
+        const gemLabel = gemId === "gem-convergence" ? "💎 Die Konvergenz entdecken"
+          : gemId === "gem-lab-to-product" ? "💎 Vom Labor ins Produkt"
+          : "💎 Das ganze Bild";
+
+        gemHooks.push({ label: gemLabel, question: gemLabel, targetId: gemId });
+      }
+
+      if (gemHooks.length === 0) return prev;
+
+      const updatedLast = { ...lastBlock, hooks: [...lastBlock.hooks, ...gemHooks] };
+      return [...prev.slice(0, -1), updatedLast];
+    });
+  }, [gamification.unlockedGems, preferences?.gamified, visitedNodes]);
 
   const addNodeBlock = useCallback((nodeId: string) => {
     const node = CONTENT_GRAPH[nodeId];
@@ -53,6 +93,7 @@ export default function ConversationView() {
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
     setIsLoading(true);
+    setFreeQuestionCount((prev) => prev + 1);
 
     const updatedMessages = [
       ...messages,
@@ -112,6 +153,7 @@ export default function ConversationView() {
       visualStyle: "focused",
       infoDepth: "deep-dive",
       contentFocus: "product-builder",
+      gamified: false,
     });
   }
 
@@ -143,6 +185,7 @@ export default function ConversationView() {
               block={block}
               onHookClick={handleHookClick}
               isReadOnly={i < blocks.length - 1}
+              unlockedGems={preferences?.gamified ? gamification.unlockedGems : undefined}
             />
           ))}
           {isLoading && <SkeletonBlock />}
@@ -155,6 +198,18 @@ export default function ConversationView() {
       )}
       <SettingsPanel />
       <PrintCV />
+      {preferences?.gamified && (
+        <>
+          <ProgressRing
+            discovered={gamification.discoveredCount}
+            total={gamification.totalNodes}
+          />
+          <AchievementToast
+            achievement={gamification.currentToast}
+            onDismiss={gamification.dismissToast}
+          />
+        </>
+      )}
     </>
   );
 }
