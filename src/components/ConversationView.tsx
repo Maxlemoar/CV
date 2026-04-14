@@ -39,6 +39,7 @@ export default function ConversationView() {
   const [revealDismissed, setRevealDismissed] = useState(false);
   const experimentNumberRef = useRef<number | null>(null);
   const REVEAL_THRESHOLD = 8;
+  const [shareStatus, setShareStatus] = useState<"idle" | "saving" | "copied" | "error">("idle");
 
   // Coffee easter egg (kept for fun)
   const [coffeeGameActive, setCoffeeGameActive] = useState(false);
@@ -195,6 +196,7 @@ export default function ConversationView() {
 
   const handleShare = async () => {
     if (!profile) return;
+    setShareStatus("saving");
     try {
       const res = await fetch("/api/sessions", {
         method: "POST",
@@ -205,11 +207,16 @@ export default function ConversationView() {
           visitedNodes: Array.from(visitedNodes),
         }),
       });
+      if (!res.ok) throw new Error(`Session save failed: ${res.status}`);
       const { id } = await res.json();
       const url = `${window.location.origin}/s/${id}`;
       await navigator.clipboard.writeText(url);
-    } catch {
-      // Handle error silently
+      setShareStatus("copied");
+      setTimeout(() => setShareStatus("idle"), 3000);
+    } catch (err) {
+      console.error("Share failed:", err);
+      setShareStatus("error");
+      setTimeout(() => setShareStatus("idle"), 3000);
     }
   };
 
@@ -263,6 +270,7 @@ export default function ConversationView() {
         profile={profile}
         visitedNodes={Array.from(visitedNodes)}
         onShare={handleShare}
+        shareStatus={shareStatus}
         onNewJourney={handleNewJourney}
       />
     );

@@ -10,6 +10,7 @@ interface RevealProps {
   profile: ExperimentProfile;
   visitedNodes: string[];
   onShare: () => void;
+  shareStatus: "idle" | "saving" | "copied" | "error";
   onNewJourney: () => void;
 }
 
@@ -64,7 +65,7 @@ const DIMENSION_TITLES: Record<string, string> = {
   sharing: "What you share",
 };
 
-export default function Reveal({ profile, visitedNodes, onShare, onNewJourney }: RevealProps) {
+export default function Reveal({ profile, visitedNodes, onShare, shareStatus, onNewJourney }: RevealProps) {
   const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
   const [showComparison, setShowComparison] = useState(false);
   const progressValues: Record<string, number> = {
@@ -180,12 +181,22 @@ export default function Reveal({ profile, visitedNodes, onShare, onNewJourney }:
       >
         <button
           onClick={onShare}
-          className="px-7 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors"
+          disabled={shareStatus === "saving"}
+          className={`px-7 py-3 rounded-lg transition-colors ${
+            shareStatus === "copied"
+              ? "bg-green-600 text-white"
+              : shareStatus === "error"
+                ? "bg-red-600 text-white"
+                : "bg-orange-600 hover:bg-orange-700 text-white disabled:opacity-50"
+          }`}
         >
-          Share my result
+          {shareStatus === "saving" && "Saving..."}
+          {shareStatus === "copied" && "Link copied!"}
+          {shareStatus === "error" && "Failed — try again"}
+          {shareStatus === "idle" && "Share my result"}
         </button>
         <a
-          href="mailto:max@marowsky.com?subject=Let's%20talk%20—%20from%20your%20Experiment"
+          href="mailto:m.marowsky@gmail.com?subject=Let's%20talk%20—%20from%20your%20Experiment"
           className="px-7 py-3 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 rounded-lg hover:border-orange-400 transition-colors text-center"
         >
           Invite Max to a conversation
