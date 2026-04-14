@@ -31,10 +31,17 @@ export default function Interview({ experimentNumber, onComplete }: InterviewPro
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom on new messages and when options appear
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages]);
+    const el = scrollRef.current;
+    if (el) {
+      // Small delay to let the DOM update with new content
+      const timer = setTimeout(() => {
+        el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [messages, showOptions]);
 
   const handleSelect = (value: string, label: string) => {
     if (isTransitioning) return;

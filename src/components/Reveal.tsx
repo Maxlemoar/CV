@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import type { ExperimentProfile } from "@/lib/experiment-types";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
@@ -68,6 +68,12 @@ const DIMENSION_TITLES: Record<string, string> = {
 export default function Reveal({ profile, visitedNodes, onShare, shareStatus, onNewJourney }: RevealProps) {
   const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
   const [showComparison, setShowComparison] = useState(false);
+
+  // Scroll to top when Reveal mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   const progressValues: Record<string, number> = {
     persuasion: 0.75,
     learning: 0.85,
