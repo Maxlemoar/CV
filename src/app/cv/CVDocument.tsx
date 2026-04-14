@@ -294,6 +294,9 @@ export default function CVDocument() {
         </div>
       </EdSection>
 
+      {/* ---- Page break before Education ---- */}
+      <div className="hidden print:block print:break-before-page" />
+
       {/* ---- Education ---- */}
       <EdSection title="Education" delay={2}>
         <div className="space-y-3">

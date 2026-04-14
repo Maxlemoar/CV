@@ -458,11 +458,44 @@ body::before {
   .ed-reveal {
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
+    margin-bottom: 24px !important;
   }
 
   .ed-grid-row {
     grid-template-columns: 120px 1fr;
     gap: 0 16px;
+  }
+
+  /* Keep serif headings styled like web */
+  .ed-serif {
+    font-family: var(--font-editorial-serif), Georgia, "Times New Roman", serif;
+  }
+
+  .ed-sans {
+    font-family: var(--font-editorial-sans), "Inter", system-ui, sans-serif;
+  }
+
+  /* Preserve the thin rule */
+  .ed-cv header .h-px {
+    background-color: #e5e5e5 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Preserve border-left on subroles */
+  .ed-cv .border-l {
+    border-left: 1px solid #e5e5e5 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Keep link underlines visible */
+  .ed-cv a {
+    color: #171717;
+    text-decoration: underline;
+    text-decoration-color: #d4d4d4;
+    text-underline-offset: 3px;
   }
 }
 
