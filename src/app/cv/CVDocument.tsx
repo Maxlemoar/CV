@@ -1,8 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { toJpeg } from "html-to-image";
-import { jsPDF } from "jspdf";
+import { useCallback, useEffect, useRef } from "react";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -21,7 +19,7 @@ const experience = [
         title: "AI Quality Assessment",
         period: "Jan 2026 – Apr 2026",
         bullets: [
-          "Designed and shipped an AI-powered quality assessment system that scored 800k+ teaching materials with 89% accuracy. Built the scoring model by translating research from eduki's collaboration with Prof. John Hattie into production — bridging learning science and e-commerce to make educational quality measurable at scale.",
+          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials (89% accuracy). Bridged research and product — translated findings from eduki's collaboration with Prof. John Hattie into a production scoring model, defined success metrics, and ran a structured A/B test to validate impact.",
         ],
       },
       {
@@ -150,96 +148,12 @@ function useStaggerReveal() {
 /* ------------------------------------------------------------------ */
 
 export default function CVDocument() {
-  const [exporting, setExporting] = useState(false);
-  const cvRef = useRef<HTMLElement>(null);
-
-  const handleExport = useCallback(async () => {
-    const el = cvRef.current;
-    if (!el || exporting) return;
-
-    setExporting(true);
-
-    // Save original styles to restore later
-    const origMaxWidth = el.style.maxWidth;
-    const origWidth = el.style.width;
-    const origPadding = el.style.padding;
-
-    // Hide no-print elements
-    const noPrintEls = Array.from(el.querySelectorAll(".no-print"));
-    noPrintEls.forEach((e) => (e as HTMLElement).style.display = "none");
-
-    // Make all reveal sections visible
-    el.querySelectorAll(".ed-reveal").forEach((s) => {
-      s.classList.add("ed-visible");
-    });
-
-    // Constrain to A4 proportions: 210mm at 96dpi ≈ 794px, minus some margin
-    el.style.maxWidth = "760px";
-    el.style.width = "760px";
-    el.style.padding = "32px";
-
-    // Let browser reflow
-    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-    try {
-      const dataUrl = await toJpeg(el, {
-        quality: 0.92,
-        pixelRatio: 2,
-        backgroundColor: "#ffffff",
-        width: el.scrollWidth,
-        height: el.scrollHeight,
-      });
-
-      // Load image to get dimensions
-      const img = new window.Image();
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = reject;
-        img.src = dataUrl;
-      });
-
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4",
-      });
-
-      const pageWidth = 210;
-      const pageHeight = 297;
-      const imgWidth = pageWidth;
-      const imgHeight = (img.height * imgWidth) / img.width;
-
-      if (imgHeight <= pageHeight) {
-        pdf.addImage(dataUrl, "JPEG", 0, 0, imgWidth, imgHeight);
-      } else {
-        let position = 0;
-        let remaining = imgHeight;
-
-        while (remaining > 0) {
-          if (position > 0) pdf.addPage();
-          pdf.addImage(dataUrl, "JPEG", 0, -position, imgWidth, imgHeight);
-          position += pageHeight;
-          remaining -= pageHeight;
-        }
-      }
-
-      pdf.save("Maximilian_Marowsky_CV.pdf");
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : String(err);
-      console.error("PDF export failed:", msg, err);
-      alert(`PDF export failed: ${msg}`);
-    } finally {
-      // Restore everything
-      el.style.maxWidth = origMaxWidth;
-      el.style.width = origWidth;
-      el.style.padding = origPadding;
-      noPrintEls.forEach((e) => (e as HTMLElement).style.display = "");
-      setExporting(false);
-    }
-  }, [exporting]);
+  const handleExport = useCallback(() => {
+    window.print();
+  }, []);
 
   return (
-    <article ref={cvRef} className="ed-cv mx-auto max-w-[900px] px-6 py-12 sm:py-16 print:max-w-none print:px-0 print:py-0">
+    <article className="ed-cv mx-auto max-w-[900px] px-6 py-12 sm:py-16 print:max-w-none print:px-0 print:py-0">
       {/* ---- Header ---- */}
       <header className="mb-16 print:mb-8">
         <div className="flex items-start justify-between">
@@ -265,10 +179,9 @@ export default function CVDocument() {
           </div>
           <button
             onClick={handleExport}
-            disabled={exporting}
-            className="no-print mt-2 ed-sans text-[12px] text-neutral-400 hover:text-neutral-900 transition-colors border border-neutral-200 rounded px-3 py-1.5 hover:border-neutral-400 disabled:opacity-50"
+            className="no-print mt-2 ed-sans text-[12px] text-neutral-400 hover:text-neutral-900 transition-colors border border-neutral-200 rounded px-3 py-1.5 hover:border-neutral-400"
           >
-            {exporting ? "Exporting\u2026" : "Export PDF"}
+            Export PDF
           </button>
         </div>
 
