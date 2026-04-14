@@ -304,8 +304,9 @@ export default function CVDocument() {
           measurable at scale. My psychology background shapes how I
           think about learning; building with Claude every day shapes
           how I think about product. I care about learning experiences
-          that give people real agency and adapt to who learners are
-          and where they&apos;re headed.
+          that give people real self-efficacy and adapt to who learners are
+          and where they&apos;re headed. Building that at Anthropic&apos;s
+          Education Labs is the challenge I&apos;ve been looking for.
         </p>
       </EdSection>
 
