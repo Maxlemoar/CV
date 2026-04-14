@@ -329,7 +329,19 @@ body::before {
 }
 
 /* Print / PDF export styles */
+@page {
+  size: A4;
+  margin: 12mm 15mm;
+}
+
 @media print {
+  html, body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: white;
+    font-size: 11pt;
+  }
+
   body::before {
     display: none;
   }
@@ -349,11 +361,6 @@ body::before {
 
   * {
     box-shadow: none !important;
-  }
-
-  body {
-    background: white;
-    font-size: 11pt;
   }
 
   /* CV document print optimization */
