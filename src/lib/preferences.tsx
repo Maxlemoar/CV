@@ -1,44 +1,39 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback } from "react";
+import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
 import type { UserPreferences } from "./types";
 
-const PreferencesContext = createContext<{
-  preferences: UserPreferences | null;
-  setPreferences: (prefs: UserPreferences) => void;
-  updatePreference: <K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => void;
-  resetPreferences: () => void;
-  isOnboarded: boolean;
-}>({
-  preferences: null,
-  setPreferences: () => {},
-  updatePreference: () => {},
-  resetPreferences: () => {},
-  isOnboarded: false,
-});
+interface SettingsState {
+  settings: UserPreferences;
+  updateSetting: <K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => void;
+}
 
-export function PreferencesProvider({ children }: { children: React.ReactNode }) {
-  const [preferences, setPreferencesState] = useState<UserPreferences | null>(null);
+const SettingsContext = createContext<SettingsState | null>(null);
 
-  const setPreferences = useCallback((prefs: UserPreferences) => {
-    setPreferencesState(prefs);
-  }, []);
+const DEFAULT_SETTINGS: UserPreferences = {
+  visualStyle: "focused",
+  darkMode: false,
+};
 
-  const updatePreference = useCallback(<K extends keyof UserPreferences>(key: K, value: UserPreferences[K]) => {
-    setPreferencesState((prev) => prev ? { ...prev, [key]: value } : null);
-  }, []);
+export function SettingsProvider({ children }: { children: ReactNode }) {
+  const [settings, setSettings] = useState<UserPreferences>(DEFAULT_SETTINGS);
 
-  const resetPreferences = useCallback(() => {
-    setPreferencesState(null);
+  const updateSetting = useCallback(<K extends keyof UserPreferences>(
+    key: K,
+    value: UserPreferences[K]
+  ) => {
+    setSettings((prev) => ({ ...prev, [key]: value }));
   }, []);
 
   return (
-    <PreferencesContext.Provider value={{ preferences, setPreferences, updatePreference, resetPreferences, isOnboarded: preferences !== null }}>
+    <SettingsContext.Provider value={{ settings, updateSetting }}>
       {children}
-    </PreferencesContext.Provider>
+    </SettingsContext.Provider>
   );
 }
 
-export function usePreferences() {
-  return useContext(PreferencesContext);
+export function useSettings() {
+  const ctx = useContext(SettingsContext);
+  if (!ctx) throw new Error("useSettings must be used within SettingsProvider");
+  return ctx;
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { PreferencesProvider } from "@/lib/preferences";
+import { SettingsProvider } from "@/lib/preferences";
+import { ExperimentProvider } from "@/lib/experiment-context";
 import ThemeApplicator from "./ThemeApplicator";
 import {
   instrumentSerif,
@@ -27,11 +28,13 @@ export default function RootLayout({
       className={`${instrumentSerif.variable} ${satoshi.variable} ${literata.variable} ${clashDisplay.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased">
-        <PreferencesProvider>
-          <ThemeApplicator>
-            {children}
-          </ThemeApplicator>
-        </PreferencesProvider>
+        <ExperimentProvider>
+          <SettingsProvider>
+            <ThemeApplicator>
+              {children}
+            </ThemeApplicator>
+          </SettingsProvider>
+        </ExperimentProvider>
       </body>
     </html>
   );

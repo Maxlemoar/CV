@@ -25,6 +25,11 @@ export interface ContentNode {
   };
   gemIntro?: string;
   gemTitle?: string;
+  testingEffectQuestion?: {
+    question: string;
+    answer: string;
+  };
+  spacedRetrievalRef?: string; // Node ID this references back to
 }
 
 export type ContentGraph = Record<string, ContentNode>;
@@ -67,6 +72,10 @@ export const CONTENT_GRAPH: ContentGraph = {
     ],
     printSection: "experience",
     printOrder: 20,
+    testingEffectQuestion: {
+      question: "How many people did the pearprogramming team grow to?",
+      answer: "10 people — from two co-founders to a team of ten before the acquisition by eduki in 2022.",
+    },
   },
 
   "why-anthropic": {
@@ -221,6 +230,11 @@ export const CONTENT_GRAPH: ContentGraph = {
     ],
     printSection: "experience",
     printOrder: 5,
+    testingEffectQuestion: {
+      question: "What agreement rate did the AI assessor reach with human reviewers?",
+      answer: "89% agreement — achieved through 10 iterative prompt versions, evaluated against human reviewers each time.",
+    },
+    spacedRetrievalRef: "research",
   },
 
   // ── BUILDING WITH CLAUDE ───────────────────────────────────
@@ -283,6 +297,11 @@ export const CONTENT_GRAPH: ContentGraph = {
     ],
     printSection: "education",
     printOrder: 1,
+    testingEffectQuestion: {
+      question: "What are the three needs from Self-Determination Theory that Max's products aim to satisfy?",
+      answer: "Autonomy, competence, and relatedness — the three core psychological needs from Self-Determination Theory (SDT).",
+    },
+    spacedRetrievalRef: "school-gets-wrong",
   },
 
   // ── RESEARCH & PUBLICATIONS ────────────────────────────────
@@ -301,6 +320,7 @@ export const CONTENT_GRAPH: ContentGraph = {
     ],
     printSection: "publications",
     printOrder: 1,
+    spacedRetrievalRef: "startup-story",
   },
 
   // ── PERSONAL ───────────────────────────────────────────────
@@ -374,85 +394,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   },
 };
 
-import type { ContentBlockData, ContentFocus, AchievementDefinition } from "@/lib/types";
-
-export const FOCUS_STARTER_HOOKS: Record<ContentFocus, Hook[]> = {
-  "product-builder": [
-    { label: "The startup I built and sold", targetId: "startup-story" },
-    { label: "My product management approach", targetId: "pm-approach" },
-    { label: "What founding taught me", targetId: "founder-lessons" },
-    { label: "What I'd want to build at Anthropic", targetId: "what-id-build" },
-  ],
-  "learning-scientist": [
-    { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
-    { label: "The psychology of learning", targetId: "psychology-of-learning" },
-    { label: "Research I've published", targetId: "research" },
-    { label: "What schools should teach instead", targetId: "what-schools-should-teach" },
-  ],
-  "ai-vision": [
-    { label: "What I'm building with Claude right now", targetId: "building-with-claude" },
-    { label: "My side projects", targetId: "side-projects" },
-    { label: "How I used AI to assess teaching quality", targetId: "ai-in-education" },
-    { label: "My vision for AI in education", targetId: "anthropic-education-vision" },
-  ],
-  "max-personal": [
-    { label: "Who I am outside of work", targetId: "personal" },
-    { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
-    { label: "How becoming a father changed my perspective", targetId: "what-id-build" },
-    { label: "The science of what motivates me", targetId: "psychology-of-learning" },
-  ],
-};
-
-export const ACHIEVEMENT_DEFINITIONS: AchievementDefinition[] = [
-  {
-    id: "founder",
-    emoji: "🚀",
-    name: "Founder",
-    description: "All startup topics discovered",
-    requiredNodes: ["startup-story", "product-magic", "after-acquisition", "founder-lessons"],
-  },
-  {
-    id: "learning-scientist",
-    emoji: "🔬",
-    name: "Learning Scientist",
-    description: "All education topics discovered",
-    requiredNodes: ["school-gets-wrong", "what-schools-should-teach", "psychology-of-learning", "anthropic-education-vision"],
-  },
-  {
-    id: "ai-native",
-    emoji: "🤖",
-    name: "AI Native",
-    description: "All AI topics discovered",
-    requiredNodes: ["building-with-claude", "ai-in-education", "side-projects"],
-  },
-  {
-    id: "deep-diver",
-    emoji: "💬",
-    name: "Deep Diver",
-    description: "5+ free-form questions asked",
-    minFreeQuestions: 5,
-  },
-  {
-    id: "explorer",
-    emoji: "🗺️",
-    name: "Explorer",
-    description: "Over half discovered",
-    minVisited: 10,
-  },
-  {
-    id: "completionist",
-    emoji: "🏆",
-    name: "Completionist",
-    description: "Everything discovered",
-  },
-  {
-    id: "coffee-hunter",
-    emoji: "☕",
-    name: "Coffee Hunter",
-    description: "Found Max's secret café",
-    requiredEasterEgg: "coffee",
-  },
-];
+import type { ContentBlockData } from "@/lib/types";
 
 export function getNodeCounts() {
   const allNodes = Object.values(CONTENT_GRAPH);

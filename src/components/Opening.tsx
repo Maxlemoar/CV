@@ -2,22 +2,19 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { usePreferences } from "@/lib/preferences";
-import { FOCUS_STARTER_HOOKS, ROOT_HOOKS } from "@/lib/content-graph";
+import type { Hook } from "@/lib/content-graph";
+import { ROOT_HOOKS } from "@/lib/content-graph";
 
 interface OpeningProps {
   onHookClick: (targetId: string) => void;
   visible: boolean;
+  starterHooks?: Hook[];
 }
 
-export default function Opening({ onHookClick, visible }: OpeningProps) {
-  const { preferences } = usePreferences();
-
+export default function Opening({ onHookClick, visible, starterHooks }: OpeningProps) {
   if (!visible) return null;
 
-  const hooks = preferences?.contentFocus
-    ? FOCUS_STARTER_HOOKS[preferences.contentFocus]
-    : ROOT_HOOKS;
+  const hooks = starterHooks ?? ROOT_HOOKS;
 
   return (
     <section className="pb-8 pt-20 text-center">

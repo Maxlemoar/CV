@@ -1,6 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { toJpeg } from "html-to-image";
+import { jsPDF } from "jspdf";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -198,9 +201,9 @@ export default function CVDocument() {
             LinkedIn
           </a>
           <span>Cologne, Germany</span>
-          <a href="/" className="hover:text-neutral-900 transition-colors no-print">
+          <Link href="/" className="hover:text-neutral-900 transition-colors no-print">
             maxmarowsky.com
-          </a>
+          </Link>
         </div>
 
         {/* Thin rule */}
