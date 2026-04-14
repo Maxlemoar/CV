@@ -89,10 +89,9 @@ const research = [
 ];
 
 const sideProjects = [
-  "Adaptive quiz app for paramedic trainees — spaced repetition, exam simulation",
-  "Vocabulary trainer — contextual sentence generation with Claude",
-  "Inclusion app for refugees learning German — multilingual onboarding",
-  "All prototyped end-to-end with Claude Code",
+  "Adaptive quiz app for paramedic trainees",
+  "Vocabulary trainer that visualizes learning in nodes",
+  "Inclusion app for refugees learning German",
 ];
 
 const skillGroups = [
