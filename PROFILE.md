@@ -94,11 +94,24 @@
 - **Languages**: German (native), English (C1), Italian (B1)
 
 ## Why Anthropic
-- Culture of autonomy and experimentation — employees encouraged to pursue own projects and prototypes beyond role description
-- Thrives in environments of maximum freedom and interest-driven work
-- Anthropic's commitment to AI ethics and responsibility
-- Integrity demonstrated by refusing military contracts despite revenue potential
-- Believes the next AI systems must be taught ethics — "like a young Roman emperor taught philosophy by his tutors"
+
+### Application Statement (Max's own words)
+When we founded our EdTech startup pearprogramming in 2018, we dreamed of building an intelligent tutoring system "that, beyond learning analytics and optimized learning paths, is capable of giving students individual instructions and feedback as well as facilitating automated Socratic dialogues." The technology wasn't there yet. Now it is, and Claude is the reason I believe that. Not just because of its quality, but because of its integrity. In education, that isn't a nice-to-have, it's foundational.
+
+The first time I built an app with Claude Code, something clicked that I hadn't felt since the early stages in my startup. I started waking up at 5am, sneaking to my desk before my family was up, building learning apps. Not because I had to, but because I couldn't stop. Suddenly, I could build every product I imagined — end to end, exactly as I envisioned it. No more depending on others to translate my vision, no more compromising on execution. That dependency is gone, and it's not coming back.
+
+I fell in love with the product first. Then I listened to Boris Cherny on Lenny's Podcast and fell in love with the company. Maximum autonomy, encouragement to build beyond your role, a culture that rewards questioning your own assumptions rather than defending them. I set up a Greenhouse alert for "Product Manager" that same day. At eduki, I often find myself constrained by legacy processes and territorial thinking, where cross-functional contribution is seen as overstepping rather than collaborating. I thrive in the opposite environment: one that embraces change, challenges conventions, and trusts people to find their own path to impact.
+
+I'm deeply purpose-driven. That's what brought me from psychology into EdTech, and it's what draws me to Anthropic now. I could never work for a company where the mission is an afterthought. Anthropic puts it first, which resonates with who I am and how I work best. Education Labs is where everything I've done converges: psychology, learning science, founder experience, product management, AI. Working on the topic closest to my heart, in an environment that doesn't constrain but amplifies. Honestly, it almost sounds too good to be true.
+
+### Key Themes
+- **Claude's integrity matters in education**: Quality alone isn't enough — for learning products, the model's values and trustworthiness are foundational, not a nice-to-have
+- **Founding vision becoming reality**: pearprogramming's 2018 dream of automated Socratic dialogues and individualized feedback is now technically possible because of Claude
+- **End-to-end builder unlocked**: Claude Code removed the dependency on others to translate his vision; he can now ship the products he imagines exactly as he envisions them
+- **Culture fit**: Drawn to maximum autonomy, encouragement to build beyond your role, and a culture that rewards questioning assumptions rather than defending them (heard articulated by Boris Cherny on Lenny's Podcast)
+- **Contrast with eduki**: Currently constrained by legacy processes and territorial thinking; cross-functional contribution often treated as overstepping rather than collaboration
+- **Purpose-driven**: Mission-first companies are non-negotiable; this is what moved him from psychology into EdTech and now toward Anthropic
+- **Education Labs as convergence point**: Psychology + learning science + founder experience + PM + AI all converge in this exact role
 
 ## Personal Interests
 - **Cycling**: Recently discovered road cycling; loves being outdoors, hiking, and staying active
