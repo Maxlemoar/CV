@@ -63,6 +63,13 @@
   - Started with Google Blockly (visual programming) to teach concepts, progressed to text-based languages
   - Focus on understanding programming concepts (algorithms, sequences, etc.)
 - **Acquired by eduki in 2022**
+- **Source of the 2018 vision quote**: The phrase "intelligent tutoring system that, beyond learning analytics and optimized learning paths, is capable of giving students individual instructions and feedback as well as facilitating automated Socratic dialogues" is taken verbatim from the **EXIST Gründerstipendium application** (federal grant proposal). It is documented founding intent, not a retrospective framing.
+
+#### Lessons Learned from pearprogramming (Max's own words)
+- **Ship a prototype as fast as possible and test with real users**: Rapid iteration over polish in early stages. Get something into the market and let reality talk back to you.
+- **Quality matters — especially in education — but perfectionism in early phases is the wrong approach**: When it's still uncertain whether the product will survive, pivot completely, or get thrown away, polishing is wasted effort. The right level of quality depends on which stage you're in.
+- **Regular sanity checks with outside people**: Founders lose perspective fast. Built-in feedback loops with people who don't share your bias are essential.
+- **Don't fall in love with your own idea**: Once you do, you start doing everything to justify it instead of being willing to change it. Emotional attachment to an idea kills the ability to update on evidence. This is the lesson Max names first when asked what he'd do differently — it's the meta-mistake that produces all the others.
 
 ### Research Assistant — Deutsches Kinderschmerzzentrum, Datteln (Oct 2015 – End 2017)
 - Research, test diagnostics, data entry/maintenance/analysis
