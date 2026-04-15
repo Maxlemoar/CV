@@ -79,6 +79,7 @@ export default function ConversationView() {
   }, [showArchitect]);
 
   const addNodeBlock = useCallback(async (nodeId: string) => {
+    if (isLoading) return;
     const node = CONTENT_GRAPH[nodeId];
     if (!node) return;
 
@@ -95,9 +96,11 @@ export default function ConversationView() {
 
     const depth = profile?.learning === "structured" ? "overview" : "deep-dive";
 
-    // Fetch framing + personalized next-hooks from API if profile exists
+    // Fetch framing + personalized next-hooks from API if profile exists.
+    // Show the skeleton while we wait so the visitor sees something is loading.
     let framing: FrameResponse | null = null;
     if (profile) {
+      setIsLoading(true);
       try {
         const res = await fetch("/api/frame", {
           method: "POST",
@@ -115,6 +118,8 @@ export default function ConversationView() {
         if (res.ok) framing = await res.json();
       } catch {
         // Continue without framing
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -153,7 +158,7 @@ export default function ConversationView() {
       { role: "user" as const, content: block.questionTitle },
       { role: "assistant" as const, content: block.text },
     ]);
-  }, [visitedNodes, visitOrder, profile, signals, blocks, recordClick]);
+  }, [isLoading, visitedNodes, visitOrder, profile, signals, blocks, recordClick]);
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
