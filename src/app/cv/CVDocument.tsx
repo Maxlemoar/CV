@@ -1,9 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
-import { toJpeg } from "html-to-image";
-import { jsPDF } from "jspdf";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
