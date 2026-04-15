@@ -374,9 +374,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "future-of-work": {
     id: "future-of-work",
     content:
-      "Building with AI changed how I think about product management. When implementation is no longer the bottleneck, what\u2019s left is taste, judgment, and knowing what\u2019s worth building. That shift is already happening \u2014 and PMs who don\u2019t experience it firsthand will struggle to lead teams through it.",
+      "Building with AI has changed how I think about my role in three ways, and I shift between them as the situation demands. Implementation isn\u2019t the bottleneck anymore \u2014 I can build what I imagine, end to end, without depending on anyone to translate my vision. Role boundaries dissolve \u2014 engineers do PM work, PMs do design, everyone contributes where they\u2019re useful. And what\u2019s left, when building is cheap, is judgment: deciding what\u2019s actually worth building in the first place.",
     contentCompact:
-      "When implementation is no longer the bottleneck, what\u2019s left is taste, judgment, and knowing what\u2019s worth building. PMs who don\u2019t experience AI-native building firsthand will struggle to lead teams through the shift.",
+      "AI changed my thinking in three ways, and I shift between them as the situation demands. Implementation isn\u2019t the bottleneck anymore. Role boundaries dissolve \u2014 engineers do PM work, PMs do design. And what\u2019s left, when building is cheap, is judgment: deciding what\u2019s actually worth building.",
     hooks: [
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
       { label: "My product management approach", targetId: "pm-approach" },
@@ -386,7 +386,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1, character: 0.6 },
       motivation: { mastery: 0.8 },
       tone: "reflection",
-      summary: "When implementation isn't the bottleneck, taste and judgment are what's left for PMs.",
+      summary: "Three shifts in PM role with AI: implementation no longer the bottleneck, role boundaries dissolving, judgment is what's left. Max shifts between all three as situations demand.",
     },
     printSection: "skills",
     printOrder: 2,
