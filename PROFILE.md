@@ -147,6 +147,31 @@ I'm deeply purpose-driven. That's what brought me from psychology into EdTech, a
 - **Purpose-driven**: Mission-first companies are non-negotiable; this is what moved him from psychology into EdTech and now toward Anthropic
 - **Education Labs as convergence point**: Psychology + learning science + founder experience + PM + AI all converge in this exact role
 
+### Concrete Example of "Territorial Thinking" at eduki
+When a recruiter asks for a concrete instance (not just a vibe), this is the canonical one:
+
+- **Max can design efficiently and well** — he's capable of producing both mockups and high-fidelity prototypes faster and better than waiting for the design handoff loop would allow.
+- He has repeatedly been **blocked from doing so** with statements like:
+  - *"That is not a PM's job. Write a design brief and wait for the result before continuing."*
+  - *"No high-fidelity prototypes. A PM should only create mockups."*
+- The frustration is not "I want to do design instead of PM work" — it's that **role-boundary-enforcement is prioritized over outcome and speed**, even when crossing the boundary would produce a demonstrably better result faster.
+- This is a textbook case of what he means by "cross-functional contribution being seen as overstepping rather than collaborating." It's the specific shape of the thing that makes Anthropic's "build beyond your role" culture so magnetic to him.
+
+### How Max Handles the Frustration
+- **Searches for workarounds** — doesn't resign, but doesn't keep hitting the same wall either
+- **Names the problems openly** — speaks up rather than stewing
+- **Tries to build alignment between roles** — e.g. actively tries to get designers to **question their own convictions** about where PM/design boundaries should sit. The goal is shifting the team's shared model, not winning individual battles.
+- Pattern: constructive pushback from inside the system, not exit or silent compliance
+
+### What Max Knows About Education Labs (and How He'd Start)
+- **Sources so far**: Only the **job description** itself. No prior conversations with anyone inside Anthropic, no inside information, no product testing of a specific Education Labs offering he's been briefed on.
+- **The JD is vague** — but what's in it resonates strongly:
+  - **"Big bet"** framing
+  - **"Many hats"** — breadth of work, founder-like scope
+  - **Uncertainty acknowledged as a feature of the role**, not a risk to manage away
+  - **Education named as very important** to the mission
+- **How he'd approach the first weeks** (answer to "what would you build first?"): **He wouldn't start by building.** First: **understand what and why** — get a comprehensive picture of the current state, the team, the mission, the culture, the stakeholders. **Alignment before action.** Only once that picture is real would he form a point of view on where to push. This is deliberately not a "here's my 30-60-90 with 3 bold features" answer — he sees confident product manifestos on day one as a red flag, not a green flag.
+
 ## Personal Interests
 - **Cycling**: Recently discovered road cycling; loves being outdoors, hiking, and staying active
 - **Cooking & Baking**: Passionate and skilled cook; bakes bread; once dreamed of becoming a chef and still dreams of opening his own cafe someday
