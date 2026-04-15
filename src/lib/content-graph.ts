@@ -73,9 +73,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "school-gets-wrong": {
     id: "school-gets-wrong",
     content:
-      "Schools still optimize for recall. Can you remember this date, this formula, this definition? But when every answer is a search away, that\u2019s not the scarce skill anymore. What\u2019s hard is knowing which question to ask, whether the answer is any good, and what to do next.",
+      "Two things. First: schools still optimize for recall \u2014 remember the date, the formula, the definition \u2014 but in a world of instant search and LLMs, recall isn\u2019t the scarce skill. Second, and more important: schools treat every learner as if they were interchangeable. Learning is deeply individual. Every student has their own interests, their own gaps, their own pace \u2014 and those need to be seen.",
     contentCompact:
-      "Schools optimize for recall, but when every answer is searchable, that\u2019s not the scarce skill. What matters: knowing which question to ask, evaluating answers, and deciding what to do next.",
+      "Schools still optimize for recall when recall is a Google search away. More importantly, they treat learners as interchangeable \u2014 but learning is deeply individual. Every student has their own interests, gaps, and pace.",
     hooks: [
       { label: "So what should schools teach instead?", targetId: "what-schools-should-teach" },
       { label: "I built a product based on this belief", targetId: "startup-story" },
@@ -95,9 +95,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "startup-story": {
     id: "startup-story",
     content:
-      "I co-founded pearprogramming \u2014 a game where students learn to code by running a virtual startup. We won a federal grant, grew to 10 people, and in 2022 eduki acquired us. I was 28 when we started. It was the hardest and best thing I\u2019ve done.",
+      "I co-founded pearprogramming and built PearUp \u2014 a game where students learn to code by running a virtual startup. We won the EXIST federal founder grant in 2020, grew the GmbH to around ten people, and in 2022 eduki acquired us. Four years that were equal parts exciting, exhausting, and nerve-wracking.",
     contentCompact:
-      "Co-founded pearprogramming \u2014 a game teaching coding through running a virtual startup. Won a federal grant, grew to 10 people, acquired by eduki in 2022. Started at 28. Hardest and best thing I\u2019ve done.",
+      "Co-founded pearprogramming and built PearUp \u2014 a game teaching coding through running a virtual startup. Won the EXIST federal grant in 2020, grew to ten people, acquired by eduki in 2022.",
     hooks: [
       { label: "What made the product special?", targetId: "product-magic" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
@@ -121,9 +121,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "why-anthropic": {
     id: "why-anthropic",
     content:
-      "I\u2019ve been using Claude since September 2024. First casually, then daily, then obsessively \u2014 building my own apps with Claude Code every evening after work. I listened to podcasts with the Head of Claude Code and the design team and thought: that\u2019s how I want to work. When the Education Labs PM role hit my Greenhouse alert on a Saturday morning, I had to read it twice. It felt like a job description written for me. I do my best work with maximum autonomy and interest-driven exploration \u2014 and I believe the next AI systems need to be taught ethics, like a young Roman emperor taught philosophy by his tutors.",
+      "I fell in love with the product first. The first time I built an app with Claude Code, I started waking up at 5am before my family was up \u2014 not because I had to, but because I couldn\u2019t stop. Suddenly I could build every product I imagined, end to end. Then I listened to Boris Cherny on Lenny\u2019s Podcast and fell in love with the company: fluid roles, engineers doing PM work, PMs doing design, everyone free to contribute to the mission regardless of title. I set up a Greenhouse alert for \u201cProduct Manager\u201d that same afternoon, March 28, 2026. When the Education Labs role appeared, it read like a job description written for me.",
     contentCompact:
-      "Daily Claude user since September 2024. Building apps with Claude Code every evening. When the Education Labs PM role appeared, it felt written for me: maximum autonomy, interest-driven exploration, and the belief that AI systems need ethical foundations.",
+      "Fell in love with the product building apps in Claude Code at 5am. Fell in love with the company after Boris Cherny on Lenny\u2019s Podcast described fluid roles and mission-first autonomy. Set a Greenhouse alert on March 28, 2026. Education Labs reads like a job description written for me.",
     hooks: [
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
       { label: "My experience with AI in education", targetId: "ai-in-education" },
@@ -143,9 +143,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "building-with-claude": {
     id: "building-with-claude",
     content:
-      "I use Claude Code every day. Not to avoid understanding what\u2019s being built \u2014 but because the bottleneck for me was never the idea, it was implementation speed. Now I can go from hypothesis to working prototype in a day. I\u2019m currently building three learning apps this way.",
+      "I use Claude Code every day. The first time I built an app with it, something clicked: I could finally build every product I imagined, end to end, exactly as I envisioned it. No more depending on others to translate my vision. I started waking up at 5am to build before my family was up \u2014 not because I had to, but because I couldn\u2019t stop. I have around ten projects in flight right now.",
     contentCompact:
-      "Using Claude Code daily \u2014 not to skip understanding, but because the bottleneck was never the idea, it was implementation speed. Hypothesis to working prototype in a day. Currently building three learning apps.",
+      "The first time I built an app with Claude Code, something clicked. No more depending on others to translate my vision. I started waking up at 5am to build before my family was up. Around ten projects in flight.",
     image: { src: "/photo-coffee.jpg", alt: "Max working at a café" },
     hooks: [
       { label: "What apps are you building?", targetId: "side-projects" },
@@ -168,9 +168,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "what-schools-should-teach": {
     id: "what-schools-should-teach",
     content:
-      "Agency. The confidence to say \u201cI don\u2019t know this yet, but I know how to figure it out.\u201d Not AI literacy as a buzzword \u2014 but the real skill: being able to direct a tool, evaluate what it gives you, and adapt when things change. That\u2019s what I\u2019d want my daughter to learn.",
+      "Three things, in this order. First, curiosity \u2014 keep it alive instead of drilling it out of kids; it\u2019s the engine of every real learning moment. Second, self-efficacy \u2014 not AI literacy as a buzzword, but the real skill of directing a tool like Claude and evaluating what it gives you. Third, individualization \u2014 treat every learner as the specific person they are, with their own interests, gaps, and pace. None of this is radical. It\u2019s just been hard to do at scale without AI. Now it isn\u2019t.",
     contentCompact:
-      "Agency. The confidence to say \u2018I don\u2019t know this yet, but I can figure it out.\u2019 Not AI literacy as buzzword \u2014 the real skill: directing a tool, evaluating its output, adapting when things change.",
+      "Three things: keep curiosity alive, build self-efficacy (directing tools, evaluating what they give you), and individualize \u2014 treat every learner as the specific person they are. None of it is radical. It\u2019s just been hard to do at scale without AI. Now it isn\u2019t.",
     hooks: [
       { label: "How this connects to Anthropic\u2019s mission", targetId: "anthropic-education-vision" },
       { label: "I studied the science behind this", targetId: "psychology-of-learning" },
@@ -181,7 +181,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.6, process: 0.6 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "Agency is the real skill — directing a tool, evaluating output, adapting.",
+      summary: "Three things schools should teach: curiosity, self-efficacy, individualization. Now possible at scale with AI.",
     },
     printSection: "philosophy",
     printOrder: 2,
@@ -190,9 +190,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "anthropic-education-vision": {
     id: "anthropic-education-vision",
     content:
-      "The interesting question isn\u2019t \u201chow do we put AI in classrooms.\u201d It\u2019s \u201chow do we use AI to make learners more independent, not more dependent.\u201d A good AI tutor doesn\u2019t hand you the answer \u2014 it helps you realize what you don\u2019t understand yet. That\u2019s a hard product problem, and it\u2019s the one I want to work on.",
+      "The interesting question isn\u2019t \u201chow do we put AI in classrooms.\u201d It\u2019s: what does AI have to be in education before it can be trusted there? For me that\u2019s two things. It has to be factually reliable \u2014 in education, a confident wrong answer isn\u2019t a bug, it teaches the wrong thing. And it can\u2019t be a yes-man. A good AI tutor has to push back, point out contradictions, praise only when the praise is earned. Anything less and we\u2019re building an assistant, not a tutor.",
     contentCompact:
-      "The real question isn\u2019t \u2018how to put AI in classrooms\u2019 but \u2018how to use AI to make learners more independent.\u2019 A good AI tutor helps you realize what you don\u2019t understand. That\u2019s the product problem I want to solve.",
+      "The real question isn\u2019t \u2018how to put AI in classrooms\u2019 \u2014 it\u2019s what AI has to be before it can be trusted there. Two things: factually reliable (a confident wrong answer teaches the wrong thing) and not a yes-man (a tutor has to push back, not just praise). Anything less and we\u2019re building an assistant, not a tutor.",
     hooks: [
       { label: "This is exactly what I\u2019ve been working toward", targetId: "my-fit" },
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
@@ -202,7 +202,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1, character: 0.5 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "AI for education should make learners more independent, not more dependent.",
+      summary: "What AI has to be before it can be trusted in education: factually reliable and not a yes-man. Otherwise it's an assistant, not a tutor.",
     },
     printSection: "philosophy",
     printOrder: 3,
@@ -211,9 +211,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "my-fit": {
     id: "my-fit",
     content:
-      "Psychology taught me how people learn. Founding a startup taught me how to ship. Game-based learning taught me that the medium shapes the message. And building with AI every day taught me what\u2019s actually possible right now \u2014 not in theory, but in production. I built an AI assessor that reaches 89% agreement with human reviewers. I\u2019ve published research on what makes teaching materials effective. I\u2019m not a PM who read about education \u2014 I\u2019ve been in it for years.",
+      "I\u2019m not a PM who read about education. I studied psychology (M.Sc., thesis on motivation in computer-science learning). I founded an EdTech company, pivoted it, and sold it. I\u2019ve been doing product at Germany\u2019s largest teaching-materials marketplace for three and a half years. I published a book chapter on game-based learning with Springer. And I\u2019ve shipped AI in production \u2014 the quality assessor running today at eduki, plus roughly ten learning apps I build with Claude Code in my off hours.",
     contentCompact:
-      "Psychology taught me how people learn. Founding taught me how to ship. Game-based learning taught me medium shapes message. Building with AI daily showed me what\u2019s possible in production. Published researcher, built an AI assessor hitting 89% human agreement.",
+      "Not a PM who read about education. M.Sc. in psychology, thesis on motivation in CS learning. Founded, pivoted, and sold an EdTech company. Three and a half years of PM at Germany\u2019s largest teaching-materials marketplace. Springer book chapter. Shipping AI in production at eduki and in ten side-project learning apps.",
     hooks: [
       { label: "The research I published", targetId: "research" },
       { label: "The AI assessor I built", targetId: "ai-in-education" },
@@ -235,9 +235,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "product-magic": {
     id: "product-magic",
     content:
-      "Students didn\u2019t just \u201clearn to code.\u201d They founded a virtual startup, made business decisions, and solved real programming challenges to grow it. We started with Google Blockly for visual programming, then progressed to text-based languages. Completion rates were far above typical e-learning \u2014 turns out intrinsic motivation matters more than curriculum design.",
+      "The original PearUp was a game where students founded a virtual startup and learned to code by growing it \u2014 Google Blockly first, then real languages. It worked, but in 2021 we hit a wall: the German market for computer-science education alone was too small to sustain a company. So we pivoted. We opened the software to every school subject and moved the Creator tool to the front: a builder where teachers assemble interactive lesson units from a library of elements. That pivot is what eventually made us strategically interesting to eduki. Cumulatively, PearUp reached around 3.5 million learner sessions and 29 million interactive tasks completed.",
     contentCompact:
-      "Students founded a virtual startup, made business decisions, solved real programming challenges. Started with Google Blockly, progressed to text-based languages. Completion rates far above typical e-learning \u2014 intrinsic motivation beats curriculum design.",
+      "PearUp started as a coding game where students founded a virtual startup. In 2021 we hit a wall \u2014 the German CS-education market was too small \u2014 so we pivoted to a Creator tool where teachers assemble interactive lessons across all subjects. That pivot is what made us strategically interesting to eduki. ~3.5M learner sessions, ~29M interactive tasks.",
     hooks: [
       { label: "We published research on why this works", targetId: "research" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
@@ -278,9 +278,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "founder-lessons": {
     id: "founder-lessons",
     content:
-      "Three things I took from founding: your first idea is almost always wrong, so learn to kill it early. Hiring is harder than building the product. And speed matters more than perfection \u2014 especially when you\u2019re ten people with a federal grant and no revenue yet.",
+      "Three things I took from founding. First: don\u2019t fall in love with your idea. The moment you do, you spend your energy defending it instead of changing it. Second: ship fast and test, especially when you still don\u2019t know if the product will survive the next pivot. Quality matters \u2014 in education especially \u2014 but early perfectionism is wasted effort. Third: schedule sanity checks with people outside your bubble. Founders lose perspective faster than they think.",
     contentCompact:
-      "Three founding lessons: your first idea is almost always wrong, so kill it early. Hiring is harder than building the product. Speed matters more than perfection \u2014 especially with ten people, a federal grant, and no revenue.",
+      "Three founding lessons. Don\u2019t fall in love with your idea \u2014 the moment you do, you defend it instead of changing it. Ship fast and test; early perfectionism is wasted effort. And schedule sanity checks with outsiders \u2014 founders lose perspective fast.",
     image: { src: "/photo-cycling.jpg", alt: "Max with his road bike" },
     hooks: [
       { label: "My product management approach", targetId: "pm-approach" },
@@ -300,9 +300,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "pm-approach": {
     id: "pm-approach",
     content:
-      "I\u2019m hypothesis-driven. I don\u2019t ask \u201cwhat should we build?\u201d but \u201cwhat do we believe, and how do we test it?\u201d Deep discoveries before building. A/B tests to validate. And the discipline to kill ideas that don\u2019t work \u2014 including my own.",
+      "I can take on many different roles and shift as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. I work closely with engineers, designers, and data folks, and I can build prototypes myself when it unblocks the team, not to step over it. And I bring research rigor from psychology into product: empirical decisions where possible, statistical analysis where it matters, iteration against hard evidence. Ten prompt versions tested against human reviewers at eduki until we hit 89% agreement. Strong alone, stronger in a team.",
     contentCompact:
-      "Hypothesis-driven. Not \u2018what should we build?\u2019 but \u2018what do we believe, and how do we test it?\u2019 Deep discovery before building. A/B tests to validate. Discipline to kill ideas that don\u2019t work \u2014 including my own.",
+      "I shift roles as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. Work closely with engineers, designers, and data. Can build prototypes myself when it unblocks the team, not to step over it. Psychology research rigor in product: ten prompt iterations to 89% human agreement at eduki. Strong alone, stronger in a team.",
     hooks: [
       { label: "A recent example", targetId: "ai-in-education" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -312,7 +312,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1 },
       motivation: { mastery: 1 },
       tone: "data",
-      summary: "Hypothesis-driven PM: discovery, A/B tests, kill-your-own-ideas discipline.",
+      summary: "PM who shifts roles as needed, works closely with cross-functional teams, brings psychology research rigor. Strong alone, stronger in a team.",
     },
     printSection: "skills",
     printOrder: 3,
@@ -323,9 +323,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "ai-in-education": {
     id: "ai-in-education",
     content:
-      "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: an AI assessor that evaluates teaching materials across 12 criteria in 5 quality dimensions. The production model runs on Gemini Flash \u2014 I developed and iterated the assessment prompt through 10 versions, using Claude to test and refine. Version 10 achieves 89% agreement with human reviewers. The quality framework was co-developed with Prof. John Hattie.",
+      "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: making the pedagogical quality of 800,000+ teaching materials visible so quality becomes a reason to buy. I inherited an underperforming AI assessor (v0) and rebuilt it end-to-end. The model is Gemini 3 Flash, evaluating 12 criteria across 5 dimensions derived from eduki\u2019s existing Hattie-based framework through a factor analysis. Ten prompt iterations (v1 through v10) raised human-AI agreement from 79.7% to 89%. I also designed the scoring model, the 8.83 quality threshold, and safeguards against prompt injection.",
     contentCompact:
-      "Led \u2018Make Quality Visible\u2019 at eduki Q1 2026: AI assessor evaluating teaching materials across 12 criteria in 5 dimensions. Developed assessment prompt through 10 versions using Claude. Version 10: 89% agreement with human reviewers. Framework co-developed with Prof. John Hattie.",
+      "Led \u2018Make Quality Visible\u2019 at eduki Q1 2026 \u2014 making the quality of 800k+ materials visible. Rebuilt an underperforming AI assessor end-to-end on Gemini 3 Flash. Ten prompt iterations raised human-AI agreement from 79.7% to 89%. Designed the scoring model, the 8.83 quality threshold, and anti-manipulation safeguards.",
     hooks: [
       { label: "Who is John Hattie?", targetId: "research" },
       { label: "What this taught me about AI products", targetId: "future-of-work" },
@@ -336,13 +336,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { results: 1, process: 1 },
       motivation: { mastery: 1, purpose: 0.7 },
       tone: "data",
-      summary: "AI assessor for teaching materials: 10 prompt iterations to 89% human agreement, built with Hattie.",
+      summary: "AI assessor for teaching materials: rebuilt end-to-end, ten prompt iterations raised human agreement from 79.7% to 89%, framework derived from eduki's Hattie-based research via factor analysis.",
     },
     printSection: "experience",
     printOrder: 5,
     testingEffectQuestion: {
       question: "What agreement rate did the AI assessor reach with human reviewers?",
-      answer: "89% agreement — achieved through 10 iterative prompt versions, evaluated against human reviewers each time.",
+      answer: "89% — up from 79.7%, achieved through ten prompt iterations (v1 to v10), evaluated against human reviewers each time.",
     },
     spacedRetrievalRef: "research",
   },
@@ -352,9 +352,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "side-projects": {
     id: "side-projects",
     content:
-      "A spaced-repetition app for paramedic trainees. A vocabulary trainer. A German language app for refugees. All built with Claude Code, all in weeks instead of months. I keep coming back to the same problem: how do you help people learn something that matters to them?",
+      "Around ten personal projects in various stages, all built end-to-end with Claude Code. A paramedic trainee app built around highly realistic case scenarios \u2014 the idea came from a paramedic in my circle who told me how poor the existing training apps are; it\u2019s now in TestFlight with real former paramedics. A vocabulary app that shows learning as a knowledge graph: each word a node, nodes connecting into a network the learner watches grow. An integration app for refugees arriving in Germany \u2014 everything in their native language, Claude built in for questions and document analysis. And a personalized children\u2019s books app. I keep coming back to the same question: how do you help someone learn something that actually matters to them?",
     contentCompact:
-      "Spaced-repetition app for paramedic trainees. Vocabulary trainer. German language app for refugees. All built with Claude Code, weeks instead of months. Same recurring problem: helping people learn what matters to them.",
+      "About ten projects built end-to-end with Claude Code. Paramedic trainee app with realistic cases, now in TestFlight with real ex-paramedics. Vocabulary app as a growing knowledge graph. Refugee integration app, all in native language, Claude built in. Personalized children\u2019s books app. Same recurring question: how do you help someone learn what actually matters to them?",
     hooks: [
       { label: "What this taught me about AI-native building", targetId: "future-of-work" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -365,7 +365,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.8, process: 0.6 },
       motivation: { mastery: 1, purpose: 0.6 },
       tone: "story",
-      summary: "Side projects: spaced-repetition for paramedics, vocabulary trainer, refugee German app — built with Claude Code.",
+      summary: "Side projects: paramedic trainee app with realistic cases (TestFlight), vocabulary knowledge graph, refugee integration app, children\u2019s books — all built with Claude Code.",
     },
     printSection: "projects",
     printOrder: 1,
@@ -374,9 +374,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "future-of-work": {
     id: "future-of-work",
     content:
-      "Building with AI changed how I think about product management. When implementation is no longer the bottleneck, what\u2019s left is taste, judgment, and knowing what\u2019s worth building. That shift is already happening \u2014 and PMs who don\u2019t experience it firsthand will struggle to lead teams through it.",
+      "Building with AI has changed how I think about my role in three ways, and I shift between them as the situation demands. Implementation isn\u2019t the bottleneck anymore \u2014 I can build what I imagine, end to end, without depending on anyone to translate my vision. Role boundaries dissolve \u2014 engineers do PM work, PMs do design, everyone contributes where they\u2019re useful. And what\u2019s left, when building is cheap, is judgment: deciding what\u2019s actually worth building in the first place.",
     contentCompact:
-      "When implementation is no longer the bottleneck, what\u2019s left is taste, judgment, and knowing what\u2019s worth building. PMs who don\u2019t experience AI-native building firsthand will struggle to lead teams through the shift.",
+      "AI changed my thinking in three ways, and I shift between them as the situation demands. Implementation isn\u2019t the bottleneck anymore. Role boundaries dissolve \u2014 engineers do PM work, PMs do design. And what\u2019s left, when building is cheap, is judgment: deciding what\u2019s actually worth building.",
     hooks: [
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
       { label: "My product management approach", targetId: "pm-approach" },
@@ -386,7 +386,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1, character: 0.6 },
       motivation: { mastery: 0.8 },
       tone: "reflection",
-      summary: "When implementation isn't the bottleneck, taste and judgment are what's left for PMs.",
+      summary: "Three shifts in PM role with AI: implementation no longer the bottleneck, role boundaries dissolving, judgment is what's left. Max shifts between all three as situations demand.",
     },
     printSection: "skills",
     printOrder: 2,

@@ -5,8 +5,8 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - **Email**: m.marowsky@googlemail.com
 - **LinkedIn**: https://www.linkedin.com/in/maximilian-marowsky-416bb3164/
 - **Age**: 34
-- **Location**: Cologne (Köln), Germany (willing to relocate to San Francisco)
-- **Living situation**: With wife, daughter Frieda (born August 2025), and two roommates
+- **Location**: Cologne (Köln), Germany (actively excited to relocate to San Francisco — the family already wanted to live abroad, and his wife Anna is looking forward to exploring a new city together)
+- **Living situation**: With wife Anna, daughter Frieda (born August 2025), and two roommates
 - **Languages**: German (native), English (C1), Italian (B1)
 
 ## Education
@@ -44,7 +44,7 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - Optimized product spaces through incremental improvements, frequently as A/B tests
 
 #### 2022–2025: eduki Interactive
-- Responsible for integrating the acquired pearprogramming app into the eduki marketplace
+- Responsible for integrating PearUp (the app built at pearprogramming) into the eduki marketplace, where it was renamed eduki Interactive
 - Led a team of 2 backend, 2 frontend, 1 QA, 1 UX/UI designer as Product Manager
 - Tasked with finding product-market fit as an intrapreneurship initiative within eduki
 
@@ -76,9 +76,12 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - Two published studies related to the quality framework for teaching materials
 
 ## Side Projects (built with Claude Code)
-- **Learning app for paramedic trainees** (Rettungssanitäter) — currently in test environment
-- **Vocabulary learning app** — currently in test environment
-- **Inclusion app for refugees learning German** — currently in test environment
+Max has roughly ten personal projects in various stages — all built end-to-end with Claude Code in early-morning building sessions before his family wakes up. Representative examples:
+- **Paramedic trainee learning app** (Rettungssanitäter) — actively tested via TestFlight with real former paramedics. Built around highly realistic case scenarios; the idea came from a paramedic in Max's circle who told him how poor existing training apps are.
+- **Vocabulary learning app** — uses a knowledge graph view where each word is a node and nodes connect, so the learner watches their personal knowledge network grow over time. Turns invisible progress into something visible and motivating.
+- **Integration app for refugees arriving in Germany** — everything in the user's native language, with Claude integrated as an in-app helper for questions and document analysis. Designed around the lived experience of navigating German bureaucracy without speaking the language.
+- **Personalized children's books app** — generates custom illustrated stories.
+- And several more in various stages.
 
 ## Skills & Tools
 - **Product Management**: Discovery, A/B testing, stakeholder communication, roadmapping, prioritization
@@ -90,11 +93,12 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - **Languages**: German (native), English (C1), Italian (B1)
 
 ## Why Anthropic
-- Culture of autonomy and experimentation — employees encouraged to pursue own projects and prototypes beyond role description
-- Thrives in environments of maximum freedom and interest-driven work
-- Anthropic's commitment to AI ethics and responsibility
-- Integrity demonstrated by refusing military contracts despite revenue potential
-- Believes the next AI systems must be taught ethics — "like a young Roman emperor taught philosophy by his tutors"
+- **The 2018 vision is finally possible**: When Max co-founded pearprogramming, the EXIST Gründerstipendium application already described the dream of "an intelligent tutoring system that, beyond learning analytics and optimized learning paths, is capable of giving students individual instructions and feedback as well as facilitating automated Socratic dialogues." The technology wasn't there then. With Claude, it is now.
+- **Claude Code unlocked end-to-end building**: The first time Max built an app with Claude Code, something clicked. He started waking up at 5am before his family to build learning apps — not because he had to, but because he couldn't stop. The dependency on others to translate his vision is gone.
+- **Fell in love with the company after Boris Cherny on Lenny's Podcast**: What moved Max from product-love to company-love was hearing Cherny describe Anthropic's culture — how roles are fluid, engineers do PM things, PMs do design, and everyone is free to contribute to the mission regardless of title. Max set up a Greenhouse alert for "Product Manager" at Anthropic that same afternoon, March 28, 2026.
+- **Purpose-driven by nature**: What moved him from psychology into EdTech is the same thing that draws him to Anthropic — he could never work for a company where the mission is an afterthought.
+- **Education Labs is the convergence**: Psychology, learning science, founder experience, product management, and AI all converge in this exact role. The topic closest to his heart, in an environment designed to amplify rather than constrain.
+- **Claude's reliability is what made him a believer**: In daily use, Max has never had a "what the fuck, what was that?" moment — no egregious hallucinations, no misinformation. When you ask the right questions, the answers are incredible. For education products, that factual reliability is foundational.
 
 ## Personal Interests
 - **Cycling**: Recently discovered road cycling; loves being outdoors, hiking, and staying active
