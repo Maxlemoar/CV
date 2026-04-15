@@ -211,9 +211,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "my-fit": {
     id: "my-fit",
     content:
-      "Psychology taught me how people learn. Founding a startup taught me how to ship. Game-based learning taught me that the medium shapes the message. And building with AI every day taught me what\u2019s actually possible right now \u2014 not in theory, but in production. I built an AI assessor that reaches 89% agreement with human reviewers. I\u2019ve published research on what makes teaching materials effective. I\u2019m not a PM who read about education \u2014 I\u2019ve been in it for years.",
+      "I\u2019m not a PM who read about education. I studied psychology (M.Sc., thesis on motivation in computer-science learning). I founded an EdTech company, pivoted it, and sold it. I\u2019ve been doing product at Germany\u2019s largest teaching-materials marketplace for three and a half years. I published a book chapter on game-based learning with Springer. And I\u2019ve shipped AI in production \u2014 the quality assessor running today at eduki, plus roughly ten learning apps I build with Claude Code in my off hours.",
     contentCompact:
-      "Psychology taught me how people learn. Founding taught me how to ship. Game-based learning taught me medium shapes message. Building with AI daily showed me what\u2019s possible in production. Published researcher, built an AI assessor hitting 89% human agreement.",
+      "Not a PM who read about education. M.Sc. in psychology, thesis on motivation in CS learning. Founded, pivoted, and sold an EdTech company. Three and a half years of PM at Germany\u2019s largest teaching-materials marketplace. Springer book chapter. Shipping AI in production at eduki and in ten side-project learning apps.",
     hooks: [
       { label: "The research I published", targetId: "research" },
       { label: "The AI assessor I built", targetId: "ai-in-education" },
