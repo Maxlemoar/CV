@@ -5,8 +5,10 @@
 - **Email**: m.marowsky@googlemail.com
 - **LinkedIn**: https://www.linkedin.com/in/maximilian-marowsky-416bb3164/
 - **Age**: 34
-- **Location**: Cologne (Köln), Germany (willing to relocate to San Francisco)
-- **Living situation**: With wife, daughter Frieda (born August 2025), and two roommates
+- **Location**: Cologne (Köln), Germany (willing to relocate to San Francisco — actively wanted, not just accepted)
+- **Living situation**: With wife **Anna**, daughter Frieda (born August 2025), and two roommates
+- **Current status (April 2026)**: On **shared parental leave with Anna, traveling in Sardinia** as a family
+- **Relocation to SF — family position**: The family already wanted to live abroad in the near future. Anna is genuinely excited about exploring a new city together and having new experiences as a family. Relocation isn't a hurdle to negotiate against — it's something Max and Anna are aligned on and looking forward to.
 - **Languages**: German (native), English (C1), Italian (B1)
 
 ## Education
@@ -146,6 +148,16 @@ I'm deeply purpose-driven. That's what brought me from psychology into EdTech, a
 - **Contrast with eduki**: Currently constrained by legacy processes and territorial thinking; cross-functional contribution often treated as overstepping rather than collaboration
 - **Purpose-driven**: Mission-first companies are non-negotiable; this is what moved him from psychology into EdTech and now toward Anthropic
 - **Education Labs as convergence point**: Psychology + learning science + founder experience + PM + AI all converge in this exact role
+
+### What Max Took from Boris Cherny on Lenny's Podcast
+The specific thing that made him fall in love with the company (not just the product):
+- Cherny talked about **how roles are fluid inside Anthropic** — **engineers do PM things, PMs do design**, and so on
+- The framing is a **culture where everyone is free to contribute to the company's mission**, regardless of their job title
+- For Max this was the exact inverse of the pattern he's been fighting at eduki. Hearing a senior Anthropic voice describe it as the norm — not an exception you have to earn — was the moment "product-love" became "company-love."
+
+### The Greenhouse Alert — Exact Moment
+- **Date & time**: **March 28, 2026, approximately 16:31** — Max set up a Greenhouse alert for "Product Manager" at Anthropic right after finishing the Boris Cherny episode
+- The precision matters: this isn't a retrofitted narrative. The alert is a timestamped artifact of the moment the decision crystallized.
 
 ### Concrete Example of "Territorial Thinking" at eduki
 When a recruiter asks for a concrete instance (not just a vibe), this is the canonical one:
