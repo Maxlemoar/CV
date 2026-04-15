@@ -278,9 +278,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "founder-lessons": {
     id: "founder-lessons",
     content:
-      "Three things I took from founding: your first idea is almost always wrong, so learn to kill it early. Hiring is harder than building the product. And speed matters more than perfection \u2014 especially when you\u2019re ten people with a federal grant and no revenue yet.",
+      "Three things I took from founding. First: don\u2019t fall in love with your idea. The moment you do, you spend your energy defending it instead of changing it. Second: ship fast and test, especially when you still don\u2019t know if the product will survive the next pivot. Quality matters \u2014 in education especially \u2014 but early perfectionism is wasted effort. Third: schedule sanity checks with people outside your bubble. Founders lose perspective faster than they think.",
     contentCompact:
-      "Three founding lessons: your first idea is almost always wrong, so kill it early. Hiring is harder than building the product. Speed matters more than perfection \u2014 especially with ten people, a federal grant, and no revenue.",
+      "Three founding lessons. Don\u2019t fall in love with your idea \u2014 the moment you do, you defend it instead of changing it. Ship fast and test; early perfectionism is wasted effort. And schedule sanity checks with outsiders \u2014 founders lose perspective fast.",
     image: { src: "/photo-cycling.jpg", alt: "Max with his road bike" },
     hooks: [
       { label: "My product management approach", targetId: "pm-approach" },
