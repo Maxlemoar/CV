@@ -44,7 +44,7 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - Optimized product spaces through incremental improvements, frequently as A/B tests
 
 #### 2022–2025: eduki Interactive
-- Responsible for integrating the acquired pearprogramming app into the eduki marketplace
+- Responsible for integrating PearUp (the app built at pearprogramming) into the eduki marketplace, where it was renamed eduki Interactive
 - Led a team of 2 backend, 2 frontend, 1 QA, 1 UX/UI designer as Product Manager
 - Tasked with finding product-market fit as an intrapreneurship initiative within eduki
 

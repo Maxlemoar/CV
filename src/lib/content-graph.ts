@@ -95,9 +95,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "startup-story": {
     id: "startup-story",
     content:
-      "I co-founded pearprogramming \u2014 a game where students learn to code by running a virtual startup. We won a federal grant, grew to 10 people, and in 2022 eduki acquired us. I was 28 when we started. It was the hardest and best thing I\u2019ve done.",
+      "I co-founded pearprogramming and built PearUp \u2014 a game where students learn to code by running a virtual startup. We won the EXIST federal founder grant in 2020, grew the GmbH to around ten people, and in 2022 eduki acquired us. Four years that were equal parts exciting, exhausting, and nerve-wracking.",
     contentCompact:
-      "Co-founded pearprogramming \u2014 a game teaching coding through running a virtual startup. Won a federal grant, grew to 10 people, acquired by eduki in 2022. Started at 28. Hardest and best thing I\u2019ve done.",
+      "Co-founded pearprogramming and built PearUp \u2014 a game teaching coding through running a virtual startup. Won the EXIST federal grant in 2020, grew to ten people, acquired by eduki in 2022.",
     hooks: [
       { label: "What made the product special?", targetId: "product-magic" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
