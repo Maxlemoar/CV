@@ -143,9 +143,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "building-with-claude": {
     id: "building-with-claude",
     content:
-      "I use Claude Code every day. Not to avoid understanding what\u2019s being built \u2014 but because the bottleneck for me was never the idea, it was implementation speed. Now I can go from hypothesis to working prototype in a day. I\u2019m currently building three learning apps this way.",
+      "I use Claude Code every day. The first time I built an app with it, something clicked: I could finally build every product I imagined, end to end, exactly as I envisioned it. No more depending on others to translate my vision. I started waking up at 5am to build before my family was up \u2014 not because I had to, but because I couldn\u2019t stop. I have around ten projects in flight right now.",
     contentCompact:
-      "Using Claude Code daily \u2014 not to skip understanding, but because the bottleneck was never the idea, it was implementation speed. Hypothesis to working prototype in a day. Currently building three learning apps.",
+      "The first time I built an app with Claude Code, something clicked. No more depending on others to translate my vision. I started waking up at 5am to build before my family was up. Around ten projects in flight.",
     image: { src: "/photo-coffee.jpg", alt: "Max working at a café" },
     hooks: [
       { label: "What apps are you building?", targetId: "side-projects" },
