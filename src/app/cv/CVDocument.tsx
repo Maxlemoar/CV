@@ -181,7 +181,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
       <header className="mb-16 print:mb-8">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-5">
-            <div className="h-[72px] w-[72px] shrink-0 overflow-hidden rounded-full grayscale print:grayscale-0">
+            <div className="hidden sm:block h-[72px] w-[72px] shrink-0 overflow-hidden rounded-full grayscale print:grayscale-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/Max_tafel_klein.jpg"
