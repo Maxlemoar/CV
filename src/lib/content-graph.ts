@@ -300,9 +300,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "pm-approach": {
     id: "pm-approach",
     content:
-      "I\u2019m hypothesis-driven. I don\u2019t ask \u201cwhat should we build?\u201d but \u201cwhat do we believe, and how do we test it?\u201d Deep discoveries before building. A/B tests to validate. And the discipline to kill ideas that don\u2019t work \u2014 including my own.",
+      "I can take on many different roles and shift as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. I work closely with engineers, designers, and data folks, and I can build prototypes myself when it unblocks the team, not to step over it. And I bring research rigor from psychology into product: empirical decisions where possible, statistical analysis where it matters, iteration against hard evidence. Ten prompt versions tested against human reviewers at eduki until we hit 89% agreement. Strong alone, stronger in a team.",
     contentCompact:
-      "Hypothesis-driven. Not \u2018what should we build?\u2019 but \u2018what do we believe, and how do we test it?\u2019 Deep discovery before building. A/B tests to validate. Discipline to kill ideas that don\u2019t work \u2014 including my own.",
+      "I shift roles as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. Work closely with engineers, designers, and data. Can build prototypes myself when it unblocks the team, not to step over it. Psychology research rigor in product: ten prompt iterations to 89% human agreement at eduki. Strong alone, stronger in a team.",
     hooks: [
       { label: "A recent example", targetId: "ai-in-education" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -312,7 +312,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1 },
       motivation: { mastery: 1 },
       tone: "data",
-      summary: "Hypothesis-driven PM: discovery, A/B tests, kill-your-own-ideas discipline.",
+      summary: "PM who shifts roles as needed, works closely with cross-functional teams, brings psychology research rigor. Strong alone, stronger in a team.",
     },
     printSection: "skills",
     printOrder: 3,
