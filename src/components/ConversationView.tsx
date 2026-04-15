@@ -5,7 +5,7 @@ import type { ContentBlockData, AIResponse } from "@/lib/types";
 import { CONTENT_GRAPH, nodeToBlock, ROOT_HOOKS } from "@/lib/content-graph";
 import { useExperiment } from "@/lib/experiment-context";
 import { useSettings } from "@/lib/preferences";
-import { pickStarterHooks } from "@/lib/hook-router";
+import { pickStarterHooks, isNodeUnlocked } from "@/lib/hook-router";
 import type { FrameResponse } from "@/lib/experiment-types";
 import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
@@ -22,6 +22,9 @@ import PourOverGame from "./PourOverGame";
 import { matchesCoffeeKeyword } from "@/lib/content-graph";
 import { useKonamiCode } from "@/hooks/useKonamiCode";
 import ArchitectView from "./rabbit-holes/ArchitectView";
+import EggToast from "./EggToast";
+import EggCounter from "./EggCounter";
+import { useEggs } from "@/lib/egg-context";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -51,6 +54,7 @@ export default function ConversationView() {
   const { profile, signals, setProfile, recordClick, isInterviewed, resetExperiment } =
     useExperiment();
   const { settings } = useSettings();
+  const { discoverEgg, resetEggs } = useEggs();
 
   const hasStarted = blocks.length > 0 || isLoading;
 
@@ -59,6 +63,16 @@ export default function ConversationView() {
     [profile, signals, visitedNodes],
   );
 
+  // Which gems are currently reachable? Used so hook chips pointing to a
+  // gem render with the amber shimmer affordance.
+  const unlockedGems = useMemo(() => {
+    const s = new Set<string>();
+    for (const node of Object.values(CONTENT_GRAPH)) {
+      if (node.gem && isNodeUnlocked(node, visitedNodes)) s.add(node.id);
+    }
+    return s;
+  }, [visitedNodes]);
+
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -66,8 +80,11 @@ export default function ConversationView() {
   }, [blocks.length, isLoading]);
 
   useEffect(() => {
-    if (konamiActivated) setShowArchitect(true);
-  }, [konamiActivated]);
+    if (konamiActivated) {
+      setShowArchitect(true);
+      discoverEgg("konami");
+    }
+  }, [konamiActivated, discoverEgg]);
 
   useEffect(() => {
     if (!showArchitect) return;
@@ -147,13 +164,37 @@ export default function ConversationView() {
       }));
     }
 
+    // Deterministic hidden-gem surfacing: once a gem's unlock condition is
+    // satisfied, inject it as a named hook with its authored gemTitle so
+    // it doesn't get lost in Claude's dynamic picks. This is the only
+    // reliable path into a gem.
+    const surfaceableGems = Object.values(CONTENT_GRAPH).filter(
+      (n) => n.gem && !updatedVisited.has(n.id) && isNodeUnlocked(n, updatedVisited),
+    );
+    if (surfaceableGems.length > 0) {
+      const gemHooks = surfaceableGems.map((g) => ({
+        label: g.gemTitle ?? g.id,
+        question: g.gemTitle ?? g.id,
+        targetId: g.id,
+      }));
+      const existingIds = new Set(block.hooks.map((h) => h.targetId));
+      const deduped = gemHooks.filter((g) => !existingIds.has(g.targetId));
+      block.hooks = [...deduped, ...block.hooks].slice(0, 4);
+    }
+
     setBlocks((prev) => [...prev, block]);
     setMessages((prev) => [
       ...prev,
       { role: "user" as const, content: block.questionTitle },
       { role: "assistant" as const, content: block.text },
     ]);
-  }, [visitedNodes, visitOrder, profile, signals, blocks, recordClick]);
+
+    // Hidden gem discovery — fires when the visitor actually clicks through
+    // to a gem node (which is only reachable via the surfacing above).
+    if (nodeId === "gem-convergence" || nodeId === "gem-lab-to-product" || nodeId === "gem-full-picture") {
+      discoverEgg(nodeId);
+    }
+  }, [visitedNodes, visitOrder, profile, signals, blocks, recordClick, discoverEgg]);
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
@@ -161,6 +202,7 @@ export default function ConversationView() {
     // Coffee Easter Egg
     if (matchesCoffeeKeyword(question)) {
       setCoffeeGameActive(true);
+      discoverEgg("coffee");
       blockCounter.current += 1;
       const coffeeBlock: ContentBlockData = {
         id: `coffee-${blockCounter.current}`,
@@ -175,7 +217,11 @@ export default function ConversationView() {
     }
 
     setIsLoading(true);
-    setFreeQuestionCount((prev) => prev + 1);
+    // First free-form question → the gateway easter egg everyone can find.
+    setFreeQuestionCount((prev) => {
+      if (prev === 0) discoverEgg("curious-mind");
+      return prev + 1;
+    });
 
     const updatedMessages = [
       ...messages,
@@ -217,7 +263,7 @@ export default function ConversationView() {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, messages, profile, signals]);
+  }, [isLoading, messages, profile, signals, discoverEgg]);
 
   const handleShare = async () => {
     if (!profile) return;
@@ -247,6 +293,7 @@ export default function ConversationView() {
 
   function handleNewJourney() {
     resetExperiment();
+    resetEggs();
     setBlocks([]);
     setVisitedNodes(new Set());
     setMessages([]);
@@ -291,19 +338,25 @@ export default function ConversationView() {
   // Reveal screen
   if (showReveal && profile) {
     return (
-      <Reveal
-        profile={profile}
-        visitedNodes={Array.from(visitedNodes)}
-        visitOrder={visitOrder}
-        onShare={handleShare}
-        shareStatus={shareStatus}
-        onNewJourney={handleNewJourney}
-      />
+      <>
+        <EggCounter />
+        <EggToast />
+        <Reveal
+          profile={profile}
+          visitedNodes={Array.from(visitedNodes)}
+          visitOrder={visitOrder}
+          onShare={handleShare}
+          shareStatus={shareStatus}
+          onNewJourney={handleNewJourney}
+        />
+      </>
     );
   }
 
   return (
     <>
+      <EggCounter />
+      <EggToast />
       {showArchitect && (
         <ArchitectView
           visitedNodes={visitedNodes}
@@ -343,6 +396,7 @@ export default function ConversationView() {
                 block={block}
                 onHookClick={handleHookClick}
                 isReadOnly={i < blocks.length - 1}
+                unlockedGems={unlockedGems}
               />
             )
           ))}

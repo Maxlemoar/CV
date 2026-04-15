@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SettingsProvider } from "@/lib/preferences";
 import { ExperimentProvider } from "@/lib/experiment-context";
+import { EggProvider } from "@/lib/egg-context";
 import ThemeApplicator from "./ThemeApplicator";
 import {
   instrumentSerif,
@@ -30,9 +31,11 @@ export default function RootLayout({
       <body className="antialiased">
         <ExperimentProvider>
           <SettingsProvider>
-            <ThemeApplicator>
-              {children}
-            </ThemeApplicator>
+            <EggProvider>
+              <ThemeApplicator>
+                {children}
+              </ThemeApplicator>
+            </EggProvider>
           </SettingsProvider>
         </ExperimentProvider>
       </body>

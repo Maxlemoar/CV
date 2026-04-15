@@ -6,6 +6,7 @@ import type { ContentBlockData, HookSuggestion } from "@/lib/types";
 import RichElement from "./RichElements";
 import { CONTENT_GRAPH } from "@/lib/content-graph";
 import BehindTheScience from "./rabbit-holes/BehindTheScience";
+import { useEggs } from "@/lib/egg-context";
 
 interface ContentBlockProps {
   block: ContentBlockData;
@@ -21,6 +22,7 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
   const isGemBlock = block.id.startsWith("gem-");
   const gemNode = isGemBlock ? CONTENT_GRAPH[block.id] : null;
   const [scienceOpen, setScienceOpen] = useState(false);
+  const { discoverEgg } = useEggs();
 
   return (
     <motion.div
@@ -65,7 +67,10 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
       {sciencePrinciple && (
         <>
           <button
-            onClick={() => setScienceOpen(!scienceOpen)}
+            onClick={() => {
+              setScienceOpen(!scienceOpen);
+              discoverEgg("science");
+            }}
             className="absolute bottom-2 right-2 opacity-[0.15] hover:opacity-60 transition-opacity text-xs"
             title="?"
           >

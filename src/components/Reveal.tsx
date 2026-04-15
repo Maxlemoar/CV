@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { ExperimentProfile } from "@/lib/experiment-types";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
 import Comparison from "./rabbit-holes/Comparison";
+import { useEggs } from "@/lib/egg-context";
 
 interface RevealProps {
   profile: ExperimentProfile;
@@ -61,6 +62,7 @@ const DIMENSION_TITLES: Record<string, string> = {
 export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, onNewJourney }: RevealProps) {
   const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
   const [showComparison, setShowComparison] = useState(false);
+  const { foundEggs, totalEggs, discoverEgg } = useEggs();
 
   // Scroll to top when Reveal mounts
   useEffect(() => {
@@ -85,7 +87,10 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
         transition={{ delay: 0.2 }}
       >
         <button
-          onClick={() => setShowComparison(true)}
+          onClick={() => {
+            setShowComparison(true);
+            discoverEgg("comparison");
+          }}
           className="text-xs tracking-[3px] text-neutral-400 mb-3 uppercase hover:text-orange-500 transition-colors cursor-pointer"
         >
           Experiment #{profile.experimentNumber} — Result
@@ -127,7 +132,7 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
         <p className="text-xs tracking-[2px] text-neutral-400 mb-5 uppercase">
           Session data <span className="normal-case tracking-normal text-neutral-400">— what actually happened</span>
         </p>
-        <div className="grid grid-cols-3 gap-4 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
           <div>
             <p className="text-xs text-neutral-400 mb-1">Topics explored</p>
             <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
@@ -144,6 +149,12 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
             <p className="text-xs text-neutral-400 mb-1">Unique path</p>
             <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
               {visitOrder.length}
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-neutral-400 mb-1">Eggs found</p>
+            <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
+              {foundEggs.size}<span className="text-neutral-400">/{totalEggs}</span>
             </p>
           </div>
         </div>
