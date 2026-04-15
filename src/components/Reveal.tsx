@@ -15,38 +15,40 @@ interface RevealProps {
   onNewJourney: () => void;
 }
 
+// Every bullet below maps to a concrete code path that read your profile.
+// If a claim isn't backed by a branch, it isn't here.
 const REVEAL_EXPLANATIONS: Record<string, Record<string, string>> = {
   persuasion: {
     results:
-      "Because you value results, I told you my story through impact numbers and concrete outcomes.",
+      "Each chapter opened with a line leaning on impact numbers — because results are what convince you.",
     process:
-      "Because you value thinking processes, I told you my startup story as a problem-solving journey, not a success story.",
+      "Each chapter opened with a line framing it as a problem I was solving, not a result I'd reached — because process is what convinces you.",
     character:
-      "Because you connect with personality, I led with personal stories and what drives me as a person.",
+      "Each chapter opened with a personal line about what drives me, before any numbers or frameworks — because character is what convinces you.",
   },
   learning: {
     exploratory:
-      "You got more freedom to explore — more paths to choose from at every step — because you learn by doing.",
+      "I kept every topic in its long-form version so you could wander, and in chat I nudged myself to offer more side paths — because you learn by exploring.",
     structured:
-      "I gave you a clearer, more guided path through my story — because you prefer structure when learning something new.",
+      "Instead of the long-form, I served each topic as a compact overview — because you prefer structure when learning something new.",
     social:
-      "I kept things conversational and invited you to ask questions — because you learn best through dialogue.",
+      "When you asked questions in chat, I leaned into conversational back-and-forth instead of neat summaries — because you learn best through dialogue.",
+  },
+  education: {
+    practice:
+      "The first four doors I opened for you were about building — the startup, Claude, side projects — because you value learning by doing.",
+    individualization:
+      "The first four doors I opened for you were about the psychology of learning and what school gets wrong — because you care about meeting learners where they are.",
+    inspiration:
+      "The first four doors I opened for you led with vision and what I'd build from scratch — because you care about the why before the what.",
   },
   motivation: {
     mastery:
-      "I emphasized the architecture decisions and technical depth behind my projects — because mastery drives you.",
+      "Those same opening lines leaned on architecture and technical depth — because mastery is what drives you.",
     purpose:
-      "I emphasized how my work impacts education and why it matters — because purpose drives you.",
+      "Those same opening lines leaned on impact and why this work matters — because purpose is what drives you.",
     relatedness:
-      "I emphasized the teams I've built and the people I've worked with — because connection drives you.",
-  },
-  sharing: {
-    surprise:
-      "You're seeing this reveal right now — because you share things that break expectations. Hint hint.",
-    utility:
-      "I designed this reveal to be genuinely useful — because you share things others can learn from.",
-    emotion:
-      "I designed this reveal to resonate — because you share things that move you.",
+      "Those same opening lines leaned on the teams and people I've built with — because connection is what drives you.",
   },
 };
 
@@ -169,7 +171,7 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
           What I did with it
         </p>
         <div className="space-y-4">
-          {(["persuasion", "learning", "motivation", "sharing"] as const).map((dim) => (
+          {(["persuasion", "learning", "education", "motivation"] as const).map((dim) => (
             <div key={dim} className="flex gap-3">
               <span className="text-orange-500 flex-shrink-0 mt-0.5">&rarr;</span>
               <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
