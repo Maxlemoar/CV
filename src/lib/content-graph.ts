@@ -190,9 +190,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "anthropic-education-vision": {
     id: "anthropic-education-vision",
     content:
-      "The interesting question isn\u2019t \u201chow do we put AI in classrooms.\u201d It\u2019s \u201chow do we use AI to make learners more independent, not more dependent.\u201d A good AI tutor doesn\u2019t hand you the answer \u2014 it helps you realize what you don\u2019t understand yet. That\u2019s a hard product problem, and it\u2019s the one I want to work on.",
+      "The interesting question isn\u2019t \u201chow do we put AI in classrooms.\u201d It\u2019s: what does AI have to be in education before it can be trusted there? For me that\u2019s two things. It has to be factually reliable \u2014 in education, a confident wrong answer isn\u2019t a bug, it teaches the wrong thing. And it can\u2019t be a yes-man. A good AI tutor has to push back, point out contradictions, praise only when the praise is earned. Anything less and we\u2019re building an assistant, not a tutor.",
     contentCompact:
-      "The real question isn\u2019t \u2018how to put AI in classrooms\u2019 but \u2018how to use AI to make learners more independent.\u2019 A good AI tutor helps you realize what you don\u2019t understand. That\u2019s the product problem I want to solve.",
+      "The real question isn\u2019t \u2018how to put AI in classrooms\u2019 \u2014 it\u2019s what AI has to be before it can be trusted there. Two things: factually reliable (a confident wrong answer teaches the wrong thing) and not a yes-man (a tutor has to push back, not just praise). Anything less and we\u2019re building an assistant, not a tutor.",
     hooks: [
       { label: "This is exactly what I\u2019ve been working toward", targetId: "my-fit" },
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
@@ -202,7 +202,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1, character: 0.5 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "AI for education should make learners more independent, not more dependent.",
+      summary: "What AI has to be before it can be trusted in education: factually reliable and not a yes-man. Otherwise it's an assistant, not a tutor.",
     },
     printSection: "philosophy",
     printOrder: 3,
