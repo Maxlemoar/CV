@@ -2,22 +2,58 @@
 
 Internal reference for all hidden features on the CV site. Use this as a cheat sheet during interviews/demos.
 
+All eggs are tracked centrally in `src/lib/egg-context.tsx` (`EGG_CATALOG`). Discovering one fires a toast (`EggToast.tsx`) and updates the floating counter badge (`EggCounter.tsx`). The total found is also surfaced in the Reveal screen as a visual grid.
+
 ## Quick reference
 
-| # | Feature | Trigger | Visibility |
-|---|---|---|---|
-| 1 | Architect View | Konami code (`↑↑↓↓←→←→BA`) | Invisible |
-| 2 | Pour-Over Game | Type "coffee" / "espresso" / "brew" etc. | Invisible |
-| 3 | Gem: The Convergence | Visit 3 specific nodes | Unlocks as amber hook |
-| 4 | Gem: From Lab to Product | Visit 3 specific nodes | Unlocks as amber hook |
-| 5 | Gem: The Full Picture | Visit 15+ nodes | Unlocks as amber hook |
-| 6 | Behind the Science 🔬 | Hover tiny icon (15% opacity) | Near-invisible |
-| 7 | Comparison Modal | Click "Experiment #X — Result" on Reveal | Subtle hover hint |
-| 8 | Reveal / Profiling | Complete interview + 8 nodes | Core feature |
+| # | ID | Feature | Trigger | Visibility |
+|---|---|---|---|---|
+| 1 | `curious-mind` | Curious Mind | Submit your first free-form question | **Easy** — chat flow |
+| 2 | `coffee` | Barista Mode / Pour-Over Game | Type "coffee" / "espresso" / "brew" etc. | Invisible |
+| 3 | `gem-convergence` | The Convergence | Visit 3 specific nodes | Unlocks as amber hook |
+| 4 | `gem-lab-to-product` | From Lab to Product | Visit 3 specific nodes | Unlocks as amber hook |
+| 5 | `gem-full-picture` | The Full Picture | Visit 15+ nodes | Unlocks as amber hook |
+| 6 | `science` | Behind the Science 🔬 | Click tiny 🔬 icon (15% opacity) | Near-invisible |
+| 7 | `comparison` | The Benchmark | Click "Experiment #X — Result" on Reveal | Subtle hover hint |
+| 8 | `konami` | Architect View | Konami code (`↑↑↓↓←→←→BA`) | Invisible |
+
+**Total: 8 eggs.** Found count is persisted in `localStorage` under `cv-found-eggs-v1` and resets when the user starts a new journey.
 
 ---
 
-## 1. Konami Code → Architect View
+## 0. Egg tracking system
+
+**Files:**
+- `src/lib/egg-context.tsx` — `EggProvider`, `useEggs()`, `EGG_CATALOG`, `TOTAL_EGGS`
+- `src/components/EggToast.tsx` — toast shown when an egg is discovered
+- `src/components/EggCounter.tsx` — floating badge (top-left) with expandable list
+
+**Behavior:**
+- Counter badge hides until the first egg is found (no spoilers)
+- Expanded list shows found eggs by name/icon, undiscovered slots as ❓ "???"
+- Toast shows in top-right for 4s with title + hint + `N/8`
+- State persists across reloads via `localStorage`; wiped by "New Journey"
+- Reveal screen displays an 8-tile grid summary with count
+
+**Registration:** `EggProvider` wraps the app in `src/app/layout.tsx`. To add a new egg:
+1. Add entry to `EGG_CATALOG` in `egg-context.tsx`
+2. Call `discoverEgg("new-id")` from wherever the trigger lives
+
+---
+
+## 1. Curious Mind (new, easy)
+
+**Trigger:** Submit the first free-form question in the input bar (any text that doesn't match a coffee keyword).
+
+**Why this one:** It's the gateway egg — almost every visitor who engages with the chat naturally finds it. Designed to introduce recruiters to the concept that there are hidden features to find, without gating on anything obscure.
+
+**Implementation:** `src/components/ConversationView.tsx` in `submitFreeQuestion` — discovers `curious-mind` when `freeQuestionCount === 0` at submit time.
+
+**Discoverability:** Very high (~60%+ of visitors who type anything).
+
+---
+
+## 2. Konami Code → Architect View
 
 **Trigger:** `↑ ↑ ↓ ↓ ← → ← → B A`
 **Close:** `ESC`
@@ -34,7 +70,7 @@ Opens a full-screen terminal-style view (green-on-black, `bg-[#0a0a1a]`) showing
 
 ---
 
-## 2. Pour-Over Mini-Game
+## 3. Pour-Over Mini-Game (Barista Mode)
 
 **Trigger:** Type any of these keywords into the free question input:
 `coffee`, `café`, `cafe`, `barista`, `pour over`, `pour-over`, `pourover`, `espresso`, `latte`, `cappuccino`, `brew`
@@ -60,7 +96,7 @@ Intercepts the question and launches an interactive brewing simulator with three
 
 ---
 
-## 3–5. Hidden Gem Nodes 💎
+## 4–6. Hidden Gem Nodes 💎
 
 Three content blocks that unlock when specific node-visit conditions are met. They appear as **amber-tinted hooks** with a subtle shimmer animation in the last displayed block.
 
@@ -88,7 +124,7 @@ Three content blocks that unlock when specific node-visit conditions are met. Th
 
 ---
 
-## 6. Behind the Science 🔬
+## 7. Behind the Science 🔬
 
 **Trigger:** Hover the tiny 🔬 button in the bottom-right corner of blocks with a `sciencePrinciple` prop. Starts at `opacity-[0.15]`, goes to `0.6` on hover.
 
@@ -107,7 +143,7 @@ Opens a blue-themed modal citing the learning science research behind the block:
 
 ---
 
-## 7. Comparison Modal
+## 8. Comparison Modal (The Benchmark)
 
 **Trigger:** On the Reveal screen, click the "Experiment #X — Result" header text. Only hint is a hover color change to orange.
 
@@ -127,9 +163,9 @@ Bars animate in sequence. Footer: "Based on anonymized visitor data."
 
 ---
 
-## 8. Visitor Profiling / Reveal
+## 9. Visitor Profiling / Reveal (core feature, not an egg)
 
-Not strictly an easter egg — the interview measures 5 dimensions (Persuasion, Learning, Motivation, Education, Sharing) and the `/api/frame` endpoint uses that profile to personalize intro text and hook labels per content block.
+Not tracked in `EGG_CATALOG` — this is the core experience, not a hidden feature. The interview measures 5 dimensions (Persuasion, Learning, Motivation, Education, Sharing) and the `/api/frame` endpoint uses that profile to personalize intro text and hook labels per content block.
 
 The **Reveal screen** (after 8+ nodes visited) explicitly surfaces:
 - Dimension scores with progress bars
@@ -149,8 +185,11 @@ The **Reveal screen** (after 8+ nodes visited) explicitly surfaces:
 
 For a typical recruiter session (2–4 minutes):
 
-- **Most likely to hit:** Reveal (60–80%), Gem 1 or 2 (20–40%), Comparison modal (~25%)
-- **Long-tail:** Pour-Over game (10–15%, only if they ask about hobbies)
+- **Gateway (near-certain):** Curious Mind (~60%+ — anyone who asks a free question)
+- **Likely:** Gem 1 or 2 (20–40%), Comparison modal (~25%)
+- **Long-tail:** Pour-Over game (10–15%, only if they ask about coffee/hobbies)
 - **Effectively invisible:** Konami code (~0%), Behind the Science 🔬 (~2%), Gem 3 (requires 15+ nodes)
 
 Konami, Science button, and Coffee game are effectively reward features for engineers doing a second pass — or for live demos during interviews.
+
+Because Curious Mind is designed to be easy, most visitors will see the counter badge appear and will then know there are more to find — which is the whole point of adding it.

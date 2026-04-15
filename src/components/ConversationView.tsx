@@ -22,6 +22,9 @@ import PourOverGame from "./PourOverGame";
 import { matchesCoffeeKeyword } from "@/lib/content-graph";
 import { useKonamiCode } from "@/hooks/useKonamiCode";
 import ArchitectView from "./rabbit-holes/ArchitectView";
+import EggToast from "./EggToast";
+import EggCounter from "./EggCounter";
+import { useEggs } from "@/lib/egg-context";
 
 export default function ConversationView() {
   const [blocks, setBlocks] = useState<ContentBlockData[]>([]);
@@ -50,6 +53,7 @@ export default function ConversationView() {
 
   const { profile, setProfile, isInterviewed, resetExperiment } = useExperiment();
   const { settings } = useSettings();
+  const { discoverEgg, resetEggs } = useEggs();
 
   const hasStarted = blocks.length > 0 || isLoading;
 
@@ -62,8 +66,11 @@ export default function ConversationView() {
   }, [blocks.length, isLoading]);
 
   useEffect(() => {
-    if (konamiActivated) setShowArchitect(true);
-  }, [konamiActivated]);
+    if (konamiActivated) {
+      setShowArchitect(true);
+      discoverEgg("konami");
+    }
+  }, [konamiActivated, discoverEgg]);
 
   useEffect(() => {
     if (!showArchitect) return;
@@ -129,7 +136,12 @@ export default function ConversationView() {
       { role: "user" as const, content: block.questionTitle },
       { role: "assistant" as const, content: block.text },
     ]);
-  }, [visitedNodes, profile, blocks]);
+
+    // Hidden gem discovery
+    if (nodeId === "gem-convergence" || nodeId === "gem-lab-to-product" || nodeId === "gem-full-picture") {
+      discoverEgg(nodeId);
+    }
+  }, [visitedNodes, profile, blocks, discoverEgg]);
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
@@ -137,6 +149,7 @@ export default function ConversationView() {
     // Coffee Easter Egg
     if (matchesCoffeeKeyword(question)) {
       setCoffeeGameActive(true);
+      discoverEgg("coffee");
       blockCounter.current += 1;
       const coffeeBlock: ContentBlockData = {
         id: `coffee-${blockCounter.current}`,
@@ -151,7 +164,11 @@ export default function ConversationView() {
     }
 
     setIsLoading(true);
-    setFreeQuestionCount((prev) => prev + 1);
+    // First free-form question → the gateway easter egg everyone can find.
+    setFreeQuestionCount((prev) => {
+      if (prev === 0) discoverEgg("curious-mind");
+      return prev + 1;
+    });
 
     const updatedMessages = [
       ...messages,
@@ -192,7 +209,7 @@ export default function ConversationView() {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, messages, profile]);
+  }, [isLoading, messages, profile, discoverEgg]);
 
   const handleShare = async () => {
     if (!profile) return;
@@ -222,6 +239,7 @@ export default function ConversationView() {
 
   function handleNewJourney() {
     resetExperiment();
+    resetEggs();
     setBlocks([]);
     setVisitedNodes(new Set());
     setMessages([]);
@@ -266,18 +284,24 @@ export default function ConversationView() {
   // Reveal screen
   if (showReveal && profile) {
     return (
-      <Reveal
-        profile={profile}
-        visitedNodes={Array.from(visitedNodes)}
-        onShare={handleShare}
-        shareStatus={shareStatus}
-        onNewJourney={handleNewJourney}
-      />
+      <>
+        <EggCounter />
+        <EggToast />
+        <Reveal
+          profile={profile}
+          visitedNodes={Array.from(visitedNodes)}
+          onShare={handleShare}
+          shareStatus={shareStatus}
+          onNewJourney={handleNewJourney}
+        />
+      </>
     );
   }
 
   return (
     <>
+      <EggCounter />
+      <EggToast />
       {showArchitect && (
         <ArchitectView
           visitedNodes={visitedNodes}

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import type { ExperimentProfile } from "@/lib/experiment-types";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
 import Comparison from "./rabbit-holes/Comparison";
+import { EGG_CATALOG, useEggs, type EggId } from "@/lib/egg-context";
 
 interface RevealProps {
   profile: ExperimentProfile;
@@ -68,6 +69,8 @@ const DIMENSION_TITLES: Record<string, string> = {
 export default function Reveal({ profile, visitedNodes, onShare, shareStatus, onNewJourney }: RevealProps) {
   const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
   const [showComparison, setShowComparison] = useState(false);
+  const { foundEggs, totalEggs, discoverEgg } = useEggs();
+  const eggIds = Object.keys(EGG_CATALOG) as EggId[];
 
   // Scroll to top when Reveal mounts
   useEffect(() => {
@@ -100,7 +103,10 @@ export default function Reveal({ profile, visitedNodes, onShare, shareStatus, on
         transition={{ delay: 0.2 }}
       >
         <button
-          onClick={() => setShowComparison(true)}
+          onClick={() => {
+            setShowComparison(true);
+            discoverEgg("comparison");
+          }}
           className="text-xs tracking-[3px] text-neutral-400 mb-3 uppercase hover:text-orange-500 transition-colors cursor-pointer"
         >
           Experiment #{profile.experimentNumber} — Result
@@ -157,6 +163,52 @@ export default function Reveal({ profile, visitedNodes, onShare, shareStatus, on
               </p>
             </div>
           ))}
+        </div>
+      </motion.div>
+
+      {/* Part 2.5: Easter eggs found */}
+      <motion.div
+        className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2 }}
+      >
+        <div className="flex items-baseline justify-between mb-4">
+          <p className="text-xs tracking-[2px] text-neutral-400 uppercase">
+            Hidden features
+          </p>
+          <p className="text-xs font-mono text-amber-600">
+            {foundEggs.size} / {totalEggs}
+          </p>
+        </div>
+        <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4 leading-relaxed">
+          {foundEggs.size === 0
+            ? "There are hidden features scattered across this site. You haven't stumbled on any — yet."
+            : foundEggs.size === totalEggs
+              ? "You found every single one. That's either impressive curiosity or suspicious inside knowledge."
+              : `You discovered ${foundEggs.size} of ${totalEggs} hidden features. The rest are still out there.`}
+        </p>
+        <div className="grid grid-cols-4 gap-2">
+          {eggIds.map((id) => {
+            const found = foundEggs.has(id);
+            const egg = EGG_CATALOG[id];
+            return (
+              <div
+                key={id}
+                className={`flex flex-col items-center gap-1 rounded-lg border p-3 text-center transition-all ${
+                  found
+                    ? "border-amber-300/50 bg-amber-50 dark:bg-amber-900/10"
+                    : "border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/30 opacity-40"
+                }`}
+                title={found ? `${egg.title} — ${egg.hint}` : "Undiscovered"}
+              >
+                <span className="text-xl">{found ? egg.icon : "❓"}</span>
+                <span className={`text-[10px] leading-tight ${found ? "text-amber-800 dark:text-amber-300 font-medium" : "text-neutral-400"}`}>
+                  {found ? egg.title : "???"}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </motion.div>
 
