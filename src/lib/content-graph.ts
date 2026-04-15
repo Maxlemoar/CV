@@ -168,9 +168,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "what-schools-should-teach": {
     id: "what-schools-should-teach",
     content:
-      "Agency. The confidence to say \u201cI don\u2019t know this yet, but I know how to figure it out.\u201d Not AI literacy as a buzzword \u2014 but the real skill: being able to direct a tool, evaluate what it gives you, and adapt when things change. That\u2019s what I\u2019d want my daughter to learn.",
+      "Three things, in this order. First, curiosity \u2014 keep it alive instead of drilling it out of kids; it\u2019s the engine of every real learning moment. Second, self-efficacy \u2014 not AI literacy as a buzzword, but the real skill of directing a tool like Claude and evaluating what it gives you. Third, individualization \u2014 treat every learner as the specific person they are, with their own interests, gaps, and pace. None of this is radical. It\u2019s just been hard to do at scale without AI. Now it isn\u2019t.",
     contentCompact:
-      "Agency. The confidence to say \u2018I don\u2019t know this yet, but I can figure it out.\u2019 Not AI literacy as buzzword \u2014 the real skill: directing a tool, evaluating its output, adapting when things change.",
+      "Three things: keep curiosity alive, build self-efficacy (directing tools, evaluating what they give you), and individualize \u2014 treat every learner as the specific person they are. None of it is radical. It\u2019s just been hard to do at scale without AI. Now it isn\u2019t.",
     hooks: [
       { label: "How this connects to Anthropic\u2019s mission", targetId: "anthropic-education-vision" },
       { label: "I studied the science behind this", targetId: "psychology-of-learning" },
@@ -181,7 +181,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.6, process: 0.6 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "Agency is the real skill — directing a tool, evaluating output, adapting.",
+      summary: "Three things schools should teach: curiosity, self-efficacy, individualization. Now possible at scale with AI.",
     },
     printSection: "philosophy",
     printOrder: 2,
