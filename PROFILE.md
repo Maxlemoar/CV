@@ -65,6 +65,8 @@
   - Started with Google Blockly (visual programming) to teach concepts, progressed to text-based languages
   - Focus on understanding programming concepts (algorithms, sequences, etc.)
 - **Acquired by eduki in 2022 — strategic acquisition** (not an acqui-hire or pure asset deal; eduki bought pearprogramming as a strategic move, integrating product, team, and IP into the broader marketplace)
+- **Why the acquisition happened (Max's honest framing)**: pearprogramming **ran out of money**. A strategic investor/acquirer was exactly what the situation needed. Max doesn't frame this as a failure — he frames it as: *"It was great to be taken into a bigger team with impact, vision, and mission. The culture is great, the people are nice."* The exit wasn't defeat; it was the right move at the right time and landed the team somewhere they genuinely wanted to be.
+- **What happened to the co-founders**: **All of them went to eduki with the acquisition.** All but one are **still working there today**. This matters for the recruiter narrative: the team stayed together through the transition, and the relationships held.
 - **Source of the 2018 vision quote**: The phrase "intelligent tutoring system that, beyond learning analytics and optimized learning paths, is capable of giving students individual instructions and feedback as well as facilitating automated Socratic dialogues" is taken verbatim from the **EXIST Gründerstipendium application** (federal grant proposal). It is documented founding intent, not a retrospective framing.
 
 #### Lessons Learned from pearprogramming (Max's own words)
@@ -93,6 +95,7 @@ Max has roughly **10 personal projects** in various stages — built end-to-end 
 
 ### Paramedic Trainee Learning App (Rettungssanitäter)
 - **Status**: Actively being tested via **TestFlight** with several **former paramedics** as testers — i.e. real domain experts using it, not just a private prototype
+- **Origin of the idea**: Came from **someone in Max's personal circle — a paramedic** — who told him how bad all the existing learning apps for paramedic training are, and that he **wished something like this existed**. The project is user-pull, not founder-push: it started with a real person voicing a real gap.
 - **Design rationale**: Built around **highly realistic case scenarios**. The core insight is that paramedic training fails when the practice cases don't match what actually happens on a call. Max worked to make the cases as close to real-world application as possible — fidelity to the real domain is the differentiator.
 
 ### Vocabulary Learning App
@@ -133,12 +136,23 @@ I fell in love with the product first. Then I listened to Boris Cherny on Lenny'
 
 I'm deeply purpose-driven. That's what brought me from psychology into EdTech, and it's what draws me to Anthropic now. I could never work for a company where the mission is an afterthought. Anthropic puts it first, which resonates with who I am and how I work best. Education Labs is where everything I've done converges: psychology, learning science, founder experience, product management, AI. Working on the topic closest to my heart, in an environment that doesn't constrain but amplifies. Honestly, it almost sounds too good to be true.
 
-### What "Integrity" Means to Max (in his own words)
-- **No hallucinations, honest about uncertainty**: When Claude doesn't know something, it says so clearly instead of making up an answer that sounds plausible. For a learning context, this is non-negotiable — a student who is told something false by an AI tutor learns the wrong thing, and trust in the system collapses.
-- **Factual accuracy over fluent-sounding answers**: The goal isn't "give the best-sounding response" — it's to be accurate to what is actually true.
-- **Capable of critical feedback to learners**: Claude can tell a student that their answer is wrong, that their reasoning has a flaw, or that they need to think again. It doesn't just flatter the user.
-- **Not sycophantic**: Explicit contrast with ChatGPT, which Max experiences as "always telling you how great you are" / talking after the user's mouth ("nach der Schnauze reden"). For education, sycophancy is actively harmful — learners need honest mirrors, not yes-machines.
-- **Why this is foundational, not nice-to-have**: In any other product domain you can ship a model that occasionally hallucinates or flatters and still deliver value. In education you cannot — the entire purpose of the product is to shape what a learner believes is true and how they reason. A model without integrity teaches the wrong lessons by design.
+### What "Integrity" Means to Max (in his own words — nuanced view)
+Max's position is more precise than "Claude is pure and ChatGPT isn't." It has two distinct layers:
+
+**Layer 1 — What Claude already gets right (the bar that made him a believer):**
+- **No hallucinations / no misinformation in his actual experience**: Max has never had a "what the fuck, what was that?" moment with Claude. That's the specific claim — not that Claude is infallible, but that the egregious factual failure mode hasn't shown up in his own daily use.
+- **Quality scales with question quality**: When you ask the right questions, the answers are incredible. Claude rewards good prompting rather than papering over bad prompts with generic output.
+- **This is the foundation he trusts**: factual reliability, not sycophancy-resistance, is what earned his confidence.
+
+**Layer 2 — What still has to be engineered on top (honest caveat):**
+- **Claude is not perfect on sycophancy.** Max is explicit: Claude *usually* agrees with the user or praises them, sometimes even when praise isn't warranted. It's milder than ChatGPT in his experience, but the yes-man tendency is not absent.
+- **This is exactly why Education Labs work matters**: a base model that's "mostly agreeable" isn't automatically a good tutor. For learning products, we have to actively engineer Claude **not to be a yes-man**. A good AI tutor has to:
+  - Critically check student answers and **challenge when necessary**
+  - **Praise when actually appropriate** — not reflexively
+  - **Point out contradictions or weaknesses** in a learner's reasoning
+- This reframes the product problem: integrity in education isn't just "pick the model with the best values." It's "take a strong base model and shape it, via prompting/product design/scaffolding, into something that can honestly mirror a learner." That's product work, and it's exactly the kind of work Max wants to do.
+
+**The ChatGPT contrast still stands** — Max experiences ChatGPT as more aggressively sycophantic ("always telling you how great you are" / "nach der Schnauze reden"). Claude is better, but "better than ChatGPT" is not the bar education should aim for.
 
 ### Key Themes
 - **Claude's integrity matters in education**: Quality alone isn't enough — for learning products, the model's values and trustworthiness are foundational, not a nice-to-have
