@@ -323,9 +323,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "ai-in-education": {
     id: "ai-in-education",
     content:
-      "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: an AI assessor that evaluates teaching materials across 12 criteria in 5 quality dimensions. The production model runs on Gemini Flash \u2014 I developed and iterated the assessment prompt through 10 versions, using Claude to test and refine. Version 10 achieves 89% agreement with human reviewers. The quality framework was co-developed with Prof. John Hattie.",
+      "In Q1 2026 I led \u201cMake Quality Visible\u201d at eduki: making the pedagogical quality of 800,000+ teaching materials visible so quality becomes a reason to buy. I inherited an underperforming AI assessor (v0) and rebuilt it end-to-end. The model is Gemini 3 Flash, evaluating 12 criteria across 5 dimensions derived from eduki\u2019s existing Hattie-based framework through a factor analysis. Ten prompt iterations (v1 through v10) raised human-AI agreement from 79.7% to 89%. I also designed the scoring model, the 8.83 quality threshold, and safeguards against prompt injection.",
     contentCompact:
-      "Led \u2018Make Quality Visible\u2019 at eduki Q1 2026: AI assessor evaluating teaching materials across 12 criteria in 5 dimensions. Developed assessment prompt through 10 versions using Claude. Version 10: 89% agreement with human reviewers. Framework co-developed with Prof. John Hattie.",
+      "Led \u2018Make Quality Visible\u2019 at eduki Q1 2026 \u2014 making the quality of 800k+ materials visible. Rebuilt an underperforming AI assessor end-to-end on Gemini 3 Flash. Ten prompt iterations raised human-AI agreement from 79.7% to 89%. Designed the scoring model, the 8.83 quality threshold, and anti-manipulation safeguards.",
     hooks: [
       { label: "Who is John Hattie?", targetId: "research" },
       { label: "What this taught me about AI products", targetId: "future-of-work" },
@@ -336,13 +336,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { results: 1, process: 1 },
       motivation: { mastery: 1, purpose: 0.7 },
       tone: "data",
-      summary: "AI assessor for teaching materials: 10 prompt iterations to 89% human agreement, built with Hattie.",
+      summary: "AI assessor for teaching materials: rebuilt end-to-end, ten prompt iterations raised human agreement from 79.7% to 89%, framework derived from eduki's Hattie-based research via factor analysis.",
     },
     printSection: "experience",
     printOrder: 5,
     testingEffectQuestion: {
       question: "What agreement rate did the AI assessor reach with human reviewers?",
-      answer: "89% agreement — achieved through 10 iterative prompt versions, evaluated against human reviewers each time.",
+      answer: "89% — up from 79.7%, achieved through ten prompt iterations (v1 to v10), evaluated against human reviewers each time.",
     },
     spacedRetrievalRef: "research",
   },
