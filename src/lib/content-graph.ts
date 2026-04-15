@@ -73,9 +73,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "school-gets-wrong": {
     id: "school-gets-wrong",
     content:
-      "Schools still optimize for recall. Can you remember this date, this formula, this definition? But when every answer is a search away, that\u2019s not the scarce skill anymore. What\u2019s hard is knowing which question to ask, whether the answer is any good, and what to do next.",
+      "Two things. First: schools still optimize for recall \u2014 remember the date, the formula, the definition \u2014 but in a world of instant search and LLMs, recall isn\u2019t the scarce skill. Second, and more important: schools treat every learner as if they were interchangeable. Learning is deeply individual. Every student has their own interests, their own gaps, their own pace \u2014 and those need to be seen.",
     contentCompact:
-      "Schools optimize for recall, but when every answer is searchable, that\u2019s not the scarce skill. What matters: knowing which question to ask, evaluating answers, and deciding what to do next.",
+      "Schools still optimize for recall when recall is a Google search away. More importantly, they treat learners as interchangeable \u2014 but learning is deeply individual. Every student has their own interests, gaps, and pace.",
     hooks: [
       { label: "So what should schools teach instead?", targetId: "what-schools-should-teach" },
       { label: "I built a product based on this belief", targetId: "startup-story" },
