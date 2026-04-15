@@ -1,3 +1,5 @@
+import type { Persuasion, Motivation } from "./experiment-types";
+
 export interface QuizData {
   question: string;
   options: { label: string; correct?: boolean; explanation: string }[];
@@ -10,6 +12,29 @@ export interface Hook {
   minVisited?: number;
 }
 
+// Topics are free-form strings but these are the canonical ones used
+// across the content graph and the hook router.
+export type NodeTopic =
+  | "product"
+  | "startup"
+  | "education"
+  | "psychology"
+  | "ai"
+  | "personal"
+  | "anthropic"
+  | "vision";
+
+export type NodeTone = "story" | "data" | "vision" | "reflection";
+
+export interface NodeTags {
+  topics?: NodeTopic[];
+  persuasion?: Partial<Record<Persuasion, number>>;
+  motivation?: Partial<Record<Motivation, number>>;
+  tone?: NodeTone;
+  /** One-line summary used when we hand the node to Claude as a candidate. */
+  summary?: string;
+}
+
 export interface ContentNode {
   id: string;
   content: string;
@@ -17,6 +42,7 @@ export interface ContentNode {
   image?: { src: string; alt: string };
   quiz?: QuizData;
   hooks: Hook[];
+  tags?: NodeTags;
   printSection?: "about" | "experience" | "education" | "projects" | "philosophy" | "publications" | "skills" | "personal";
   printOrder?: number;
   gem?: {
@@ -55,6 +81,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "I built a product based on this belief", targetId: "startup-story" },
       { label: "How this connects to Anthropic", targetId: "anthropic-education-vision" },
     ],
+    tags: {
+      topics: ["education", "vision"],
+      persuasion: { character: 0.7, process: 0.7 },
+      motivation: { purpose: 1 },
+      tone: "reflection",
+      summary: "A critique of how schools still optimize for recall in a search-engine world.",
+    },
     printSection: "philosophy",
     printOrder: 1,
   },
@@ -70,6 +103,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
       { label: "What founding taught me", targetId: "founder-lessons" },
     ],
+    tags: {
+      topics: ["startup", "education", "personal"],
+      persuasion: { results: 1, character: 0.7 },
+      motivation: { mastery: 0.6, purpose: 0.6 },
+      tone: "story",
+      summary: "Co-founded pearprogramming, grew to 10, acquired by eduki in 2022.",
+    },
     printSection: "experience",
     printOrder: 20,
     testingEffectQuestion: {
@@ -89,6 +129,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "My experience with AI in education", targetId: "ai-in-education" },
       { label: "Who I am outside of work", targetId: "personal" },
     ],
+    tags: {
+      topics: ["anthropic", "personal", "vision"],
+      persuasion: { character: 1, process: 0.5 },
+      motivation: { purpose: 1, mastery: 0.5 },
+      tone: "story",
+      summary: "Why the Education Labs PM role feels written for me after a year of daily Claude use.",
+    },
     printSection: "about",
     printOrder: 10,
   },
@@ -105,6 +152,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "How I used AI at my day job", targetId: "ai-in-education" },
       { label: "What this taught me about the future of work", targetId: "future-of-work" },
     ],
+    tags: {
+      topics: ["ai", "product", "personal"],
+      persuasion: { process: 1, character: 0.6 },
+      motivation: { mastery: 1 },
+      tone: "data",
+      summary: "Daily Claude Code user — idea to working prototype in a day, three learning apps in flight.",
+    },
     printSection: "skills",
     printOrder: 1,
   },
@@ -122,6 +176,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "I studied the science behind this", targetId: "psychology-of-learning" },
       { label: "I built a product based on this belief", targetId: "startup-story" },
     ],
+    tags: {
+      topics: ["education", "vision"],
+      persuasion: { character: 0.6, process: 0.6 },
+      motivation: { purpose: 1 },
+      tone: "vision",
+      summary: "Agency is the real skill — directing a tool, evaluating output, adapting.",
+    },
     printSection: "philosophy",
     printOrder: 2,
   },
@@ -136,6 +197,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "This is exactly what I\u2019ve been working toward", targetId: "my-fit" },
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
     ],
+    tags: {
+      topics: ["anthropic", "education", "vision", "ai"],
+      persuasion: { process: 1, character: 0.5 },
+      motivation: { purpose: 1 },
+      tone: "vision",
+      summary: "AI for education should make learners more independent, not more dependent.",
+    },
     printSection: "philosophy",
     printOrder: 3,
   },
@@ -151,6 +219,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "The AI assessor I built", targetId: "ai-in-education" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
     ],
+    tags: {
+      topics: ["anthropic", "product", "ai", "education", "psychology"],
+      persuasion: { results: 1, process: 0.8 },
+      motivation: { mastery: 0.8, purpose: 0.8 },
+      tone: "data",
+      summary: "The synthesis pitch: psychology, founding, game-based learning, AI in production.",
+    },
     printSection: "about",
     printOrder: 2,
   },
@@ -167,6 +242,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "We published research on why this works", targetId: "research" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
     ],
+    tags: {
+      topics: ["startup", "product", "education"],
+      persuasion: { process: 1, results: 0.7 },
+      motivation: { mastery: 0.6, purpose: 0.6 },
+      tone: "story",
+      summary: "Why pearprogramming worked: students founded a virtual startup, intrinsic motivation > curriculum.",
+    },
     printSection: "experience",
     printOrder: 21,
   },
@@ -182,6 +264,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "What founding taught me", targetId: "founder-lessons" },
       { label: "Who I am outside of work", targetId: "personal" },
     ],
+    tags: {
+      topics: ["product", "startup"],
+      persuasion: { results: 1, process: 0.5 },
+      motivation: { mastery: 0.6, relatedness: 0.5 },
+      tone: "data",
+      summary: "eduki acquired pearprogramming; led integration, then ownership of core commerce.",
+    },
     printSection: "experience",
     printOrder: 10,
   },
@@ -197,6 +286,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "My product management approach", targetId: "pm-approach" },
       { label: "Who I am outside of work", targetId: "personal" },
     ],
+    tags: {
+      topics: ["startup", "personal"],
+      persuasion: { character: 1, process: 0.7 },
+      motivation: { mastery: 0.6 },
+      tone: "reflection",
+      summary: "Three lessons from founding: kill ideas early, hiring is hardest, speed over perfection.",
+    },
     printSection: "about",
     printOrder: 3,
   },
@@ -211,6 +307,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "A recent example", targetId: "ai-in-education" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
     ],
+    tags: {
+      topics: ["product"],
+      persuasion: { process: 1 },
+      motivation: { mastery: 1 },
+      tone: "data",
+      summary: "Hypothesis-driven PM: discovery, A/B tests, kill-your-own-ideas discipline.",
+    },
     printSection: "skills",
     printOrder: 3,
   },
@@ -228,6 +331,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "What this taught me about AI products", targetId: "future-of-work" },
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
     ],
+    tags: {
+      topics: ["ai", "education", "product"],
+      persuasion: { results: 1, process: 1 },
+      motivation: { mastery: 1, purpose: 0.7 },
+      tone: "data",
+      summary: "AI assessor for teaching materials: 10 prompt iterations to 89% human agreement, built with Hattie.",
+    },
     printSection: "experience",
     printOrder: 5,
     testingEffectQuestion: {
@@ -250,6 +360,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
       { label: "Who I am outside of work", targetId: "personal" },
     ],
+    tags: {
+      topics: ["ai", "product", "personal", "education"],
+      persuasion: { character: 0.8, process: 0.6 },
+      motivation: { mastery: 1, purpose: 0.6 },
+      tone: "story",
+      summary: "Side projects: spaced-repetition for paramedics, vocabulary trainer, refugee German app — built with Claude Code.",
+    },
     printSection: "projects",
     printOrder: 1,
   },
@@ -264,6 +381,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
       { label: "My product management approach", targetId: "pm-approach" },
     ],
+    tags: {
+      topics: ["ai", "product", "vision"],
+      persuasion: { process: 1, character: 0.6 },
+      motivation: { mastery: 0.8 },
+      tone: "reflection",
+      summary: "When implementation isn't the bottleneck, taste and judgment are what's left for PMs.",
+    },
     printSection: "skills",
     printOrder: 2,
   },
@@ -281,6 +405,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "Why Anthropic is the right place for this", targetId: "why-anthropic" },
       { label: "Who I am outside of work", targetId: "personal" },
     ],
+    tags: {
+      topics: ["vision", "anthropic", "education", "ai"],
+      persuasion: { character: 0.8, process: 0.6 },
+      motivation: { purpose: 1 },
+      tone: "vision",
+      summary: "Build AI learning experiences that help — not replace — teachers; success = more capable and curious.",
+    },
     printSection: "philosophy",
     printOrder: 5,
   },
@@ -295,6 +426,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "The research I published", targetId: "research" },
       { label: "How I applied this at pearprogramming", targetId: "product-magic" },
     ],
+    tags: {
+      topics: ["psychology", "education"],
+      persuasion: { process: 1, results: 0.5 },
+      motivation: { mastery: 1 },
+      tone: "data",
+      summary: "M.Sc. thesis: Self-Determination Theory — autonomy, competence, relatedness.",
+    },
     printSection: "education",
     printOrder: 1,
     testingEffectQuestion: {
@@ -318,6 +456,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "What I believe about the future of learning", targetId: "what-id-build" },
       { label: "Who I am outside of work", targetId: "personal" },
     ],
+    tags: {
+      topics: ["psychology", "education"],
+      persuasion: { results: 1, process: 0.6 },
+      motivation: { mastery: 1, relatedness: 0.6 },
+      tone: "data",
+      summary: "Springer chapter with wife Anna; two Hattie studies on teaching-material quality with 2,000+ teachers.",
+    },
     printSection: "publications",
     printOrder: 1,
     spacedRetrievalRef: "startup-story",
@@ -336,6 +481,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
     ],
+    tags: {
+      topics: ["personal"],
+      persuasion: { character: 1 },
+      motivation: { relatedness: 1 },
+      tone: "story",
+      summary: "New dad in Cologne. Fatherhood made education personal. Coffee, cycling, cooking.",
+    },
     printSection: "personal",
     printOrder: 1,
   },
@@ -352,6 +504,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "What I'd want to build at Anthropic", targetId: "what-id-build" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
     ],
+    tags: {
+      topics: ["vision", "anthropic", "psychology", "ai", "education"],
+      persuasion: { character: 0.8, process: 0.7 },
+      motivation: { purpose: 1 },
+      tone: "vision",
+      summary: "Hidden thread: psychology + AI + tutoring = what I want to build at Education Labs.",
+    },
     gem: {
       requiredNodes: ["psychology-of-learning", "ai-in-education", "building-with-claude"],
     },
@@ -369,6 +528,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "The AI assessor I built", targetId: "ai-in-education" },
       { label: "My product management approach", targetId: "pm-approach" },
     ],
+    tags: {
+      topics: ["psychology", "product", "ai"],
+      persuasion: { process: 1, results: 0.8 },
+      motivation: { mastery: 1 },
+      tone: "reflection",
+      summary: "Hidden thread: I run PM like a research study — construct, test, measure, iterate.",
+    },
     gem: {
       requiredNodes: ["startup-story", "founder-lessons", "research"],
     },
@@ -386,6 +552,13 @@ export const CONTENT_GRAPH: ContentGraph = {
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
       { label: "What I'd want to build there", targetId: "what-id-build" },
     ],
+    tags: {
+      topics: ["personal", "vision", "anthropic"],
+      persuasion: { character: 1, results: 0.6 },
+      motivation: { purpose: 1, relatedness: 0.6 },
+      tone: "story",
+      summary: "Hidden thread: psychologist, founder, PM, researcher, new dad — one synthesis.",
+    },
     gem: {
       minVisited: 15,
     },

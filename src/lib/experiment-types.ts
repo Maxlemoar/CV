@@ -15,6 +15,16 @@ export interface ExperimentProfile {
   sharing: Sharing;
 }
 
+// Live signal vector — seeded from interview answers, nudged by every click.
+// Used to rank follow-up hooks and to feed /api/frame so Claude picks
+// personalized next-nodes.
+export interface SignalVector {
+  persuasion: Record<Persuasion, number>;
+  motivation: Record<Motivation, number>;
+  learning: Record<Learning, number>;
+  topics: Record<string, number>;
+}
+
 export interface InterviewQuestion {
   id: string;
   text: string;
@@ -30,13 +40,21 @@ export interface FrameRequest {
   nodeId: string;
   profile: ExperimentProfile;
   visitedNodes: string[];
+  visitOrder?: string[];
+  signals?: SignalVector;
   previousNodeId?: string;
+}
+
+export interface FrameNextHook {
+  targetId: string;
+  label: string;
 }
 
 export interface FrameResponse {
   introduction: string;
   transition?: string;
   hookLabels?: Record<string, string>;
+  nextHooks?: FrameNextHook[];
   learningMechanic?: {
     type: 'testing-effect' | 'spaced-retrieval';
     content: string;
