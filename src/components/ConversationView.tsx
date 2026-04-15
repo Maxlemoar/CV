@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import type { ContentBlockData, AIResponse } from "@/lib/types";
 import { CONTENT_GRAPH, nodeToBlock, ROOT_HOOKS } from "@/lib/content-graph";
 import { useExperiment } from "@/lib/experiment-context";
 import { useSettings } from "@/lib/preferences";
-import { EDUCATION_STARTER_HOOKS } from "@/lib/experiment-starter-hooks";
+import { pickStarterHooks } from "@/lib/hook-router";
 import type { FrameResponse } from "@/lib/experiment-types";
 import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
@@ -48,12 +48,16 @@ export default function ConversationView() {
   const konamiActivated = useKonamiCode();
   const [showArchitect, setShowArchitect] = useState(false);
 
-  const { profile, setProfile, isInterviewed, resetExperiment } = useExperiment();
+  const { profile, signals, setProfile, recordClick, isInterviewed, resetExperiment } =
+    useExperiment();
   const { settings } = useSettings();
 
   const hasStarted = blocks.length > 0 || isLoading;
 
-  const starterHooks = profile ? EDUCATION_STARTER_HOOKS[profile.education] : ROOT_HOOKS;
+  const starterHooks = useMemo(
+    () => (profile ? pickStarterHooks(profile, signals, visitedNodes, 4) : ROOT_HOOKS),
+    [profile, signals, visitedNodes],
+  );
 
   useEffect(() => {
     if (bottomRef.current) {
@@ -81,11 +85,17 @@ export default function ConversationView() {
     const updatedVisited = new Set(visitedNodes);
     updatedVisited.add(nodeId);
     setVisitedNodes(updatedVisited);
-    setVisitOrder((prev) => prev.includes(nodeId) ? prev : [...prev, nodeId]);
+    const updatedVisitOrder = visitOrder.includes(nodeId)
+      ? visitOrder
+      : [...visitOrder, nodeId];
+    setVisitOrder(updatedVisitOrder);
+    // Nudge the signal vector toward the clicked node's tags so the next
+    // frame request reflects the visitor's evolving interest.
+    recordClick(nodeId);
 
     const depth = profile?.learning === "structured" ? "overview" : "deep-dive";
 
-    // Fetch framing from API if profile exists
+    // Fetch framing + personalized next-hooks from API if profile exists
     let framing: FrameResponse | null = null;
     if (profile) {
       try {
@@ -96,7 +106,9 @@ export default function ConversationView() {
             type: "frame",
             nodeId,
             profile,
+            signals,
             visitedNodes: Array.from(updatedVisited),
+            visitOrder: updatedVisitOrder,
             previousNodeId: blocks.length > 0 ? blocks[blocks.length - 1].id : undefined,
           }),
         });
@@ -115,8 +127,20 @@ export default function ConversationView() {
     if (framing?.introduction) {
       block.text = framing.introduction + "\n\n" + block.text;
     }
-    // Override hook labels if framing provides them
-    if (framing?.hookLabels) {
+    // Replace hooks with Claude's personalized picks if available, otherwise
+    // keep authored hooks with optional label overrides.
+    if (framing?.nextHooks && framing.nextHooks.length > 0) {
+      const safeHooks = framing.nextHooks
+        .filter((h) => CONTENT_GRAPH[h.targetId] && !updatedVisited.has(h.targetId))
+        .slice(0, 3);
+      if (safeHooks.length >= 2) {
+        block.hooks = safeHooks.map((h) => ({
+          label: h.label,
+          question: h.label,
+          targetId: h.targetId,
+        }));
+      }
+    } else if (framing?.hookLabels) {
       block.hooks = block.hooks.map((h) => ({
         ...h,
         label: (h.targetId && framing!.hookLabels![h.targetId]) || h.label,
@@ -129,7 +153,7 @@ export default function ConversationView() {
       { role: "user" as const, content: block.questionTitle },
       { role: "assistant" as const, content: block.text },
     ]);
-  }, [visitedNodes, profile, blocks]);
+  }, [visitedNodes, visitOrder, profile, signals, blocks, recordClick]);
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
@@ -165,6 +189,7 @@ export default function ConversationView() {
         body: JSON.stringify({
           messages: updatedMessages,
           profile,
+          signals,
         }),
       });
 
@@ -192,7 +217,7 @@ export default function ConversationView() {
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, messages, profile]);
+  }, [isLoading, messages, profile, signals]);
 
   const handleShare = async () => {
     if (!profile) return;
