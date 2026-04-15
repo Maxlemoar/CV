@@ -189,6 +189,13 @@ When a recruiter asks for a concrete instance (not just a vibe), this is the can
 - **Tries to build alignment between roles** — e.g. actively tries to get designers to **question their own convictions** about where PM/design boundaries should sit. The goal is shifting the team's shared model, not winning individual battles.
 - Pattern: constructive pushback from inside the system, not exit or silent compliance
 
+### ⚠️ Known Gap — Claude for Education
+As of April 2026, **Max has not yet heard of Claude for Education** and has not used it. This is a gap to close **before any recruiter call or interview** with Anthropic Education Labs, since a recruiter is very likely to ask about it. Action items for Max:
+- Read Anthropic's official Claude for Education materials directly
+- Try it hands-on if possible (as an individual, or via a university contact)
+- Form a real product opinion, not a rehearsed one
+- This is explicitly flagged as "not yet done" so it doesn't get lost in the rest of the profile strengths.
+
 ### What Max Knows About Education Labs (and How He'd Start)
 - **Sources so far**: Only the **job description** itself. No prior conversations with anyone inside Anthropic, no inside information, no product testing of a specific Education Labs offering he's been briefed on.
 - **The JD is vague** — but what's in it resonates strongly:
