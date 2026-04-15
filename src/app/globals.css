@@ -342,6 +342,13 @@ body::before {
     font-size: 11pt;
   }
 
+  /* Enforce exact color preservation on every element so Chromium's PDF
+     render matches the on-screen appearance (grays, borders, underlines). */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   body::before {
     display: none;
   }
@@ -465,6 +472,8 @@ body::before {
   .ed-grid-row {
     grid-template-columns: 120px 1fr;
     gap: 0 16px;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   /* Keep serif headings styled like web */

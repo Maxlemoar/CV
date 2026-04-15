@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { toJpeg } from "html-to-image";
-import { jsPDF } from "jspdf";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -150,10 +148,32 @@ function useStaggerReveal() {
 /*  Component                                                          */
 /* ------------------------------------------------------------------ */
 
-export default function CVDocument() {
-  const handleExport = useCallback(() => {
-    window.print();
-  }, []);
+export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExport = useCallback(async () => {
+    if (isExporting) return;
+    setIsExporting(true);
+    try {
+      const res = await fetch("/api/cv-pdf");
+      if (!res.ok) throw new Error("Export failed");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Maximilian-Marowsky-CV.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      // Graceful fallback: let the user at least get a browser print dialog
+      window.print();
+    } finally {
+      setIsExporting(false);
+    }
+  }, [isExporting]);
 
   return (
     <article className="ed-cv mx-auto max-w-[900px] px-6 py-12 sm:py-16 print:max-w-none print:px-0 print:py-0">
@@ -180,12 +200,15 @@ export default function CVDocument() {
               </p>
             </div>
           </div>
-          <button
-            onClick={handleExport}
-            className="no-print mt-2 ed-sans text-[12px] text-neutral-400 hover:text-neutral-900 transition-colors border border-neutral-200 rounded px-3 py-1.5 hover:border-neutral-400"
-          >
-            Export PDF
-          </button>
+          {!isPrint && (
+            <button
+              onClick={handleExport}
+              disabled={isExporting}
+              className="no-print mt-2 ed-sans text-[12px] text-neutral-400 hover:text-neutral-900 transition-colors border border-neutral-200 rounded px-3 py-1.5 hover:border-neutral-400 disabled:opacity-50 disabled:cursor-wait"
+            >
+              {isExporting ? "Exporting…" : "Export PDF"}
+            </button>
+          )}
         </div>
 
         <div className="mt-4 flex gap-6 ed-sans text-[13px] text-neutral-500">
@@ -201,9 +224,11 @@ export default function CVDocument() {
             LinkedIn
           </a>
           <span>Cologne, Germany</span>
-          <Link href="/" className="hover:text-neutral-900 transition-colors no-print">
-            maxmarowsky.com
-          </Link>
+          {!isPrint && (
+            <Link href="/" className="hover:text-neutral-900 transition-colors no-print">
+              maxmarowsky.com
+            </Link>
+          )}
         </div>
 
         {/* Thin rule */}
@@ -293,9 +318,6 @@ export default function CVDocument() {
           ))}
         </div>
       </EdSection>
-
-      {/* ---- Page break before Education ---- */}
-      <div className="hidden print:block print:break-before-page" />
 
       {/* ---- Education ---- */}
       <EdSection title="Education" delay={2}>
