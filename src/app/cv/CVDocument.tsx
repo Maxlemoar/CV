@@ -88,9 +88,9 @@ const research = [
 ];
 
 const sideProjects = [
-  "Adaptive quiz app for paramedic trainees",
-  "Vocabulary trainer that visualizes learning in nodes",
-  "Inclusion app for refugees learning German",
+  "Case-based training app for paramedic trainees (in TestFlight with real former paramedics)",
+  "Vocabulary trainer that visualizes learning as a growing knowledge graph",
+  "Integration app for refugees in Germany, with Claude built in for native-language support",
 ];
 
 const skillGroups = [

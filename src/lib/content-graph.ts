@@ -121,9 +121,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "why-anthropic": {
     id: "why-anthropic",
     content:
-      "I\u2019ve been using Claude since September 2024. First casually, then daily, then obsessively \u2014 building my own apps with Claude Code every evening after work. I listened to podcasts with the Head of Claude Code and the design team and thought: that\u2019s how I want to work. When the Education Labs PM role hit my Greenhouse alert on a Saturday morning, I had to read it twice. It felt like a job description written for me. I do my best work with maximum autonomy and interest-driven exploration \u2014 and I believe the next AI systems need to be taught ethics, like a young Roman emperor taught philosophy by his tutors.",
+      "I fell in love with the product first. The first time I built an app with Claude Code, I started waking up at 5am before my family was up \u2014 not because I had to, but because I couldn\u2019t stop. Suddenly I could build every product I imagined, end to end. Then I listened to Boris Cherny on Lenny\u2019s Podcast and fell in love with the company: fluid roles, engineers doing PM work, PMs doing design, everyone free to contribute to the mission regardless of title. I set up a Greenhouse alert for \u201cProduct Manager\u201d that same afternoon, March 28, 2026. When the Education Labs role appeared, it read like a job description written for me.",
     contentCompact:
-      "Daily Claude user since September 2024. Building apps with Claude Code every evening. When the Education Labs PM role appeared, it felt written for me: maximum autonomy, interest-driven exploration, and the belief that AI systems need ethical foundations.",
+      "Fell in love with the product building apps in Claude Code at 5am. Fell in love with the company after Boris Cherny on Lenny\u2019s Podcast described fluid roles and mission-first autonomy. Set a Greenhouse alert on March 28, 2026. Education Labs reads like a job description written for me.",
     hooks: [
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
       { label: "My experience with AI in education", targetId: "ai-in-education" },
@@ -352,9 +352,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "side-projects": {
     id: "side-projects",
     content:
-      "A spaced-repetition app for paramedic trainees. A vocabulary trainer. A German language app for refugees. All built with Claude Code, all in weeks instead of months. I keep coming back to the same problem: how do you help people learn something that matters to them?",
+      "Around ten personal projects in various stages, all built end-to-end with Claude Code. A paramedic trainee app built around highly realistic case scenarios \u2014 the idea came from a paramedic in my circle who told me how poor the existing training apps are; it\u2019s now in TestFlight with real former paramedics. A vocabulary app that shows learning as a knowledge graph: each word a node, nodes connecting into a network the learner watches grow. An integration app for refugees arriving in Germany \u2014 everything in their native language, Claude built in for questions and document analysis. And a personalized children\u2019s books app. I keep coming back to the same question: how do you help someone learn something that actually matters to them?",
     contentCompact:
-      "Spaced-repetition app for paramedic trainees. Vocabulary trainer. German language app for refugees. All built with Claude Code, weeks instead of months. Same recurring problem: helping people learn what matters to them.",
+      "About ten projects built end-to-end with Claude Code. Paramedic trainee app with realistic cases, now in TestFlight with real ex-paramedics. Vocabulary app as a growing knowledge graph. Refugee integration app, all in native language, Claude built in. Personalized children\u2019s books app. Same recurring question: how do you help someone learn what actually matters to them?",
     hooks: [
       { label: "What this taught me about AI-native building", targetId: "future-of-work" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -365,7 +365,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.8, process: 0.6 },
       motivation: { mastery: 1, purpose: 0.6 },
       tone: "story",
-      summary: "Side projects: spaced-repetition for paramedics, vocabulary trainer, refugee German app — built with Claude Code.",
+      summary: "Side projects: paramedic trainee app with realistic cases (TestFlight), vocabulary knowledge graph, refugee integration app, children\u2019s books — all built with Claude Code.",
     },
     printSection: "projects",
     printOrder: 1,
