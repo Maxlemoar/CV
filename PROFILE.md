@@ -62,7 +62,7 @@
   - Combined entrepreneurship game-based narrative with learning to code
   - Started with Google Blockly (visual programming) to teach concepts, progressed to text-based languages
   - Focus on understanding programming concepts (algorithms, sequences, etc.)
-- **Acquired by eduki in 2022**
+- **Acquired by eduki in 2022 — strategic acquisition** (not an acqui-hire or pure asset deal; eduki bought pearprogramming as a strategic move, integrating product, team, and IP into the broader marketplace)
 - **Source of the 2018 vision quote**: The phrase "intelligent tutoring system that, beyond learning analytics and optimized learning paths, is capable of giving students individual instructions and feedback as well as facilitating automated Socratic dialogues" is taken verbatim from the **EXIST Gründerstipendium application** (federal grant proposal). It is documented founding intent, not a retrospective framing.
 
 #### Lessons Learned from pearprogramming (Max's own words)
@@ -87,9 +87,29 @@
 - Max leveraged these research findings to build the data-driven quality system on the platform
 
 ## Side Projects (built with Claude Code)
-- **Learning app for paramedic trainees** (Rettungssanitäter) — currently in test environment
-- **Vocabulary learning app** — currently in test environment
-- **Inclusion app for refugees learning German** — currently in test environment
+Max has roughly **10 personal projects** in various stages — built end-to-end with Claude Code in his early-morning building sessions. The named projects below are representative examples; he has more in flight.
+
+### Paramedic Trainee Learning App (Rettungssanitäter)
+- **Status**: Actively being tested via **TestFlight** with several **former paramedics** as testers — i.e. real domain experts using it, not just a private prototype
+- **Design rationale**: Built around **highly realistic case scenarios**. The core insight is that paramedic training fails when the practice cases don't match what actually happens on a call. Max worked to make the cases as close to real-world application as possible — fidelity to the real domain is the differentiator.
+
+### Vocabulary Learning App
+- **Status**: In test environment
+- **Design rationale**: Vocabulary learning normally lacks visualization — it's hard for a learner to see their own progress. Max built a **knowledge graph view** where each piece of vocabulary is a node, and the nodes connect to each other so the learner watches their **personal knowledge network grow over time**. The graph turns invisible progress into something visible and motivating.
+
+### Integration App for Refugees in Germany
+- **Status**: In test environment
+- **Design rationale**: Max deliberately tried to put himself in the position of a refugee arriving in Germany — dealing with everyday bureaucratic problems (going to the Amt, applying for documents) in a language they don't understand. The app is built around that lived experience:
+  - **Everything is in the user's own native language**
+  - **Claude is integrated as an in-app helper**: users can ask questions in their own language at any point
+  - **Document analysis**: Claude helps users understand and analyze official documents they receive
+- This is the most explicitly mission-driven of the side projects — closest in spirit to "AI as a tool for human dignity in a hard situation."
+
+### Personalized Children's Books App
+- An app for creating personalized children's books — one of the more playful projects in the portfolio.
+
+### And ~6 more
+Max has additional projects in various stages he hasn't catalogued here yet.
 
 ## Skills & Tools
 - **Product Management**: Discovery, A/B testing, stakeholder communication, roadmapping, prioritization
