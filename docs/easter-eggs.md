@@ -2,7 +2,7 @@
 
 Internal reference for all hidden features on the CV site. Use this as a cheat sheet during interviews/demos.
 
-All eggs are tracked centrally in `src/lib/egg-context.tsx` (`EGG_CATALOG`). Discovering one fires a toast (`EggToast.tsx`) and updates the floating counter badge (`EggCounter.tsx`). The total found is also surfaced in the Reveal screen as a visual grid.
+All eggs are tracked centrally in `src/lib/egg-context.tsx` (`EGG_CATALOG`). Discovering one fires a toast (`EggToast.tsx`) and updates the floating counter badge (`EggCounter.tsx`). The total found is also surfaced in the Reveal screen as a fourth stat tile (`N/8`) inside the "Session data" card.
 
 ## Quick reference
 
@@ -33,7 +33,7 @@ All eggs are tracked centrally in `src/lib/egg-context.tsx` (`EGG_CATALOG`). Dis
 - Expanded list shows found eggs by name/icon, undiscovered slots as ❓ "???"
 - Toast shows in top-right for 4s with title + hint + `N/8`
 - State persists across reloads via `localStorage`; wiped by "New Journey"
-- Reveal screen displays an 8-tile grid summary with count
+- Reveal screen surfaces the found count as a fourth stat tile ("Eggs found N/8") inside the existing "Session data" card, alongside topics explored, experiment #, and unique path
 
 **Registration:** `EggProvider` wraps the app in `src/app/layout.tsx`. To add a new egg:
 1. Add entry to `EGG_CATALOG` in `egg-context.tsx`

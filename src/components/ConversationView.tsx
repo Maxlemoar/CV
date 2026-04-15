@@ -290,6 +290,7 @@ export default function ConversationView() {
         <Reveal
           profile={profile}
           visitedNodes={Array.from(visitedNodes)}
+          visitOrder={visitOrder}
           onShare={handleShare}
           shareStatus={shareStatus}
           onNewJourney={handleNewJourney}

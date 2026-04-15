@@ -21,22 +21,31 @@ export const metadata: Metadata = {
     "Curriculum Vitae of Maximilian Marowsky — Product Manager, EdTech, AI-Native Learning.",
 };
 
-export default function CVPage() {
+export default async function CVPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ print?: string }>;
+}) {
+  const { print } = await searchParams;
+  const isPrint = print === "1";
+
   return (
     <main
       className={`${fraunces.variable} ${inter.variable} relative z-10 min-h-screen bg-white`}
     >
       {/* Top navigation — hidden in print */}
-      <nav className="no-print mx-auto max-w-[900px] px-6 pt-6">
-        <Link
-          href="/"
-          className="text-[13px] text-neutral-400 hover:text-neutral-900 transition-colors"
-        >
-          &larr; Back
-        </Link>
-      </nav>
+      {!isPrint && (
+        <nav className="no-print mx-auto max-w-[900px] px-6 pt-6">
+          <Link
+            href="/"
+            className="text-[13px] text-neutral-400 hover:text-neutral-900 transition-colors"
+          >
+            &larr; Back
+          </Link>
+        </nav>
+      )}
 
-      <CVDocument />
+      <CVDocument isPrint={isPrint} />
     </main>
   );
 }
