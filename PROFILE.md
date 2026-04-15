@@ -104,6 +104,13 @@ I fell in love with the product first. Then I listened to Boris Cherny on Lenny'
 
 I'm deeply purpose-driven. That's what brought me from psychology into EdTech, and it's what draws me to Anthropic now. I could never work for a company where the mission is an afterthought. Anthropic puts it first, which resonates with who I am and how I work best. Education Labs is where everything I've done converges: psychology, learning science, founder experience, product management, AI. Working on the topic closest to my heart, in an environment that doesn't constrain but amplifies. Honestly, it almost sounds too good to be true.
 
+### What "Integrity" Means to Max (in his own words)
+- **No hallucinations, honest about uncertainty**: When Claude doesn't know something, it says so clearly instead of making up an answer that sounds plausible. For a learning context, this is non-negotiable — a student who is told something false by an AI tutor learns the wrong thing, and trust in the system collapses.
+- **Factual accuracy over fluent-sounding answers**: The goal isn't "give the best-sounding response" — it's to be accurate to what is actually true.
+- **Capable of critical feedback to learners**: Claude can tell a student that their answer is wrong, that their reasoning has a flaw, or that they need to think again. It doesn't just flatter the user.
+- **Not sycophantic**: Explicit contrast with ChatGPT, which Max experiences as "always telling you how great you are" / talking after the user's mouth ("nach der Schnauze reden"). For education, sycophancy is actively harmful — learners need honest mirrors, not yes-machines.
+- **Why this is foundational, not nice-to-have**: In any other product domain you can ship a model that occasionally hallucinates or flatters and still deliver value. In education you cannot — the entire purpose of the product is to shape what a learner believes is true and how they reason. A model without integrity teaches the wrong lessons by design.
+
 ### Key Themes
 - **Claude's integrity matters in education**: Quality alone isn't enough — for learning products, the model's values and trustworthiness are foundational, not a nice-to-have
 - **Founding vision becoming reality**: pearprogramming's 2018 dream of automated Socratic dialogues and individualized feedback is now technically possible because of Claude
