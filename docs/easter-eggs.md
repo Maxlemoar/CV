@@ -98,14 +98,25 @@ Intercepts the question and launches an interactive brewing simulator with three
 
 ## 4–6. Hidden Gem Nodes 💎
 
-Three content blocks that unlock when specific node-visit conditions are met. They appear as **amber-tinted hooks** with a subtle shimmer animation in the last displayed block.
+Three content blocks that unlock when specific node-visit conditions are met. They appear as **amber-tinted hook chips** with a shimmer animation in the last displayed block.
+
+**Surfacing mechanism (post PR #8):** Master's new hook-router (`src/lib/hook-router.ts`) made Claude responsible for picking the 3 follow-up chips per block. That means authored gem hooks don't naturally surface. To guarantee gems are reachable, `ConversationView.addNodeBlock` post-processes `block.hooks` after the router resolves:
+
+1. Compute `surfaceableGems` = any gem node whose `requiredNodes` / `minVisited` gate is satisfied and that the visitor hasn't visited yet (via `isNodeUnlocked` from `hook-router.ts`)
+2. Build hook entries using the authored `gemTitle` (e.g. "The Convergence") — not Claude's generic labels
+3. Prepend them to `block.hooks` and cap the total at 4
+
+This is the only reliable path into a gem. Without it, gems live in `listCandidateIds` but Claude rarely picks them because their tags bias toward vision/psychology topics that don't always match the visitor's tilt.
+
+**Amber chip styling:** `ConversationView` also computes a memoized `unlockedGems: Set<string>` from `visitedNodes` and passes it to every `<ContentBlock>`. `HookChip` uses it to decide whether `isGem` is true, activating the `animate-shimmer` amber treatment.
 
 **Visual treatment:**
-- Background: `bg-amber-50/50`
-- Border: `border-amber-200/30`
-- Hooks: `bg-amber-50`, `text-amber-700`, `animate-shimmer` (2s cycle)
+- Block background (once visited): `bg-amber-50/50`, border `border-amber-200/30`
+- Chip (before visit): `bg-amber-50`, `text-amber-700`, `animate-shimmer` (2s cycle)
 
-**Defined in:** `src/lib/content-graph.ts:345-394`
+**Defined in:** `src/lib/content-graph.ts:345-394` (gem nodes + tags)
+**Surfaced in:** `src/components/ConversationView.tsx` (`addNodeBlock` post-processing + `unlockedGems` memo)
+**Styled in:** `src/components/ContentBlock.tsx` (`HookChip` `isGem` branch)
 
 ### Gem 1 — "The Convergence" (`gem-convergence`)
 **Unlock:** Visit all of `psychology-of-learning`, `ai-in-education`, `building-with-claude`
@@ -186,10 +197,10 @@ The **Reveal screen** (after 8+ nodes visited) explicitly surfaces:
 For a typical recruiter session (2–4 minutes):
 
 - **Gateway (near-certain):** Curious Mind (~60%+ — anyone who asks a free question)
-- **Likely:** Gem 1 or 2 (20–40%), Comparison modal (~25%)
+- **Likely (now that gem surfacing is deterministic):** Gem 1 or 2 (35–55%), Comparison modal (~25%)
 - **Long-tail:** Pour-Over game (10–15%, only if they ask about coffee/hobbies)
 - **Effectively invisible:** Konami code (~0%), Behind the Science 🔬 (~2%), Gem 3 (requires 15+ nodes)
 
 Konami, Science button, and Coffee game are effectively reward features for engineers doing a second pass — or for live demos during interviews.
 
-Because Curious Mind is designed to be easy, most visitors will see the counter badge appear and will then know there are more to find — which is the whole point of adding it.
+Because Curious Mind is designed to be easy, most visitors will see the counter badge appear and will then know there are more to find — which is the whole point of adding it. And because gem surfacing is now deterministic (not Claude-luck), visitors who organically explore the required trifecta for Gem 1 or 2 will reliably see an amber-shimmer chip.

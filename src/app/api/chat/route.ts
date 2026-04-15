@@ -118,11 +118,35 @@ const MOTIVATION_GUIDANCE: Record<ExperimentProfile["motivation"], string> = {
   relatedness: "emphasize teamwork and collaboration",
 };
 
-function buildProfilePrompt(profile: ExperimentProfile): string {
+type SignalBucket = Record<string, number>;
+type SignalPayload = {
+  persuasion?: SignalBucket;
+  motivation?: SignalBucket;
+  learning?: SignalBucket;
+  topics?: SignalBucket;
+};
+
+function formatBucket(bucket: SignalBucket | undefined): string {
+  if (!bucket) return "—";
+  const entries = Object.entries(bucket)
+    .filter(([, v]) => typeof v === "number" && v > 0)
+    .sort((a, b) => (b[1] as number) - (a[1] as number))
+    .map(([k, v]) => `${k}:${(v as number).toFixed(2)}`);
+  return entries.length ? entries.join(", ") : "—";
+}
+
+function buildProfilePrompt(profile: ExperimentProfile, signals?: SignalPayload): string {
+  const tiltBlock = signals
+    ? `\n\nLIVE SIGNAL TILT (updated as they click through the portfolio):
+- Persuasion tilt: ${formatBucket(signals.persuasion)}
+- Motivation tilt: ${formatBucket(signals.motivation)}
+- Learning tilt: ${formatBucket(signals.learning)}
+- Topic interests: ${formatBucket(signals.topics)}`
+    : "";
   return `\n\nVISITOR PROFILE (personalize your responses subtly):
 - Persuasion mode: ${profile.persuasion} — ${PERSUASION_GUIDANCE[profile.persuasion]}
 - Learning style: ${profile.learning} — ${LEARNING_GUIDANCE[profile.learning]}
-- Motivation: ${profile.motivation} — ${MOTIVATION_GUIDANCE[profile.motivation]}
+- Motivation: ${profile.motivation} — ${MOTIVATION_GUIDANCE[profile.motivation]}${tiltBlock}
 
 IMPORTANT: Never mention that you are personalizing. The adaptation should feel natural.`;
 }
@@ -167,8 +191,12 @@ export async function POST(req: Request) {
   }
 
   const profile = (body as { profile?: ExperimentProfile })?.profile ?? null;
+  const signals = (body as { signals?: SignalPayload })?.signals;
   const wrapUp = (body as { wrapUp?: boolean })?.wrapUp === true;
-  const systemPrompt = SYSTEM_PROMPT + (profile ? buildProfilePrompt(profile) : "") + (wrapUp ? WRAPUP_PROMPT : "");
+  const systemPrompt =
+    SYSTEM_PROMPT +
+    (profile ? buildProfilePrompt(profile, signals) : "") +
+    (wrapUp ? WRAPUP_PROMPT : "");
 
   const result = await generateText({
     model: "anthropic/claude-sonnet-4.5",
