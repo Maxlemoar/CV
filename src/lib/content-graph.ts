@@ -235,9 +235,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "product-magic": {
     id: "product-magic",
     content:
-      "Students didn\u2019t just \u201clearn to code.\u201d They founded a virtual startup, made business decisions, and solved real programming challenges to grow it. We started with Google Blockly for visual programming, then progressed to text-based languages. Completion rates were far above typical e-learning \u2014 turns out intrinsic motivation matters more than curriculum design.",
+      "The original PearUp was a game where students founded a virtual startup and learned to code by growing it \u2014 Google Blockly first, then real languages. It worked, but in 2021 we hit a wall: the German market for computer-science education alone was too small to sustain a company. So we pivoted. We opened the software to every school subject and moved the Creator tool to the front: a builder where teachers assemble interactive lesson units from a library of elements. That pivot is what eventually made us strategically interesting to eduki. Cumulatively, PearUp reached around 3.5 million learner sessions and 29 million interactive tasks completed.",
     contentCompact:
-      "Students founded a virtual startup, made business decisions, solved real programming challenges. Started with Google Blockly, progressed to text-based languages. Completion rates far above typical e-learning \u2014 intrinsic motivation beats curriculum design.",
+      "PearUp started as a coding game where students founded a virtual startup. In 2021 we hit a wall \u2014 the German CS-education market was too small \u2014 so we pivoted to a Creator tool where teachers assemble interactive lessons across all subjects. That pivot is what made us strategically interesting to eduki. ~3.5M learner sessions, ~29M interactive tasks.",
     hooks: [
       { label: "We published research on why this works", targetId: "research" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
