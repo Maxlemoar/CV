@@ -393,6 +393,9 @@ export default function ConversationView() {
           experimentNumber: profile.experimentNumber,
           profile,
           visitedNodes: Array.from(visitedNodes),
+          visitorProfile,
+          narrative,
+          generatedContents: Object.fromEntries(contentCache.entries()),
         }),
       });
       if (!res.ok) throw new Error(`Session save failed: ${res.status}`);

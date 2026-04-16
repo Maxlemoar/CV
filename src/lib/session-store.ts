@@ -12,7 +12,10 @@ export async function saveSession(
   id: string,
   experimentNumber: number,
   profile: ExperimentProfile,
-  visitedNodes: string[]
+  visitedNodes: string[],
+  visitorProfile?: unknown,
+  narrative?: unknown,
+  generatedContents?: Record<string, unknown>
 ): Promise<void> {
   const client = getClient();
   const { error } = await client.from("sessions").insert({
@@ -21,6 +24,9 @@ export async function saveSession(
     profile: JSON.stringify(profile),
     visited_nodes: JSON.stringify(visitedNodes),
     created_at: new Date().toISOString(),
+    visitor_profile: visitorProfile ? JSON.stringify(visitorProfile) : null,
+    narrative: narrative ? JSON.stringify(narrative) : null,
+    generated_contents: generatedContents ? JSON.stringify(generatedContents) : null,
   });
   if (error) throw error;
 }
@@ -31,11 +37,14 @@ export async function loadSession(id: string): Promise<{
   profile: ExperimentProfile;
   visitedNodes: string[];
   createdAt: string;
+  visitorProfile: unknown;
+  narrative: unknown;
+  generatedContents: Record<string, unknown> | null;
 } | null> {
   const client = getClient();
   const { data, error } = await client
     .from("sessions")
-    .select("id, experiment_number, profile, visited_nodes, created_at")
+    .select("id, experiment_number, profile, visited_nodes, created_at, visitor_profile, narrative, generated_contents")
     .eq("id", id)
     .single();
 
@@ -47,5 +56,8 @@ export async function loadSession(id: string): Promise<{
     profile: typeof data.profile === "string" ? JSON.parse(data.profile) : data.profile,
     visitedNodes: typeof data.visited_nodes === "string" ? JSON.parse(data.visited_nodes) : data.visited_nodes,
     createdAt: data.created_at,
+    visitorProfile: data.visitor_profile ? JSON.parse(data.visitor_profile) : null,
+    narrative: data.narrative ? JSON.parse(data.narrative) : null,
+    generatedContents: data.generated_contents ? JSON.parse(data.generated_contents) : null,
   };
 }
