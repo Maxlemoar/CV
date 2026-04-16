@@ -64,6 +64,10 @@ export default function ConversationView() {
     [profile, signals, visitedNodes],
   );
 
+  const [personalizedStarters, setPersonalizedStarters] = useState<
+    Array<{ targetId: string; label: string; teaser: string }> | null
+  >(null);
+
   // Which gems are currently reachable? Used so hook chips pointing to a
   // gem render with the amber shimmer affordance.
   const unlockedGems = useMemo(() => {
@@ -115,6 +119,42 @@ export default function ConversationView() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visitorProfile !== null]);
+
+  // Generate personalized starter hook labels after interview
+  useEffect(() => {
+    if (!visitorProfile || !narrative || personalizedStarters) return;
+    Promise.all(
+      starterHooks.map((hook) =>
+        fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nodeId: hook.targetId,
+            profile: visitorProfile,
+            narrative,
+            signals,
+            visitedNodes: [],
+            visitOrder: [],
+          }),
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (data) contentCache.set(hook.targetId, data);
+            return {
+              targetId: hook.targetId,
+              label: data?.title ?? hook.label,
+              teaser: data?.hooks?.[0]?.teaser ?? "",
+            };
+          })
+          .catch(() => ({
+            targetId: hook.targetId,
+            label: hook.label,
+            teaser: "",
+          })),
+      ),
+    ).then(setPersonalizedStarters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visitorProfile, narrative]);
 
   const preGenerateHooks = useCallback(
     (hooks: Array<{ nodeId: string }>, currentVisitedNodes: string[], currentVisitOrder: string[], currentNodeId: string) => {
@@ -377,6 +417,7 @@ export default function ConversationView() {
     setFreeQuestionCount(0);
     blockCounter.current = 0;
     setVisitOrder([]);
+    setPersonalizedStarters(null);
     setCoffeeGameActive(false);
     setShowReveal(false);
     setRevealDismissed(false);
@@ -440,7 +481,7 @@ export default function ConversationView() {
           onClose={() => setShowArchitect(false)}
         />
       )}
-      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} />
+      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} personalizedStarters={personalizedStarters} />
 
       {hasStarted && (
         <div className="space-y-6 pb-24 pt-8">
