@@ -466,6 +466,8 @@ export default function ConversationView() {
           onShare={handleShare}
           shareStatus={shareStatus}
           onNewJourney={handleNewJourney}
+          narrative={narrative}
+          visitorProfile={visitorProfile}
         />
       </>
     );

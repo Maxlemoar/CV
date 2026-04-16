@@ -6,6 +6,7 @@ import type { ExperimentProfile } from "@/lib/experiment-types";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
 import Comparison from "./rabbit-holes/Comparison";
 import { useEggs } from "@/lib/egg-context";
+import type { ProfileNarrative, VisitorProfile } from "@/lib/visitor-profile";
 
 interface RevealProps {
   profile: ExperimentProfile;
@@ -14,6 +15,8 @@ interface RevealProps {
   onShare: () => void;
   shareStatus: "idle" | "saving" | "copied" | "error";
   onNewJourney: () => void;
+  narrative?: ProfileNarrative | null;
+  visitorProfile?: VisitorProfile | null;
 }
 
 const REVEAL_EXPLANATIONS: Record<string, Record<string, string>> = {
@@ -59,14 +62,45 @@ const DIMENSION_TITLES: Record<string, string> = {
   sharing: "What you share",
 };
 
-export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, onNewJourney }: RevealProps) {
+export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, onNewJourney, narrative, visitorProfile }: RevealProps) {
   const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
   const [showComparison, setShowComparison] = useState(false);
   const { foundEggs, totalEggs, discoverEgg } = useEggs();
+  const [journeySummary, setJourneySummary] = useState<string | null>(null);
 
   // Scroll to top when Reveal mounts
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
+    if (!narrative?.summary || !visitorProfile) return;
+
+    fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: [
+          {
+            role: "user",
+            content: "Generate a personalized journey summary for this visitor.",
+          },
+        ],
+        profile,
+        visitorProfile,
+        narrative,
+        visitedNodes,
+        wrapUp: true,
+      }),
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.text) setJourneySummary(data.text);
+      })
+      .catch(() => {
+        // Fall back to static reveal
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -99,6 +133,20 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
           Thank you. Here&apos;s what I learned about you.
         </h2>
       </motion.div>
+
+      {/* Dynamic journey summary */}
+      {journeySummary && (
+        <motion.div
+          className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+            {journeySummary}
+          </p>
+        </motion.div>
+      )}
 
       {/* Part 1: Profile */}
       <motion.div
