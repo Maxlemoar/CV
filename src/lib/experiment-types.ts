@@ -35,32 +35,6 @@ export interface InterviewQuestion {
   dimension: keyof Omit<ExperimentProfile, 'experimentNumber'>;
 }
 
-export interface FrameRequest {
-  type: 'frame';
-  nodeId: string;
-  profile: ExperimentProfile;
-  visitedNodes: string[];
-  visitOrder?: string[];
-  signals?: SignalVector;
-  previousNodeId?: string;
-}
-
-export interface FrameNextHook {
-  targetId: string;
-  label: string;
-}
-
-export interface FrameResponse {
-  introduction: string;
-  transition?: string;
-  hookLabels?: Record<string, string>;
-  nextHooks?: FrameNextHook[];
-  learningMechanic?: {
-    type: 'testing-effect' | 'spaced-retrieval';
-    content: string;
-    answer?: string;
-  };
-}
 
 export interface SharedSession {
   id: string;

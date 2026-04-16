@@ -9,12 +9,15 @@ interface OpeningProps {
   onHookClick: (targetId: string) => void;
   visible: boolean;
   starterHooks?: Hook[];
+  personalizedStarters?: Array<{ targetId: string; label: string; teaser: string }> | null;
 }
 
-export default function Opening({ onHookClick, visible, starterHooks }: OpeningProps) {
+export default function Opening({ onHookClick, visible, starterHooks, personalizedStarters }: OpeningProps) {
   if (!visible) return null;
 
-  const hooks = starterHooks ?? ROOT_HOOKS;
+  const hooks = personalizedStarters
+    ? personalizedStarters.map((ps) => ({ targetId: ps.targetId, label: ps.label }))
+    : (starterHooks ?? ROOT_HOOKS);
 
   return (
     <section className="pb-8 pt-20 text-center">

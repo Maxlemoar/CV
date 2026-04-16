@@ -6,7 +6,7 @@ import { CONTENT_GRAPH, nodeToBlock, ROOT_HOOKS } from "@/lib/content-graph";
 import { useExperiment } from "@/lib/experiment-context";
 import { useSettings } from "@/lib/preferences";
 import { pickStarterHooks, isNodeUnlocked } from "@/lib/hook-router";
-import type { FrameResponse } from "@/lib/experiment-types";
+import type { GeneratedContent } from "@/lib/visitor-profile";
 import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
 import SkeletonBlock from "./SkeletonBlock";
@@ -51,7 +51,8 @@ export default function ConversationView() {
   const konamiActivated = useKonamiCode();
   const [showArchitect, setShowArchitect] = useState(false);
 
-  const { profile, signals, setProfile, recordClick, isInterviewed, resetExperiment } =
+  const { profile, signals, setProfile, recordClick, isInterviewed, resetExperiment,
+    visitorProfile, narrative, contentCache, updateProfileAsync } =
     useExperiment();
   const { settings } = useSettings();
   const { discoverEgg, resetEggs } = useEggs();
@@ -62,6 +63,10 @@ export default function ConversationView() {
     () => (profile ? pickStarterHooks(profile, signals, visitedNodes, 4) : ROOT_HOOKS),
     [profile, signals, visitedNodes],
   );
+
+  const [personalizedStarters, setPersonalizedStarters] = useState<
+    Array<{ targetId: string; label: string; teaser: string }> | null
+  >(null);
 
   // Which gems are currently reachable? Used so hook chips pointing to a
   // gem render with the amber shimmer affordance.
@@ -95,6 +100,90 @@ export default function ConversationView() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [showArchitect]);
 
+  // Trigger initial profile update from interview answers
+  useEffect(() => {
+    if (visitorProfile && narrative && narrative.interactionCount === 0 && profile) {
+      updateProfileAsync(
+        {
+          type: "interview_complete",
+          interviewAnswers: {
+            persuasion: profile.persuasion,
+            learning: profile.learning,
+            education: profile.education,
+            motivation: profile.motivation,
+            sharing: profile.sharing,
+          },
+        },
+        [],
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visitorProfile !== null]);
+
+  // Generate personalized starter hook labels after interview
+  useEffect(() => {
+    if (!visitorProfile || !narrative || personalizedStarters) return;
+    Promise.all(
+      starterHooks.map((hook) =>
+        fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nodeId: hook.targetId,
+            profile: visitorProfile,
+            narrative,
+            signals,
+            visitedNodes: [],
+            visitOrder: [],
+          }),
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (data) contentCache.set(hook.targetId, data);
+            return {
+              targetId: hook.targetId,
+              label: data?.title ?? hook.label,
+              teaser: data?.hooks?.[0]?.teaser ?? "",
+            };
+          })
+          .catch(() => ({
+            targetId: hook.targetId,
+            label: hook.label,
+            teaser: "",
+          })),
+      ),
+    ).then(setPersonalizedStarters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visitorProfile, narrative]);
+
+  const preGenerateHooks = useCallback(
+    (hooks: Array<{ nodeId: string }>, currentVisitedNodes: string[], currentVisitOrder: string[], currentNodeId: string) => {
+      if (!visitorProfile || !narrative) return;
+      for (const hook of hooks) {
+        if (contentCache.has(hook.nodeId)) continue;
+        fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nodeId: hook.nodeId,
+            profile: visitorProfile,
+            narrative,
+            signals,
+            visitedNodes: currentVisitedNodes,
+            visitOrder: currentVisitOrder,
+            previousNodeId: currentNodeId,
+          }),
+        })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data: GeneratedContent | null) => {
+            if (data) contentCache.set(hook.nodeId, data);
+          })
+          .catch(() => {});
+      }
+    },
+    [visitorProfile, narrative, signals, contentCache],
+  );
+
   const addNodeBlock = useCallback(async (nodeId: string) => {
     if (isLoading) return;
     const node = CONTENT_GRAPH[nodeId];
@@ -107,72 +196,67 @@ export default function ConversationView() {
       ? visitOrder
       : [...visitOrder, nodeId];
     setVisitOrder(updatedVisitOrder);
-    // Nudge the signal vector toward the clicked node's tags so the next
-    // frame request reflects the visitor's evolving interest.
     recordClick(nodeId);
 
-    const depth = profile?.learning === "structured" ? "overview" : "deep-dive";
+    // Check pre-generation cache first
+    const cached = contentCache.get(nodeId);
 
-    // Fetch framing + personalized next-hooks from API if profile exists.
-    // Show the skeleton while we wait so the visitor sees something is loading.
-    let framing: FrameResponse | null = null;
-    if (profile) {
+    let generatedContent: GeneratedContent | null = null;
+
+    if (cached) {
+      generatedContent = cached;
+    } else if (visitorProfile && narrative) {
       setIsLoading(true);
       try {
-        const res = await fetch("/api/frame", {
+        const res = await fetch("/api/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            type: "frame",
             nodeId,
-            profile,
+            profile: visitorProfile,
+            narrative,
             signals,
             visitedNodes: Array.from(updatedVisited),
             visitOrder: updatedVisitOrder,
             previousNodeId: blocks.length > 0 ? blocks[blocks.length - 1].id : undefined,
           }),
         });
-        if (res.ok) framing = await res.json();
+        if (res.ok) {
+          generatedContent = await res.json();
+        }
       } catch {
-        // Continue without framing
+        // Fall through to static fallback
       } finally {
         setIsLoading(false);
       }
     }
 
-    const block = nodeToBlock(node, updatedVisited, depth);
+    let block: ContentBlockData;
 
-    // Prepend framing text
-    if (framing?.transition && blocks.length > 0) {
-      block.text = framing.transition + " " + block.text;
-    }
-    if (framing?.introduction) {
-      block.text = framing.introduction + "\n\n" + block.text;
-    }
-    // Replace hooks with Claude's personalized picks if available, otherwise
-    // keep authored hooks with optional label overrides.
-    if (framing?.nextHooks && framing.nextHooks.length > 0) {
-      const safeHooks = framing.nextHooks
-        .filter((h) => CONTENT_GRAPH[h.targetId] && !updatedVisited.has(h.targetId))
-        .slice(0, 3);
-      if (safeHooks.length >= 2) {
-        block.hooks = safeHooks.map((h) => ({
+    if (generatedContent) {
+      blockCounter.current += 1;
+      block = {
+        id: nodeId,
+        questionTitle: generatedContent.title,
+        text: generatedContent.content,
+        richType: null,
+        richData: null,
+        hooks: generatedContent.hooks.map((h) => ({
           label: h.label,
-          question: h.label,
-          targetId: h.targetId,
-        }));
+          question: h.teaser || h.label,
+          targetId: h.nodeId,
+        })),
+      };
+      if (node.image) {
+        block.richType = "photo";
+        block.richData = node.image;
       }
-    } else if (framing?.hookLabels) {
-      block.hooks = block.hooks.map((h) => ({
-        ...h,
-        label: (h.targetId && framing!.hookLabels![h.targetId]) || h.label,
-      }));
+    } else {
+      const depth = profile?.learning === "structured" ? "overview" : "deep-dive";
+      block = nodeToBlock(node, updatedVisited, depth);
     }
 
-    // Deterministic hidden-gem surfacing: once a gem's unlock condition is
-    // satisfied, inject it as a named hook with its authored gemTitle so
-    // it doesn't get lost in Claude's dynamic picks. This is the only
-    // reliable path into a gem.
+    // Deterministic hidden-gem surfacing (unchanged)
     const surfaceableGems = Object.values(CONTENT_GRAPH).filter(
       (n) => n.gem && !updatedVisited.has(n.id) && isNodeUnlocked(n, updatedVisited),
     );
@@ -194,17 +278,32 @@ export default function ConversationView() {
       { role: "assistant" as const, content: block.text },
     ]);
 
-    // Hidden gem discovery — fires when the visitor actually clicks through
-    // to a gem node (which is only reachable via the surfacing above).
+    // Async profile update (non-blocking)
+    updateProfileAsync(
+      { type: "hook_click", nodeId },
+      Array.from(updatedVisited),
+    );
+
+    // Pre-generate next hooks (non-blocking)
+    if (generatedContent?.hooks) {
+      preGenerateHooks(
+        generatedContent.hooks,
+        Array.from(updatedVisited),
+        updatedVisitOrder,
+        nodeId,
+      );
+    }
+
+    // Easter egg discovery (unchanged)
     if (nodeId === "gem-convergence" || nodeId === "gem-lab-to-product" || nodeId === "gem-full-picture") {
       discoverEgg(nodeId);
     }
-  }, [isLoading, visitedNodes, visitOrder, profile, signals, blocks, recordClick, discoverEgg]);
+  }, [isLoading, visitedNodes, visitOrder, profile, signals, blocks, recordClick, discoverEgg,
+      visitorProfile, narrative, contentCache, updateProfileAsync, preGenerateHooks]);
 
   const submitFreeQuestion = useCallback(async (question: string) => {
     if (isLoading) return;
 
-    // Coffee Easter Egg
     if (matchesCoffeeKeyword(question)) {
       setCoffeeGameActive(true);
       discoverEgg("coffee");
@@ -222,7 +321,6 @@ export default function ConversationView() {
     }
 
     setIsLoading(true);
-    // First free-form question → the gateway easter egg everyone can find.
     setFreeQuestionCount((prev) => {
       if (prev === 0) discoverEgg("curious-mind");
       return prev + 1;
@@ -241,6 +339,9 @@ export default function ConversationView() {
           messages: updatedMessages,
           profile,
           signals,
+          visitorProfile,
+          narrative,
+          visitedNodes: Array.from(visitedNodes),
         }),
       });
 
@@ -259,16 +360,27 @@ export default function ConversationView() {
       };
 
       setBlocks((prev) => [...prev, newBlock]);
-      setMessages([
+      const newMessages = [
         ...updatedMessages,
         { role: "assistant" as const, content: data.text },
-      ]);
+      ];
+      setMessages(newMessages);
+
+      // Invalidate pre-generation cache — profile may have shifted significantly
+      contentCache.clear();
+
+      // Async profile update with both question and answer
+      updateProfileAsync(
+        { type: "chat_question", question, answer: data.text },
+        Array.from(visitedNodes),
+      );
     } catch (err) {
       console.error("Chat error:", err);
     } finally {
       setIsLoading(false);
     }
-  }, [isLoading, messages, profile, signals, discoverEgg]);
+  }, [isLoading, messages, profile, signals, discoverEgg, visitorProfile, narrative,
+      visitedNodes, contentCache, updateProfileAsync]);
 
   const handleShare = async () => {
     if (!profile) return;
@@ -281,6 +393,9 @@ export default function ConversationView() {
           experimentNumber: profile.experimentNumber,
           profile,
           visitedNodes: Array.from(visitedNodes),
+          visitorProfile,
+          narrative,
+          generatedContents: Object.fromEntries(contentCache.entries()),
         }),
       });
       if (!res.ok) throw new Error(`Session save failed: ${res.status}`);
@@ -305,6 +420,7 @@ export default function ConversationView() {
     setFreeQuestionCount(0);
     blockCounter.current = 0;
     setVisitOrder([]);
+    setPersonalizedStarters(null);
     setCoffeeGameActive(false);
     setShowReveal(false);
     setRevealDismissed(false);
@@ -353,6 +469,8 @@ export default function ConversationView() {
           onShare={handleShare}
           shareStatus={shareStatus}
           onNewJourney={handleNewJourney}
+          narrative={narrative}
+          visitorProfile={visitorProfile}
         />
       </>
     );
@@ -368,7 +486,7 @@ export default function ConversationView() {
           onClose={() => setShowArchitect(false)}
         />
       )}
-      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} />
+      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} personalizedStarters={personalizedStarters} />
 
       {hasStarted && (
         <div className="space-y-6 pb-24 pt-8">
