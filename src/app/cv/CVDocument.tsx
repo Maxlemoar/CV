@@ -20,7 +20,7 @@ const experience = [
         title: "AI Quality Assessment",
         period: "Jan 2026 – Apr 2026",
         bullets: [
-          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials (89% accuracy). Bridged research and product — translated findings from eduki's collaboration with Prof. John Hattie into a production scoring model, defined success metrics, and ran a structured A/B test to validate impact.",
+          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Built on research from eduki's collaboration with Prof. John Hattie — ran statistical analysis to reduce 7 dimensions to 5 actionable criteria, then iterated through 10 prompt versions to raise human-AI agreement from 80% to 89%. Designed the A/B test to validate impact on conversion and revenue.",
         ],
       },
       {
@@ -34,7 +34,7 @@ const experience = [
         title: "eduki Interactive (Intrapreneurship)",
         period: "Oct 2022 – Apr 2025",
         bullets: [
-          "Led an autonomous cross-functional team to integrate and grow PearUp within the marketplace after acquisition. Navigated the transition from founder-led product to operating within a 150-person organization — adapting processes, aligning stakeholders, and finding the right balance between speed and coordination.",
+          "Led a small autonomous cross-functional team to integrate and grow our app within the marketplace after acquisition. Navigated the transition from founder-led product to operating within a 150-person organization — adapting processes, aligning stakeholders, and finding the right balance between speed and coordination.",
         ],
       },
     ],
@@ -44,9 +44,10 @@ const experience = [
     company: "pearprogramming",
     period: "2018 – 2022",
     description:
-      "Built a game-based learning app (PearUp) from idea to acquisition — teaching programming to students through an entrepreneurship narrative. Acquired by eduki in 2022; product and team integrated into the marketplace.",
+      "Co-founded an EdTech startup with a vision of building an intelligent tutoring system capable of automated Socratic dialogues and individualized feedback. Built a game-based learning app, from idea to acquisition by eduki in 2022.",
     bullets: [
-      "My roles: CEO, product owner, designer, researcher, recruiter, fundraiser. Built and led a team of 10 people.",
+      "Pivoted from a programming-only app to an all-subjects interactive lesson platform when the market proved too narrow, which made pearprogramming valuable enough for acquisition.",
+      "Scaled to 3.5 million learner sessions and 29 million interactive tasks completed. Built and led a team of ~10 people across product, engineering, and design.",
     ],
     subroles: [],
   },
@@ -88,15 +89,16 @@ const research = [
 ];
 
 const sideProjects = [
-  "Case-based training app for paramedic trainees (in TestFlight with real former paramedics)",
-  "Vocabulary trainer that visualizes learning as a growing knowledge graph",
-  "Integration app for refugees in Germany, with Claude built in for native-language support",
+  "Case-based training app for paramedic trainees — built around realistic scenarios, tested with domain experts",
+  "Vocabulary trainer that visualizes learning progress as a growing knowledge graph",
+  "Integration app for refugees in Germany — everything in the user's native language, with Claude as an in-app assistant for bureaucratic questions and document analysis",
+  "Personalized children's books app",
 ];
 
 const skillGroups = [
   {
     label: "Product",
-    skills: ["Discovery", "A/B Testing", "Generalist", "Rapid Shipping"],
+    skills: ["Discovery", "A/B Testing", "Rapid Prototyping", "Stakeholder Management"],
   },
   {
     label: "AI / LLM",
@@ -104,7 +106,7 @@ const skillGroups = [
   },
   {
     label: "Education",
-    skills: ["Learning Science", "Game-Based Learning", "Quality Frameworks"],
+    skills: ["Learning Science", "Game-Based Learning", "Instructional Design", "Quality Frameworks"],
   },
   {
     label: "Research",
@@ -211,7 +213,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
           )}
         </div>
 
-        <div className="mt-4 flex gap-6 ed-sans text-[13px] text-neutral-500">
+        <div className="mt-4 flex gap-6 ed-sans text-[13px] text-neutral-500 items-center">
           <a href="mailto:m.marowsky@gmail.com" className="hover:text-neutral-900 transition-colors">
             m.marowsky@gmail.com
           </a>
@@ -229,6 +231,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
               maxmarowsky.com
             </Link>
           )}
+          <span className="ml-auto">April 17, 2026</span>
         </div>
 
         {/* Thin rule */}
@@ -238,15 +241,15 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
       {/* ---- Summary ---- */}
       <EdSection title="Summary" delay={0}>
         <p className="ed-sans text-[16px] leading-[1.7] text-neutral-700">
-          I co-founded a startup that built a game-based learning app
-          from scratch, grew it to acquisition, and now design
-          AI-powered systems at eduki that make educational quality
-          measurable at scale. My psychology background shapes how I
-          think about learning; building with Claude every day shapes
-          how I think about product. I care about learning experiences
-          that give people real self-efficacy and adapt to who learners are
-          and where they&apos;re headed. Building that at Anthropic&apos;s
-          Education Labs is the challenge I&apos;ve been looking for.
+          I co-founded an EdTech startup that built a game-based learning app
+          from scratch, grew it to acquisition, and now design AI-powered
+          systems that make educational quality measurable at scale.
+          My psychology background shapes how I understand learning;
+          7 years of working in EdTech shape how I build educational products.
+          I care about learning experiences that give people real self-efficacy
+          and adapt to who learners are and where they&apos;re headed. Building
+          that at Anthropic&apos;s Education Labs is the opportunity I&apos;ve been
+          working toward.
         </p>
       </EdSection>
 
