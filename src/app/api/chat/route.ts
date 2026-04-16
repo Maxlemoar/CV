@@ -135,7 +135,13 @@ function formatBucket(bucket: SignalBucket | undefined): string {
   return entries.length ? entries.join(", ") : "—";
 }
 
-function buildProfilePrompt(profile: ExperimentProfile, signals?: SignalPayload): string {
+function buildProfilePrompt(
+  profile: ExperimentProfile,
+  signals?: SignalPayload,
+  visitorProfile?: unknown,
+  narrativeData?: unknown,
+  visitedNodesList?: string[],
+): string {
   const tiltBlock = signals
     ? `\n\nLIVE SIGNAL TILT (updated as they click through the portfolio):
 - Persuasion tilt: ${formatBucket(signals.persuasion)}
@@ -143,10 +149,35 @@ function buildProfilePrompt(profile: ExperimentProfile, signals?: SignalPayload)
 - Learning tilt: ${formatBucket(signals.learning)}
 - Topic interests: ${formatBucket(signals.topics)}`
     : "";
+
+  const vp = visitorProfile as Record<string, unknown> | null;
+  const narr = narrativeData as Record<string, unknown> | null;
+
+  const visitorBlock = vp
+    ? `\n\nINFERRED VISITOR PROFILE:
+- Role: ${vp.inferredRole ?? "unknown"}
+- Interests: ${JSON.stringify(vp.interests ?? {})}
+- Preferred depth: ${vp.preferredDepth ?? "moderate"}
+- Preferred tone: ${vp.preferredTone ?? "narrative"}
+- Domain knowledge: ${JSON.stringify(vp.domainKnowledge ?? {})}`
+    : "";
+
+  const narrativeBlock = narr?.summary
+    ? `\n\nVISITOR NARRATIVE:\n${narr.summary}${
+        Array.isArray(narr.keyObservations) && narr.keyObservations.length > 0
+          ? "\nObservations: " + narr.keyObservations.join("; ")
+          : ""
+      }`
+    : "";
+
+  const visitedBlock = visitedNodesList?.length
+    ? `\n\nNODES ALREADY VISITED: ${visitedNodesList.join(", ")}`
+    : "";
+
   return `\n\nVISITOR PROFILE (personalize your responses subtly):
 - Persuasion mode: ${profile.persuasion} — ${PERSUASION_GUIDANCE[profile.persuasion]}
 - Learning style: ${profile.learning} — ${LEARNING_GUIDANCE[profile.learning]}
-- Motivation: ${profile.motivation} — ${MOTIVATION_GUIDANCE[profile.motivation]}${tiltBlock}
+- Motivation: ${profile.motivation} — ${MOTIVATION_GUIDANCE[profile.motivation]}${tiltBlock}${visitorBlock}${narrativeBlock}${visitedBlock}
 
 IMPORTANT: Never mention that you are personalizing. The adaptation should feel natural.`;
 }
@@ -193,9 +224,12 @@ export async function POST(req: Request) {
   const profile = (body as { profile?: ExperimentProfile })?.profile ?? null;
   const signals = (body as { signals?: SignalPayload })?.signals;
   const wrapUp = (body as { wrapUp?: boolean })?.wrapUp === true;
+  const visitorProfile = (body as { visitorProfile?: unknown })?.visitorProfile ?? null;
+  const narrativeData = (body as { narrative?: unknown })?.narrative ?? null;
+  const visitedNodesList = (body as { visitedNodes?: string[] })?.visitedNodes ?? [];
   const systemPrompt =
     SYSTEM_PROMPT +
-    (profile ? buildProfilePrompt(profile, signals) : "") +
+    (profile ? buildProfilePrompt(profile, signals, visitorProfile, narrativeData, visitedNodesList) : "") +
     (wrapUp ? WRAPUP_PROMPT : "");
 
   const result = await generateText({
