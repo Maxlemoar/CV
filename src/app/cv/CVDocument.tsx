@@ -10,29 +10,29 @@ import Link from "next/link";
 const experience = [
   {
     role: "Product Manager",
-    company: "eduki",
-    period: "Oct 2022 – Present",
+    company: "eduki, Berlin",
+    period: "OCT 2022 – PRESENT",
     description:
-      "Largest marketplace for teaching materials in Germany (~150 employees, Berlin).",
+      "Largest marketplace for teaching materials in Germany.",
     bullets: [],
     subroles: [
       {
         title: "AI Quality Assessment",
-        period: "Jan 2026 – Apr 2026",
+        period: "JAN 2026 – APR 2026",
         bullets: [
           "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Built on a research collaboration with Prof. John Hattie — ran statistical analysis to reduce 7 dimensions to 5 actionable criteria, then iterated through 10 prompt versions to raise human-AI agreement from 80% to 89%. Built safeguards against prompt injection and score manipulation to ensure assessment integrity. Designed the A/B test to validate impact on conversion and revenue.",
         ],
       },
       {
         title: "Marketplace",
-        period: "Apr 2025 – Dec 2025",
+        period: "APR 2025 – DEC 2025",
         bullets: [
           "Took ownership of a new product area (Product Page, Cart, Checkout, Favorites) and built up a new team around it. Ran discovery cycles and shipped data-driven optimizations through continuous A/B testing.",
         ],
       },
       {
         title: "eduki Interactive (Intrapreneurship)",
-        period: "Oct 2022 – Apr 2025",
+        period: "OCT 2022 – APR 2025",
         bullets: [
           "Led a small autonomous cross-functional team to integrate and grow our app within the marketplace after acquisition. Navigated the transition from founder-led product to operating within a 150-person organization — adapting processes, aligning stakeholders, and finding the right balance between speed and coordination.",
         ],
@@ -56,19 +56,19 @@ const experience = [
 const education = [
   {
     degree: "M.Sc. Psychology",
-    school: "Universität Witten/Herdecke",
+    school: "University of Witten/Herdecke",
     period: "2016 – 2019",
     detail: "Grade: 1.5 (excellent). Thesis: Motivation in learning within computer science education.",
   },
   {
     degree: "B.Sc. Psychology",
-    school: "Universität Witten/Herdecke",
+    school: "University of Witten/Herdecke",
     period: "2013 – 2016",
     detail: "Grade: 1.7.",
   },
   {
     degree: "Cognitive Science",
-    school: "Universität Osnabrück",
+    school: "University of Osnabrück",
     period: "2012 – 2013",
     detail: "Transferred to Psychology at Witten/Herdecke.",
   },
@@ -82,14 +82,14 @@ const research = [
     url: "https://link.springer.com/chapter/10.1007/978-3-030-75142-5_15",
   },
   {
-    title: "Research Assistant — Deutsches Kinderschmerzzentrum",
-    venue: "Datteln, Germany · Oct 2015 – Dec 2017",
+    title: "Research Assistant — German Paediatric Pain Centre",
+    venue: "Datteln, Germany · OCT 2015 – DEC 2017",
     note: "Research, test diagnostics, and quantitative data analysis in a pediatric pain research center.",
   },
 ];
 
 const sideProjects = [
-  "This website — an interactive portfolio built end-to-end with Claude Code (maxmarowsky.com)",
+  { text: "This CV and my website", link: "https://maxmarowsky.com", linkText: "maxmarowsky.com" },
   "Case-based training app for paramedic trainees — built around realistic scenarios, actively tested with domain experts via TestFlight",
   "Vocabulary trainer that visualizes learning progress as a growing knowledge graph — making invisible progress visible and motivating",
   "Integration app for refugees in Germany — everything in the user's native language, with Claude as an in-app assistant for bureaucratic questions and document analysis",
@@ -199,7 +199,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
                 Maximilian Marowsky
               </h1>
               <p className="mt-1 ed-sans text-[14px] tracking-[0.08em] uppercase text-neutral-400">
-                Product Manager &middot; Founder &middot; EdTech
+                Product Manager &middot; EdTech Founder
               </p>
             </div>
           </div>
@@ -226,13 +226,11 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
           >
             LinkedIn
           </a>
+          <Link href="/" className="hover:text-neutral-900 transition-colors">
+            maxmarowsky.com
+          </Link>
           <span>Cologne, Germany</span>
-          {!isPrint && (
-            <Link href="/" className="hover:text-neutral-900 transition-colors no-print">
-              maxmarowsky.com
-            </Link>
-          )}
-          <span className="ml-auto">April 18, 2026</span>
+          <span className="ml-auto">APRIL 18, 2026</span>
         </div>
 
         {/* Thin rule */}
@@ -376,11 +374,23 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
             Built with Claude Code
           </p>
           <ul className="space-y-1.5">
-            {sideProjects.map((p) => (
-              <li key={p} className="ed-sans text-[13px] text-neutral-600 leading-[1.5]">
-                {p}
-              </li>
-            ))}
+            {sideProjects.map((p) => {
+              if (typeof p === "string") {
+                return (
+                  <li key={p} className="ed-sans text-[13px] text-neutral-600 leading-[1.5]">
+                    {p}
+                  </li>
+                );
+              }
+              return (
+                <li key={p.text} className="ed-sans text-[13px] text-neutral-600 leading-[1.5]">
+                  {p.text}{" "}
+                  <a href={p.link} target="_blank" rel="noopener noreferrer" className="underline decoration-neutral-300 underline-offset-3 hover:decoration-neutral-900 transition-colors">
+                    {p.linkText}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </EdSection>
