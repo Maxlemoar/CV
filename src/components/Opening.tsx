@@ -10,9 +10,10 @@ interface OpeningProps {
   visible: boolean;
   starterHooks?: Hook[];
   personalizedStarters?: Array<{ targetId: string; label: string; teaser: string }> | null;
+  transitionText?: string | null;
 }
 
-export default function Opening({ onHookClick, visible, starterHooks, personalizedStarters }: OpeningProps) {
+export default function Opening({ onHookClick, visible, starterHooks, personalizedStarters, transitionText }: OpeningProps) {
   if (!visible) return null;
 
   const hooks = personalizedStarters
@@ -59,9 +60,9 @@ export default function Opening({ onHookClick, visible, starterHooks, personaliz
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.7 }}
-        className="mt-6 text-lg text-ink"
+        className="mt-6 max-w-md mx-auto text-lg text-ink leading-relaxed"
       >
-        Get to know me. Just ask.
+        {transitionText || "Get to know me. Just ask."}
       </motion.p>
 
       <motion.div
