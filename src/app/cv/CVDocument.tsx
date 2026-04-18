@@ -20,7 +20,7 @@ const experience = [
         title: "AI Quality Assessment",
         period: "Jan 2026 – Apr 2026",
         bullets: [
-          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Built on research from eduki's collaboration with Prof. John Hattie — ran statistical analysis to reduce 7 dimensions to 5 actionable criteria, then iterated through 10 prompt versions to raise human-AI agreement from 80% to 89%. Designed the A/B test to validate impact on conversion and revenue.",
+          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Built on a research collaboration with Prof. John Hattie — ran statistical analysis to reduce 7 dimensions to 5 actionable criteria, then iterated through 10 prompt versions to raise human-AI agreement from 80% to 89%. Built safeguards against prompt injection and score manipulation to ensure assessment integrity. Designed the A/B test to validate impact on conversion and revenue.",
         ],
       },
       {
@@ -89,8 +89,9 @@ const research = [
 ];
 
 const sideProjects = [
-  "Case-based training app for paramedic trainees — built around realistic scenarios, tested with domain experts",
-  "Vocabulary trainer that visualizes learning progress as a growing knowledge graph",
+  "This website — an interactive portfolio built end-to-end with Claude Code (maxmarowsky.com)",
+  "Case-based training app for paramedic trainees — built around realistic scenarios, actively tested with domain experts via TestFlight",
+  "Vocabulary trainer that visualizes learning progress as a growing knowledge graph — making invisible progress visible and motivating",
   "Integration app for refugees in Germany — everything in the user's native language, with Claude as an in-app assistant for bureaucratic questions and document analysis",
   "Personalized children's books app",
 ];
@@ -98,7 +99,7 @@ const sideProjects = [
 const skillGroups = [
   {
     label: "Product",
-    skills: ["Discovery", "A/B Testing", "Rapid Prototyping", "Stakeholder Management"],
+    skills: ["Zero-to-One Products", "Discovery", "User Research", "A/B Testing", "Rapid Prototyping", "Cross-functional Collaboration", "Stakeholder Management"],
   },
   {
     label: "AI / LLM",
@@ -231,7 +232,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
               maxmarowsky.com
             </Link>
           )}
-          <span className="ml-auto">April 17, 2026</span>
+          <span className="ml-auto">April 18, 2026</span>
         </div>
 
         {/* Thin rule */}
@@ -246,7 +247,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
           systems that make educational quality measurable at scale.
           My psychology background shapes how I understand learning;
           7 years of working in EdTech shape how I build educational products.
-          I care about learning experiences that give people real self-efficacy
+          I care about safe learning experiences that give people real self-efficacy
           and adapt to who learners are and where they&apos;re headed. Building
           that at Anthropic&apos;s Education Labs is the opportunity I&apos;ve been
           working toward.

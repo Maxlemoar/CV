@@ -281,7 +281,6 @@ export const CONTENT_GRAPH: ContentGraph = {
       "Three things I took from founding. First: don\u2019t fall in love with your idea. The moment you do, you spend your energy defending it instead of changing it. Second: ship fast and test, especially when you still don\u2019t know if the product will survive the next pivot. Quality matters \u2014 in education especially \u2014 but early perfectionism is wasted effort. Third: schedule sanity checks with people outside your bubble. Founders lose perspective faster than they think.",
     contentCompact:
       "Three founding lessons. Don\u2019t fall in love with your idea \u2014 the moment you do, you defend it instead of changing it. Ship fast and test; early perfectionism is wasted effort. And schedule sanity checks with outsiders \u2014 founders lose perspective fast.",
-    image: { src: "/photo-cycling.jpg", alt: "Max with his road bike" },
     hooks: [
       { label: "My product management approach", targetId: "pm-approach" },
       { label: "Who I am outside of work", targetId: "personal" },
@@ -450,7 +449,6 @@ export const CONTENT_GRAPH: ContentGraph = {
       "I co-authored a Springer book chapter on game-based learning with my wife Anna \u2014 she\u2019s a neuroscientist, so we come at education from complementary angles. Then at eduki I worked with Prof. John Hattie\u2019s research: two published studies validating a quality framework for teaching materials with over 2,000 teachers. The studies identified 7 dimensions with 18 criteria. When I looked at the distribution across our materials, I found that two dimensions weren\u2019t applicable \u2014 so the production framework uses 5. That\u2019s what the AI assessor runs on today.",
     contentCompact:
       "Springer book chapter on game-based learning, co-authored with my wife Anna (neuroscientist). At eduki, worked with Hattie\u2019s research: two studies with 2,000+ teachers validating 7 quality dimensions. My analysis of our materials showed two weren\u2019t applicable \u2014 the production framework uses 5. That\u2019s what the AI assessor runs on.",
-    image: { src: "/photo-wedding.jpg", alt: "Max and Anna" },
     hooks: [
       { label: "How this became a real product", targetId: "ai-in-education" },
       { label: "What I believe about the future of learning", targetId: "what-id-build" },
