@@ -290,7 +290,7 @@ export default function ConversationView() {
         block.richData = node.image;
       }
     } else {
-      const depth = profile?.contentInterest === "vision" ? "overview" : "deep-dive";
+      const depth = visitorProfile?.preferredDepth === "deep" ? "deep-dive" : "overview";
       block = nodeToBlock(node, updatedVisited, depth);
     }
 
