@@ -1,18 +1,14 @@
 // src/lib/experiment-types.ts
 
 export type Persuasion = 'results' | 'process' | 'character';
-export type Learning = 'exploratory' | 'structured' | 'social';
-export type Education = 'practice' | 'individualization' | 'inspiration';
 export type Motivation = 'mastery' | 'purpose' | 'relatedness';
-export type Sharing = 'surprise' | 'utility' | 'emotion';
+export type ContentInterest = 'technical' | 'vision' | 'journey';
 
 export interface ExperimentProfile {
   experimentNumber: number;
   persuasion: Persuasion;
-  learning: Learning;
-  education: Education;
   motivation: Motivation;
-  sharing: Sharing;
+  contentInterest: ContentInterest;
 }
 
 // Live signal vector — seeded from interview answers, nudged by every click.
@@ -21,7 +17,6 @@ export interface ExperimentProfile {
 export interface SignalVector {
   persuasion: Record<Persuasion, number>;
   motivation: Record<Motivation, number>;
-  learning: Record<Learning, number>;
   topics: Record<string, number>;
 }
 
@@ -51,25 +46,15 @@ export const DIMENSION_LABELS: Record<string, Record<string, string>> = {
     process: 'Thinking Processes & Frameworks',
     character: 'Personality & Values',
   },
-  learning: {
-    exploratory: 'Exploratory & self-directed',
-    structured: 'Systematic & methodical',
-    social: 'Collaborative & dialogue-driven',
-  },
-  education: {
-    practice: 'More practical application',
-    individualization: 'More individualization',
-    inspiration: 'More inspiration & passion',
-  },
   motivation: {
     mastery: 'Mastery & deep expertise',
     purpose: 'Purpose & real-world impact',
     relatedness: 'Connection & collaboration',
   },
-  sharing: {
-    surprise: 'Unexpected insights',
-    utility: 'Useful discoveries',
-    emotion: 'Emotionally moving moments',
+  contentInterest: {
+    technical: 'Technical depth — projects, tech, outcomes',
+    vision: 'Vision & philosophy — beliefs, ideas, direction',
+    journey: 'Personal journey — story, milestones, decisions',
   },
 };
 
@@ -85,26 +70,6 @@ export const INTERVIEW_QUESTIONS: InterviewQuestion[] = [
     dimension: 'persuasion',
   },
   {
-    id: 'learning',
-    text: "Imagine you need to understand a topic you know nothing about. What do you do first?",
-    options: [
-      { label: 'Just start and learn along the way', value: 'exploratory' },
-      { label: 'Research first, then proceed systematically', value: 'structured' },
-      { label: 'Ask someone who knows', value: 'social' },
-    ],
-    dimension: 'learning',
-  },
-  {
-    id: 'education',
-    text: "When you think back to your own education — what could have been better?",
-    options: [
-      { label: 'More practical application — too much theory, too little doing', value: 'practice' },
-      { label: 'More individualization — everyone was treated the same', value: 'individualization' },
-      { label: 'More inspiration — it lacked passion and curiosity', value: 'inspiration' },
-    ],
-    dimension: 'education',
-  },
-  {
     id: 'motivation',
     text: "What makes a really good work day — what needs to have happened?",
     options: [
@@ -115,13 +80,13 @@ export const INTERVIEW_QUESTIONS: InterviewQuestion[] = [
     dimension: 'motivation',
   },
   {
-    id: 'sharing',
-    text: "Last question. When was the last time you showed someone something and said: 'You have to see this'?",
+    id: 'contentInterest',
+    text: "What interests you most when getting to know a candidate like me?",
     options: [
-      { label: 'Something surprising — it broke my expectations', value: 'surprise' },
-      { label: 'Something useful — it could help you too', value: 'utility' },
-      { label: 'Something moving — it touched me emotionally', value: 'emotion' },
+      { label: 'What you can do — projects, tech, outcomes', value: 'technical' },
+      { label: 'How you think — vision, philosophy, beliefs', value: 'vision' },
+      { label: 'Your path — story, milestones, decisions', value: 'journey' },
     ],
-    dimension: 'sharing',
+    dimension: 'contentInterest',
   },
 ];
