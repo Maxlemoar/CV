@@ -436,6 +436,7 @@ export default function ConversationView() {
           visitorProfile,
           narrative,
           generatedContents: Object.fromEntries(contentCache.entries()),
+          blocks: blocks.map((b) => ({ id: b.id, questionTitle: b.questionTitle })),
         }),
       });
       if (!res.ok) throw new Error(`Session save failed: ${res.status}`);

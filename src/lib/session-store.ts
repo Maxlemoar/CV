@@ -15,7 +15,8 @@ export async function saveSession(
   visitedNodes: string[],
   visitorProfile?: unknown,
   narrative?: unknown,
-  generatedContents?: Record<string, unknown>
+  generatedContents?: Record<string, unknown>,
+  blocks?: Array<{ id: string; questionTitle: string }>
 ): Promise<void> {
   const client = getClient();
   const { error } = await client.from("sessions").insert({
@@ -27,6 +28,7 @@ export async function saveSession(
     visitor_profile: visitorProfile ? JSON.stringify(visitorProfile) : null,
     narrative: narrative ? JSON.stringify(narrative) : null,
     generated_contents: generatedContents ? JSON.stringify(generatedContents) : null,
+    blocks: JSON.stringify(blocks ?? []),
   });
   if (error) throw error;
 }

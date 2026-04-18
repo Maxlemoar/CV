@@ -25,35 +25,35 @@ interface RevealProps {
 const REVEAL_EXPLANATIONS: Record<string, Record<string, string>> = {
   persuasion: {
     results:
-      "Because you value results, I told you my story through impact numbers and concrete outcomes.",
+      "Based on your answer, I leaned toward showing impact numbers and concrete outcomes — assuming that's what resonates with you.",
     process:
-      "Because you value thinking processes, I told you my startup story as a problem-solving journey, not a success story.",
+      "Based on your answer, I tried framing my startup story more as a problem-solving journey — hoping that thinking process matters more to you than outcomes alone.",
     character:
-      "Because you connect with personality, I led with personal stories and what drives me as a person.",
+      "Based on your answer, I leaned into personal stories and motivations — assuming you connect more with who someone is than what they've achieved.",
   },
   learning: {
     exploratory:
-      "You got more freedom to explore — more paths to choose from at every step — because you learn by doing.",
+      "I offered more branching paths at each step, guessing that you prefer to explore freely rather than follow a set route.",
     structured:
-      "I gave you a clearer, more guided path through my story — because you prefer structure when learning something new.",
+      "I tried to offer a more guided path through my story — assuming you appreciate structure when exploring something new.",
     social:
-      "I kept things conversational and invited you to ask questions — because you learn best through dialogue.",
+      "I kept things more conversational and invited questions — based on the assumption that dialogue works better for you.",
   },
   motivation: {
     mastery:
-      "I emphasized the architecture decisions and technical depth behind my projects — because mastery drives you.",
+      "I leaned toward architecture decisions and technical depth — guessing that mastery and craft are what energize you.",
     purpose:
-      "I emphasized how my work impacts education and why it matters — because purpose drives you.",
+      "I tried to emphasize how my work impacts education and why it matters — assuming purpose is a strong driver for you.",
     relatedness:
-      "I emphasized the teams I've built and the people I've worked with — because connection drives you.",
+      "I highlighted the teams and people I've worked with — guessing that connection and collaboration matter most to you.",
   },
   sharing: {
     surprise:
-      "You're seeing this reveal right now — because you share things that break expectations. Hint hint.",
+      "You're seeing this reveal right now — I'm guessing you appreciate things that break expectations. Hint hint.",
     utility:
-      "I designed this reveal to be genuinely useful — because you share things others can learn from.",
+      "I tried to make this reveal genuinely useful — based on the assumption that you share things others can learn from.",
     emotion:
-      "I designed this reveal to resonate — because you share things that move you.",
+      "I designed this reveal to resonate — guessing that you share things that move you emotionally.",
   },
 };
 
@@ -242,6 +242,11 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
           </p>
         </motion.div>
       ))}
+      {revealData && (
+        <p className="text-xs text-neutral-400 text-center mb-6 -mt-3 italic">
+          This analysis is based on 5 interview answers and your browsing behavior — a small sample. Take it as a hypothesis, not a diagnosis.
+        </p>
+      )}
       {!revealData && !revealLoading && (
         <>
           {/* Static fallback: original REVEAL_EXPLANATIONS */}
@@ -272,12 +277,12 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
             transition={{ delay: 1.4 }}
           >
             <p className="text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
-              Every person who visits this site experiences a different version of me.
+              Every person who visits this site experiences a slightly different version of me.
               <br />
-              Yours was unique.
+              Yours was unique — though based on limited data.
             </p>
             <p className="text-base text-neutral-900 dark:text-neutral-100 mt-4 italic">
-              This is what I want to build at Anthropic — learning experiences that adapt to the
+              This is what I want to build at Anthropic — learning experiences that try to adapt to the
               person, not the other way around.
             </p>
           </motion.div>
