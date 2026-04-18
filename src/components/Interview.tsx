@@ -63,10 +63,8 @@ export default function Interview({ experimentNumber, onComplete }: InterviewPro
         const profile: ExperimentProfile = {
           experimentNumber,
           persuasion: newAnswers.persuasion as ExperimentProfile["persuasion"],
-          learning: newAnswers.learning as ExperimentProfile["learning"],
-          education: newAnswers.education as ExperimentProfile["education"],
           motivation: newAnswers.motivation as ExperimentProfile["motivation"],
-          sharing: newAnswers.sharing as ExperimentProfile["sharing"],
+          contentInterest: newAnswers.contentInterest as ExperimentProfile["contentInterest"],
         };
         onComplete(profile);
       }, 800);
@@ -89,7 +87,7 @@ export default function Interview({ experimentNumber, onComplete }: InterviewPro
   const currentQuestion = INTERVIEW_QUESTIONS[currentStep];
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-dvh flex flex-col">
       {/* Header */}
       <div className="text-center pt-8 pb-4">
         <p className="text-xs tracking-[3px] text-neutral-400 uppercase">

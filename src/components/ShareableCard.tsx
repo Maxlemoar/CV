@@ -21,9 +21,9 @@ export default function ShareableCard({ profile }: ShareableCardProps) {
       </p>
       <div className="grid grid-cols-2 gap-4 mb-5">
         <div>
-          <p className="text-[11px] text-neutral-400">Learning style</p>
+          <p className="text-[11px] text-neutral-400">Interest</p>
           <p className="text-sm text-neutral-700 dark:text-neutral-300">
-            {DIMENSION_LABELS.learning[profile.learning]}
+            {DIMENSION_LABELS.contentInterest[profile.contentInterest]}
           </p>
         </div>
         <div>

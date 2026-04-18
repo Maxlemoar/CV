@@ -11,10 +11,8 @@ const requestSchema = z.object({
   profile: z.object({
     experimentNumber: z.number(),
     persuasion: z.enum(["results", "process", "character"]),
-    learning: z.enum(["exploratory", "structured", "social"]),
-    education: z.enum(["practice", "individualization", "inspiration"]),
     motivation: z.enum(["mastery", "purpose", "relatedness"]),
-    sharing: z.enum(["surprise", "utility", "emotion"]),
+    contentInterest: z.enum(["technical", "vision", "journey"]),
   }),
   visitorProfile: z.any(),
   narrative: z.any(),
@@ -76,10 +74,8 @@ export async function POST(req: Request) {
 
 INTERVIEW ANSWERS (what the visitor told you about themselves):
 - Evaluates candidates by: ${profile.persuasion} (${DIMENSION_LABELS.persuasion[profile.persuasion]})
-- Learns by: ${profile.learning} (${DIMENSION_LABELS.learning[profile.learning]})
-- Wishes education had: ${profile.education} (${DIMENSION_LABELS.education[profile.education]})
 - Good work day means: ${profile.motivation} (${DIMENSION_LABELS.motivation[profile.motivation]})
-- Shares things that are: ${profile.sharing} (${DIMENSION_LABELS.sharing[profile.sharing]})
+- Interested in: ${profile.contentInterest} (${DIMENSION_LABELS.contentInterest[profile.contentInterest]})
 
 INFERRED PROFILE (built from their behavior):
 - Inferred role: ${vp.inferredRole ?? "couldn't determine"}

@@ -24,49 +24,30 @@ interface RevealProps {
 
 const REVEAL_EXPLANATIONS: Record<string, Record<string, string>> = {
   persuasion: {
-    results:
-      "Based on your answer, I leaned toward showing impact numbers and concrete outcomes — assuming that's what resonates with you.",
-    process:
-      "Based on your answer, I tried framing my startup story more as a problem-solving journey — hoping that thinking process matters more to you than outcomes alone.",
-    character:
-      "Based on your answer, I leaned into personal stories and motivations — assuming you connect more with who someone is than what they've achieved.",
-  },
-  learning: {
-    exploratory:
-      "I offered more branching paths at each step, guessing that you prefer to explore freely rather than follow a set route.",
-    structured:
-      "I tried to offer a more guided path through my story — assuming you appreciate structure when exploring something new.",
-    social:
-      "I kept things more conversational and invited questions — based on the assumption that dialogue works better for you.",
+    results: "Because you value results, I told you my story through impact numbers and concrete outcomes.",
+    process: "Because you value thinking processes, I told you my startup story as a problem-solving journey, not a success story.",
+    character: "Because you connect with personality, I led with personal stories and what drives me as a person.",
   },
   motivation: {
-    mastery:
-      "I leaned toward architecture decisions and technical depth — guessing that mastery and craft are what energize you.",
-    purpose:
-      "I tried to emphasize how my work impacts education and why it matters — assuming purpose is a strong driver for you.",
-    relatedness:
-      "I highlighted the teams and people I've worked with — guessing that connection and collaboration matter most to you.",
+    mastery: "I emphasized the architecture decisions and technical depth behind my projects — because mastery drives you.",
+    purpose: "I emphasized how my work impacts education and why it matters — because purpose drives you.",
+    relatedness: "I emphasized the teams I've built and the people I've worked with — because connection drives you.",
   },
-  sharing: {
-    surprise:
-      "You're seeing this reveal right now — I'm guessing you appreciate things that break expectations. Hint hint.",
-    utility:
-      "I tried to make this reveal genuinely useful — based on the assumption that you share things others can learn from.",
-    emotion:
-      "I designed this reveal to resonate — guessing that you share things that move you emotionally.",
+  contentInterest: {
+    technical: "I prioritized my projects, technical decisions, and measurable outcomes — because that's what you wanted to see.",
+    vision: "I led with my philosophy and vision for AI in education — because you're interested in how I think.",
+    journey: "I walked you through my career arc and the decisions that shaped it — because you wanted to know my story.",
   },
 };
 
 const DIMENSION_TITLES: Record<string, string> = {
   persuasion: "What convinces you",
-  learning: "How you learn",
   motivation: "What drives you",
-  education: "Your education wish",
-  sharing: "What you share",
+  contentInterest: "What you wanted to see",
 };
 
 export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, onNewJourney, narrative, visitorProfile, messages, blocks }: RevealProps) {
-  const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
+  const dimensions = ["persuasion", "motivation", "contentInterest"] as const;
   const [showComparison, setShowComparison] = useState(false);
   const { foundEggs, totalEggs, discoverEgg } = useEggs();
   const [revealData, setRevealData] = useState<{
@@ -145,7 +126,7 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
         transition={{ delay: 0.5 }}
       >
         <p className="text-xs tracking-[2px] text-neutral-400 mb-5 uppercase">
-          Your Profile <span className="normal-case tracking-normal text-neutral-400">— from your 5 answers</span>
+          Your Profile <span className="normal-case tracking-normal text-neutral-400">— from your 3 answers</span>
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {dimensions.map((dim) => (
@@ -244,7 +225,7 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
       ))}
       {revealData && (
         <p className="text-xs text-neutral-400 text-center mb-6 -mt-3 italic">
-          This analysis is based on 5 interview answers and your browsing behavior — a small sample. Take it as a hypothesis, not a diagnosis.
+          This analysis is based on 3 interview answers and your browsing behavior — a small sample. Take it as a hypothesis, not a diagnosis.
         </p>
       )}
       {!revealData && !revealLoading && (
@@ -260,7 +241,7 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
               What I did with it
             </p>
             <div className="space-y-4">
-              {(["persuasion", "learning", "motivation", "sharing"] as const).map((dim) => (
+              {(["persuasion", "motivation", "contentInterest"] as const).map((dim) => (
                 <div key={dim} className="flex gap-3">
                   <span className="text-orange-500 flex-shrink-0 mt-0.5">&rarr;</span>
                   <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">

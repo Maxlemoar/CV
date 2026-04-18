@@ -110,10 +110,8 @@ export default function ConversationView() {
           type: "interview_complete",
           interviewAnswers: {
             persuasion: profile.persuasion,
-            learning: profile.learning,
-            education: profile.education,
             motivation: profile.motivation,
-            sharing: profile.sharing,
+            contentInterest: profile.contentInterest,
           },
         },
         [],
@@ -292,7 +290,7 @@ export default function ConversationView() {
         block.richData = node.image;
       }
     } else {
-      const depth = profile?.learning === "structured" ? "overview" : "deep-dive";
+      const depth = profile?.contentInterest === "vision" ? "overview" : "deep-dive";
       block = nodeToBlock(node, updatedVisited, depth);
     }
 
@@ -563,7 +561,7 @@ export default function ConversationView() {
                 key={block.id}
                 block={block}
                 onHookClick={handleHookClick}
-                isReadOnly={i < blocks.length - 1}
+                isReadOnly={i < blocks.length - 1 || isLoading}
                 unlockedGems={unlockedGems}
               />
             )

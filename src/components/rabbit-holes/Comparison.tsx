@@ -11,14 +11,12 @@ interface ComparisonProps {
 
 const DISTRIBUTIONS: Record<string, Record<string, number>> = {
   persuasion: { results: 38, process: 41, character: 21 },
-  learning: { exploratory: 45, structured: 35, social: 20 },
-  education: { practice: 33, individualization: 42, inspiration: 25 },
   motivation: { mastery: 30, purpose: 44, relatedness: 26 },
-  sharing: { surprise: 47, utility: 31, emotion: 22 },
+  contentInterest: { technical: 35, vision: 40, journey: 25 },
 };
 
 export default function Comparison({ profile, onClose }: ComparisonProps) {
-  const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
+  const dimensions = ["persuasion", "motivation", "contentInterest"] as const;
 
   return (
     <motion.div

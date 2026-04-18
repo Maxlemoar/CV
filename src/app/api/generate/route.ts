@@ -60,8 +60,8 @@ VISITOR PROFILE:
 - Preferred tone: ${profile.preferredTone}
 - Domain knowledge: ${Object.entries(profile.domainKnowledge).map(([k, v]) => `${k}:${v}`).join(", ") || "unknown"}
 - Persuasion: ${profile.persuasion}
-- Learning: ${profile.learning}
 - Motivation: ${profile.motivation}
+- Content interest: ${profile.contentInterest}
 
 VISITOR NARRATIVE (what we know about this person):
 ${narrative.summary || "First interaction — no observations yet."}

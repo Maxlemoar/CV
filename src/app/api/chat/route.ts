@@ -94,10 +94,8 @@ function sanitizeMessages(
 type ExperimentProfile = {
   experimentNumber: number;
   persuasion: "results" | "process" | "character";
-  learning: "exploratory" | "structured" | "social";
-  education: "practice" | "individualization" | "inspiration";
   motivation: "mastery" | "purpose" | "relatedness";
-  sharing: "surprise" | "utility" | "emotion";
+  contentInterest: "technical" | "vision" | "journey";
 };
 
 const PERSUASION_GUIDANCE: Record<ExperimentProfile["persuasion"], string> = {
@@ -106,10 +104,10 @@ const PERSUASION_GUIDANCE: Record<ExperimentProfile["persuasion"], string> = {
   character: "emphasize stories, personality, human side",
 };
 
-const LEARNING_GUIDANCE: Record<ExperimentProfile["learning"], string> = {
-  exploratory: "encourage exploration, offer more paths",
-  structured: "be organized and sequential",
-  social: "be conversational and dialogue-driven",
+const CONTENT_INTEREST_GUIDANCE: Record<ExperimentProfile["contentInterest"], string> = {
+  technical: "Focus on concrete projects, technical decisions, measurable outcomes. Show code-level thinking and system design.",
+  vision: "Focus on philosophy, beliefs about education and AI, why Anthropic. Show depth of thinking and conviction.",
+  journey: "Focus on the narrative arc — transitions, decisions, lessons learned. Show growth and pattern recognition.",
 };
 
 const MOTIVATION_GUIDANCE: Record<ExperimentProfile["motivation"], string> = {
@@ -122,7 +120,6 @@ type SignalBucket = Record<string, number>;
 type SignalPayload = {
   persuasion?: SignalBucket;
   motivation?: SignalBucket;
-  learning?: SignalBucket;
   topics?: SignalBucket;
 };
 
@@ -146,7 +143,6 @@ function buildProfilePrompt(
     ? `\n\nLIVE SIGNAL TILT (updated as they click through the portfolio):
 - Persuasion tilt: ${formatBucket(signals.persuasion)}
 - Motivation tilt: ${formatBucket(signals.motivation)}
-- Learning tilt: ${formatBucket(signals.learning)}
 - Topic interests: ${formatBucket(signals.topics)}`
     : "";
 
@@ -176,7 +172,7 @@ function buildProfilePrompt(
 
   return `\n\nVISITOR PROFILE (personalize your responses subtly):
 - Persuasion mode: ${profile.persuasion} — ${PERSUASION_GUIDANCE[profile.persuasion]}
-- Learning style: ${profile.learning} — ${LEARNING_GUIDANCE[profile.learning]}
+- Content interest: ${profile.contentInterest} — ${CONTENT_INTEREST_GUIDANCE[profile.contentInterest]}
 - Motivation: ${profile.motivation} — ${MOTIVATION_GUIDANCE[profile.motivation]}${tiltBlock}${visitorBlock}${narrativeBlock}${visitedBlock}
 
 IMPORTANT: Never mention that you are personalizing. The adaptation should feel natural.`;

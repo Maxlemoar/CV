@@ -13,10 +13,8 @@ const interactionSchema = z.object({
   interviewAnswers: z
     .object({
       persuasion: z.enum(["results", "process", "character"]),
-      learning: z.enum(["exploratory", "structured", "social"]),
-      education: z.enum(["practice", "individualization", "inspiration"]),
       motivation: z.enum(["mastery", "purpose", "relatedness"]),
-      sharing: z.enum(["surprise", "utility", "emotion"]),
+      contentInterest: z.enum(["technical", "vision", "journey"]),
     })
     .optional(),
 });
@@ -31,10 +29,8 @@ const requestSchema = z.object({
 const outputSchema = z.object({
   profile: z.object({
     persuasion: z.enum(["results", "process", "character"]),
-    learning: z.enum(["exploratory", "structured", "social"]),
-    education: z.enum(["practice", "individualization", "inspiration"]),
     motivation: z.enum(["mastery", "purpose", "relatedness"]),
-    sharing: z.enum(["surprise", "utility", "emotion"]),
+    contentInterest: z.enum(["technical", "vision", "journey"]),
     inferredRole: z.string().nullable(),
     interests: z.record(z.string(), z.number()),
     preferredDepth: z.enum(["surface", "moderate", "deep"]),
@@ -95,7 +91,13 @@ RULES:
 - interactionCount: Increment by 1
 - lastUpdated: Set to current ISO timestamp
 
-The interview dimensions (persuasion, learning, education, motivation, sharing) should NEVER change from their original values — they are set by the visitor's own answers.
+The interview dimensions (persuasion, motivation, contentInterest) should NEVER change from their original values — they are set by the visitor's own answers.
+
+BEHAVIORAL ADAPTATION:
+When you have enough interaction data (3+ interactions), assess whether the visitor's behavior matches their stated preferences:
+- If they stated "technical" interest but mostly click philosophy/vision nodes, note this divergence in keyObservations and adjust preferredTone/preferredDepth accordingly.
+- If they stated "mastery" motivation but use chat heavily (conversational behavior), consider shifting preferredTone toward "conversational".
+- The interview dimensions stay fixed, but inferredRole, preferredDepth, preferredTone, and interests should evolve based on actual behavior.
 
 Be conservative — only update fields where you have real evidence. Don't hallucinate interests or roles from thin evidence.`;
 

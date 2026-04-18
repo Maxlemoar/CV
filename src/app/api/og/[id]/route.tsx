@@ -40,9 +40,9 @@ export async function GET(
         </p>
         <div style={{ display: "flex", gap: "60px", marginBottom: "40px" }}>
           <div>
-            <p style={{ fontSize: "14px", color: "#999" }}>Learning style</p>
+            <p style={{ fontSize: "14px", color: "#999" }}>Interest</p>
             <p style={{ fontSize: "20px", color: "#333" }}>
-              {DIMENSION_LABELS.learning[profile.learning]}
+              {DIMENSION_LABELS.contentInterest[profile.contentInterest]}
             </p>
           </div>
           <div>

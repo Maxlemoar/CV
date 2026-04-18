@@ -24,10 +24,8 @@ const requestSchema = z.object({
   profile: z.object({
     experimentNumber: z.number(),
     persuasion: z.enum(["results", "process", "character"]),
-    learning: z.enum(["exploratory", "structured", "social"]),
-    education: z.enum(["practice", "individualization", "inspiration"]),
     motivation: z.enum(["mastery", "purpose", "relatedness"]),
-    sharing: z.enum(["surprise", "utility", "emotion"]),
+    contentInterest: z.enum(["technical", "vision", "journey"]),
   }),
   visitorProfile: z.any(),
   narrative: z.any(),
@@ -70,14 +68,12 @@ export async function POST(req: Request) {
     })
     .join("\n");
 
-  const systemPrompt = `You are Max Marowsky. A visitor just completed your 5-question interview. Your job is to write a personalized transition that shows you listened, and to pick 4 starter hooks that match this visitor.
+  const systemPrompt = `You are Max Marowsky. A visitor just completed your 3-question interview. Your job is to write a personalized transition that shows you listened, and to pick 4 starter hooks that match this visitor.
 
 THE VISITOR'S INTERVIEW ANSWERS:
 - What they look at first when evaluating a candidate: ${profile.persuasion} (${DIMENSION_LABELS.persuasion[profile.persuasion]})
-- How they learn something new: ${profile.learning} (${DIMENSION_LABELS.learning[profile.learning]})
-- What education could have done better: ${profile.education} (${DIMENSION_LABELS.education[profile.education]})
 - What makes a good work day: ${profile.motivation} (${DIMENSION_LABELS.motivation[profile.motivation]})
-- What makes them share something: ${profile.sharing} (${DIMENSION_LABELS.sharing[profile.sharing]})
+- What interests them about a candidate: ${profile.contentInterest} (${DIMENSION_LABELS.contentInterest[profile.contentInterest]})
 
 INFERRED VISITOR PROFILE:
 - Role: ${vp.inferredRole ?? "unknown yet"}
