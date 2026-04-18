@@ -15,6 +15,7 @@ interface RevealProps {
   visitOrder: string[];
   onShare: () => void;
   shareStatus: "idle" | "saving" | "copied" | "error";
+  shareUrl?: string | null;
   onNewJourney: () => void;
   narrative?: ProfileNarrative | null;
   visitorProfile?: VisitorProfile | null;
@@ -46,7 +47,7 @@ const DIMENSION_TITLES: Record<string, string> = {
   contentInterest: "What you wanted to see",
 };
 
-export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, onNewJourney, narrative, visitorProfile, messages, blocks }: RevealProps) {
+export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, shareUrl, onNewJourney, narrative, visitorProfile, messages, blocks }: RevealProps) {
   const dimensions = ["persuasion", "motivation", "contentInterest"] as const;
   const [showComparison, setShowComparison] = useState(false);
   const { foundEggs, totalEggs, discoverEgg } = useEggs();
@@ -289,10 +290,19 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
           }`}
         >
           {shareStatus === "saving" && "Saving..."}
-          {shareStatus === "copied" && "Link copied!"}
+          {shareStatus === "copied" && (shareUrl ? "Saved! Copy the link below" : "Link copied!")}
           {shareStatus === "error" && "Failed — try again"}
           {shareStatus === "idle" && "Share my result"}
         </button>
+        {shareUrl && shareStatus === "copied" && (
+          <input
+            type="text"
+            readOnly
+            value={shareUrl}
+            onFocus={(e) => e.target.select()}
+            className="w-full px-4 py-2 text-sm bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg text-neutral-600 dark:text-neutral-300 text-center"
+          />
+        )}
         <a
           href="mailto:m.marowsky@gmail.com?subject=Let's%20talk%20—%20from%20your%20Experiment"
           className="px-7 py-3 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 rounded-lg hover:border-orange-400 transition-colors text-center"

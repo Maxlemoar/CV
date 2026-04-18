@@ -420,6 +420,8 @@ export default function ConversationView() {
   }, [isLoading, messages, profile, signals, discoverEgg, visitorProfile, narrative,
       visitedNodes, contentCache, updateProfileAsync]);
 
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+
   const handleShare = async () => {
     if (!profile) return;
     setShareStatus("saving");
@@ -440,7 +442,25 @@ export default function ConversationView() {
       if (!res.ok) throw new Error(`Session save failed: ${res.status}`);
       const { id } = await res.json();
       const url = `${window.location.origin}/s/${id}`;
-      await navigator.clipboard.writeText(url);
+
+      // Try native share first (mobile), then clipboard, then show URL as fallback
+      let shared = false;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "My Experiment Result", url });
+          shared = true;
+        } catch {
+          // User cancelled or share failed — fall through to clipboard
+        }
+      }
+      if (!shared) {
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch {
+          // Clipboard failed (stale user gesture) — show URL for manual copy
+          setShareUrl(url);
+        }
+      }
       setShareStatus("copied");
       setTimeout(() => setShareStatus("idle"), 3000);
     } catch (err) {
@@ -509,6 +529,7 @@ export default function ConversationView() {
           visitOrder={visitOrder}
           onShare={handleShare}
           shareStatus={shareStatus}
+          shareUrl={shareUrl}
           onNewJourney={handleNewJourney}
           narrative={narrative}
           visitorProfile={visitorProfile}
