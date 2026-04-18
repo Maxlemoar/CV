@@ -1,12 +1,10 @@
-import type { Persuasion, Learning, Education, Motivation, Sharing } from "./experiment-types";
+import type { Persuasion, Motivation, ContentInterest } from "./experiment-types";
 
 export interface VisitorProfile {
   // From interview (mirrors ExperimentProfile minus experimentNumber)
   persuasion: Persuasion;
-  learning: Learning;
-  education: Education;
   motivation: Motivation;
-  sharing: Sharing;
+  contentInterest: ContentInterest;
 
   // Inferred by Claude, updated after every interaction
   inferredRole: string | null;
@@ -35,17 +33,33 @@ export interface GeneratedContent {
 
 export function createEmptyVisitorProfile(interview: {
   persuasion: Persuasion;
-  learning: Learning;
-  education: Education;
   motivation: Motivation;
-  sharing: Sharing;
+  contentInterest: ContentInterest;
 }): VisitorProfile {
+  const inferredRole: Record<Persuasion, string> = {
+    results: "technical evaluator",
+    process: "product/strategy evaluator",
+    character: "culture/people evaluator",
+  };
+
+  const preferredDepth: Record<Motivation, "surface" | "moderate" | "deep"> = {
+    mastery: "deep",
+    purpose: "moderate",
+    relatedness: "moderate",
+  };
+
+  const preferredTone: Record<Motivation, "analytical" | "narrative" | "conversational"> = {
+    mastery: "analytical",
+    relatedness: "conversational",
+    purpose: "narrative",
+  };
+
   return {
     ...interview,
-    inferredRole: null,
+    inferredRole: inferredRole[interview.persuasion],
     interests: {},
-    preferredDepth: interview.learning === "structured" ? "moderate" : "deep",
-    preferredTone: interview.learning === "social" ? "conversational" : "narrative",
+    preferredDepth: preferredDepth[interview.motivation],
+    preferredTone: preferredTone[interview.motivation],
     domainKnowledge: {},
   };
 }
