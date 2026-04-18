@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import ReactMarkdown from "react-markdown";
 import type { ContentBlockData, HookSuggestion } from "@/lib/types";
 import RichElement from "./RichElements";
 import { CONTENT_GRAPH } from "@/lib/content-graph";
@@ -40,7 +41,9 @@ export default function ContentBlock({ block, onHookClick, isReadOnly = false, u
       {gemNode?.gemIntro && (
         <p className="mb-3 text-sm italic text-amber-700/70">{gemNode.gemIntro}</p>
       )}
-      <p className="leading-relaxed text-ink">{block.text}</p>
+      <div className="prose prose-sm max-w-none leading-relaxed text-ink prose-headings:font-heading prose-headings:text-ink prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-strong:text-ink prose-em:text-ink-light">
+        <ReactMarkdown>{block.text}</ReactMarkdown>
+      </div>
       {block.richType && block.richData && (
         <RichElement richType={block.richType} richData={block.richData} />
       )}

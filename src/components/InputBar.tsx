@@ -21,7 +21,7 @@ export default function InputBar({ onSubmit, disabled }: InputBarProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="fixed bottom-0 left-0 right-0 z-20 px-4 pb-[env(safe-area-inset-bottom,8px)] pt-3 no-print"
+      className="fixed bottom-0 left-0 right-0 z-20 px-4 pb-[env(safe-area-inset-bottom,8px)] sm:pb-4 pt-3 no-print"
       style={{
         background: `rgba(var(--paper-rgb), 0.7)`,
         backdropFilter: "blur(12px)",
