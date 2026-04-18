@@ -61,7 +61,6 @@ export interface ContentNode {
 export type ContentGraph = Record<string, ContentNode>;
 
 export const ROOT_HOOKS: Hook[] = [
-  { label: "What I believe education gets wrong", targetId: "education-gets-wrong" },
   { label: "The startup I built and sold", targetId: "startup-story" },
   { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
   { label: "What I\u2019m building with Claude right now", targetId: "building-with-claude" },

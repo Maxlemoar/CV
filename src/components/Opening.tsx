@@ -71,7 +71,7 @@ export default function Opening({ onHookClick, visible, starterHooks, personaliz
             <div className="mx-auto h-4 w-4/6 rounded bg-ink/10" />
           </div>
           <div className="mt-6 flex flex-wrap justify-center gap-2">
-            {[1, 2, 3, 4].map((i) => (
+            {[1, 2, 3].map((i) => (
               <div key={i} className="h-9 w-28 animate-pulse rounded-xl bg-ink/10" />
             ))}
           </div>

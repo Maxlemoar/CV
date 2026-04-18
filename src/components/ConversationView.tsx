@@ -60,7 +60,7 @@ export default function ConversationView() {
   const hasStarted = blocks.length > 0 || isLoading;
 
   const starterHooks = useMemo(
-    () => (profile ? pickStarterHooks(profile, signals, visitedNodes, 4) : ROOT_HOOKS),
+    () => (profile ? pickStarterHooks(profile, signals, visitedNodes, 3) : ROOT_HOOKS),
     [profile, signals, visitedNodes],
   );
 

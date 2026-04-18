@@ -238,7 +238,7 @@ export function pickStarterHooks(
   profile: ExperimentProfile | null,
   signals: SignalVector,
   visited: Set<string>,
-  count = 4,
+  count = 3,
 ): Hook[] {
   if (!profile) return ROOT_HOOKS;
 

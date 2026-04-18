@@ -37,7 +37,7 @@ const outputSchema = z.object({
   hooks: z.array(z.object({
     nodeId: z.string(),
     label: z.string().describe("3-8 word personalized hook label"),
-  })).min(3).max(4),
+  })).length(3),
 });
 
 export async function POST(req: Request) {
@@ -83,7 +83,7 @@ INFERRED VISITOR PROFILE:
 VISITOR NARRATIVE:
 ${narr.summary || "Just completed interview — no behavior data yet."}
 
-AVAILABLE STARTER NODES (pick exactly 4):
+AVAILABLE STARTER NODES (pick exactly 3):
 ${starterDescriptions}
 
 RULES FOR transitionText:
@@ -95,11 +95,11 @@ RULES FOR transitionText:
 6. Write in English.
 
 RULES FOR hooks:
-1. Pick 4 nodes from AVAILABLE STARTER NODES that best match this visitor's profile.
+1. Pick 3 nodes from AVAILABLE STARTER NODES that best match this visitor's profile.
 2. For each, write a 3-8 word label that feels like a natural continuation of the transition text.
 3. Labels should be in the visitor's voice — what THEY would want to click.
 4. A results-oriented visitor gets outcome-focused labels. A character-oriented visitor gets story-focused labels.
-5. The 4 hooks together should offer variety — don't pick 4 nodes about the same topic.`;
+5. The 3 hooks together should offer variety — don't pick 3 nodes about the same topic.`;
 
   try {
     const result = await generateText({
@@ -115,7 +115,7 @@ RULES FOR hooks:
 
     return Response.json({
       transitionText: result.output.transitionText,
-      hooks: validHooks.slice(0, 4),
+      hooks: validHooks.slice(0, 3),
     });
   } catch {
     return Response.json({
