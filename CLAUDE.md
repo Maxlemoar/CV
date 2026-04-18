@@ -49,6 +49,17 @@ Classic resume layout tailored to the Anthropic Senior PM Education Labs role. C
 - **`PROFILE.md`** — Single source of truth for all personal information and content
 - **`JOB_DESCRIPTION.md`** — Target role details (Senior PM, Education Labs at Anthropic). All content decisions should be aligned with the requirements and preferred qualifications described here.
 
+## Factual Integrity — CRITICAL
+- **PROFILE.md is the single source of truth for all numbers, metrics, dates, and claims.** Any number not explicitly stated in PROFILE.md must NOT be used — not in code, not in prompts, not in generated content.
+- **Never invent, interpolate, or round numbers.** If PROFILE.md says "~10 people", use "~10 people" — not "12" or "2 to 12". If PROFILE.md has no ARR figure, there is no ARR figure.
+- **This applies to LLM-generated content too.** Prompts that ask Claude to generate text (e.g. Reveal, Opening) must not produce metrics that aren't in the provided context. When in doubt, omit the number.
+
+## Reveal Tone — Understated, Not Inspirational
+- The Reveal's strength is **specificity**: "You clicked X, then asked about Y." That surprises the recruiter because it's accurate. Wild claims about Anthropic's mission or education philosophy dilute this.
+- **Section 4 ("Why this matters")** should be quiet and personal — one connecting thought, not a TED Talk. No grand vision statements, no "this is the future of education" rhetoric.
+- All inferences must be framed as **hypotheses** with hedging language. If data is thin, say so. Uncertainty is more credible than false confidence.
+- Tone across all Reveal sections: **observant, honest, a little understated.** The reader should think "hm, that's surprisingly accurate" — not "this is trying too hard to impress me."
+
 ## Design Principles
 - Content first — the design serves the story, not the other way around
 - Show, don't tell — demonstrate technical fluency through the site itself
