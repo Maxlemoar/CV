@@ -20,7 +20,8 @@ const experience = [
         title: "AI Quality Assessment",
         period: "JAN 2026 – APR 2026",
         bullets: [
-          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials. Built on a research collaboration with Prof. John Hattie — ran statistical analysis to reduce 7 dimensions to 5 actionable criteria, then iterated through 10 prompt versions to raise human-AI agreement from 80% to 89%. Built safeguards against prompt injection and score manipulation to ensure assessment integrity. Designed the A/B test to validate impact on conversion and revenue.",
+          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials based on a research collaboration with Prof. John Hattie.",
+          "Built safeguards against prompt injection and score manipulation; designed A/B test to validate impact on conversion and revenue.",
         ],
       },
       {
