@@ -67,6 +67,7 @@ export default function ConversationView() {
   const [personalizedStarters, setPersonalizedStarters] = useState<
     Array<{ targetId: string; label: string; teaser: string }> | null
   >(null);
+  const [transitionText, setTransitionText] = useState<string | null>(null);
 
   // Which gems are currently reachable? Used so hook chips pointing to a
   // gem render with the amber shimmer affordance.
@@ -120,39 +121,75 @@ export default function ConversationView() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visitorProfile !== null]);
 
-  // Generate personalized starter hook labels after interview
+  // Generate personalized opening (transition text + hooks) after interview
   useEffect(() => {
     if (!visitorProfile || !narrative || personalizedStarters) return;
-    Promise.all(
-      starterHooks.map((hook) =>
-        fetch("/api/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            nodeId: hook.targetId,
-            profile: visitorProfile,
-            narrative,
-            signals,
-            visitedNodes: [],
-            visitOrder: [],
-          }),
-        })
-          .then((res) => (res.ok ? res.json() : null))
-          .then((data) => {
-            if (data) contentCache.set(hook.targetId, data);
-            return {
-              targetId: hook.targetId,
-              label: data?.title ?? hook.label,
-              teaser: data?.hooks?.[0]?.teaser ?? "",
-            };
-          })
-          .catch(() => ({
-            targetId: hook.targetId,
-            label: hook.label,
+
+    fetch("/api/opening", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        profile,
+        visitorProfile,
+        narrative,
+        signals,
+      }),
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.transitionText) {
+          setTransitionText(data.transitionText);
+        }
+        if (data?.hooks?.length > 0) {
+          setPersonalizedStarters(
+            data.hooks.map((h: { nodeId: string; label: string }) => ({
+              targetId: h.nodeId,
+              label: h.label,
+              teaser: "",
+            })),
+          );
+          // Pre-generate content for the selected hooks
+          for (const hook of data.hooks) {
+            if (contentCache.has(hook.nodeId)) continue;
+            fetch("/api/generate", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                nodeId: hook.nodeId,
+                profile: visitorProfile,
+                narrative,
+                signals,
+                visitedNodes: [],
+                visitOrder: [],
+              }),
+            })
+              .then((res) => (res.ok ? res.json() : null))
+              .then((genData: GeneratedContent | null) => {
+                if (genData) contentCache.set(hook.nodeId, genData);
+              })
+              .catch(() => {});
+          }
+        } else {
+          // Fallback: use scored starter hooks with static labels
+          setPersonalizedStarters(
+            starterHooks.map((h) => ({
+              targetId: h.targetId,
+              label: h.label,
+              teaser: "",
+            })),
+          );
+        }
+      })
+      .catch(() => {
+        // Full fallback
+        setPersonalizedStarters(
+          starterHooks.map((h) => ({
+            targetId: h.targetId,
+            label: h.label,
             teaser: "",
           })),
-      ),
-    ).then(setPersonalizedStarters);
+        );
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visitorProfile, narrative]);
 
@@ -421,6 +458,7 @@ export default function ConversationView() {
     blockCounter.current = 0;
     setVisitOrder([]);
     setPersonalizedStarters(null);
+    setTransitionText(null);
     setCoffeeGameActive(false);
     setShowReveal(false);
     setRevealDismissed(false);
@@ -471,6 +509,8 @@ export default function ConversationView() {
           onNewJourney={handleNewJourney}
           narrative={narrative}
           visitorProfile={visitorProfile}
+          messages={messages}
+          blocks={blocks.map((b) => ({ id: b.id, questionTitle: b.questionTitle }))}
         />
       </>
     );
@@ -486,7 +526,7 @@ export default function ConversationView() {
           onClose={() => setShowArchitect(false)}
         />
       )}
-      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} personalizedStarters={personalizedStarters} />
+      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} personalizedStarters={personalizedStarters} transitionText={transitionText} />
 
       {hasStarted && (
         <div className="space-y-6 pb-24 pt-8">
