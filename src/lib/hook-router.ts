@@ -19,9 +19,8 @@ import {
   type NodeTopic,
 } from "./content-graph";
 import type {
-  Education,
+  ContentInterest,
   ExperimentProfile,
-  Learning,
   Motivation,
   Persuasion,
   SignalVector,
@@ -31,7 +30,6 @@ import type {
 
 const PERSUASION_KEYS: Persuasion[] = ["results", "process", "character"];
 const MOTIVATION_KEYS: Motivation[] = ["mastery", "purpose", "relatedness"];
-const LEARNING_KEYS: Learning[] = ["exploratory", "structured", "social"];
 
 const SIGNAL_CAP = 2;
 const CLICK_NUDGE = 0.25;
@@ -40,25 +38,23 @@ export function createEmptySignals(): SignalVector {
   return {
     persuasion: { results: 0, process: 0, character: 0 },
     motivation: { mastery: 0, purpose: 0, relatedness: 0 },
-    learning: { exploratory: 0, structured: 0, social: 0 },
     topics: {},
   };
 }
 
-/** Topic affinities implied by the visitor's `education` answer. */
-const EDUCATION_TOPIC_AFFINITY: Record<Education, Partial<Record<NodeTopic, number>>> = {
-  practice: { product: 1, startup: 1, ai: 0.7, anthropic: 0.5 },
-  individualization: { psychology: 1, education: 1, vision: 0.7, anthropic: 0.5 },
-  inspiration: { vision: 1, personal: 0.8, education: 0.7, anthropic: 0.6 },
+/** Topic affinities implied by the visitor's `contentInterest` answer. */
+const CONTENT_INTEREST_AFFINITY: Record<ContentInterest, Partial<Record<NodeTopic, number>>> = {
+  technical: { product: 1, startup: 0.8, ai: 1, anthropic: 0.5, education: 0.3, vision: 0.2, personal: 0.2, psychology: 0.2 },
+  vision: { product: 0.3, startup: 0.3, ai: 0.7, anthropic: 1, education: 1, vision: 1, personal: 0.3, psychology: 0.7 },
+  journey: { product: 0.5, startup: 1, ai: 0.3, anthropic: 0.5, education: 0.5, vision: 0.3, personal: 1, psychology: 0.7 },
 };
 
-/** Seed the signal vector from the 5-question interview. Runs once. */
+/** Seed the signal vector from the 3-question interview. Runs once. */
 export function seedSignalsFromProfile(profile: ExperimentProfile): SignalVector {
   const s = createEmptySignals();
   s.persuasion[profile.persuasion] = 1;
   s.motivation[profile.motivation] = 1;
-  s.learning[profile.learning] = 1;
-  const topicAffinity = EDUCATION_TOPIC_AFFINITY[profile.education] ?? {};
+  const topicAffinity = CONTENT_INTEREST_AFFINITY[profile.contentInterest] ?? {};
   for (const [topic, weight] of Object.entries(topicAffinity)) {
     if (weight !== undefined) s.topics[topic] = weight;
   }
@@ -78,7 +74,6 @@ export function applyClickToSignals(
   const next: SignalVector = {
     persuasion: { ...signals.persuasion },
     motivation: { ...signals.motivation },
-    learning: { ...signals.learning },
     topics: { ...signals.topics },
   };
 
@@ -154,8 +149,8 @@ export function scoreNodeForVisitor(node: ContentNode, ctx: ScoreContext): numbe
     }
   }
 
-  // Learning style preference: structured visitors like data / reflection,
-  // exploratory like vision / story, social like story / reflection.
+  // Content interest preference: technical visitors like data / reflection,
+  // vision visitors like vision / reflection, journey visitors like story / vision.
   if (tags.tone && ctx.profile) {
     score += toneBonus(tags.tone, ctx);
   }
@@ -176,29 +171,14 @@ function toneBonus(
   tone: NonNullable<ContentNode["tags"]>["tone"],
   ctx: ScoreContext,
 ): number {
-  const tilt = strongest(ctx.signals.learning, LEARNING_KEYS);
-  if (!tilt || !tone) return 0;
-  const matrix: Record<Learning, Record<string, number>> = {
-    exploratory: { story: 0.4, vision: 0.5, reflection: 0.2, data: 0.1 },
-    structured: { data: 0.5, reflection: 0.3, vision: 0.1, story: 0.1 },
-    social: { story: 0.5, reflection: 0.4, vision: 0.2, data: 0.1 },
+  if (!ctx.profile || !tone) return 0;
+  const ci = ctx.profile.contentInterest;
+  const matrix: Record<ContentInterest, Record<string, number>> = {
+    technical: { data: 0.5, reflection: 0.3, vision: 0.1, story: 0.1 },
+    vision: { vision: 0.5, reflection: 0.4, story: 0.2, data: 0.1 },
+    journey: { story: 0.5, vision: 0.3, reflection: 0.2, data: 0.1 },
   };
-  return matrix[tilt]?.[tone] ?? 0;
-}
-
-function strongest<K extends string>(
-  bucket: Record<K, number>,
-  keys: readonly K[],
-): K | null {
-  let best: K | null = null;
-  let bestScore = -Infinity;
-  for (const k of keys) {
-    if (bucket[k] > bestScore) {
-      bestScore = bucket[k];
-      best = k;
-    }
-  }
-  return bestScore > 0 ? best : null;
+  return matrix[ci]?.[tone] ?? 0;
 }
 
 // ─── Gate checks ────────────────────────────────────────────────────────
@@ -252,7 +232,7 @@ const STARTER_POOL: string[] = [
 
 /**
  * Starter hooks for the Opening screen. Uses the full profile via the
- * signal vector — all 5 dimensions contribute, not just `education`.
+ * signal vector — all 3 dimensions contribute.
  */
 export function pickStarterHooks(
   profile: ExperimentProfile | null,
@@ -407,7 +387,6 @@ export function describeSignals(signals: SignalVector): string {
   return [
     `persuasion tilt: ${fmt(signals.persuasion)}`,
     `motivation tilt: ${fmt(signals.motivation)}`,
-    `learning tilt: ${fmt(signals.learning)}`,
     `topic tilt: ${fmt(signals.topics)}`,
   ].join("\n");
 }
