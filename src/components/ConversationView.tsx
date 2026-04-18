@@ -509,6 +509,8 @@ export default function ConversationView() {
           onNewJourney={handleNewJourney}
           narrative={narrative}
           visitorProfile={visitorProfile}
+          messages={messages}
+          blocks={blocks.map((b) => ({ id: b.id, questionTitle: b.questionTitle }))}
         />
       </>
     );

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import type { ExperimentProfile } from "@/lib/experiment-types";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
+import type { ContentBlockData } from "@/lib/types";
 import Comparison from "./rabbit-holes/Comparison";
 import { useEggs } from "@/lib/egg-context";
 import type { ProfileNarrative, VisitorProfile } from "@/lib/visitor-profile";
@@ -17,6 +18,8 @@ interface RevealProps {
   onNewJourney: () => void;
   narrative?: ProfileNarrative | null;
   visitorProfile?: VisitorProfile | null;
+  messages?: Array<{ role: string; content: string }>;
+  blocks?: Array<{ id: string; questionTitle: string }>;
 }
 
 const REVEAL_EXPLANATIONS: Record<string, Record<string, string>> = {
@@ -62,11 +65,15 @@ const DIMENSION_TITLES: Record<string, string> = {
   sharing: "What you share",
 };
 
-export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, onNewJourney, narrative, visitorProfile }: RevealProps) {
+export default function Reveal({ profile, visitedNodes, visitOrder, onShare, shareStatus, onNewJourney, narrative, visitorProfile, messages, blocks }: RevealProps) {
   const dimensions = ["persuasion", "learning", "education", "motivation", "sharing"] as const;
   const [showComparison, setShowComparison] = useState(false);
   const { foundEggs, totalEggs, discoverEgg } = useEggs();
-  const [journeySummary, setJourneySummary] = useState<string | null>(null);
+  const [revealData, setRevealData] = useState<{
+    sections: Array<{ heading: string; content: string }>;
+    profileInsight: string;
+  } | null>(null);
+  const [revealLoading, setRevealLoading] = useState(false);
 
   // Scroll to top when Reveal mounts
   useEffect(() => {
@@ -74,32 +81,28 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
   }, []);
 
   useEffect(() => {
-    if (!narrative?.summary || !visitorProfile) return;
+    if (!narrative || !visitorProfile) return;
+    setRevealLoading(true);
 
-    fetch("/api/chat", {
+    fetch("/api/reveal", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        messages: [
-          {
-            role: "user",
-            content: "Generate a personalized journey summary for this visitor.",
-          },
-        ],
         profile,
         visitorProfile,
         narrative,
         visitedNodes,
-        wrapUp: true,
+        visitOrder,
+        messages: messages ?? [],
+        blocks: blocks ?? [],
       }),
     })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (data?.text) setJourneySummary(data.text);
+        if (data?.sections) setRevealData(data);
       })
-      .catch(() => {
-        // Fall back to static reveal
-      });
+      .catch(() => {})
+      .finally(() => setRevealLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -130,23 +133,9 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
           Experiment #{profile.experimentNumber} — Result
         </button>
         <h2 className="font-serif text-2xl md:text-3xl text-neutral-900 dark:text-neutral-100">
-          Thank you. Here&apos;s what I learned about you.
+          {revealData?.profileInsight || "Thank you. Here\u0027s what I learned about you."}
         </h2>
       </motion.div>
-
-      {/* Dynamic journey summary */}
-      {journeySummary && (
-        <motion.div
-          className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-            {journeySummary}
-          </p>
-        </motion.div>
-      )}
 
       {/* Part 1: Profile */}
       <motion.div
@@ -217,45 +206,83 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
         )}
       </motion.div>
 
-      {/* Part 2: What I did with it */}
-      <motion.div
-        className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.0 }}
-      >
-        <p className="text-xs tracking-[2px] text-neutral-400 mb-5 uppercase">
-          What I did with it
-        </p>
-        <div className="space-y-4">
-          {(["persuasion", "learning", "motivation", "sharing"] as const).map((dim) => (
-            <div key={dim} className="flex gap-3">
-              <span className="text-orange-500 flex-shrink-0 mt-0.5">&rarr;</span>
-              <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                {REVEAL_EXPLANATIONS[dim][profile[dim]]}
-              </p>
+      {/* Personalized analysis sections */}
+      {revealLoading && (
+        <motion.div
+          className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+        >
+          <div className="animate-pulse space-y-3">
+            <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded w-1/3" />
+            <div className="h-3 bg-neutral-200 dark:bg-neutral-700 rounded w-full" />
+            <div className="h-3 bg-neutral-200 dark:bg-neutral-700 rounded w-5/6" />
+            <div className="h-3 bg-neutral-200 dark:bg-neutral-700 rounded w-4/6" />
+          </div>
+        </motion.div>
+      )}
+      {revealData?.sections.map((section, i) => (
+        <motion.div
+          key={section.heading}
+          className={`${
+            i === revealData.sections.length - 1
+              ? "bg-orange-50 dark:bg-orange-900/10 rounded-xl border border-orange-200 dark:border-orange-800"
+              : "bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700"
+          } p-6 mb-6`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 + i * 0.3 }}
+        >
+          <p className="text-xs tracking-[2px] text-neutral-400 mb-4 uppercase">
+            {section.heading}
+          </p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed whitespace-pre-line">
+            {section.content}
+          </p>
+        </motion.div>
+      ))}
+      {!revealData && !revealLoading && (
+        <>
+          {/* Static fallback: original REVEAL_EXPLANATIONS */}
+          <motion.div
+            className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0 }}
+          >
+            <p className="text-xs tracking-[2px] text-neutral-400 mb-5 uppercase">
+              What I did with it
+            </p>
+            <div className="space-y-4">
+              {(["persuasion", "learning", "motivation", "sharing"] as const).map((dim) => (
+                <div key={dim} className="flex gap-3">
+                  <span className="text-orange-500 flex-shrink-0 mt-0.5">&rarr;</span>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                    {REVEAL_EXPLANATIONS[dim][profile[dim]]}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Part 3: Punchline */}
-      <motion.div
-        className="bg-orange-50 dark:bg-orange-900/10 rounded-xl border border-orange-200 dark:border-orange-800 p-6 mb-8 text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4 }}
-      >
-        <p className="text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
-          Every person who visits this site experiences a different version of me.
-          <br />
-          Yours was unique.
-        </p>
-        <p className="text-base text-neutral-900 dark:text-neutral-100 mt-4 italic">
-          This is what I want to build at Anthropic — learning experiences that adapt to the
-          person, not the other way around.
-        </p>
-      </motion.div>
+          </motion.div>
+          <motion.div
+            className="bg-orange-50 dark:bg-orange-900/10 rounded-xl border border-orange-200 dark:border-orange-800 p-6 mb-8 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.4 }}
+          >
+            <p className="text-base text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Every person who visits this site experiences a different version of me.
+              <br />
+              Yours was unique.
+            </p>
+            <p className="text-base text-neutral-900 dark:text-neutral-100 mt-4 italic">
+              This is what I want to build at Anthropic — learning experiences that adapt to the
+              person, not the other way around.
+            </p>
+          </motion.div>
+        </>
+      )}
 
       {/* CTAs */}
       <motion.div
