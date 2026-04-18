@@ -68,6 +68,7 @@ export default function ConversationView() {
     Array<{ targetId: string; label: string; teaser: string }> | null
   >(null);
   const [transitionText, setTransitionText] = useState<string | null>(null);
+  const [isOpeningLoading, setIsOpeningLoading] = useState(false);
 
   // Which gems are currently reachable? Used so hook chips pointing to a
   // gem render with the amber shimmer affordance.
@@ -124,6 +125,7 @@ export default function ConversationView() {
   // Generate personalized opening (transition text + hooks) after interview
   useEffect(() => {
     if (!visitorProfile || !narrative || personalizedStarters) return;
+    setIsOpeningLoading(true);
 
     fetch("/api/opening", {
       method: "POST",
@@ -189,7 +191,8 @@ export default function ConversationView() {
             teaser: "",
           })),
         );
-      });
+      })
+      .finally(() => setIsOpeningLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visitorProfile, narrative]);
 
