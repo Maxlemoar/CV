@@ -151,7 +151,7 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
         <p className="text-xs tracking-[2px] text-neutral-400 mb-5 uppercase">
           Session data <span className="normal-case tracking-normal text-neutral-400">— what actually happened</span>
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-3 gap-4 mb-4">
           <div>
             <p className="text-xs text-neutral-400 mb-1">Topics explored</p>
             <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
@@ -162,12 +162,6 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
             <p className="text-xs text-neutral-400 mb-1">Experiment</p>
             <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
               #{profile.experimentNumber}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs text-neutral-400 mb-1">Unique path</p>
-            <p className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100 tabular-nums">
-              {visitOrder.length}
             </p>
           </div>
           <div>
