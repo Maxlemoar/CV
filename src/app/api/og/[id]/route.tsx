@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { loadSession } from "@/lib/session-store";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
-import { TOTAL_EGGS } from "@/lib/egg-context";
+const TOTAL_EGGS = 8;
 
 export async function GET(
   _req: Request,
