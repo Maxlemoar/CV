@@ -561,7 +561,7 @@ export default function ConversationView() {
               </div>
               <div>
                 <div className="font-heading text-sm font-semibold text-ink">Max Marowsky</div>
-                <div className="text-xs text-ink-light">Product Manager · Founder · EdTech</div>
+                <div className="text-xs text-ink-light">PRODUCT MANAGER · EDTECH FOUNDER</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
