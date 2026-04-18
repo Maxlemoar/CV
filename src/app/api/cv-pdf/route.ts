@@ -46,24 +46,91 @@ export async function GET(req: NextRequest) {
     // Critical: wait for Fraunces + Inter to finish loading before capture
     await page.evaluateHandle("document.fonts.ready");
 
-    // Kill any residual animation state so the snapshot is fully visible
+    // Kill animations and neutralize ALL print-specific overrides so the
+    // PDF renders identically to the web version.
     await page.addStyleTag({
       content: `
+        /* ── Reset animations ── */
         *, *::before, *::after {
           animation: none !important;
           transition: none !important;
         }
-        .ed-reveal { opacity: 1 !important; transform: none !important; }
+
+        @media print {
+          /* ── Neutralize globals.css print block 1 (body overrides) ── */
+          html, body {
+            font-size: 16px !important;
+          }
+
+          /* ── Neutralize globals.css print block 2 (ed-cv overrides) ── */
+          .ed-cv {
+            max-width: 900px !important;
+            padding: 24px !important;
+            padding-top: 48px !important;
+            padding-bottom: 48px !important;
+            margin: 0 auto !important;
+            font-size: inherit !important;
+          }
+
+          /* Restore web spacing for sections (mb-14 = 56px) */
+          .ed-reveal {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+            margin-bottom: 56px !important;
+          }
+
+          /* Restore web grid dimensions */
+          .ed-grid-row {
+            grid-template-columns: 130px 1fr !important;
+            gap: 0 24px !important;
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+
+          /* Restore header margin (mb-16 = 64px) */
+          article.ed-cv > header {
+            margin-bottom: 64px !important;
+          }
+
+          /* Restore heading sizes (text-[28px], mb-5 = 20px) */
+          article.ed-cv h2.ed-serif {
+            font-size: 28px !important;
+            margin-bottom: 20px !important;
+          }
+
+          /* Restore h1 size */
+          article.ed-cv h1.ed-serif {
+            font-size: 48px !important;
+          }
+
+          /* ── Clean page breaks ── */
+          article.ed-cv > section > h2 {
+            break-after: avoid;
+            page-break-after: avoid;
+          }
+
+          article.ed-cv .space-y-10 > div {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+
+          /* Preserve color rendering */
+          *, *::before, *::after {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+        }
       `,
     });
 
     const pdfBuffer = await page.pdf({
       format: "A4",
       printBackground: true,
-      preferCSSPageSize: true,
+      preferCSSPageSize: false,
       margin: { top: "12mm", right: "15mm", bottom: "12mm", left: "15mm" },
       displayHeaderFooter: false,
-      scale: 1,
+      scale: 0.72,
     });
 
     return new NextResponse(new Uint8Array(pdfBuffer), {
