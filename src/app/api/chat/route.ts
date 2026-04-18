@@ -1,5 +1,5 @@
 // src/app/api/chat/route.ts
-import { generateText, Output } from "ai";
+import { generateText, streamObject, Output } from "ai";
 import { z } from "zod";
 import { PROFILE_CONTENT } from "@/lib/profile-content";
 
@@ -228,6 +228,81 @@ export async function POST(req: Request) {
     (profile ? buildProfilePrompt(profile, signals, visitorProfile, narrativeData, visitedNodesList) : "") +
     (wrapUp ? WRAPUP_PROMPT : "");
 
+  const streamMode = (body as { stream?: boolean })?.stream === true;
+
+  // --- Streaming mode ---
+  if (streamMode) {
+    const encoder = new TextEncoder();
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          const result = streamObject({
+            model: "anthropic/claude-sonnet-4.5",
+            schema: responseSchema,
+            system: systemPrompt,
+            messages,
+          });
+
+          let lastTitle = "";
+          let lastTextLen = 0;
+
+          for await (const partial of result.partialObjectStream) {
+            if (partial.questionTitle && partial.questionTitle !== lastTitle) {
+              lastTitle = partial.questionTitle;
+              controller.enqueue(
+                encoder.encode(JSON.stringify({ type: "title", title: partial.questionTitle }) + "\n"),
+              );
+            }
+            if (partial.text && partial.text.length > lastTextLen) {
+              const delta = partial.text.slice(lastTextLen);
+              lastTextLen = partial.text.length;
+              controller.enqueue(
+                encoder.encode(JSON.stringify({ type: "delta", text: delta }) + "\n"),
+              );
+            }
+          }
+
+          const final = await result.object;
+          controller.enqueue(
+            encoder.encode(
+              JSON.stringify({
+                type: "done",
+                questionTitle: final.questionTitle,
+                text: final.text,
+                richType: final.richType,
+                richData: final.richData,
+                hooks: final.hooks,
+              }) + "\n",
+            ),
+          );
+        } catch {
+          controller.enqueue(
+            encoder.encode(
+              JSON.stringify({
+                type: "done",
+                questionTitle: "Something went wrong",
+                text: "Sorry, I couldn't process that question. Please try again.",
+                richType: null,
+                richData: null,
+                hooks: [],
+              }) + "\n",
+            ),
+          );
+        }
+        controller.close();
+      },
+    });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "application/x-ndjson",
+        "Transfer-Encoding": "chunked",
+      },
+    });
+  }
+
+  // --- Non-streaming mode ---
   const result = await generateText({
     model: "anthropic/claude-sonnet-4.5",
     output: Output.object({ schema: responseSchema }),

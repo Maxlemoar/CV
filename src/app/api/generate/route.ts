@@ -1,5 +1,5 @@
 // src/app/api/generate/route.ts
-import { generateText, Output } from "ai";
+import { generateText, streamObject, Output } from "ai";
 import { z } from "zod";
 import { NextResponse } from "next/server";
 import { CONTENT_GRAPH } from "@/lib/content-graph";
@@ -24,6 +24,7 @@ const requestSchema = z.object({
   visitedNodes: z.array(z.string()),
   visitOrder: z.array(z.string()).optional(),
   previousNodeId: z.string().optional(),
+  stream: z.boolean().optional(),
 });
 
 const outputSchema = z.object({
@@ -136,25 +137,23 @@ export async function POST(req: Request) {
     hints as Record<string, string> | undefined,
   );
 
-  // NOTE: A streaming mode (stream: true) can be added later for real-time
-  // text display on cache misses. For now, all requests use structured output
-  // which returns complete JSON. The client shows a SkeletonBlock during loading.
+  const fallbackHooks = profile
+    ? pickFallbackHooks(node, profile, signals, visited, 3).map((h) => ({
+        nodeId: h.targetId,
+        label: h.label,
+        teaser: "",
+      }))
+    : node.hooks.slice(0, 3).map((h) => ({
+        nodeId: h.targetId,
+        label: h.label,
+        teaser: "",
+      }));
 
-  // Structured output mode (used for both live generation and pre-generation)
-  try {
-    const result = await generateText({
-      model: "anthropic/claude-sonnet-4.5",
-      output: Output.object({ schema: outputSchema }),
-      prompt,
-    });
-
-    // Validate hooks — only allow candidate IDs
+  function validateHooks(rawHooks: Array<{ nodeId: string; label: string; teaser: string }>) {
     const candidateSet = new Set(candidateIds);
-    const validHooks = (result.output.hooks ?? []).filter(
+    const validHooks = (rawHooks ?? []).filter(
       (h) => candidateSet.has(h.nodeId) && h.label.trim().length > 0,
     );
-
-    // Fallback if Claude returns too few hooks
     let hooks = validHooks;
     if (hooks.length < 2 && profile) {
       const fallback = pickFallbackHooks(node, profile, signals, visited, 3);
@@ -166,25 +165,93 @@ export async function POST(req: Request) {
     } else {
       hooks = hooks.slice(0, 3);
     }
+    return hooks;
+  }
+
+  // --- Streaming mode ---
+  if (parsed.data.stream) {
+    const encoder = new TextEncoder();
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          const result = streamObject({
+            model: "anthropic/claude-sonnet-4.5",
+            schema: outputSchema,
+            prompt,
+          });
+
+          let lastTitle = "";
+          let lastContentLen = 0;
+
+          for await (const partial of result.partialObjectStream) {
+            if (partial.title && partial.title !== lastTitle) {
+              lastTitle = partial.title;
+              controller.enqueue(
+                encoder.encode(JSON.stringify({ type: "title", title: partial.title }) + "\n"),
+              );
+            }
+            if (partial.content && partial.content.length > lastContentLen) {
+              const delta = partial.content.slice(lastContentLen);
+              lastContentLen = partial.content.length;
+              controller.enqueue(
+                encoder.encode(JSON.stringify({ type: "delta", text: delta }) + "\n"),
+              );
+            }
+          }
+
+          const final = await result.object;
+          const hooks = validateHooks(final.hooks);
+
+          controller.enqueue(
+            encoder.encode(
+              JSON.stringify({
+                type: "done",
+                title: final.title,
+                content: final.content,
+                hooks,
+              }) + "\n",
+            ),
+          );
+        } catch {
+          controller.enqueue(
+            encoder.encode(
+              JSON.stringify({
+                type: "done",
+                title: nodeId.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+                content: node.content,
+                hooks: fallbackHooks,
+              }) + "\n",
+            ),
+          );
+        }
+        controller.close();
+      },
+    });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "application/x-ndjson",
+        "Transfer-Encoding": "chunked",
+      },
+    });
+  }
+
+  // --- Non-streaming mode (used for pre-generation) ---
+  try {
+    const result = await generateText({
+      model: "anthropic/claude-sonnet-4.5",
+      output: Output.object({ schema: outputSchema }),
+      prompt,
+    });
+
+    const hooks = validateHooks(result.output.hooks);
 
     return NextResponse.json({
       ...result.output,
       hooks,
     });
   } catch {
-    // Fallback: return reference text as-is
-    const fallbackHooks = profile
-      ? pickFallbackHooks(node, profile, signals, visited, 3).map((h) => ({
-          nodeId: h.targetId,
-          label: h.label,
-          teaser: "",
-        }))
-      : node.hooks.slice(0, 3).map((h) => ({
-          nodeId: h.targetId,
-          label: h.label,
-          teaser: "",
-        }));
-
     return NextResponse.json({
       title: nodeId.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
       content: node.content,

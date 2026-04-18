@@ -10,6 +10,8 @@ import type { GeneratedContent } from "@/lib/visitor-profile";
 import Opening from "./Opening";
 import ContentBlock from "./ContentBlock";
 import SkeletonBlock from "./SkeletonBlock";
+import StreamingBlock from "./StreamingBlock";
+import { consumeNDJSONStream } from "@/lib/stream-utils";
 import InputBar from "./InputBar";
 import ShareButton from "./ShareButton";
 import PrintCV from "./PrintCV";
@@ -55,7 +57,12 @@ export default function ConversationView() {
     visitorProfile, narrative, contentCache, updateProfileAsync } =
     useExperiment();
   const { settings } = useSettings();
-  const { discoverEgg, resetEggs } = useEggs();
+  const { discoverEgg, resetEggs, foundEggs, totalEggs } = useEggs();
+
+  const [streamingBlock, setStreamingBlock] = useState<{
+    title: string;
+    text: string;
+  } | null>(null);
 
   const hasStarted = blocks.length > 0 || isLoading;
 
@@ -245,6 +252,7 @@ export default function ConversationView() {
       generatedContent = cached;
     } else if (visitorProfile && narrative) {
       setIsLoading(true);
+      setStreamingBlock({ title: "", text: "" });
       try {
         const res = await fetch("/api/generate", {
           method: "POST",
@@ -257,14 +265,29 @@ export default function ConversationView() {
             visitedNodes: Array.from(updatedVisited),
             visitOrder: updatedVisitOrder,
             previousNodeId: blocks.length > 0 ? blocks[blocks.length - 1].id : undefined,
+            stream: true,
           }),
         });
         if (res.ok) {
-          generatedContent = await res.json();
+          const result = await consumeNDJSONStream<{
+            type: string;
+            title: string;
+            content: string;
+            hooks: Array<{ nodeId: string; label: string; teaser: string }>;
+          }>(res, {
+            onTitle: (title) => setStreamingBlock((prev) => prev ? { ...prev, title } : null),
+            onDelta: (text) => setStreamingBlock((prev) => prev ? { ...prev, text } : null),
+          });
+          generatedContent = {
+            title: result.title,
+            content: result.content,
+            hooks: result.hooks,
+          };
         }
       } catch {
         // Fall through to static fallback
       } finally {
+        setStreamingBlock(null);
         setIsLoading(false);
       }
     }
@@ -359,6 +382,7 @@ export default function ConversationView() {
     }
 
     setIsLoading(true);
+    setStreamingBlock({ title: "", text: "" });
     setFreeQuestionCount((prev) => {
       if (prev === 0) discoverEgg("curious-mind");
       return prev + 1;
@@ -380,12 +404,24 @@ export default function ConversationView() {
           visitorProfile,
           narrative,
           visitedNodes: Array.from(visitedNodes),
+          stream: true,
         }),
       });
 
       if (!res.ok) throw new Error("Failed to get response");
 
-      const data: AIResponse = await res.json();
+      const data = await consumeNDJSONStream<{
+        type: string;
+        questionTitle: string;
+        text: string;
+        richType: AIResponse["richType"];
+        richData: AIResponse["richData"];
+        hooks: AIResponse["hooks"];
+      }>(res, {
+        onTitle: (title) => setStreamingBlock((prev) => prev ? { ...prev, title } : null),
+        onDelta: (text) => setStreamingBlock((prev) => prev ? { ...prev, text } : null),
+      });
+
       blockCounter.current += 1;
 
       const newBlock: ContentBlockData = {
@@ -415,6 +451,7 @@ export default function ConversationView() {
     } catch (err) {
       console.error("Chat error:", err);
     } finally {
+      setStreamingBlock(null);
       setIsLoading(false);
     }
   }, [isLoading, messages, profile, signals, discoverEgg, visitorProfile, narrative,
@@ -437,6 +474,7 @@ export default function ConversationView() {
           narrative,
           generatedContents: Object.fromEntries(contentCache.entries()),
           blocks: blocks.map((b) => ({ id: b.id, questionTitle: b.questionTitle })),
+          foundEggs: Array.from(foundEggs),
         }),
       });
       if (!res.ok) throw new Error(`Session save failed: ${res.status}`);
@@ -447,7 +485,7 @@ export default function ConversationView() {
       let shared = false;
       if (navigator.share) {
         try {
-          await navigator.share({ title: "My Experiment Result", url });
+          await navigator.share({ title: `Experiment #${profile.experimentNumber} — My Result`, url });
           shared = true;
         } catch {
           // User cancelled or share failed — fall through to clipboard
@@ -587,7 +625,11 @@ export default function ConversationView() {
               />
             )
           ))}
-          {isLoading && <SkeletonBlock />}
+          {isLoading && (streamingBlock ? (
+            <StreamingBlock title={streamingBlock.title} text={streamingBlock.text} />
+          ) : (
+            <SkeletonBlock />
+          ))}
           <div ref={bottomRef} />
         </div>
       )}

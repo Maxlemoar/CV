@@ -16,7 +16,8 @@ export async function saveSession(
   visitorProfile?: unknown,
   narrative?: unknown,
   generatedContents?: Record<string, unknown>,
-  blocks?: Array<{ id: string; questionTitle: string }>
+  blocks?: Array<{ id: string; questionTitle: string }>,
+  foundEggs?: string[]
 ): Promise<void> {
   const client = getClient();
   const { error } = await client.from("sessions").insert({
@@ -29,6 +30,7 @@ export async function saveSession(
     narrative: narrative ? JSON.stringify(narrative) : null,
     generated_contents: generatedContents ? JSON.stringify(generatedContents) : null,
     blocks: JSON.stringify(blocks ?? []),
+    found_eggs: JSON.stringify(foundEggs ?? []),
   });
   if (error) throw error;
 }
@@ -42,15 +44,21 @@ export async function loadSession(id: string): Promise<{
   visitorProfile: unknown;
   narrative: unknown;
   generatedContents: Record<string, unknown> | null;
+  foundEggs: string[];
 } | null> {
   const client = getClient();
   const { data, error } = await client
     .from("sessions")
-    .select("id, experiment_number, profile, visited_nodes, created_at, visitor_profile, narrative, generated_contents")
+    .select("id, experiment_number, profile, visited_nodes, created_at, visitor_profile, narrative, generated_contents, found_eggs")
     .eq("id", id)
     .single();
 
   if (error || !data) return null;
+
+  const rawEggs = data.found_eggs;
+  const parsedEggs: string[] = rawEggs
+    ? typeof rawEggs === "string" ? JSON.parse(rawEggs) : rawEggs
+    : [];
 
   return {
     id: data.id,
@@ -61,5 +69,6 @@ export async function loadSession(id: string): Promise<{
     visitorProfile: data.visitor_profile ? JSON.parse(data.visitor_profile) : null,
     narrative: data.narrative ? JSON.parse(data.narrative) : null,
     generatedContents: data.generated_contents ? JSON.parse(data.generated_contents) : null,
+    foundEggs: parsedEggs,
   };
 }

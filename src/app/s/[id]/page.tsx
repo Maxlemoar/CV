@@ -10,10 +10,16 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
+  const session = await loadSession(id);
+  const expNum = session?.experimentNumber;
+  const title = expNum
+    ? `Experiment #${expNum} — My Result`
+    : "Experiment — My Result";
   return {
-    title: "Max Marowsky's Experiment — My Result",
+    title,
     description: "Every journey is unique. Start your own experiment.",
     openGraph: {
+      title,
       images: [`/api/og/${id}`],
     },
   };
@@ -30,7 +36,11 @@ export default async function SharedSessionPage({
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12">
-      <ShareableCard profile={session.profile} />
+      <ShareableCard
+        profile={session.profile}
+        visitedNodes={session.visitedNodes}
+        foundEggs={session.foundEggs}
+      />
       <div className="mt-8 text-center">
         <Link
           href="/"

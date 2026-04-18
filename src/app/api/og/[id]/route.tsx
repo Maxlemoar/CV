@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { loadSession } from "@/lib/session-store";
 import { DIMENSION_LABELS } from "@/lib/experiment-types";
+import { TOTAL_EGGS } from "@/lib/egg-context";
 
 export async function GET(
   _req: Request,
@@ -13,7 +14,8 @@ export async function GET(
     return new Response("Not found", { status: 404 });
   }
 
-  const { profile } = session;
+  const { profile, visitedNodes, foundEggs } = session;
+  const eggCount = foundEggs.length;
 
   return new ImageResponse(
     (
@@ -30,7 +32,7 @@ export async function GET(
         }}
       >
         <p style={{ fontSize: "14px", letterSpacing: "3px", color: "#999", marginBottom: "30px" }}>
-          MAX MAROWSKY&apos;S EXPERIMENT
+          EXPERIMENT #{profile.experimentNumber}
         </p>
         <p style={{ fontSize: "32px", color: "#1a1a1a", marginBottom: "8px" }}>
           You are convinced by
@@ -49,6 +51,18 @@ export async function GET(
             <p style={{ fontSize: "14px", color: "#999" }}>Drive</p>
             <p style={{ fontSize: "20px", color: "#333" }}>
               {DIMENSION_LABELS.motivation[profile.motivation]}
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: "14px", color: "#999" }}>Topics explored</p>
+            <p style={{ fontSize: "20px", color: "#333" }}>
+              {visitedNodes.length}
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: "14px", color: "#999" }}>Easter eggs</p>
+            <p style={{ fontSize: "20px", color: "#333" }}>
+              {eggCount}/{TOTAL_EGGS}
             </p>
           </div>
         </div>
