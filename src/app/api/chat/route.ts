@@ -7,7 +7,7 @@ export const maxDuration = 30;
 
 const responseSchema = z.object({
   questionTitle: z.string().describe("Short label for the block header, 2-5 words, e.g. 'Why Anthropic' or 'The Startup Story'"),
-  text: z.string().describe("The answer text. Warm, authentic, concise. Under 150 words unless the question demands detail."),
+  text: z.string().describe("The answer text. Warm, authentic, concise. Under 80 words — the reader is busy. Only go longer if the question truly demands it."),
   richType: z.enum(["stats", "timeline", "project", "quote", "tags", "citation", "photo"]).nullable().describe("Type of rich visual element to include, or null for text-only answers"),
   richData: z.any().nullable().describe("Structured data for the rich element. Must match the richType schema."),
   hooks: z.array(z.object({
@@ -20,7 +20,7 @@ const SYSTEM_PROMPT = `You are the intelligence behind Max Marowsky's portfolio 
 
 RULES:
 - Write in third person about Max, but keep it warm and personal — like a friend introducing him
-- Be concise: under 150 words unless the question needs more
+- Be concise: under 80 words. The reader is busy. Every word must earn its place
 - Be honest: if something isn't in the profile, say so
 - Suggest follow-up hooks that create a natural flow of discovery
 - Use rich elements when they genuinely help (stats for numbers, timeline for career, project for startups, tags for skills, citation for publications, photo for personal moments)

@@ -462,6 +462,7 @@ export default function ConversationView() {
     setVisitOrder([]);
     setPersonalizedStarters(null);
     setTransitionText(null);
+    setIsOpeningLoading(false);
     setCoffeeGameActive(false);
     setShowReveal(false);
     setRevealDismissed(false);
@@ -529,7 +530,7 @@ export default function ConversationView() {
           onClose={() => setShowArchitect(false)}
         />
       )}
-      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} personalizedStarters={personalizedStarters} transitionText={transitionText} />
+      <Opening visible={!hasStarted} onHookClick={addNodeBlock} starterHooks={starterHooks} personalizedStarters={personalizedStarters} transitionText={transitionText} isLoading={isOpeningLoading} />
 
       {hasStarted && (
         <div className="space-y-6 pb-24 pt-8">

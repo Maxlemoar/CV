@@ -35,7 +35,7 @@ const requestSchema = z.object({
 });
 
 const outputSchema = z.object({
-  transitionText: z.string().describe("2-4 sentences bridging the interview answers to the content hooks. Warm, personal, shows Max listened."),
+  transitionText: z.string().describe("1-2 short sentences bridging the interview answers to the content hooks. Warm, personal, punchy. Max 30 words."),
   hooks: z.array(z.object({
     nodeId: z.string(),
     label: z.string().describe("3-8 word personalized hook label"),
@@ -91,7 +91,7 @@ AVAILABLE STARTER NODES (pick exactly 4):
 ${starterDescriptions}
 
 RULES FOR transitionText:
-1. Write 2-4 sentences that reference the visitor's ACTUAL answers — not generic text.
+1. Write 1-2 SHORT sentences (max 30 words total) that reference the visitor's ACTUAL answers — not generic text.
 2. Bridge naturally from what they said to what you'll show them.
 3. Speak as Max, warmly and personally. Use "you" and "I".
 4. Don't analyze or psychologize — just acknowledge what they shared and connect it to your story.

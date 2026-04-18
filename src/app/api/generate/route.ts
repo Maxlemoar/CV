@@ -28,7 +28,7 @@ const requestSchema = z.object({
 
 const outputSchema = z.object({
   title: z.string().describe("Personalized title for this content block, 3-8 words"),
-  content: z.string().describe("The rewritten content text in Markdown. Preserve all facts from the reference text."),
+  content: z.string().describe("The rewritten content text in Markdown. Preserve all facts. Keep it concise — the reader has limited time. Aim for 30-50% shorter than the reference text."),
   hooks: z.array(z.object({
     nodeId: z.string(),
     label: z.string().describe("3-6 word chip label personalized to this visitor"),
@@ -89,7 +89,7 @@ RULES:
 3. If the visitor has domain expertise (${Object.entries(profile.domainKnowledge).filter(([,v]) => v === "expert").map(([k]) => k).join(", ") || "none detected"}), skip basic explanations in those areas.
 4. Build narrative bridges to previously visited nodes when natural — "As you saw with [topic]..." or "This connects to [previous]..."
 5. NEVER invent new facts. Every number, name, date must come from the reference text.
-6. The rewritten text should be within 20% of the reference text length (not dramatically shorter or longer).
+6. Keep it SHORT. The reader is busy. Cut filler, compress, prioritize the most impactful facts. Aim for 30-50% shorter than the reference text.
 7. Title should be personalized — not just the generic topic name.
 8. For hooks: pick from AVAILABLE NEXT NODES. Write labels in the visitor's voice. Add a teaser explaining relevance for THIS visitor.
 9. Write in English. Be warm, concise, authentic. Never mention that you're personalizing.`;

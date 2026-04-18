@@ -33,7 +33,7 @@ const requestSchema = z.object({
 const outputSchema = z.object({
   sections: z.array(z.object({
     heading: z.string().describe("Section heading, e.g. 'What I observed'"),
-    content: z.string().describe("3-5 sentences of Markdown content for this section"),
+    content: z.string().describe("2-3 concise sentences for this section. Be specific but brief — the reader is busy."),
   })).min(3).max(5),
   profileInsight: z.string().describe("1 sentence describing this specific visitor, used as page header"),
 });
@@ -103,7 +103,7 @@ ${blockTitles || "None."}
 
 TOTAL INTERACTIONS: ${narr.interactionCount}
 
-YOUR TASK: Write a 4-section analysis. Each section should be 3-5 sentences.
+YOUR TASK: Write a 4-section analysis. Each section should be 2-3 concise sentences. The reader is busy — every word must earn its place.
 
 SECTION 1 — "What I observed"
 Concrete behavioral observations. What did they click? What did they ask? What was the order? What patterns emerged? Reference SPECIFIC nodes they visited, questions they asked, choices they made. Every statement must be traceable to the data above.
@@ -126,7 +126,7 @@ CRITICAL RULES:
 - Speak as Max in first person: "I noticed", "I adapted", "I want to build".
 - Be specific. "You asked about team dynamics twice" is good. "You showed interest in collaboration" is too vague.
 - Write in English.
-- Each section 3-5 sentences. Not longer.`;
+- Each section 2-3 sentences MAX. Be dense, not verbose.`;
 
   // suppress unused variable warning — visitedNodes is part of the request contract
   void visitedNodes;
