@@ -130,7 +130,7 @@ Max has additional projects in various stages he hasn't catalogued here yet.
 ## Why Anthropic
 
 ### Application Statement (Max's own words)
-When we founded our EdTech startup pearprogramming in 2018, we dreamed of building an intelligent tutoring system "that, beyond learning analytics and optimized learning paths, is capable of giving students individual instructions and feedback as well as facilitating automated Socratic dialogues." The technology wasn't there yet. Now it is.
+When we founded our EdTech startup pearprogramming in 2018, we dreamed of building an intelligent tutoring system "that, beyond learning analytics and optimized learning paths, is capable of giving learners individual instructions and feedback as well as facilitating automated Socratic dialogues." The technology wasn't there yet. Now it is.
 
 The first time I built an app with Claude Code, something clicked that I hadn't felt since the last time I was truly convinced by what I was building. I started waking up at 5am, sneaking to my desk before my family was up, building learning apps. Not because I had to, but because I couldn't stop. Suddenly, I could build every product I imagined — end to end, exactly as I envisioned it. No more depending on others to translate my vision, no more compromising on execution. That dependency is gone, and it's not coming back.
 
@@ -149,7 +149,7 @@ Max's position is more precise than "Claude is pure and ChatGPT isn't." It has t
 **Layer 2 — What still has to be engineered on top (honest caveat):**
 - **Claude is not perfect on sycophancy.** Max is explicit: Claude *usually* agrees with the user or praises them, sometimes even when praise isn't warranted. It's milder than ChatGPT in his experience, but the yes-man tendency is not absent.
 - **This is exactly why Education Labs work matters**: a base model that's "mostly agreeable" isn't automatically a good tutor. For learning products, we have to actively engineer Claude **not to be a yes-man**. A good AI tutor has to:
-  - Critically check student answers and **challenge when necessary**
+  - Critically check learner answers and **challenge when necessary**
   - **Praise when actually appropriate** — not reflexively
   - **Point out contradictions or weaknesses** in a learner's reasoning
 - This reframes the product problem: integrity in education isn't just "pick the model with the best values." It's "take a strong base model and shape it, via prompting/product design/scaffolding, into something that can honestly mirror a learner." That's product work, and it's exactly the kind of work Max wants to do.
@@ -214,7 +214,7 @@ As of April 2026, **Max has not yet heard of Claude for Education** and has not 
 - **Nature**: Hiking, being outdoors, movement in general
 
 ## Education Philosophy
-- Learning is highly individual — every student has unique interests, inclinations, and weaknesses
+- Learning is highly individual — every learner has unique interests, inclinations, and weaknesses
 - These must be identified and specifically challenged and supported
 - Fact-oriented learning is not a future model
 - In a world where all information is available within seconds and omniscient LLMs are emerging, we must dare to question our paradigms in education and learning

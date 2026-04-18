@@ -77,7 +77,7 @@ export async function POST(req: Request) {
 INTERVIEW ANSWERS (what the visitor told you about themselves):
 - Evaluates candidates by: ${profile.persuasion} (${DIMENSION_LABELS.persuasion[profile.persuasion]})
 - Learns by: ${profile.learning} (${DIMENSION_LABELS.learning[profile.learning]})
-- Wishes school had: ${profile.education} (${DIMENSION_LABELS.education[profile.education]})
+- Wishes education had: ${profile.education} (${DIMENSION_LABELS.education[profile.education]})
 - Good work day means: ${profile.motivation} (${DIMENSION_LABELS.motivation[profile.motivation]})
 - Shares things that are: ${profile.sharing} (${DIMENSION_LABELS.sharing[profile.sharing]})
 

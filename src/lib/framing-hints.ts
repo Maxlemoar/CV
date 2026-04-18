@@ -17,12 +17,12 @@ export const FRAMING_HINTS: Record<string, Partial<FramingHint>> = {
     purpose: "Teachers spending 40% of time on material search — we changed that",
     relatedness: "Co-founding dynamic, early team building, user community",
   },
-  "school-gets-wrong": {
+  "education-gets-wrong": {
     results: "PISA scores, international benchmarks, measurable gaps",
     process: "Analysis framework: what's the actual bottleneck in education?",
     character: "Personal frustration with a system that didn't see individuals",
     mastery: "Deep understanding of pedagogy, Hattie's meta-analyses",
-    purpose: "Every child deserves an education that adapts to them",
+    purpose: "Every learner deserves an education that adapts to them",
     relatedness: "Conversations with teachers that changed my perspective",
   },
   "why-anthropic": {
@@ -62,13 +62,13 @@ export const FRAMING_HINTS: Record<string, Partial<FramingHint>> = {
     process: "Layered progression: Blockly visual coding → text-based languages, tied to game narrative",
     character: "Obsessive belief that intrinsic motivation beats extrinsic reward in learning",
     mastery: "Game design, learning design, and software development converging in one product",
-    purpose: "Giving students a reason to care — not just a syllabus to complete",
-    relatedness: "Students building virtual companies together, social learning embedded in gameplay",
+    purpose: "Giving learners a reason to care — not just a syllabus to complete",
+    relatedness: "Learners building virtual companies together, social learning embedded in gameplay",
   },
   "what-id-build": {
     results: "Success metric: learner becomes more capable and more curious — not just more engaged",
     process: "Start from the learner's confusion, not the curriculum — diagnose before prescribing",
-    character: "The vision comes from being a parent: what do I want Frieda to experience in school?",
+    character: "The vision comes from being a parent: what kind of learning do I want Frieda to experience?",
     mastery: "Synthesis of learning science, AI capabilities, and product intuition",
     purpose: "The most important problem in education: scaling what a great tutor does",
     relatedness: "Learning is social — the best products honor that even when AI is involved",

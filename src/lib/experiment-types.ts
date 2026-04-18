@@ -96,7 +96,7 @@ export const INTERVIEW_QUESTIONS: InterviewQuestion[] = [
   },
   {
     id: 'education',
-    text: "When you think back to school or university — what could have been better?",
+    text: "When you think back to your own education — what could have been better?",
     options: [
       { label: 'More practical application — too much theory, too little doing', value: 'practice' },
       { label: 'More individualization — everyone was treated the same', value: 'individualization' },

@@ -8,11 +8,11 @@ import { CONTENT_GRAPH } from "@/lib/content-graph";
 export const maxDuration = 15;
 
 const STARTER_POOL = [
-  "school-gets-wrong",
+  "education-gets-wrong",
   "startup-story",
   "why-anthropic",
   "building-with-claude",
-  "what-schools-should-teach",
+  "what-education-should-teach",
   "anthropic-education-vision",
   "psychology-of-learning",
   "side-projects",
@@ -75,7 +75,7 @@ export async function POST(req: Request) {
 THE VISITOR'S INTERVIEW ANSWERS:
 - What they look at first when evaluating a candidate: ${profile.persuasion} (${DIMENSION_LABELS.persuasion[profile.persuasion]})
 - How they learn something new: ${profile.learning} (${DIMENSION_LABELS.learning[profile.learning]})
-- What school should have done better: ${profile.education} (${DIMENSION_LABELS.education[profile.education]})
+- What education could have done better: ${profile.education} (${DIMENSION_LABELS.education[profile.education]})
 - What makes a good work day: ${profile.motivation} (${DIMENSION_LABELS.motivation[profile.motivation]})
 - What makes them share something: ${profile.sharing} (${DIMENSION_LABELS.sharing[profile.sharing]})
 

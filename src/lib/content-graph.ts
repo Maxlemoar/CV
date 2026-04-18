@@ -61,7 +61,7 @@ export interface ContentNode {
 export type ContentGraph = Record<string, ContentNode>;
 
 export const ROOT_HOOKS: Hook[] = [
-  { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
+  { label: "What I believe education gets wrong", targetId: "education-gets-wrong" },
   { label: "The startup I built and sold", targetId: "startup-story" },
   { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
   { label: "What I\u2019m building with Claude right now", targetId: "building-with-claude" },
@@ -70,14 +70,14 @@ export const ROOT_HOOKS: Hook[] = [
 export const CONTENT_GRAPH: ContentGraph = {
   // ── ROOT LAYER ──────────────────────────────────────────────
 
-  "school-gets-wrong": {
-    id: "school-gets-wrong",
+  "education-gets-wrong": {
+    id: "education-gets-wrong",
     content:
-      "Two things. First: schools still optimize for recall \u2014 remember the date, the formula, the definition \u2014 but in a world of instant search and LLMs, recall isn\u2019t the scarce skill. Second, and more important: schools treat every learner as if they were interchangeable. Learning is deeply individual. Every student has their own interests, their own gaps, their own pace \u2014 and those need to be seen.",
+      "Two things. First: most education still optimizes for recall \u2014 remember the date, the formula, the definition \u2014 but in a world of instant search and LLMs, recall isn\u2019t the scarce skill. Second, and more important: education treats every learner as if they were interchangeable. Learning is deeply individual. Every person has their own interests, their own gaps, their own pace \u2014 and those need to be seen.",
     contentCompact:
-      "Schools still optimize for recall when recall is a Google search away. More importantly, they treat learners as interchangeable \u2014 but learning is deeply individual. Every student has their own interests, gaps, and pace.",
+      "Most education still optimizes for recall when recall is a Google search away. More importantly, it treats learners as interchangeable \u2014 but learning is deeply individual. Every person has their own interests, gaps, and pace.",
     hooks: [
-      { label: "So what should schools teach instead?", targetId: "what-schools-should-teach" },
+      { label: "So what should education focus on instead?", targetId: "what-education-should-teach" },
       { label: "I built a product based on this belief", targetId: "startup-story" },
       { label: "How this connects to Anthropic", targetId: "anthropic-education-vision" },
     ],
@@ -86,7 +86,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.7, process: 0.7 },
       motivation: { purpose: 1 },
       tone: "reflection",
-      summary: "A critique of how schools still optimize for recall in a search-engine world.",
+      summary: "A critique of how education still optimizes for recall in a search-engine world.",
     },
     printSection: "philosophy",
     printOrder: 1,
@@ -95,7 +95,7 @@ export const CONTENT_GRAPH: ContentGraph = {
   "startup-story": {
     id: "startup-story",
     content:
-      "I co-founded pearprogramming and built PearUp \u2014 a game where students learn to code by running a virtual startup. We won the EXIST federal founder grant in 2020, grew the GmbH to around ten people, and in 2022 eduki acquired us. Four years that were equal parts exciting, exhausting, and nerve-wracking.",
+      "I co-founded pearprogramming and built PearUp \u2014 a game where learners learn to code by running a virtual startup. We won the EXIST federal founder grant in 2020, grew the GmbH to around ten people, and in 2022 eduki acquired us. Four years that were equal parts exciting, exhausting, and nerve-wracking.",
     contentCompact:
       "Co-founded pearprogramming and built PearUp \u2014 a game teaching coding through running a virtual startup. Won the EXIST federal grant in 2020, grew to ten people, acquired by eduki in 2022.",
     hooks: [
@@ -165,10 +165,10 @@ export const CONTENT_GRAPH: ContentGraph = {
 
   // ── EDUCATION PHILOSOPHY ────────────────────────────────────
 
-  "what-schools-should-teach": {
-    id: "what-schools-should-teach",
+  "what-education-should-teach": {
+    id: "what-education-should-teach",
     content:
-      "Three things, in this order. First, curiosity \u2014 keep it alive instead of drilling it out of kids; it\u2019s the engine of every real learning moment. Second, self-efficacy \u2014 not AI literacy as a buzzword, but the real skill of directing a tool like Claude and evaluating what it gives you. Third, individualization \u2014 treat every learner as the specific person they are, with their own interests, gaps, and pace. None of this is radical. It\u2019s just been hard to do at scale without AI. Now it isn\u2019t.",
+      "Three things, in this order. First, curiosity \u2014 keep it alive instead of drilling it out of people; it\u2019s the engine of every real learning moment. Second, self-efficacy \u2014 not AI literacy as a buzzword, but the real skill of directing a tool like Claude and evaluating what it gives you. Third, individualization \u2014 treat every learner as the specific person they are, with their own interests, gaps, and pace. None of this is radical. It\u2019s just been hard to do at scale without AI. Now it isn\u2019t.",
     contentCompact:
       "Three things: keep curiosity alive, build self-efficacy (directing tools, evaluating what they give you), and individualize \u2014 treat every learner as the specific person they are. None of it is radical. It\u2019s just been hard to do at scale without AI. Now it isn\u2019t.",
     hooks: [
@@ -181,7 +181,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.6, process: 0.6 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "Three things schools should teach: curiosity, self-efficacy, individualization. Now possible at scale with AI.",
+      summary: "Three things education should focus on: curiosity, self-efficacy, individualization. Now possible at scale with AI.",
     },
     printSection: "philosophy",
     printOrder: 2,
@@ -190,9 +190,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "anthropic-education-vision": {
     id: "anthropic-education-vision",
     content:
-      "The interesting question isn\u2019t \u201chow do we put AI in classrooms.\u201d It\u2019s: what does AI have to be in education before it can be trusted there? For me that\u2019s two things. It has to be factually reliable \u2014 in education, a confident wrong answer isn\u2019t a bug, it teaches the wrong thing. And it can\u2019t be a yes-man. A good AI tutor has to push back, point out contradictions, praise only when the praise is earned. Anything less and we\u2019re building an assistant, not a tutor.",
+      "The interesting question isn\u2019t \u201chow do we put AI into learning.\u201d It\u2019s: what does AI have to be before learners can trust it? For me that\u2019s two things. It has to be factually reliable \u2014 in education, a confident wrong answer isn\u2019t a bug, it teaches the wrong thing. And it can\u2019t be a yes-man. A good AI tutor has to push back, point out contradictions, praise only when the praise is earned. Anything less and we\u2019re building an assistant, not a tutor.",
     contentCompact:
-      "The real question isn\u2019t \u2018how to put AI in classrooms\u2019 \u2014 it\u2019s what AI has to be before it can be trusted there. Two things: factually reliable (a confident wrong answer teaches the wrong thing) and not a yes-man (a tutor has to push back, not just praise). Anything less and we\u2019re building an assistant, not a tutor.",
+      "The real question isn\u2019t \u2018how to put AI into learning\u2019 \u2014 it\u2019s what AI has to be before learners can trust it. Two things: factually reliable (a confident wrong answer teaches the wrong thing) and not a yes-man (a tutor has to push back, not just praise). Anything less and we\u2019re building an assistant, not a tutor.",
     hooks: [
       { label: "This is exactly what I\u2019ve been working toward", targetId: "my-fit" },
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
@@ -202,7 +202,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1, character: 0.5 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "What AI has to be before it can be trusted in education: factually reliable and not a yes-man. Otherwise it's an assistant, not a tutor.",
+      summary: "What AI has to be before learners can trust it: factually reliable and not a yes-man. Otherwise it's an assistant, not a tutor.",
     },
     printSection: "philosophy",
     printOrder: 3,
@@ -235,9 +235,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "product-magic": {
     id: "product-magic",
     content:
-      "The original PearUp was a game where students founded a virtual startup and learned to code by growing it \u2014 Google Blockly first, then real languages. It worked, but in 2021 we hit a wall: the German market for computer-science education alone was too small to sustain a company. So we pivoted. We opened the software to every school subject and moved the Creator tool to the front: a builder where teachers assemble interactive lesson units from a library of elements. That pivot is what eventually made us strategically interesting to eduki. Cumulatively, PearUp reached around 3.5 million learner sessions and 29 million interactive tasks completed.",
+      "The original PearUp was a game where learners founded a virtual startup and learned to code by growing it \u2014 Google Blockly first, then real languages. It worked, but in 2021 we hit a wall: the German market for computer-science education alone was too small to sustain a company. So we pivoted. We opened the software to all subjects and moved the Creator tool to the front: a builder where teachers assemble interactive lesson units from a library of elements. That pivot is what eventually made us strategically interesting to eduki. Cumulatively, PearUp reached around 3.5 million learner sessions and 29 million interactive tasks completed.",
     contentCompact:
-      "PearUp started as a coding game where students founded a virtual startup. In 2021 we hit a wall \u2014 the German CS-education market was too small \u2014 so we pivoted to a Creator tool where teachers assemble interactive lessons across all subjects. That pivot is what made us strategically interesting to eduki. ~3.5M learner sessions, ~29M interactive tasks.",
+      "PearUp started as a coding game where learners founded a virtual startup. In 2021 we hit a wall \u2014 the German CS-education market was too small \u2014 so we pivoted to a Creator tool where teachers assemble interactive lessons across all subjects. That pivot is what made us strategically interesting to eduki. ~3.5M learner sessions, ~29M interactive tasks.",
     hooks: [
       { label: "We published research on why this works", targetId: "research" },
       { label: "What happened after the acquisition?", targetId: "after-acquisition" },
@@ -247,7 +247,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1, results: 0.7 },
       motivation: { mastery: 0.6, purpose: 0.6 },
       tone: "story",
-      summary: "Why pearprogramming worked: students founded a virtual startup, intrinsic motivation > curriculum.",
+      summary: "Why pearprogramming worked: learners founded a virtual startup, intrinsic motivation > curriculum.",
     },
     printSection: "experience",
     printOrder: 21,
@@ -396,9 +396,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "what-id-build": {
     id: "what-id-build",
     content:
-      "Honestly, I don\u2019t know yet \u2014 and I think that\u2019s the right answer. I wouldn\u2019t start by building. I\u2019d start by understanding: the team, the product, the users, the constraints. Alignment before action. What I do know is the direction: learning experiences where AI sees the individual learner \u2014 their gaps, their pace, their interests \u2014 and responds to that. Not replacing the teacher, but doing what no teacher can do alone at scale.",
+      "Honestly, I don\u2019t know yet \u2014 and I think that\u2019s the right answer. I wouldn\u2019t start by building. I\u2019d start by understanding: the team, the product, the users, the constraints. Alignment before action. What I do know is the direction: learning experiences where AI sees the individual learner \u2014 their gaps, their pace, their interests \u2014 and responds to that. Not replacing human guidance, but doing what no human can do alone at scale.",
     contentCompact:
-      "I wouldn\u2019t start by building \u2014 I\u2019d start by understanding the team, the product, the users. What I do know is the direction: AI that sees the individual learner and responds to their gaps, pace, and interests. Not replacing teachers, but doing what no teacher can do alone at scale.",
+      "I wouldn\u2019t start by building \u2014 I\u2019d start by understanding the team, the product, the users. What I do know is the direction: AI that sees the individual learner and responds to their gaps, pace, and interests. Not replacing human guidance, but doing what no human can do alone at scale.",
     hooks: [
       { label: "The science behind this", targetId: "psychology-of-learning" },
       { label: "Why Anthropic is the right place for this", targetId: "why-anthropic" },
@@ -409,7 +409,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.8, process: 0.6 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "Wouldn't start by building — alignment before action. Direction: AI that sees the individual learner. Not replacing teachers, but scaling what they can't do alone.",
+      summary: "Wouldn't start by building — alignment before action. Direction: AI that sees the individual learner. Not replacing human guidance, but scaling what no human can do alone.",
     },
     printSection: "philosophy",
     printOrder: 5,
@@ -418,9 +418,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "psychology-of-learning": {
     id: "psychology-of-learning",
     content:
-      "I studied psychology at Universit\u00e4t Witten/Herdecke \u2014 M.Sc., grade 1.5, thesis on motivation in computer science education. The framework that stuck with me is Self-Determination Theory: learners need to feel autonomous, competent, and connected. Take any one away and motivation collapses. That\u2019s not abstract to me \u2014 it\u2019s the lens I use when I design products. PearUp\u2019s virtual startup gave students autonomy. The AI assessor at eduki measures whether materials actually support competence. Everything I build, I check against those three.",
+      "I studied psychology at Universit\u00e4t Witten/Herdecke \u2014 M.Sc., grade 1.5, thesis on motivation in computer science education. The framework that stuck with me is Self-Determination Theory: learners need to feel autonomous, competent, and connected. Take any one away and motivation collapses. That\u2019s not abstract to me \u2014 it\u2019s the lens I use when I design products. PearUp\u2019s virtual startup gave learners autonomy. The AI assessor at eduki measures whether materials actually support competence. Everything I build, I check against those three.",
     contentCompact:
-      "M.Sc. Psychology at Witten/Herdecke, grade 1.5, thesis on motivation in CS education. The framework: Self-Determination Theory \u2014 autonomy, competence, relatedness. Take one away and motivation collapses. PearUp gave students autonomy. The AI assessor measures whether materials support competence. I check everything I build against those three.",
+      "M.Sc. Psychology at Witten/Herdecke, grade 1.5, thesis on motivation in CS education. The framework: Self-Determination Theory \u2014 autonomy, competence, relatedness. Take one away and motivation collapses. PearUp gave learners autonomy. The AI assessor measures whether materials support competence. I check everything I build against those three.",
     hooks: [
       { label: "The research I published", targetId: "research" },
       { label: "How I applied this at pearprogramming", targetId: "product-magic" },
@@ -438,7 +438,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       question: "What are the three needs from Self-Determination Theory that Max's products aim to satisfy?",
       answer: "Autonomy, competence, and relatedness — the three core psychological needs from Self-Determination Theory (SDT).",
     },
-    spacedRetrievalRef: "school-gets-wrong",
+    spacedRetrievalRef: "education-gets-wrong",
   },
 
   // ── RESEARCH & PUBLICATIONS ────────────────────────────────
@@ -476,7 +476,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       "34-year-old new dad. Wife Anna (neuroscientist, co-author). Daughter Frieda, born August 2025 \u2014 currently on shared parental leave in Sardinia. Fatherhood made education personal: I want her to stay curious. Coffee nerd, former barista, road cyclist, home cook. We\u2019re both genuinely excited about the idea of living in San Francisco.",
     image: { src: "/photo-frieda.jpg", alt: "Max with daughter Frieda" },
     hooks: [
-      { label: "What I believe school gets wrong", targetId: "school-gets-wrong" },
+      { label: "What I believe education gets wrong", targetId: "education-gets-wrong" },
       { label: "What I\u2019d want to build at Anthropic", targetId: "what-id-build" },
     ],
     tags: {
@@ -581,8 +581,8 @@ export const NODE_CLUSTERS: Record<string, { emoji: string; name: string }> = {
   "founder-lessons": { emoji: "🚀", name: "Founder" },
   "pm-approach": { emoji: "📋", name: "Product" },
   "my-fit": { emoji: "📋", name: "Product" },
-  "school-gets-wrong": { emoji: "🎓", name: "Education" },
-  "what-schools-should-teach": { emoji: "🎓", name: "Education" },
+  "education-gets-wrong": { emoji: "🎓", name: "Education" },
+  "what-education-should-teach": { emoji: "🎓", name: "Education" },
   "anthropic-education-vision": { emoji: "🎓", name: "Education" },
   "psychology-of-learning": { emoji: "🧠", name: "Psychology" },
   "building-with-claude": { emoji: "🤖", name: "AI" },

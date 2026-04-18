@@ -238,11 +238,11 @@ export function listCandidateIds(
 // ─── Pickers ────────────────────────────────────────────────────────────
 
 const STARTER_POOL: string[] = [
-  "school-gets-wrong",
+  "education-gets-wrong",
   "startup-story",
   "why-anthropic",
   "building-with-claude",
-  "what-schools-should-teach",
+  "what-education-should-teach",
   "anthropic-education-vision",
   "psychology-of-learning",
   "side-projects",
@@ -292,11 +292,11 @@ export function pickStarterHooks(
 /** Friendly labels for starter-pool nodes. Separate from in-conversation hook labels. */
 function starterLabelFor(id: string): string {
   const map: Record<string, string> = {
-    "school-gets-wrong": "What I believe school gets wrong",
+    "education-gets-wrong": "What I believe education gets wrong",
     "startup-story": "The startup I built and sold",
     "why-anthropic": "Why I want to work at Anthropic",
     "building-with-claude": "What I'm building with Claude right now",
-    "what-schools-should-teach": "What schools should teach instead",
+    "what-education-should-teach": "What education should focus on instead",
     "anthropic-education-vision": "My vision for AI in education",
     "psychology-of-learning": "The psychology of how we learn",
     "side-projects": "Side projects that taught me the most",

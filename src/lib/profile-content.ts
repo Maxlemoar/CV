@@ -53,8 +53,8 @@ export const PROFILE_CONTENT = `# Maximilian Veit Marowsky — Profile
 - EXIST Gründerstipendium recipient (federal startup grant, started January 2020)
 - GmbH officially founded April 2020
 - Team: ~10 people (fluctuating with student workers and interns)
-- **Product**: Game-based learning app teaching programming to students
-  - Students founded a virtual startup, made business decisions, and took on programming assignments
+- **Product**: Game-based learning app teaching programming through a virtual startup
+  - Learners founded a virtual startup, made business decisions, and took on programming assignments
   - Combined entrepreneurship game-based narrative with learning to code
   - Started with Google Blockly (visual programming) to teach concepts, progressed to text-based languages
   - Focus on understanding programming concepts (algorithms, sequences, etc.)
@@ -93,7 +93,7 @@ Max has roughly ten personal projects in various stages — all built end-to-end
 - **Languages**: German (native), English (C1), Italian (B1)
 
 ## Why Anthropic
-- **The 2018 vision is finally possible**: When Max co-founded pearprogramming, the EXIST Gründerstipendium application already described the dream of "an intelligent tutoring system that, beyond learning analytics and optimized learning paths, is capable of giving students individual instructions and feedback as well as facilitating automated Socratic dialogues." The technology wasn't there then. With Claude, it is now.
+- **The 2018 vision is finally possible**: When Max co-founded pearprogramming, the EXIST Gründerstipendium application already described the dream of "an intelligent tutoring system that, beyond learning analytics and optimized learning paths, is capable of giving learners individual instructions and feedback as well as facilitating automated Socratic dialogues." The technology wasn't there then. With Claude, it is now.
 - **Claude Code unlocked end-to-end building**: The first time Max built an app with Claude Code, something clicked. He started waking up at 5am before his family to build learning apps — not because he had to, but because he couldn't stop. The dependency on others to translate his vision is gone.
 - **Fell in love with the company after Boris Cherny on Lenny's Podcast**: What moved Max from product-love to company-love was hearing Cherny describe Anthropic's culture — how roles are fluid, engineers do PM things, PMs do design, and everyone is free to contribute to the mission regardless of title. Max set up a Greenhouse alert for "Product Manager" at Anthropic that same afternoon, March 28, 2026.
 - **Purpose-driven by nature**: What moved him from psychology into EdTech is the same thing that draws him to Anthropic — he could never work for a company where the mission is an afterthought.
@@ -107,7 +107,7 @@ Max has roughly ten personal projects in various stages — all built end-to-end
 - **Nature**: Hiking, being outdoors, movement in general
 
 ## Education Philosophy
-- Learning is highly individual — every student has unique interests, inclinations, and weaknesses
+- Learning is highly individual — every learner has unique interests, inclinations, and weaknesses
 - These must be identified and specifically challenged and supported
 - Fact-oriented learning is not a future model
 - In a world where all information is available within seconds and omniscient LLMs are emerging, we must dare to question our paradigms in education and learning
