@@ -42,7 +42,7 @@ const experience = [
   {
     role: "Co-Founder & CEO",
     company: "pearprogramming",
-    period: "2018 – 2022",
+    period: "2019 – 2022",
     description:
       "Co-founded an EdTech startup with a vision of building an intelligent tutoring system capable of automated Socratic dialogues and individualized feedback. Built a game-based learning app, from idea to acquisition by eduki in 2022.",
     bullets: [
