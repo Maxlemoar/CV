@@ -120,9 +120,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "why-anthropic": {
     id: "why-anthropic",
     content:
-      "I fell in love with the product first. The first time I built an app with Claude Code, I started waking up at 5am before my family was up \u2014 not because I had to, but because I couldn\u2019t stop. Suddenly I could build every product I imagined, end to end. Then I listened to Boris Cherny on Lenny\u2019s Podcast and fell in love with the company: fluid roles, engineers doing PM work, PMs doing design, everyone free to contribute to the mission regardless of title. I set up a Greenhouse alert for \u201cProduct Manager\u201d that same afternoon, March 28, 2026. When the Education Labs role appeared, it read like a job description written for me.",
+      "I fell in love with the product first. The first time I built an app with Claude Code, I started waking up at 5am before my family was up \u2014 not because I had to, but because I couldn\u2019t stop. Suddenly I could build every product I imagined, end to end. Then I listened to Boris Cherny on Lenny\u2019s Podcast and fell in love with the company: fluid roles, engineers doing PM work, PMs doing design, everyone free to contribute to the mission regardless of title. I set up a Greenhouse alert for \u201cProduct Manager\u201d that same afternoon, March 28, 2026. When the Labs role appeared \u2014 the team that turned research into Claude Code and MCP, looking for founders who prototype their own ideas \u2014 it read like a job description written for me.",
     contentCompact:
-      "Fell in love with the product building apps in Claude Code at 5am. Fell in love with the company after Boris Cherny on Lenny\u2019s Podcast described fluid roles and mission-first autonomy. Set a Greenhouse alert on March 28, 2026. Education Labs reads like a job description written for me.",
+      "Fell in love with the product building apps in Claude Code at 5am. Fell in love with the company after Boris Cherny on Lenny\u2019s Podcast described fluid roles and mission-first autonomy. Set a Greenhouse alert on March 28, 2026. The Labs role \u2014 founders who prototype their own ideas \u2014 reads like a job description written for me.",
     hooks: [
       { label: "What I\u2019d want to build there", targetId: "what-id-build" },
       { label: "My experience with AI in education", targetId: "ai-in-education" },
@@ -133,7 +133,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 1, process: 0.5 },
       motivation: { purpose: 1, mastery: 0.5 },
       tone: "story",
-      summary: "Why the Education Labs PM role feels written for me after a year of daily Claude use.",
+      summary: "Why the Research PM Labs role feels written for me after a year of daily Claude use.",
     },
     printSection: "about",
     printOrder: 10,
@@ -494,9 +494,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "gem-convergence": {
     id: "gem-convergence",
     content:
-      "You found a hidden thread. Self-Determination Theory says learners need autonomy, competence, and connection \u2014 take one away and motivation collapses. I\u2019ve known that since my thesis. What I didn\u2019t have was a way to build for it at scale. At pearprogramming we tried with game mechanics. At eduki I built an AI assessor that measures whether materials actually support competence. And with Claude Code I can finally prototype the kind of adaptive, individual learning experience I\u2019ve been thinking about for years \u2014 ten projects and counting. Psychology gave me the framework. AI gave me the tool. Education Labs is where they converge.",
+      "You found a hidden thread. Self-Determination Theory says learners need autonomy, competence, and connection \u2014 take one away and motivation collapses. I\u2019ve known that since my thesis. What I didn\u2019t have was a way to build for it at scale. At pearprogramming we tried with game mechanics. At eduki I built an AI assessor that measures whether materials actually support competence. And with Claude Code I can finally prototype the kind of adaptive, individual learning experience I\u2019ve been thinking about for years \u2014 ten projects and counting. Psychology gave me the framework. AI gave me the tool. Labs \u2014 where research becomes products that didn\u2019t exist before \u2014 is where they converge.",
     contentCompact:
-      "SDT says learners need autonomy, competence, and connection. I\u2019ve known that since my thesis \u2014 but didn\u2019t have the tools to build for it at scale. pearprogramming tried with game mechanics. eduki\u2019s AI assessor measures competence. Claude Code lets me prototype adaptive learning. Psychology gave me the framework, AI gave me the tool. Education Labs is the convergence.",
+      "SDT says learners need autonomy, competence, and connection. I\u2019ve known that since my thesis \u2014 but didn\u2019t have the tools to build for it at scale. pearprogramming tried with game mechanics. eduki\u2019s AI assessor measures competence. Claude Code lets me prototype adaptive learning. Psychology gave me the framework, AI gave me the tool. Labs is the convergence.",
     hooks: [
       { label: "What I'd want to build at Anthropic", targetId: "what-id-build" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -506,7 +506,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { character: 0.8, process: 0.7 },
       motivation: { purpose: 1 },
       tone: "vision",
-      summary: "Hidden thread: SDT framework from thesis + AI assessor at eduki + building with Claude Code = the convergence toward Education Labs.",
+      summary: "Hidden thread: SDT framework from thesis + AI assessor at eduki + building with Claude Code = the convergence toward Anthropic's Labs team.",
     },
     gem: {
       requiredNodes: ["psychology-of-learning", "ai-in-education", "building-with-claude"],

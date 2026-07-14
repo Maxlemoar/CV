@@ -100,7 +100,7 @@ const sideProjects = [
 const skillGroups = [
   {
     label: "Product",
-    skills: ["Zero-to-One Products", "Discovery", "User Research", "A/B Testing", "Rapid Prototyping", "Cross-functional Collaboration", "Stakeholder Management"],
+    skills: ["Zero-to-One Products", "Rapid Prototyping", "MVP Validation", "Discovery", "User Research", "A/B Testing", "Cross-functional Collaboration", "Stakeholder Management"],
   },
   {
     label: "AI / LLM",
@@ -200,7 +200,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
                 Maximilian Marowsky
               </h1>
               <p className="mt-1 ed-sans text-[14px] tracking-[0.08em] uppercase text-neutral-400">
-                Product Manager &middot; EdTech Founder
+                Founder &middot; Product Manager &middot; 0-to-1 Builder
               </p>
             </div>
           </div>
@@ -231,7 +231,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
             maxmarowsky.com
           </Link>
           <span>Cologne, Germany</span>
-          <span className="ml-auto">APRIL 18, 2026</span>
+          <span className="ml-auto">JULY 14, 2026</span>
         </div>
 
         {/* Thin rule */}
@@ -241,15 +241,15 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
       {/* ---- Summary ---- */}
       <EdSection title="Summary" delay={0}>
         <p className="ed-sans text-[16px] leading-[1.7] text-neutral-700">
-          I co-founded an EdTech startup that built a game-based learning app
-          from scratch, grew it to acquisition, and now design AI-powered
-          systems that make educational quality measurable at scale.
-          My psychology background shapes how I understand learning;
-          7 years of working in EdTech shape how I build educational products.
-          I care about safe learning experiences that give people real self-efficacy
-          and adapt to who learners are and where they&apos;re headed. Building
-          that at Anthropic&apos;s Education Labs is the opportunity I&apos;ve been
-          working toward.
+          I co-founded an EdTech startup, pivoted it when the market proved
+          too narrow, and led its product through acquisition into Germany&apos;s
+          largest teaching-materials marketplace — first finding product-market
+          fit as an intrapreneur, then shipping an AI assessment system that
+          runs in production today. I prototype every idea myself with Claude
+          Code — around ten projects in flight — because validating cheaply
+          before committing resources is how I&apos;ve always worked. Zero-to-one
+          is the work I keep coming back to. Anthropic&apos;s Labs team is where
+          I want to do it next.
         </p>
       </EdSection>
 

@@ -10,15 +10,15 @@ export interface FramingHint {
 // Framing hints per content node — tells the AI what to emphasize
 export const FRAMING_HINTS: Record<string, Partial<FramingHint>> = {
   "startup-story": {
-    results: "150k teachers, 1.5M ARR, team from 2 to 12 in 3 years",
-    process: "Hypothesis-driven iteration, pivots based on data, product-market fit process",
-    character: "Two psychologists in a 20sqm apartment asking: can we actually do this?",
-    mastery: "Technical architecture decisions, building without engineering background",
-    purpose: "Teachers spending 40% of time on material search — we changed that",
-    relatedness: "Co-founding dynamic, early team building, user community",
+    results: "EXIST federal grant, team of ~10, acquired by eduki in 2022, ~3.5M learner sessions",
+    process: "Hypothesis-driven iteration, the 2021 pivot based on market-size reality, product-market fit process",
+    character: "University friends asking: can we actually do this?",
+    mastery: "Building a real product without an engineering background",
+    purpose: "The 2018 vision: an intelligent tutoring system with individual feedback for every learner",
+    relatedness: "Co-founding dynamic, early team building — all co-founders came along to eduki",
   },
   "education-gets-wrong": {
-    results: "PISA scores, international benchmarks, measurable gaps",
+    results: "The two concrete failures: optimizing for recall, treating learners as interchangeable",
     process: "Analysis framework: what's the actual bottleneck in education?",
     character: "Personal frustration with a system that didn't see individuals",
     mastery: "Deep understanding of pedagogy, Hattie's meta-analyses",
@@ -26,15 +26,15 @@ export const FRAMING_HINTS: Record<string, Partial<FramingHint>> = {
     relatedness: "Conversations with teachers that changed my perspective",
   },
   "why-anthropic": {
-    results: "Anthropic's scale, Claude's capabilities, market position in EdTech",
+    results: "Claude Code and MCP — the Labs team turns research into category-defining products",
     process: "Strategic fit analysis: why this role, why now, why me",
     character: "Personal alignment with Anthropic's mission and values",
-    mastery: "AI safety understanding, technical depth in LLM applications",
-    purpose: "AI as the lever for personalized education at scale",
-    relatedness: "Team culture, collaborative research, building together",
+    mastery: "Technical depth from daily Claude Code use, prompt engineering in production",
+    purpose: "Building 0-to-1 products at the frontier — the 2018 founding vision finally buildable",
+    relatedness: "Team culture, fluid roles, building together regardless of title",
   },
   "building-with-claude": {
-    results: "Specific tools built, usage metrics, time saved",
+    results: "~10 side projects built end-to-end: paramedic app in TestFlight, vocabulary knowledge graph, refugee integration app",
     process: "Prompt engineering approach, iteration methodology",
     character: "Genuine enthusiasm for AI as a daily creative partner",
     mastery: "Technical fluency with Claude API, advanced prompting techniques",
@@ -46,7 +46,7 @@ export const FRAMING_HINTS: Record<string, Partial<FramingHint>> = {
     process: "Research methodology applied in production: define, operationalize, test, iterate",
     character: "Curiosity-driven approach — I ran this like a research study, not a feature sprint",
     mastery: "Prompt engineering depth, evaluation framework design, rubric development with Hattie",
-    purpose: "Helping 150k teachers find quality materials they can trust",
+    purpose: "Making the quality of 800k+ materials visible so teachers can trust what they buy",
     relatedness: "Collaboration with Prof. Hattie, working across product and research teams",
   },
   "psychology-of-learning": {
@@ -58,7 +58,7 @@ export const FRAMING_HINTS: Record<string, Partial<FramingHint>> = {
     relatedness: "Co-authored with wife Anna (M.Sc. Neuroscience) — lived intersection of science and relationship",
   },
   "product-magic": {
-    results: "Completion rates far above typical e-learning benchmarks",
+    results: "~3.5M learner sessions, 29M interactive tasks completed (sessions, not unique users)",
     process: "Layered progression: Blockly visual coding → text-based languages, tied to game narrative",
     character: "Obsessive belief that intrinsic motivation beats extrinsic reward in learning",
     mastery: "Game design, learning design, and software development converging in one product",

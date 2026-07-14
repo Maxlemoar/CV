@@ -26,7 +26,7 @@ export default function PrintCV() {
     <div className="hidden print:block">
       <div className="mb-6 border-b border-gray-300 pb-4">
         <h1 className="text-2xl font-bold">Maximilian Marowsky</h1>
-        <p className="text-sm text-gray-600">Product Manager · Ex-Founder · Psychologist</p>
+        <p className="text-sm text-gray-600">Founder · Product Manager · 0-to-1 Builder</p>
         <p className="text-sm text-gray-600">m.marowsky@googlemail.com · Cologne, Germany</p>
       </div>
       {nodesWithHeaders.map(({ node, section, showHeader }) => (
