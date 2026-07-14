@@ -1,9 +1,8 @@
-# Target Role (NEW): Research Product Manager, Labs — Anthropic
+# Target Role: Research Product Manager, Labs — Anthropic
 
 > **STATUS: VERBATIM.** Job description text below was pasted directly from the Greenhouse
 > posting (https://job-boards.greenhouse.io/anthropic/jobs/5096878008) on 2026-07-14.
-> Still **[MISSING]**: the Greenhouse application form fields — paste them into the section at
-> the bottom before drafting application answers.
+> The application form's one substantive field is documented at the bottom of this file.
 
 ## Overview
 - **Title**: Research Product Manager, Labs
@@ -85,8 +84,12 @@ You might be a good fit if you:
 | Salary | $305,000 – $460,000 USD | $385,000 – $460,000 USD |
 
 ## Application Form Fields (Greenhouse)
-- [MISSING — paste the actual form fields here before drafting answers.]
-- Expected based on Anthropic's standard Greenhouse form (verify!): name, email, phone, location,
-  resume upload, LinkedIn/website links, a "Why Anthropic?" / motivation long-text question,
-  visa & relocation questions, and an acknowledgment of Anthropic's
-  [AI usage policy for candidates](https://www.anthropic.com/candidate-ai-guidance).
+Per Max (2026-07-14), the only substantive free-text field is:
+
+> **Why Anthropic?*** — "Why do you want to work at Anthropic? (We value this response highly
+> — great answers are often 200-400 words.)"
+
+The answer lives in `WHY_ANTHROPIC.md` (Max's own words, refined for the Labs role, ~310 words).
+Remaining fields are standard (name, contact, resume, links) and Anthropic's
+[AI usage policy for candidates](https://www.anthropic.com/candidate-ai-guidance) applies:
+first draft in the candidate's own words, AI used to refine — which is how this answer was made.
