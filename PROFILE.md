@@ -136,7 +136,7 @@ The first time I built an app with Claude Code, something clicked. I started wak
 
 I fell in love with the product first. Then I listened to Boris Cherny on Lenny's Podcast and was immediately hooked. I wanted to understand the company behind the product. Since then, I've spent a lot of time learning more about Anthropic. The picture was consistent: a high-trust, low-ego culture where people question their own assumptions before defending them and where the mission isn't a tagline but how they actually make decisions. A place full of people I can learn from. That's the environment where I thrive.
 
-I'm deeply purpose-driven. That's what brought me from psychology into EdTech, and it's what draws me to Anthropic now. Anthropic is building something that will fundamentally change how people learn and work, and chose safety over speed, because getting it right matters more than getting there first. Education Labs is where everything I've done comes together: psychology, learning science, founder experience, product management, and a vision for AI-powered learning.
+I'm deeply purpose-driven. That's what brought me from psychology into EdTech, and it's what draws me to Anthropic now. Anthropic is building something that will fundamentally change how people learn and work, and chose safety over speed, because getting it right matters more than getting there first. Labs is where everything I've done comes together: founding a company to build a product category that didn't exist yet, pivoting when the market talked back, taking that product to product-market fit inside a larger organization, and now prototyping every idea myself with Claude Code before asking anyone to commit resources.
 
 Anthropic is where I want to build what's next.
 
@@ -150,7 +150,7 @@ Max's position is more precise than "Claude is pure and ChatGPT isn't." It has t
 
 **Layer 2 — What still has to be engineered on top (honest caveat):**
 - **Claude is not perfect on sycophancy.** Max is explicit: Claude *usually* agrees with the user or praises them, sometimes even when praise isn't warranted. It's milder than ChatGPT in his experience, but the yes-man tendency is not absent.
-- **This is exactly why Education Labs work matters**: a base model that's "mostly agreeable" isn't automatically a good tutor. For learning products, we have to actively engineer Claude **not to be a yes-man**. A good AI tutor has to:
+- **This is exactly why product work on top of the model matters**: a base model that's "mostly agreeable" isn't automatically a good product — his canonical example is learning products, where we have to actively engineer Claude **not to be a yes-man**. A good AI tutor has to:
   - Critically check learner answers and **challenge when necessary**
   - **Praise when actually appropriate** — not reflexively
   - **Point out contradictions or weaknesses** in a learner's reasoning
@@ -165,7 +165,7 @@ Max's position is more precise than "Claude is pure and ChatGPT isn't." It has t
 - **Culture fit**: Drawn to maximum autonomy, encouragement to build beyond your role, and a culture that rewards questioning assumptions rather than defending them (heard articulated by Boris Cherny on Lenny's Podcast)
 - **Contrast with eduki**: Currently constrained by legacy processes and territorial thinking; cross-functional contribution often treated as overstepping rather than collaboration
 - **Purpose-driven**: Mission-first companies are non-negotiable; this is what moved him from psychology into EdTech and now toward Anthropic
-- **Education Labs as convergence point**: Psychology + learning science + founder experience + PM + AI all converge in this exact role
+- **Labs as convergence point**: Founder experience (0-to-1, pivot, exit) + intrapreneurship (finding PMF inside a larger org) + daily hands-on Claude Code prototyping (~10 side projects) converge in this exact role. His psychology/education background is the proof he can go deep in a domain and flex into new ones — exactly what "flex into different domains" asks for
 
 ### What Max Took from Boris Cherny on Lenny's Podcast
 The specific thing that made him fall in love with the company (not just the product):
@@ -193,20 +193,18 @@ When a recruiter asks for a concrete instance (not just a vibe), this is the can
 - **Tries to build alignment between roles** — e.g. actively tries to get designers to **question their own convictions** about where PM/design boundaries should sit. The goal is shifting the team's shared model, not winning individual battles.
 - Pattern: constructive pushback from inside the system, not exit or silent compliance
 
-### ⚠️ Known Gap — Claude for Education
-As of April 2026, **Max has not yet heard of Claude for Education** and has not used it. This is a gap to close **before any recruiter call or interview** with Anthropic Education Labs, since a recruiter is very likely to ask about it. Action items for Max:
-- Read Anthropic's official Claude for Education materials directly
-- Try it hands-on if possible (as an individual, or via a university contact)
-- Form a real product opinion, not a rehearsed one
-- This is explicitly flagged as "not yet done" so it doesn't get lost in the rest of the profile strengths.
+### ⚠️ Known Gaps — Interview Prep for the Labs Role
+Flagged explicitly so they don't get lost in the rest of the profile strengths:
+- **Labs' shipped products as products**: Max uses Claude Code daily as a builder, but before any recruiter call he should sharpen his **product opinions** on the Labs portfolio — Claude Code's product decisions (terminal-first, permission model, skills/plugins) and the MCP ecosystem (why an open protocol, what it unlocks, where it's headed). He has the hands-on experience; the prep is turning usage into articulate product analysis.
+- **(Historical, from the Education Labs targeting)**: As of April 2026 Max had not used Claude for Education. Less critical for the Labs role, but still worth a look as part of understanding Anthropic's product surface.
 
-### What Max Knows About Education Labs (and How He'd Start)
-- **Sources so far**: Only the **job description** itself. No prior conversations with anyone inside Anthropic, no inside information, no product testing of a specific Education Labs offering he's been briefed on.
-- **The JD is vague** — but what's in it resonates strongly:
-  - **"Big bet"** framing
-  - **"Many hats"** — breadth of work, founder-like scope
-  - **Uncertainty acknowledged as a feature of the role**, not a risk to manage away
-  - **Education named as very important** to the mission
+### What Max Knows About the Labs Role (and How He'd Start)
+- **Sources so far**: Only the **job description** itself. No prior conversations with anyone inside Anthropic, no inside information.
+- **What resonates in the JD**:
+  - **Moonshot / "new product categories that don't exist yet"** framing — the same energy as founding pearprogramming around a product that didn't exist in the German market
+  - **Founder-like scope**: ideation to shipped product, building prototypes yourself
+  - **Ambiguity acknowledged as a feature of the role**, not a risk to manage away
+  - **"Prototype with AI tools like Claude Code" as a minimum qualification** — his daily 5am practice, stated as a job requirement
 - **How he'd approach the first weeks** (answer to "what would you build first?"): **He wouldn't start by building.** First: **understand what and why** — get a comprehensive picture of the current state, the team, the mission, the culture, the stakeholders. **Alignment before action.** Only once that picture is real would he form a point of view on where to push. This is deliberately not a "here's my 30-60-90 with 3 bold features" answer — he sees confident product manifestos on day one as a red flag, not a green flag.
 
 ## Personal Interests

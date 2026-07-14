@@ -1,7 +1,9 @@
 # CV Portfolio Website — Maximilian Marowsky
 
 ## Project Overview
-Personal portfolio/CV website for an application to Anthropic's "Senior Product Manager, Education Labs" position. The site showcases Max's career journey from psychology to EdTech product management with a focus on AI-powered education.
+Personal portfolio/CV website for an application to Anthropic's "Research Product Manager, Labs" position (the 0-to-1 moonshot team behind Claude Code and MCP). The site showcases Max's journey as a founder and 0-to-1 product builder — from psychology through founding an EdTech startup to AI product management — with hands-on Claude Code prototyping as the through-line. Education is supporting evidence of domain depth and the ability to flex across domains, not the headline.
+
+> **Note**: The project originally targeted "Senior Product Manager, Education Labs" (posting removed July 2026). That state is preserved — see `docs/archive/README.md`.
 
 ## Target Audience
 Anthropic Hiring Team (recruiters, hiring managers, engineers). The site must demonstrate technical competence, product thinking, and deep education domain expertise.
@@ -37,7 +39,7 @@ Anthropic Hiring Team (recruiters, hiring managers, engineers). The site must de
 8. **Contact** — Email, LinkedIn, PDF export button
 
 ## CV Page (`/cv`)
-Classic resume layout tailored to the Anthropic Senior PM Education Labs role. Content is hardcoded in `src/app/cv/CVDocument.tsx` (not from content-graph). Sections: Header, Summary, Experience, Education, Publications, Side Projects, Skills, Languages. Design: single white document card on paper background, print-optimized.
+Classic resume layout tailored to the Anthropic Research Product Manager, Labs role. Content is hardcoded in `src/app/cv/CVDocument.tsx` (not from content-graph). Sections: Header, Summary, Experience, Education, Publications, Side Projects, Skills, Languages. Design: single white document card on paper background, print-optimized.
 
 ## Key Features
 - PDF export functionality
@@ -47,7 +49,8 @@ Classic resume layout tailored to the Anthropic Senior PM Education Labs role. C
 
 ## Content Sources
 - **`PROFILE.md`** — Single source of truth for all personal information and content
-- **`JOB_DESCRIPTION.md`** — Target role details (Senior PM, Education Labs at Anthropic). All content decisions should be aligned with the requirements and preferred qualifications described here.
+- **`JOB_DESCRIPTION.md`** — Target role details (Research Product Manager, Labs at Anthropic — verbatim posting text). All content decisions should be aligned with the requirements and qualifications described here.
+- **`docs/archive/`** — Previous target role (Senior PM, Education Labs) preserved in case the role returns.
 
 ## Factual Integrity — CRITICAL
 - **PROFILE.md is the single source of truth for all numbers, metrics, dates, and claims.** Any number not explicitly stated in PROFILE.md must NOT be used — not in code, not in prompts, not in generated content.
