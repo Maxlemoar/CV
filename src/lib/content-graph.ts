@@ -210,9 +210,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "my-fit": {
     id: "my-fit",
     content:
-      "I\u2019m not a PM who read about education. I studied psychology (M.Sc., thesis on motivation in computer-science learning). I founded an EdTech company, pivoted it, and sold it. I\u2019ve been doing product at Germany\u2019s largest teaching-materials marketplace for three and a half years. I published a book chapter on game-based learning with Springer. And I\u2019ve shipped AI in production \u2014 the quality assessor running today at eduki, plus roughly ten learning apps I build with Claude Code in my off hours.",
+      "I\u2019m a founder who ships. I co-founded an EdTech company, pivoted it when the market proved too narrow, and took it through acquisition. I\u2019ve been doing product at Germany\u2019s largest teaching-materials marketplace for three and a half years \u2014 first finding product-market fit as an intrapreneur, now shipping AI in production with the quality assessor running at eduki today. I prototype everything myself: roughly ten apps built with Claude Code in my off hours. And I go deep in domains \u2014 psychology (M.Sc., thesis on motivation in computer-science learning), a Springer book chapter on game-based learning \u2014 the kind of depth I\u2019d bring to whatever domain the next product demands.",
     contentCompact:
-      "Not a PM who read about education. M.Sc. in psychology, thesis on motivation in CS learning. Founded, pivoted, and sold an EdTech company. Three and a half years of PM at Germany\u2019s largest teaching-materials marketplace. Springer book chapter. Shipping AI in production at eduki and in ten side-project learning apps.",
+      "A founder who ships. Co-founded an EdTech company, pivoted it, took it through acquisition. Three and a half years of PM at Germany\u2019s largest teaching-materials marketplace \u2014 intrapreneur to production AI. I prototype everything myself: roughly ten apps built with Claude Code. Domain depth on top: M.Sc. psychology, Springer book chapter \u2014 depth I\u2019d bring to whatever domain the next product demands.",
     hooks: [
       { label: "The research I published", targetId: "research" },
       { label: "The AI assessor I built", targetId: "ai-in-education" },
@@ -223,7 +223,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { results: 1, process: 0.8 },
       motivation: { mastery: 0.8, purpose: 0.8 },
       tone: "data",
-      summary: "The synthesis pitch: psychology, founding, game-based learning, AI in production.",
+      summary: "The synthesis pitch: founder who ships, prototypes with Claude Code, AI in production, domain depth from psychology and education.",
     },
     printSection: "about",
     printOrder: 2,

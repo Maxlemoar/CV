@@ -106,7 +106,7 @@ const PERSUASION_GUIDANCE: Record<ExperimentProfile["persuasion"], string> = {
 
 const CONTENT_INTEREST_GUIDANCE: Record<ExperimentProfile["contentInterest"], string> = {
   technical: "Focus on concrete projects, technical decisions, measurable outcomes. Show code-level thinking and system design.",
-  vision: "Focus on philosophy, beliefs about education and AI, why Anthropic. Show depth of thinking and conviction.",
+  vision: "Focus on philosophy, beliefs about building products at the AI frontier, why Anthropic. Education is one lens Max thinks through, not the whole story. Show depth of thinking and conviction.",
   journey: "Focus on the narrative arc — transitions, decisions, lessons learned. Show growth and pattern recognition.",
 };
 

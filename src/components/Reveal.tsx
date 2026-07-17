@@ -258,8 +258,9 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
               Yours was unique — though based on limited data.
             </p>
             <p className="text-base text-neutral-900 dark:text-neutral-100 mt-4 italic">
-              This is what I want to build at Anthropic — learning experiences that try to adapt to the
-              person, not the other way around.
+              This is what I want to build at Anthropic — products that try to adapt to the
+              person, not the other way around. And it&apos;s how I build them: prototype first,
+              validate cheap, ship what survives.
             </p>
           </motion.div>
         </>

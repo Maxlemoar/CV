@@ -21,13 +21,18 @@ Der Prozess dauert typischerweise **6–8 Wochen** und umfasst:
 
 Für **Senior PMs** wird besonders auf strategisches Denken, Leadership und Roadmap-Ownership geachtet (vs. Associate PMs, wo Execution & Communication im Vordergrund stehen).
 
-## 3. Die Rolle: Senior PM, Education Labs
+## 3. Die Rolle: Research Product Manager, Labs
 
-- **IC-Rolle, kein People Management** — breiter Scope und hohe Autonomie als Builder
-- **Cross-functional** — Zusammenarbeit mit Product Teams, Research, GTM, Societal Impacts und Marketing
-- **Programm-Management** — nicht nur Produkt, sondern auch Stakeholder Alignment, Workstreams und operativer Rhythmus
-- **Anforderungen**: 5+ Jahre PM-Erfahrung, Track Record von 0-to-1 Produkten, technische Fluency mit AI/Claude, Comfort mit Ambiguität
-- **Standort**: San Francisco oder New York City
+Siehe `JOB_DESCRIPTION.md` für den Verbatim-Text. Kernpunkte:
+
+- **Labs = 0-to-1 Moonshot-Team** — das Team hinter Claude Code und MCP; "new product categories that don't exist yet"
+- **Brücke Research ↔ Produkt** — mit Researchern verstehen, was entsteht; nascent Capabilities in Produkte übersetzen
+- **Selbst prototypen** — "Build prototypes yourself to validate ideas before committing resources"; MVPs "at the lowest cost possible". "Prototype with AI tools like Claude Code" ist Minimum Qualification
+- **Founder explizit gesucht** — "We seek experienced founders and product managers"; 5+ Jahre PM nur Preferred
+- **Risiko-Denken** — "Think creatively about the risks and benefits of new technologies, beyond checklists and playbooks"
+- **Standort**: San Francisco oder New York City · Gehalt: $385k–$460k
+
+> Frühere Zielrolle (Senior PM, Education Labs, Posting entfernt Juli 2026): siehe `docs/archive/`.
 
 ## 4. KI-Nutzung in der Bewerbung
 
@@ -44,12 +49,12 @@ Anthropic hat eine [offizielle Policy zur KI-Nutzung im Bewerbungsprozess](https
 - **Direct Evidence of Ability** — Anthropic schätzt konkrete Projekte, Publikationen und Open-Source-Beiträge höher als formale Credentials
 - **Echtes AI Safety Interesse** — nicht faken, sondern durch Engagement zeigen (Lesen relevanter Texte, eigene Projekte, informierte Meinungen)
 - **Kenntnis der RSP** — Anthropics [Responsible Scaling Policy](https://www.anthropic.com/news/responsible-scaling-policy-v3) mit den AI Safety Levels (ASL) kennen
-- **Education Domain Expertise** — Hintergrund Psychologie → EdTech PM ist ein starker Differentiator
+- **Founder + Builder Evidence** — Gründung, Pivot, Akquisition plus ~10 selbst prototypte Claude-Code-Projekte sind der stärkste Differentiator für Labs; die Psychologie/EdTech-Tiefe belegt "flex into different domains"
 - **Safety/Capability Trade-offs** — zeigen, dass man Trade-offs zwischen Capability, Reliability und Guardrails navigieren kann
 
 ## 6. Vorbereitung — Konkrete Empfehlungen
 
-1. **Anthropics Blog & Research lesen** — besonders zu Education, Claude for Education, und die RSP
+1. **Anthropics Blog & Research lesen** — besonders zu Claude Code, MCP, Agents und die RSP; Produkt-Meinungen zu den Labs-Produkten schärfen (siehe "Known Gaps" in PROFILE.md)
 2. **Claude intensiv nutzen** — sie wollen Leute, die das Produkt wirklich verstehen und täglich nutzen
 3. **Safety-Narrative vorbereiten** — wie man Entscheidungen unter Unsicherheit trifft, wie man Risiken abwägt
 4. **Metriken-Kompetenz** — A/B Tests designen, Product Usage Patterns interpretieren, ambigue Trade-offs durchdenken
@@ -59,7 +64,7 @@ Anthropic hat eine [offizielle Policy zur KI-Nutzung im Bewerbungsprozess](https
 
 - [Anthropic Candidate AI Guidance](https://www.anthropic.com/candidate-ai-guidance)
 - [Anthropic Responsible Scaling Policy v3](https://www.anthropic.com/news/responsible-scaling-policy-v3)
-- [Senior PM Education Labs Job Posting](https://job-boards.greenhouse.io/anthropic/jobs/5183006008)
+- [Research Product Manager, Labs Job Posting](https://job-boards.greenhouse.io/anthropic/jobs/5096878008)
 - [Anthropic Interview Process (IGotAnOffer)](https://igotanoffer.com/en/advice/anthropic-interview-process)
 - [Anthropic PM Interview Guide (InterviewQuery)](https://www.interviewquery.com/interview-guides/anthropic-product-manager)
 - [Anthropic PM Interview Guide (Nora HQ)](https://interview.norahq.com/interview-guides/anthropic-product-manager-interview-guide-2026)
