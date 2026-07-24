@@ -15,7 +15,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Maximilian Marowsky — Product Manager",
   description:
-    "From founding an EdTech startup to prototyping with Claude Code at 5am — founder and product manager who builds 0-to-1.",
+    "From founding an EdTech startup to prototyping with Claude Code at 5am — founder and product manager who loves building things from scratch.",
 };
 
 export default function RootLayout({

@@ -259,8 +259,8 @@ export default function Reveal({ profile, visitedNodes, visitOrder, onShare, sha
             </p>
             <p className="text-base text-neutral-900 dark:text-neutral-100 mt-4 italic">
               This is what I want to build at Anthropic — products that try to adapt to the
-              person, not the other way around. And it&apos;s how I build them: prototype first,
-              validate cheap, ship what survives.
+              person, not the other way around. And this page is how I like to work:
+              build a prototype first, then see what it can teach you.
             </p>
           </motion.div>
         </>

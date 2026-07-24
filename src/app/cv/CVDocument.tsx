@@ -100,7 +100,7 @@ const sideProjects = [
 const skillGroups = [
   {
     label: "Product",
-    skills: ["Zero-to-One Products", "Rapid Prototyping", "MVP Validation", "Discovery", "User Research", "A/B Testing", "Cross-functional Collaboration", "Stakeholder Management"],
+    skills: ["Zero-to-One Products", "Rapid Prototyping", "Discovery", "User Research", "A/B Testing", "Cross-functional Collaboration", "Stakeholder Management"],
   },
   {
     label: "AI / LLM",
@@ -200,7 +200,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
                 Maximilian Marowsky
               </h1>
               <p className="mt-1 ed-sans text-[14px] tracking-[0.08em] uppercase text-neutral-400">
-                Founder &middot; Product Manager &middot; 0-to-1 Builder
+                Founder &middot; Product Manager &middot; Builder
               </p>
             </div>
           </div>

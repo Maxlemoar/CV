@@ -56,7 +56,7 @@ export default function Opening({ onHookClick, visible, starterHooks, personaliz
         transition={{ duration: 0.3, delay: 0.6 }}
         className="mt-2 text-ink-light"
       >
-        FOUNDER · PRODUCT MANAGER · 0-TO-1 BUILDER
+        FOUNDER · PRODUCT MANAGER · BUILDER
       </motion.p>
 
       {showSkeleton ? (

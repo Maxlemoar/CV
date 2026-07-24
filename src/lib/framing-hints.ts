@@ -30,7 +30,7 @@ export const FRAMING_HINTS: Record<string, Partial<FramingHint>> = {
     process: "Strategic fit analysis: why this role, why now, why me",
     character: "Personal alignment with Anthropic's mission and values",
     mastery: "Technical depth from daily Claude Code use, prompt engineering in production",
-    purpose: "Building 0-to-1 products at the frontier — the 2018 founding vision finally buildable",
+    purpose: "Building new products at the frontier — the 2018 founding vision finally buildable",
     relatedness: "Team culture, fluid roles, building together regardless of title",
   },
   "building-with-claude": {
