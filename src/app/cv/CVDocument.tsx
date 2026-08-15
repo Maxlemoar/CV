@@ -246,15 +246,14 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
       {/* ---- Summary ---- */}
       <EdSection title="Summary" delay={0}>
         <p className="ed-sans text-[16px] leading-[1.7] text-neutral-700">
-          I co-founded an EdTech startup, rebuilt it around a new idea when the
-          first market turned out too small, and led the product through its
-          acquisition by eduki — Germany&apos;s largest marketplace for teaching
-          materials. There I first led its integration as an intrapreneur, and
-          today I ship an AI system that measures the quality of teaching
-          materials in production. On the side I build my own apps with Claude
-          Code, around ten so far, because the fastest way I know to test an
-          idea is to build it. Starting things from nothing is the part I love
-          most — and Anthropic&apos;s Labs team is where I want to do it next.
+          I&apos;m a psychologist by training and a founder by experience. I
+          started an EdTech company, rebuilt it when the first market was too
+          small, and led it through the acquisition by eduki. There I turned
+          our research collaboration with Prof. John Hattie into an AI feature
+          that runs in production today. On the side I build my own apps with
+          Claude Code, because the fastest way I know to test an idea is to
+          build it. Starting things from zero is the part I love most, and
+          Anthropic&apos;s Labs team is where I want to do it next.
         </p>
       </EdSection>
 
