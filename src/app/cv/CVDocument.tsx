@@ -236,7 +236,7 @@ export default function CVDocument({ isPrint = false }: { isPrint?: boolean }) {
             maxmarowsky.com
           </Link>
           <span>Cologne, Germany</span>
-          <span className="ml-auto">JULY 14, 2026</span>
+          <span className="ml-auto">AUGUST 15, 2026</span>
         </div>
 
         {/* Thin rule */}
