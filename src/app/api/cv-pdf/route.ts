@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 import puppeteerCore, { type Browser } from "puppeteer-core";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 const isDev = process.env.NODE_ENV === "development";
+
+// chromium-min downloads the full browser (binary + all shared libraries,
+// including libnss3) into /tmp at cold start. The bundled variant kept
+// failing on Vercel because its library files were pruned from the
+// function bundle ("libnss3.so: cannot open shared object file").
+// Keep this version in sync with puppeteer-core (23.x ↔ chromium 131).
+const CHROMIUM_PACK_URL =
+  process.env.CHROMIUM_PACK_URL ??
+  "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar";
 
 async function getBrowser(): Promise<Browser> {
   if (isDev) {
@@ -17,7 +26,7 @@ async function getBrowser(): Promise<Browser> {
     })) as unknown as Browser;
   }
 
-  // Vercel / production: puppeteer-core + @sparticuz/chromium
+  // Vercel / production: puppeteer-core + @sparticuz/chromium-min
   return puppeteerCore.launch({
     args: [
       ...chromium.args,
@@ -25,7 +34,7 @@ async function getBrowser(): Promise<Browser> {
       "--font-render-hinting=none",
     ],
     defaultViewport: { width: 1200, height: 1600, deviceScaleFactor: 2 },
-    executablePath: await chromium.executablePath(),
+    executablePath: await chromium.executablePath(CHROMIUM_PACK_URL),
     headless: true,
   });
 }
@@ -72,12 +81,12 @@ export async function GET(req: NextRequest) {
             font-size: inherit !important;
           }
 
-          /* Restore web spacing for sections (mb-14 = 56px) */
+          /* Web spacing slightly condensed so the CV fits two A4 pages */
           .ed-reveal {
             opacity: 1 !important;
             transform: none !important;
             transition: none !important;
-            margin-bottom: 56px !important;
+            margin-bottom: 38px !important;
           }
 
           /* Restore web grid dimensions */
@@ -88,15 +97,15 @@ export async function GET(req: NextRequest) {
             page-break-inside: avoid;
           }
 
-          /* Restore header margin (mb-16 = 64px) */
+          /* Header margin slightly condensed (web: 64px) */
           article.ed-cv > header {
-            margin-bottom: 64px !important;
+            margin-bottom: 44px !important;
           }
 
-          /* Restore heading sizes (text-[28px], mb-5 = 20px) */
+          /* Heading size as on the web, margin slightly condensed */
           article.ed-cv h2.ed-serif {
             font-size: 28px !important;
-            margin-bottom: 20px !important;
+            margin-bottom: 14px !important;
           }
 
           /* Restore h1 size */
@@ -108,6 +117,15 @@ export async function GET(req: NextRequest) {
           article.ed-cv > section > h2 {
             break-after: avoid;
             page-break-after: avoid;
+          }
+
+          /* Two-page layout: page 1 = Summary + Experience, page 2 =
+             Education + Research + Side Projects + Skills (sections:
+             1 Summary, 2 Experience, 3 Education, 4 Research,
+             5 Side Projects, 6 Skills) */
+          article.ed-cv > section:nth-of-type(3) {
+            break-before: page;
+            page-break-before: always;
           }
 
           article.ed-cv .space-y-10 > div {
@@ -130,7 +148,7 @@ export async function GET(req: NextRequest) {
       preferCSSPageSize: false,
       margin: { top: "12mm", right: "15mm", bottom: "12mm", left: "15mm" },
       displayHeaderFooter: false,
-      scale: 0.72,
+      scale: 0.7,
     });
 
     return new NextResponse(new Uint8Array(pdfBuffer), {
