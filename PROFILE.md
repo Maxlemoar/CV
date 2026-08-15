@@ -54,7 +54,8 @@
 - Tasked with finding product-market fit within the larger eduki organization
 
 ### Co-Founder & CEO — pearprogramming GmbH (~2018–2022, acquired by eduki)
-- Co-founded with university friends
+- Co-founded with university friends **while the founders were still students**
+- **Founded in collaboration with Universität Osnabrück**; the app was initially developed based on the founders' final theses from different fields: psychology, cognitive science, and computer science
 - EXIST Gründerstipendium recipient (federal startup grant, started January 2020)
 - GmbH officially founded April 2020
 - Team: ~10 people (fluctuating with student workers and interns)
@@ -130,7 +131,7 @@ Max has additional projects in various stages he hasn't catalogued here yet.
 ## Why Anthropic
 
 ### Application Statement (Max's own words)
-When we founded our EdTech startup pearprogramming in 2018, we dreamed of building an intelligent tutoring system capable of giving each learner a personalized learning path with individual instruction and feedback that adapts to the learner's needs. The technology wasn't there yet. Now it is.
+When we started our EdTech startup pearprogramming in 2018, we were still students. We founded it in collaboration with the University of Osnabrück and developed the app based on our theses from different fields: psychology, cognitive science and computer science. We dreamed of building an intelligent tutoring system capable of giving each learner a personalized learning path with individual instruction and feedback that adapts to the learner's needs. The technology wasn't there yet. Now it is.
 
 The first time I built an app with Claude Code, something clicked. I started waking up at 5am, sneaking to my desk before my family was up, building apps. Suddenly, I could prototype every product I imagined exactly as I envisioned it. I could test ideas before writing a single ticket and collaborate with engineers, designers and stakeholders more efficiently than ever before. That shift is not going away.
 
