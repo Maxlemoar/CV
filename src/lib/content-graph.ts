@@ -298,9 +298,9 @@ export const CONTENT_GRAPH: ContentGraph = {
   "pm-approach": {
     id: "pm-approach",
     content:
-      "I can take on many different roles and shift as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. I work closely with engineers, designers, and data folks, and I can build prototypes myself when it unblocks the team, not to step over it. And I bring research rigor from psychology into product: empirical decisions where possible, statistical analysis where it matters, iteration against hard evidence. Ten prompt versions tested against human reviewers at eduki until we hit 89% agreement. Strong alone, stronger in a team.",
+      "I can take on many different roles and shift as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. I work closely with engineers, designers, and data folks, and I can build prototypes myself when it unblocks the team, not to step over it. And I run product work the way I'd run a study \u2014 that's the psychology background: define what you want to measure, test it, iterate against evidence. Ten prompt versions tested against human reviewers at eduki until we hit 89% agreement. Strong alone, stronger in a team.",
     contentCompact:
-      "I shift roles as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. Work closely with engineers, designers, and data. Can build prototypes myself when it unblocks the team, not to step over it. Psychology research rigor in product: ten prompt iterations to 89% human agreement at eduki. Strong alone, stronger in a team.",
+      "I shift roles as the situation demands \u2014 PM, designer, builder, researcher, prompt engineer. Work closely with engineers, designers, and data. Can build prototypes myself when it unblocks the team, not to step over it. I run product work the way I'd run a study: ten prompt iterations to 89% human agreement at eduki. Strong alone, stronger in a team.",
     hooks: [
       { label: "A recent example", targetId: "ai-in-education" },
       { label: "Why I want to work at Anthropic", targetId: "why-anthropic" },
@@ -310,7 +310,7 @@ export const CONTENT_GRAPH: ContentGraph = {
       persuasion: { process: 1 },
       motivation: { mastery: 1 },
       tone: "data",
-      summary: "PM who shifts roles as needed, works closely with cross-functional teams, brings psychology research rigor. Strong alone, stronger in a team.",
+      summary: "PM who shifts roles as needed and runs product work like a study — psychology research rigor applied to product. Strong alone, stronger in a team.",
     },
     printSection: "skills",
     printOrder: 3,

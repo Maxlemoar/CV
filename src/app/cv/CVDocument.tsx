@@ -20,7 +20,7 @@ const experience = [
         title: "AI Quality Assessment",
         period: "JAN 2026 – APR 2026",
         bullets: [
-          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials based on a research collaboration with Prof. John Hattie.",
+          "Designed and shipped an AI-powered quality assessment system for 800k+ teaching materials based on a research collaboration with Prof. John Hattie. Iterated the assessment prompt through ten versions, each evaluated against human reviewers, reaching 89% agreement.",
           "Built safeguards against prompt injection and score manipulation; designed A/B test to validate impact on conversion and revenue.",
         ],
       },
@@ -83,6 +83,11 @@ const research = [
     url: "https://link.springer.com/chapter/10.1007/978-3-030-75142-5_15",
   },
   {
+    title: "Quality Framework Validation — eduki × Prof. John Hattie",
+    venue: "eduki research collaboration · two published studies",
+    note: "Framework validated with 2,000+ teachers. Contributed the statistical distribution analysis across eduki's materials that confirmed which of the 7 research dimensions work in practice — the 5 the AI assessor uses in production today.",
+  },
+  {
     title: "Research Assistant — German Paediatric Pain Centre",
     venue: "Datteln, Germany · OCT 2015 – DEC 2017",
     note: "Research, test diagnostics, and quantitative data analysis in a pediatric pain research center.",
@@ -112,7 +117,7 @@ const skillGroups = [
   },
   {
     label: "Research",
-    skills: ["Quantitative Methods", "Data Analysis", "Academic Publishing"],
+    skills: ["Quantitative Methods", "Study Design", "Factor Analysis", "Data Analysis", "Academic Publishing"],
   },
   {
     label: "Languages",
